@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<?php echo $html->charset(); ?>
+	<title>
+		<?php __('Land of Riiga - '); ?>
+		<?php echo $title_for_layout; ?>
+	</title>
+	<?php
+		echo $html->meta('icon');
+		echo $html->css('cake.generic');
+		echo $scripts_for_layout;
+	?>
+</head>
+<body>
+	<div id="container">
+		<div id="header">
+			<h1><?php echo $html->link(__('Land of Riiga', true), '/'); ?></h1>
+			<h2><?php echo $html->link(__('Users', true), array('controller'=>'users')); ?></h2>
+			<h2><?php echo $html->link(__('Characters', true), array('controller'=>'characters')); ?></h2>
+			<h2><?php echo $html->link(__('Stories', true), array('controller'=>'stories')); ?></h2>
+		</div>
+		<div id="content">
+
+      <div id="flash">
+			  <?php $session->flash(); ?>
+			  <?php if ($session->check('Message.auth')) $session->flash('auth'); ?>
+      </div>
+
+			<?php echo $content_for_layout; ?>
+
+		</div>
+		<div id="footer">
+		</div>
+	</div>
+	<?php echo $cakeDebug; ?>
+</body>
+</html>
