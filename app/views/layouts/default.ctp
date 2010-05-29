@@ -5,6 +5,7 @@
 	<?php
     echo $html->charset();
 		echo $html->meta('icon');
+		echo $html->css('reset');
 		echo $html->css('style');
 		echo $scripts_for_layout;
 	?>

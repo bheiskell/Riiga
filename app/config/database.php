@@ -81,7 +81,7 @@ class DATABASE_CONFIG {
 		'driver' => 'sqlite',
     'connect' =>'sqlite_popen',
     'host' => 'localhost',
-		'database' => '//var/www/riiga/app/db/riiga.db'
+		'database' => '//var/www/riiga/alpha/app/db/riiga.db'
 	);
 
 }
