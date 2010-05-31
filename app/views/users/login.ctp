@@ -1,5 +1,9 @@
-<h1>Login</h1>
-<?=$form->create('User', array('action' => 'login'));?>
-<?=$form->input('username');?>
-<?=$form->input('password');?>
-<?=$form->end('login');?>
+<div class="users login">
+<h2>Login</h2>
+<?php
+  echo $form->create('User', array('action' => 'login'));
+  echo $form->input('username');
+  echo $form->input('password');
+  echo $form->end('login');
+?>
+</div>

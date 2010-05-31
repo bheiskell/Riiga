@@ -64,7 +64,7 @@ ul, li {
 #header{
   background: #4d4d4d;
   overflow: hidden;
-  padding: 12px 24px;
+  padding: 12px 24px 0 24px;
 }
 #header h1 {
   float: left;
@@ -315,6 +315,24 @@ div.actions ul li a:hover {
 /* Related */
 div.related {
   clear: both;
+}
+
+/* Riiga Specific */
+td.avatar {
+  width: 0px; /* shrink to image size, might not be cross browser */
+}
+
+/* Page Specific */
+.users.view h2 {
+  float: left;
+}
+.users.view div.avatar {
+  float: right;
+  padding-top: 24px;
+}
+.users.view div.website {
+  clear: left;
+  padding: 12px 0;
 }
 
 /* Debugging */
