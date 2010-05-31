@@ -3,11 +3,7 @@
 <?php
   echo $this->element(
     'characters',
-    array(
-      'characters' => $characters,
-      'p'          => $paginator,
-      'showUser'   => true
-    )
+    array('p' => $paginator, 'showUser' => true)
   );
 ?>
 </div>

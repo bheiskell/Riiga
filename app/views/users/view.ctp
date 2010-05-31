@@ -25,10 +25,7 @@
 <div class="related">
   <h3><?php __('Characters');?></h3>
   <?php
-    echo $this->element(
-      'characters',
-      array('characters' => $user['Character'])
-    );
+    echo $this->element('characters');
   ?>
 </div>
 <?php endif; ?>
