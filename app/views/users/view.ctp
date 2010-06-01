@@ -24,8 +24,6 @@
 <?php if (!empty($user['Character'])):?>
 <div class="related">
   <h3><?php __('Characters');?></h3>
-  <?php
-    echo $this->element('characters');
-  ?>
+  <?php echo $this->element('characters'); ?>
 </div>
 <?php endif; ?>

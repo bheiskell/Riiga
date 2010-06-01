@@ -1,10 +1,20 @@
 <?php
-/**
- * @param array  characters Characters array
- * @param bool   showUser   Display user column (defaults false)
- * @param array  user       Users array (optional)
- * @param object p          Paginator object (optional)
- */
+  /**
+   * Element for display a table of characters. In the future, it might be
+   * better to obtain the characters via a requestAction, and only have the
+   * element includer pass in a showUser bool, a paginate bool, and an
+   * optional username to limit by.
+   *
+   * @param array  characters Array obtained from the Character model using
+   *                          find('all', ...) (required)
+   * @param bool   showUser   Display owner in a member column (defaults false)
+   * @param object p          Paginator object for the characters (optional)
+   */
+
+  /* Elements are basically includes, so perform sanity checks here. */
+  if ( (isset($characters) && isset($characters[0]))
+    && !(isset($showUser) && $showUser && !isset($characters[0]['User']))
+  ):
 ?>
 <table>
 <tr>
@@ -18,11 +28,8 @@
   <?php if (isset($showUser)): ?>
     <th>
       <?php
-        if (isset($p)) {
-          echo $p->sort('Member', 'User.username');
-        } else {
-          echo __('Member');
-        }
+        if (isset($p)) echo $p->sort('Member', 'User.username');
+        else           echo __('Member');
       ?>
     </th>
   <?php endif; ?>
@@ -37,7 +44,7 @@
       <?php
         echo $html->image(
           $character['Character']['avatar'], 
-          array('alt' => $character['Character']['name'] . "'s avatar")
+          array('alt' => "{$character['Character']['name']}'s avatar")
         );
       ?>
     </td>
@@ -58,20 +65,21 @@
     <td><?php echo h($character['Character']['faction']); ?></td>
     <td><?php echo h($character['Character']['residency']); ?></td>
     <td><?php echo h($character['Character']['profession']); ?></td>
-    <?php if (isset($showUser)): ?>
+    <?php if (isset($showUser) && $showUser): ?>
       <td>
         <?php
           echo $html->link(
             $character['User']['username'],
-              array(
-                'controller' => 'users',
-                'action' => 'view',
-                $character['User']['id']
-              )
-            );
+            array(
+              'controller' => 'users',
+              'action'     => 'view',
+              $character['User']['id']
+            )
+          );
         ?>
       </td>
     <?php endif; ?>
   </tr>
 <?php endforeach; ?>
 </table>
+<?php endif; ?>
