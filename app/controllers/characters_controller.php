@@ -3,6 +3,7 @@ class CharactersController extends AppController {
 
   var $name = 'Characters';
   var $helpers = array('Html', 'Form');
+  var $paginate = array('order' => array('Character.id' => 'desc'));
 
   function index() {
     $this->Character->recursive = 0;

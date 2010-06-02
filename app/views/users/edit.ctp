@@ -3,7 +3,6 @@
   <fieldset>
     <legend><?php __('Edit User');?></legend>
   <?php
-    echo $form->input('id');
     echo $form->input('username');
     echo $form->input('password');
     echo $form->input('password_confirm', array('type'=>'password'));

@@ -2,6 +2,12 @@
 <h2><?php echo h($user['User']['username']); ?></h2>
 <?php
   echo $html->div('avatar', $riiga->avatar($user['User']));
+
+  $currentUser = $session->read('Auth.User');
+  if ($currentUser['id'] == $user['User']['id']) {
+    echo $html->div('edit', $html->link("Edit", array('action' => 'edit')));
+  }
+
   if ($user['User']['url']) {
     echo $html->div('website',
       $html->link(

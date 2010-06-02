@@ -3,6 +3,7 @@ class StoriesController extends AppController {
 
   var $name = 'Stories';
   var $helpers = array('Html', 'Form');
+  var $paginate = array('order' => array('Story.id' => 'desc'));
 
   function beforeFilter() {
     parent::beforeFilter();

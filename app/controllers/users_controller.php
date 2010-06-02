@@ -3,6 +3,7 @@ class UsersController extends AppController {
 
   var $name = 'Users';
   var $helpers = array('Html', 'Form');
+  var $paginate = array('order' => array('User.id' => 'desc'));
 
   function beforeFilter() {
     parent::beforeFilter();
@@ -50,24 +51,30 @@ class UsersController extends AppController {
     );
   }
 
-  function edit($id = null) {
-    if (!$id && empty($this->data)) {
-      $this->Session->setFlash(__('Invalid User', true));
-      $this->redirect(array('action' => 'index'));
-    }
+  function edit() {
+    $id = $this->Auth->user('id');
     if (!empty($this->data)) {
+      $this->data['User']['id'] = $id;
+
+      if (empty($this->data['User']['password'])) {
+        $this->data['User']['password'] = $this->User->field('password');
+        $this->data['User']['password_confirm'] = $this->User->field('password');
+      }
+
       if ($this->User->save($this->data)) {
-        $this->Session->setFlash(__('The User has been saved', true));
-        $this->redirect(array('action' => 'index'));
+        $this->Session->setFlash(__('Your account has been updated.', true));
+        $this->redirect(array('action' => 'view', $id));
       } else {
         $this->Session->setFlash(
-          __('The User could not be saved. Please, try again.', true)
+          __('Your account was not updated. Please, try again.', true)
         );
       }
     }
     if (empty($this->data)) {
       $this->data = $this->User->read(null, $id);
     }
+    unset($this->data['User']['password']);
+    unset($this->data['User']['password_confirm']);
   }
 }
 ?>

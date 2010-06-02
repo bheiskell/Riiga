@@ -3,6 +3,7 @@ class EntriesController extends AppController {
 
   var $name = 'Entries';
   var $helpers = array('Html', 'Form');
+  var $paginate = array('order' => array('Entry.id' => 'desc'));
 
   function index() {
     $this->Entry->recursive = 0;
