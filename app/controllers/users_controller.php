@@ -55,12 +55,9 @@ class UsersController extends AppController {
       $this->Session->setFlash(__('Invalid User', true));
       $this->redirect(array('action' => 'index'));
     }
-    if (0 && !empty($this->data)) {
+    if (!empty($this->data)) {
       if ($this->User->save($this->data)) {
-        $this->Session->setFlash(
-          __('The User has been saved', true),
-          array('action' => 'index')
-        );
+        $this->Session->setFlash(__('The User has been saved', true));
         $this->redirect(array('action' => 'index'));
       } else {
         $this->Session->setFlash(
