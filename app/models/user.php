@@ -68,24 +68,5 @@ class User extends AppModel {
 
     return true;
   }
-
-  function afterFind($results) {
-    if (isset($results['avatar']) && empty($results['avatar'])) {
-      $results['avatar'] = 'avatar/default/member.png';
-    } else {
-      foreach ($results as &$row) {
-        if (
-          isset($row['User'])
-          && isset($row['User']['avatar'])
-          && empty($row['User']['avatar'])
-        ) {
-          $row['User']['avatar'] = 'avatar/default/member.png';
-        } else if (isset($row['avatar']) && empty($row['avatar'])) {
-          $row['avatar'] = 'avatar/default/member.png';
-        }
-      }
-    }
-    return $results;
-  }
 }
 ?>

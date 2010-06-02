@@ -13,12 +13,7 @@
 ?>
   <tr<?= $class; ?>>
     <td class="avatar">
-      <?php
-        echo $html->image(
-          $user['User']['avatar'],
-          array('alt' => "{$user['User']['username']}'s avatar")
-        );
-      ?>
+      <?php echo $riiga->avatar($user['User']); ?>
     <td>
       <?php
         echo $html->link(

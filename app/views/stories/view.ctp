@@ -87,7 +87,7 @@
     ?>
     <tr<?php echo $class;?>>
       <td><?php echo h($character['name']);?></td>
-      <td><?php echo h($character['avatar']);?></td>
+      <td><?php echo $riiga->avatar($character);?></td>
       <td><?php echo h($character['user_id']);?></td>
       <td><?php echo $html->link(__('View', true), array('controller' => 'characters', 'action' => 'view', $character['id'])); ?></td>
     </tr>
@@ -114,9 +114,8 @@
     ?>
     <tr<?php echo $class;?>>
       <td><?php echo h($user['username']);?></td>
-      <td><?php echo h($user['avatar']);?></td>
       <td>
-        <?php echo $member->avatar($user); ?>
+        <?php echo $riiga->avatar($user); ?>
       </td>
       <td class="actions">
         <?php echo $html->link(__('View', true), array('controller' => 'users', 'action' => 'view', $user['id'])); ?>

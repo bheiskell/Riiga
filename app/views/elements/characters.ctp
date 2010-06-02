@@ -41,12 +41,7 @@
 ?>
   <tr<?php echo $class;?>>
     <td class="avatar">
-      <?php
-        echo $html->image(
-          $character['Character']['avatar'], 
-          array('alt' => "{$character['Character']['name']}'s avatar")
-        );
-      ?>
+      <?php echo $riiga->avatar($character['Character']); ?>
     </td>
     <td>
       <?php

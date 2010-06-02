@@ -1,14 +1,7 @@
 <div class="users view">
 <h2><?php echo h($user['User']['username']); ?></h2>
 <?php
-  if ($user['User']['avatar']) {
-    echo $html->div('avatar',
-      $html->image(
-        $user['User']['avatar'],
-        array('alt'=>$user['User']['username'] . "'s avatar")
-      )
-    );
-  }
+  echo $html->div('avatar', $riiga->avatar($user['User']));
   if ($user['User']['url']) {
     echo $html->div('website',
       $html->link(

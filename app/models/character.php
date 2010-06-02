@@ -17,17 +17,5 @@ class Character extends AppModel {
   );
 
   var $belongsTo = array('User');
-
-  function afterFind($results) {
-    foreach ($results as &$row) {
-      if (
-        isset($row['Character']['avatar'])
-        && empty($row['Character']['avatar'])
-      ) {
-        $row['Character']['avatar'] = 'avatar/default/character.png';
-      }
-    }
-    return $results;
-  }
 }
 ?>
