@@ -9,8 +9,6 @@
       )
     );
   }
-?>
-<?php
   if ($user['User']['url']) {
     echo $html->div('website',
       $html->link(

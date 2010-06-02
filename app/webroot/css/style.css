@@ -325,6 +325,18 @@ td.avatar {
 }
 
 /* Page Specific */
+.users.login div.input {
+  line-height: 32px;
+  margin: 0 8px;
+}
+.users.login div.input label {
+  width: auto;
+}
+.users.login div.input input {
+  display: block;
+  margin: -28px 0 0 100px;
+  width: auto;
+}
 .users.view h2 {
   float: left;
 }
@@ -336,6 +348,7 @@ td.avatar {
   clear: left;
   padding: 12px 0;
 }
+
 
 /* Debugging */
 pre {

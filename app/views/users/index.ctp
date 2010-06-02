@@ -16,7 +16,7 @@
       <?php
         echo $html->image(
           $user['User']['avatar'],
-          array('alt'=>$user['User']['username'] . "'s avatar")
+          array('alt' => "{$user['User']['username']}'s avatar")
         );
       ?>
     <td>
@@ -34,7 +34,7 @@
             $user['User']['username'] . "'s website", 
             $user['User']['url']
           );
-        }
+        } else { echo '&nbsp;'; }
     ?>
     </td>
   </tr>
