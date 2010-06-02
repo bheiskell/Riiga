@@ -6,7 +6,7 @@ class MemberHelper extends AppHelper {
   function avatar($user) {
     return $this->output(
       $this->Html->image(
-        $user['avatar'], 
+        $user['avatar'],
         array('alt' => "{$user['username']}'s avatar")
       )
     );

@@ -41,7 +41,6 @@
     ?>>
       <td>
         <?php echo h($entry['User']['username']);?>
-
         <?php if (!empty($entry['Character'])): ?>
           <ul>
           <?php foreach ($entry['Character'] as $character): ?>
@@ -117,7 +116,7 @@
       <td><?php echo h($user['username']);?></td>
       <td><?php echo h($user['avatar']);?></td>
       <td>
-        <?php $member->avatar($user); ?>
+        <?php echo $member->avatar($user); ?>
       </td>
       <td class="actions">
         <?php echo $html->link(__('View', true), array('controller' => 'users', 'action' => 'view', $user['id'])); ?>

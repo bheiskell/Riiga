@@ -20,7 +20,10 @@ class Character extends AppModel {
 
   function afterFind($results) {
     foreach ($results as &$row) {
-      if (empty($row['Character']['avatar'])) {
+      if (
+        isset($row['Character']['avatar'])
+        && empty($row['Character']['avatar'])
+      ) {
         $row['Character']['avatar'] = 'avatar/default/character.png';
       }
     }
