@@ -7,7 +7,7 @@ class StoriesController extends AppController {
 
   function beforeFilter() {
     parent::beforeFilter();
-    // TODO: Add admin / story admin checks here
+    $this->Auth->allow('index', 'view');
   }
 
   function index() {

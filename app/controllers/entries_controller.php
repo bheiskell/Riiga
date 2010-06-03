@@ -5,6 +5,11 @@ class EntriesController extends AppController {
   var $helpers = array('Html', 'Form');
   var $paginate = array('order' => array('Entry.id' => 'desc'));
 
+  function beforeFilter() {
+    parent::beforeFilter();
+    $this->Auth->allow('index');
+  }
+
   function index() {
     $this->Entry->recursive = 0;
     $this->set('entries', $this->paginate());

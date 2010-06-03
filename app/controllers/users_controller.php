@@ -8,10 +8,16 @@ class UsersController extends AppController {
   function beforeFilter() {
     parent::beforeFilter();
     $this->Auth->allow('login', 'register');
+
     $this->Auth->loginRedirect = array(
       'controller' => 'index',
       'action'     => 'index'
     );
+
+    /**
+     * Override hashPassword method for validation purposes. See
+     * User->hashPasswords for more information.
+     */
     if ($this->action == 'register' || $this->action == 'edit') {
       $this->Auth->authenticate = $this->User;
     }
@@ -26,6 +32,7 @@ class UsersController extends AppController {
         $this->redirect($this->Auth->redirect());
       }
     }
+    /* Unset sensitive fields */
     unset($this->data['password']);
     unset($this->data['password_confirm']);
   }
@@ -59,15 +66,16 @@ class UsersController extends AppController {
       if ($this->User->save($this->data)) {
         $this->Session->setFlash(__('Your account has been updated.', true));
         $this->redirect(array('action' => 'view', $id));
-      } else {
-        $this->Session->setFlash(
-          __('Your account was not updated. Please, try again.', true)
-        );
       }
     }
     if (empty($this->data)) {
       $this->data = $this->User->read(null, $id);
     }
+
+    /**
+     * Unset sensitive fields. If coming from the database, the passwords will
+     * be hashed anyways.
+     */
     unset($this->data['User']['password']);
     unset($this->data['User']['password_confirm']);
   }
