@@ -56,11 +56,6 @@ class UsersController extends AppController {
     if (!empty($this->data)) {
       $this->data['User']['id'] = $id;
 
-      if (empty($this->data['User']['password'])) {
-        $this->data['User']['password'] = $this->User->field('password');
-        $this->data['User']['password_confirm'] = $this->User->field('password');
-      }
-
       if ($this->User->save($this->data)) {
         $this->Session->setFlash(__('Your account has been updated.', true));
         $this->redirect(array('action' => 'view', $id));

@@ -11,7 +11,8 @@ class User extends AppModel {
         'rule' => array('maxlength', 64)
       ),
       'isUnique' => array(
-        'rule' => 'isUnique'
+        'rule' => 'isUnique',
+        'message' => 'Username is already in use. Please select another.'
       )
     ),
     'password' => array(
@@ -63,10 +64,43 @@ class User extends AppModel {
         == $this->data['User']['password_confirm'];
   }
 
+  /**
+   * When editing, it's ok to not fill in a password.
+   */
+  function beforeValidate() {
+    if (
+      isset($this->data['User']['id']) && empty($this->data['User']['password'])
+    ) {
+      unset($this->validate['password']);
+    }
+  }
+
   function beforeSave() {
-    $this->data = $this->hashPasswords($this->data, false);
+    if (
+      isset($this->data['User']['id']) && empty($this->data['User']['password'])
+    ) {
+      $this->data['User']['password'] = $this->field('User.password');
+    } else {
+      $this->data = $this->hashPasswords($this->data, false);
+    }
 
     return true;
+  }
+
+  function beforeFind($query) {
+    /* Login */
+    if (isset($query['conditions']['User.username'])) {
+      $query['conditions']['UPPER(User.username)'] =
+        strtoupper($query['conditions']['User.username']);
+      unset($query['conditions']['User.username']);
+    }
+    /* Registration */
+    if (isset($query['conditions']['or']['User.username'])) {
+      $query['conditions']['or']['UPPER(User.username)'] =
+        strtoupper($query['conditions']['or']['User.username']);
+      unset($query['conditions']['or']['User.username']);
+    }
+    return $query;
   }
 }
 ?>
