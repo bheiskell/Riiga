@@ -10,15 +10,16 @@
       <?php
         echo $html->link(__('Edit Story', true), array(
           'action' => 'edit',
-          $story['Story']['id'])
-        );
+          $story['Story']['id']
+        ));
       ?>
     </li>
     <li>
       <?php
         echo $html->link(__('New Entry', true), array(
           'controller' => 'entries',
-          'action' => 'add'
+          'action' => 'add',
+          $story['Story']['id']
         ));
       ?>
     </li>

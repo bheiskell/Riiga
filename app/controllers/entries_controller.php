@@ -19,14 +19,13 @@ class EntriesController extends AppController {
     // TODO: Check that you are part of the Storie's Character's Users
     if (!empty($this->data)) {
       $this->data['Entry']['user_id'] = $this->Auth->user('id');
-
       $this->Entry->create();
       if ($this->Entry->save($this->data)) {
         $this->Session->setFlash(__('The Entry has been saved', true));
         $this->redirect(array(
           'controller' => 'stories',
           'action' => 'view',
-          'id' => $this->Entry->storyId
+          'id' => $this->data['Entry']['story_id']
         ));
       }
     }
@@ -54,7 +53,7 @@ class EntriesController extends AppController {
         $this->redirect(array(
           'controller' => 'stories',
           'action' => 'view',
-          'id' => $this->Entry->storyId
+          'id' => $this->data['Entry']['story_id']
         ));
       }
     }

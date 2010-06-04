@@ -2,8 +2,9 @@
 <h2><?php __('Entries');?></h2>
 <table cellpadding="0" cellspacing="0">
 <tr>
+  <th><?php echo $paginator->sort('Story',  'Story.name');?></th>
+  <th><?php echo $paginator->sort('Member', 'User.username');?></th>
   <th><?php echo $paginator->sort('content');?></th>
-  <th><?php echo $paginator->sort('user_id');?></th>
 </tr>
 <?php
 $i = 0;
@@ -11,7 +12,6 @@ foreach ($entries as $entry):
   $class = ($i++ % 2 == 0) ? $class = ' class="altrow"' : null;
 ?>
   <tr<?php echo $class;?>>
-    <td><?php echo h($entry['Entry']['content']); ?></td>
     <td>
       <?php
         echo $html->link($entry['Story']['name'], array(
@@ -30,6 +30,7 @@ foreach ($entries as $entry):
         ));
       ?>
     </td>
+    <td><?php echo h($entry['Entry']['content']); ?></td>
   </tr>
 <?php endforeach; ?>
 </table>
