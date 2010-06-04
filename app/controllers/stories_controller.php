@@ -33,6 +33,7 @@ class StoriesController extends AppController {
   }
 
   function add() {
+    // TODO: Default the Turn to your user
     if (!empty($this->data)) {
       $this->Story->create();
       if ($this->Story->save($this->data)) {
@@ -47,6 +48,7 @@ class StoriesController extends AppController {
   }
 
   function edit($id = null) {
+    // TODO: Check that user is in the users section and is moderator.
     if (!$id && empty($this->data)) {
       $this->Session->setFlash(__('Invalid Story', true));
       $this->redirect(array('action' => 'index'));

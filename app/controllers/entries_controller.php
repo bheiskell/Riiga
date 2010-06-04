@@ -16,7 +16,7 @@ class EntriesController extends AppController {
   }
 
   function add($story_id = null) {
-
+    // TODO: Check that you are part of the Storie's Character's Users
     if (!empty($this->data)) {
       $this->data['Entry']['user_id'] = $this->Auth->user('id');
 
@@ -42,6 +42,7 @@ class EntriesController extends AppController {
 
   function edit($id = null) {
 
+    // TODO: Check that this is your post
     if (!$id && empty($this->data)) {
       $this->Session->setFlash(__('Invalid Entry', true));
       $this->redirect(array('action' => 'index'));
