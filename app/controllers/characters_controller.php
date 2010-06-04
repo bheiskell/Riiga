@@ -44,7 +44,7 @@ class CharactersController extends AppController {
       $this->redirect(array('action' => 'index'));
 
     } else if ($this->Auth->user('id') != $this->Character->field('user_id')) {
-      $this->Session->setFlash(__('This character does not belong to you.', true));
+      $this->Session->setFlash(__("This is not your character.", true));
       $this->redirect(array('action' => 'index'));
     }
     if (!empty($this->data)) {

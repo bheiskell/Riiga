@@ -21,12 +21,12 @@ class StoriesController extends AppController {
       $this->redirect(array('action' => 'index'));
     }
 
-    // Hack: Wasteful queries in my opinion. If this turns out not to scale 
+    // Hack: Wasteful queries in my opinion. If this turns out not to scale
     // well, I'll have to come back and replicate these results manually with
     // a few well crafted queries.
     $this->Story->Behaviors->attach('Containable');
     $this->Story->recursive = 2;
-    $this->Story->contain(array('Turn', 'User', 'Character', 'Character.User', 
+    $this->Story->contain(array('Turn', 'User', 'Character', 'Character.User',
                                 'Entry', 'Entry.Character', 'Entry.User'));
     $story     = $this->Story->findById($id);
     $this->set(compact('story'));

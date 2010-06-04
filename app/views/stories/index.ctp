@@ -9,29 +9,43 @@
 <?php
 $i = 0;
 foreach ($stories as $story):
-  $class = ($i++ % 2 == 0) ? $class = 'altrow' : null; 
+  $altrow     = ($i++ % 2 == 0)                     ? 'altrow'      : null;
+  $completed  = ($story['Story']['is_completed'])   ? 'completed'   : null;
+  $inviteOnly = ($story['Story']['is_invite_only']) ? 'invite_only' : null;
+
+  $classes = trim(implode(' ', array($altrow, $completed, $inviteOnly)));
+  $class = (!empty($classes)) ? " class=\"{$classes}\"" : null;
 ?>
-<tr<?php
-  if      ($story['Story']['is_completed'])   echo " class=\"{$class} completed\"";
-  else if ($story['Story']['is_invite_only']) echo " class=\"{$class} invite_only\"";
-  else                                        echo " class=\"{$class}\"";
-?>>
   <tr<?php echo $class;?>>
-    <td><?= $html->link($story['Story']['name'], array('action' => 'view', $story['Story']['id'])); ?></td>
+    <td>
+      <?php
+        echo $html->link($story['Story']['name'], array(
+          'action' => 'view',
+          $story['Story']['id']
+        ));
+      ?>
+    </td>
     <td><?php echo h($story['Story']['location_id']); ?></td>
-    <td><?php echo $html->link($story['Turn']['username'], array('controller' => 'users', 'action' => 'view', $story['Turn']['id'])); ?></td>
+    <td>
+      <?php
+        echo $html->link($story['Turn']['username'], array(
+          'controller' => 'users',
+          'action' => 'view',
+          $story['Turn']['id']
+        ));
+      ?>
+    </td>
   </tr>
 <?php endforeach; ?>
 </table>
 </div>
-<div class="paging">
-  <?php echo $paginator->prev('<< '.__('previous', true), array(), null, array('class'=>'disabled'));?>
- |<?php echo $paginator->numbers();?>
-  <?php echo $paginator->next(__('next', true).' >>', array(), null, array('class' => 'disabled'));?>
-  <?php echo $paginator->counter(array('format' => __('Page %page% of %pages%, showing %current% out of %count% stories', true))); ?>
-</div>
+<?php echo $this->element('pager'); ?>
 <div class="actions">
   <ul>
-    <li><?php echo $html->link(__('New Story', true), array('action' => 'add')); ?></li>
+    <li>
+      <?php
+        echo $html->link(__('New Story', true), array('action' => 'add'));
+      ?>
+    </li>
   </ul>
 </div>

@@ -103,7 +103,8 @@ class User extends AppModel {
      * Unfortunately, the auth component doesn't support case-insensitive
      * usernames. To add support for this, while still allowing a user to
      * display set their name to a custom case, I need to intercept the queries
-     * for both logging in and checking for an existing user when registering /      * editing.
+     * for both logging in and checking for an existing user when registering /
+     * editing.
      */
     /* Login */
     if (isset($query['conditions']['User.username'])) {
