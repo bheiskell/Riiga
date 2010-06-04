@@ -9,6 +9,24 @@ class Character extends AppModel {
       'rule'         => array('comparison', '>=', 0),
       'message'      => 'Invalid Member'
     ),
+    'name' => array(
+      'required'     => true,
+      'allowEmpty'   => false,
+      'rule'         => array('maxlength', 256),
+      'message'      => 'Name must be between one and 256 characters.'
+    ),
+    'description' => array(
+      'required'     => true,
+      'allowEmpty'   => false,
+      'rule'         => array('maxlength', 4096),
+      'message'      => 'Description must be between one and 4096 characters.'
+    ),
+    'history' => array(
+      'required'     => true,
+      'allowEmpty'   => false,
+      'rule'         => array('maxlength', 4096),
+      'message'      => 'History must be between one and 4096 characters.'
+    ),
     'wallet' => array(
       'required'     => true,
       'allowEmpty'   => false,
@@ -25,25 +43,25 @@ class Character extends AppModel {
       'required'     => true,
       'allowEmpty'   => false,
       'rule'         => array('maxlength', 256),
-      'message'      => 'Race must be less than 256 characters.'
+      'message'      => 'Race must be between one and 256 characters.'
     ),
     'faction' => array(
       'required'     => true,
       'allowEmpty'   => false,
       'rule'         => array('maxlength', 256),
-      'message'      => 'Faction must be less than 256 characters.'
+      'message'      => 'Faction must be between one and 256 characters.'
     ),
     'residency' => array(
       'required'     => true,
       'allowEmpty'   => false,
       'rule'         => array('maxlength', 256),
-      'message'      => 'Residency must be less than 256 characters.'
+      'message'      => 'Residency must be between one and 256 characters.'
     ),
     'profession' => array(
       'required'     => true,
       'allowEmpty'   => false,
       'rule'         => array('maxlength', 256),
-      'message'      => 'Profession must be less than 256 characters.'
+      'message'      => 'Profession must be between one and 256 characters.'
     ),
     'avatar' => array(
       'maxlength' => array(

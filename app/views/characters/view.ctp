@@ -4,14 +4,11 @@
     <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Owner'); ?></dt>
     <dd<?php if ($i++ % 2 == 0) echo $class;?>>
       <?php
-        echo $html->link(
-          $character['User']['id'],
-          array(
+        echo $html->link($character['User']['name'], array(
             'controller' => 'users',
             'action' => 'view',
             $character['User']['id']
-          )
-        );
+        ));
       ?>
       &nbsp;
     </dd>
