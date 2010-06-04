@@ -17,7 +17,8 @@ class StoriesController extends AppController {
 
   function view($id = null) {
     if (!$id) {
-      $this->flash(__('Invalid Story', true), array('action' => 'index'));
+      $this->Session->setFlash(__('Invalid Story', true));
+      $this->redirect(array('action' => 'index'));
     }
 
     // Hack: Wasteful queries in my opinion. If this turns out not to scale 
@@ -35,9 +36,8 @@ class StoriesController extends AppController {
     if (!empty($this->data)) {
       $this->Story->create();
       if ($this->Story->save($this->data)) {
-        $this->flash(__('Story saved.', true), array('action' => 'index'));
+        $this->Session->setFlash(__('Story saved.', true));
         $this->redirect(array('action' => 'view', 'id' => $this->Story->id));
-      } else {
       }
     }
     $characters = $this->Story->Character->find('list');
@@ -48,11 +48,12 @@ class StoriesController extends AppController {
 
   function edit($id = null) {
     if (!$id && empty($this->data)) {
-      $this->flash(__('Invalid Story', true), array('action' => 'index'));
+      $this->Session->setFlash(__('Invalid Story', true));
+      $this->redirect(array('action' => 'index'));
     }
     if (!empty($this->data)) {
       if ($this->Story->save($this->data)) {
-        $this->flash(__('The Story has been saved.', true), array('action' => 'index'));
+        $this->Session->setFlash(__('The Story has been saved.', true));
         $this->redirect(array('action' => 'view', 'id' => $this->Story->id));
       } else {
       }
@@ -65,16 +66,5 @@ class StoriesController extends AppController {
     $turns = $this->Story->Turn->find('list');
     $this->set(compact('characters','users','turns'));
   }
-
-  function delete($id = null) {
-    if (!$id) {
-      $this->flash(__('Invalid Story', true), array('action' => 'index'));
-    }
-    if ($this->Story->del($id)) {
-      $this->flash(__('Story deleted', true), array('action' => 'index'));
-    }
-    $this->flash(__('The Story could not be deleted. Please, try again.', true), array('action' => 'index'));
-  }
-
 }
 ?>

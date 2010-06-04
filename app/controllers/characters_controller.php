@@ -17,7 +17,8 @@ class CharactersController extends AppController {
 
   function view($id = null) {
     if (!$id) {
-      $this->flash(__('Invalid Character', true), array('action' => 'index'));
+      $this->Session->setFlash(__('Invalid Character', true));
+      $this->redirect(array('action' => 'index'));
     }
     $this->set('character', $this->Character->read(null, $id));
   }
@@ -27,7 +28,7 @@ class CharactersController extends AppController {
       $this->data['Character']['user_id'] = $this->Auth->user('id');
       $this->Character->create();
       if ($this->Character->save($this->data)) {
-        $this->flash(__('Character saved.', true));
+        $this->Session->setFlash(__('Character saved.', true));
         $this->redirect(array(
           'action' => 'view',
           'id' => $this->Character->id
@@ -39,17 +40,16 @@ class CharactersController extends AppController {
 
   function edit($id = null) {
     if (!$id && empty($this->data)) {
-      $this->flash(__('Invalid Character', true), array('action' => 'index'));
+      $this->Session->setFlash(__('Invalid Character', true));
+      $this->redirect(array('action' => 'index'));
 
     } else if ($this->Auth->user('id') != $this->Character->field('user_id')) {
-      $this->flash(
-        __('This character does not belong to you.', true),
-        array('action' => 'index')
-      );
+      $this->Session->setFlash(__('This character does not belong to you.', true));
+      $this->redirect(array('action' => 'index'));
     }
     if (!empty($this->data)) {
       if ($this->Character->save($this->data)) {
-        $this->flash(__('The Character has been saved.', true));
+        $this->Session->setFlash(__('The Character has been saved.', true));
         $this->redirect(array(
           'action' => 'view',
           'id' => $this->Character->id
