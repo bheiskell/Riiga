@@ -87,6 +87,8 @@ class AppSchema extends CakeSchema {
     'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
     'name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
     'parent_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+    'lft' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+    'rght' => array('type' => 'integer', 'null' => true, 'default' => NULL),
     'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
     'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
     'indexes' => array()

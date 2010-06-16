@@ -4,7 +4,21 @@ class LocationsController extends AppController {
   var $name = 'Locations';
   var $helpers = array('Html', 'Form');
 
+  function beforeFilter() {
+    parent::beforeFilter();
+    $this->Auth->allow('index');
+
+    // TODO: Make the is admin check less sucky
+    if (!$this->Auth->user('is_admin')) {
+    // TODO: Uncomment following line - used for testing
+    //  $this->redirect(array('action' => 'index'));
+    }
+  }
+
   function index() {
+    $this->data = $this->Location->generatetreelist(
+      null, null, null, '&nbsp;&nbsp;&nbsp;'
+    );
     $this->Location->recursive = 0;
     $this->set('locations', $this->paginate());
   }
