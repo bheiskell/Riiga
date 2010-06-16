@@ -28,7 +28,7 @@ class StoriesController extends AppController {
     $this->Story->recursive = 2;
     $this->Story->contain(array('Turn', 'User', 'Character', 'Character.User',
                                 'Entry', 'Entry.Character', 'Entry.User'));
-    $story     = $this->Story->findById($id);
+    $story = $this->Story->findById($id);
     $this->set(compact('story'));
   }
 
