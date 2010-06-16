@@ -18,8 +18,8 @@ class User extends AppModel {
     ),
     'password' => array(
       'required'     => true,
-      'rule'         => array('between', 8, 128),
-      'message'      => 'Passwords must be at least 8 characters long.'
+      'rule'         => array('between', 6, 128),
+      'message'      => 'Passwords must be at least 6 characters long.'
     ),
     'password_confirm' => array(
       'required'     => true,
@@ -94,6 +94,12 @@ class User extends AppModel {
 
   function beforeSave() {
     $this->data = $this->hashPasswords($this->data, false);
+
+    if (!empty($this->data['User']['url'])) {
+      if (0 !== strpos($this->data['User']['url'], 'http')) {
+        $this->data['User']['url'] = 'http://' .  $this->data['User']['url'];
+      }
+    }
 
     return true;
   }
