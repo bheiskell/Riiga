@@ -2,11 +2,8 @@
 <h2><?php __('Locations');?></h2>
 <table cellpadding="0" cellspacing="0">
 <tr>
-  <th><?php echo $paginator->sort('id');?></th>
   <th><?php echo $paginator->sort('name');?></th>
   <th><?php echo $paginator->sort('parent_id');?></th>
-  <th><?php echo $paginator->sort('created');?></th>
-  <th><?php echo $paginator->sort('modified');?></th>
   <th class="actions"><?php __('Actions');?></th>
 </tr>
 <?php
@@ -15,11 +12,8 @@ foreach ($locations as $location):
   $class = ($i++ % 2 == 0) ? $class = ' class="altrow"' : null;
 ?>
   <tr<?php echo $class;?>>
-    <td><?php echo $location['Location']['id']; ?></td>
     <td><?php echo $location['Location']['name']; ?></td>
     <td><?php echo $location['Location']['parent_id']; ?></td>
-    <td><?php echo $location['Location']['created']; ?></td>
-    <td><?php echo $location['Location']['modified']; ?></td>
     <td class="actions">
       <?php
         echo $html->link(

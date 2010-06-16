@@ -1,11 +1,6 @@
 <div class="locations view">
 <h2><?php  __('Location');?></h2>
   <dl><?php $i = 0; $class = ' class="altrow"';?>
-    <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id'); ?></dt>
-    <dd<?php if ($i++ % 2 == 0) echo $class;?>>
-      <?php echo $location['Location']['id']; ?>
-      &nbsp;
-    </dd>
     <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Name'); ?></dt>
     <dd<?php if ($i++ % 2 == 0) echo $class;?>>
       <?php echo $location['Location']['name']; ?>
@@ -14,16 +9,6 @@
     <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Parent Id'); ?></dt>
     <dd<?php if ($i++ % 2 == 0) echo $class;?>>
       <?php echo $location['Location']['parent_id']; ?>
-      &nbsp;
-    </dd>
-    <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Created'); ?></dt>
-    <dd<?php if ($i++ % 2 == 0) echo $class;?>>
-      <?php echo $location['Location']['created']; ?>
-      &nbsp;
-    </dd>
-    <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Modified'); ?></dt>
-    <dd<?php if ($i++ % 2 == 0) echo $class;?>>
-      <?php echo $location['Location']['modified']; ?>
       &nbsp;
     </dd>
   </dl>
