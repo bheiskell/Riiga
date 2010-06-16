@@ -4,7 +4,7 @@
     <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Owner'); ?></dt>
     <dd<?php if ($i++ % 2 == 0) echo $class;?>>
       <?php
-        echo $html->link($character['User']['name'], array(
+        echo $html->link($character['User']['username'], array(
             'controller' => 'users',
             'action' => 'view',
             $character['User']['id']
