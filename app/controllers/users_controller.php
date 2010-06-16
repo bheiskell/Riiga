@@ -9,10 +9,7 @@ class UsersController extends AppController {
     parent::beforeFilter();
     $this->Auth->allow('login', 'register');
 
-    $this->Auth->loginRedirect = array(
-      'controller' => 'index',
-      'action'     => 'index'
-    );
+    $this->Auth->loginRedirect = array('/');
 
     /**
      * Override hashPassword method for validation purposes. See
