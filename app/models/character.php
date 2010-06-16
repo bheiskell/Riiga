@@ -37,7 +37,7 @@ class Character extends AppModel {
       'required'     => true,
       'allowEmpty'   => false,
       'rule'         => array('range', 0, 11),
-      'message'      => 'Valid ranks are from one to ten.'
+      'message'      => 'Valid ranks are from 1 to 10.'
     ),
     'race' => array(
       'required'     => true,
