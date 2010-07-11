@@ -349,6 +349,28 @@ td.avatar {
   padding: 12px 0;
 }
 
+/* JS star ranking */
+div.star            { overflow: hidden; }
+div.star a.default  { background-position: -32px 0; }
+div.star a.selected { background-position:   0px 0; }
+div.star a.hover    { background-position: -16px 0; }
+div.star a.disabled { background-position: -48px 0; }
+div.star a:focus    { outline: none; }
+div.star a {
+  background-image: url('../img/stars.png');
+  border-bottom: 0;
+  display: block;
+  height: 16px;
+  float: left;
+  font-size: 0;
+  text-decoration: none;
+  width: 16px;
+}
+div.star span {
+  color: #555;
+  line-height: 16px;
+  margin-left: 8px;
+}
 
 /* Debugging */
 pre {
