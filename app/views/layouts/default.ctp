@@ -7,7 +7,9 @@
     echo $html->meta('icon');
     echo $html->css('reset');
     echo $html->css('style');
+    echo $html->css('jquery-ui');
     echo $javascript->link('jquery.min.js');
+    echo $javascript->link('jquery-ui.min.js');
     echo $scripts_for_layout;
   ?>
 </head>
