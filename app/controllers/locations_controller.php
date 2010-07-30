@@ -19,8 +19,10 @@ class LocationsController extends AppController {
     $this->data = $this->Location->generatetreelist(
       null, null, null, '&nbsp;&nbsp;&nbsp;'
     );
+
     $this->Location->recursive = 0;
     $this->set('locations', $this->paginate());
+    $this->set('nested', $this->Location->findAllThreaded());
   }
 
   function view($id = null) {
@@ -43,6 +45,9 @@ class LocationsController extends AppController {
         ));
       }
     }
+    $this->set('parents', $this->Location->generatetreelist(
+      null, null, null, '|  '
+    ));
   }
 
   function edit($id = null) {
@@ -63,6 +68,9 @@ class LocationsController extends AppController {
     if (empty($this->data)) {
       $this->data = $this->Location->read(null, $id);
     }
+    $this->set('parents', $this->Location->generatetreelist(
+      null, null, null, '|  '
+    ));
   }
 
   function delete($id = null) {
