@@ -25,9 +25,10 @@ $(document).ready(function() {
   var applyRules = function() {
     var rank = ranks.filter(":checked").val();
     function limitResidencyByRank(rank) {
-      var lastEnabled = $("#CharacterResidency optgroup[label=Rank "+rank+"]");
-      lastEnabled.prevAll().andSelf().removeAttr("disabled");
-      lastEnabled.nextAll()                .attr("disabled", "disabled");
+      var optgroups = $("#CharacterResidency optgroup");
+      var lastgroup = optgroups.filter("[label=Rank "+rank+"]");
+      optgroups.removeAttr("disabled");
+      lastgroup.nextAll().attr("disabled", "disabled");
     }
     limitResidencyByRank(rank);
 
