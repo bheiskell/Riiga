@@ -356,7 +356,7 @@ td.avatar {
   margin-right: 0;
   padding: 3px 0 3px 6px;
 }
-.locations.index .tree ul { margin: 6px 0 6px 0; }
+.locations.index .tree ul { margin: 6px 0 14px 0; }
 .locations.index .tree>ul { border-right: 1px solid #CCC; }
 .locations.index .tree li:last-child { border-bottom: 1px solid #CCC; }
 .locations.index .tree li        { background: #fff; }
