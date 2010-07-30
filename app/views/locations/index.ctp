@@ -1,5 +1,16 @@
 <div class="locations index">
 <h2><?php __('Locations');?></h2>
+<div class="actions">
+  <ul>
+    <li>
+      <?php
+        echo $html->link(
+          __('New Location', true), array('action' => 'add')
+        );
+      ?>
+    </li>
+  </ul>
+</div>
 <table cellpadding="0" cellspacing="0">
 <tr>
   <th><?php echo $paginator->sort('name');?></th>
@@ -44,14 +55,22 @@ foreach ($locations as $location):
 </table>
 </div>
 <?php echo $this->element('pager'); ?>
-<div class="actions">
-  <ul>
-    <li>
-      <?php
-        echo $html->link(
-          __('New Location', true), array('action' => 'add')
-        );
-      ?>
-    </li>
-  </ul>
-</div>
+
+<?php
+//TODO: Move this to a helper
+printLocations($nested);
+
+function printLocations($locations) {
+  if (empty($locations)) { return; }
+  echo '<ul>';
+  foreach ($locations as $location) {
+    echo '<li>';
+    echo $location['Location']['name'];
+
+    printLocations($location['children']);
+    echo '</li>';
+  }
+  echo '</ul>';
+}
+?>
+

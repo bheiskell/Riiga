@@ -3,9 +3,10 @@
   <fieldset>
     <legend><?php __('Edit Location');?></legend>
   <?php
-    echo $form->input('id');
+    echo $form->hidden('id');
     echo $form->input('name');
-    echo $form->input('parent_id');
+    echo $form->input('description');
+    echo $form->input('parent_id', array('empty' => true));
   ?>
   </fieldset>
 <?php echo $form->end('Submit');?>
