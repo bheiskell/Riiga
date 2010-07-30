@@ -349,7 +349,7 @@ td.avatar {
   padding: 12px 0;
 }
 
-.locations.index .tree span { float: right; }
+.locations.index .tree span { float: right; padding-right: 3px; }
 .locations.index .tree li {
   border-left: 1px solid #CCC;
   border-top: 1px solid #CCC;
