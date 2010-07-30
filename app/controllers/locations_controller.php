@@ -16,13 +16,7 @@ class LocationsController extends AppController {
   }
 
   function index() {
-    $this->data = $this->Location->generatetreelist(
-      null, null, null, '&nbsp;&nbsp;&nbsp;'
-    );
-
-    $this->Location->recursive = 0;
-    $this->set('locations', $this->paginate());
-    $this->set('nested', $this->Location->findAllThreaded());
+    $this->set('locations', $this->Location->findAllThreaded());
   }
 
   function view($id = null) {

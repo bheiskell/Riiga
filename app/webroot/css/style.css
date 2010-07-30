@@ -349,6 +349,19 @@ td.avatar {
   padding: 12px 0;
 }
 
+.locations.index .tree span { float: right; }
+.locations.index .tree li {
+  border-left: 1px solid #CCC;
+  border-top: 1px solid #CCC;
+  margin-right: 0;
+  padding: 3px 0 3px 6px;
+}
+.locations.index .tree ul { margin: 6px 0 6px 0; }
+.locations.index .tree>ul { border-right: 1px solid #CCC; }
+.locations.index .tree li:last-child { border-bottom: 1px solid #CCC; }
+.locations.index .tree li        { background: #fff; }
+.locations.index .tree li.altrow { background: #f4f4f4; }
+
 /* JS star ranking */
 div.star            { overflow: hidden; }
 div.star a.default  { background-position: -32px 0; }
