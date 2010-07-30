@@ -1,6 +1,6 @@
 <?php 
 /* SVN FILE: $Id$ */
-/* App schema generated on: 2010-06-04 19:06:02 : 1275681362*/
+/* App schema generated on: 2010-07-30 19:07:29 : 1280517629*/
 class AppSchema extends CakeSchema {
   var $name = 'App';
 
@@ -18,6 +18,7 @@ class AppSchema extends CakeSchema {
     'history' => array('type' => 'text', 'null' => false, 'default' => NULL),
     'rank' => array('type' => 'integer', 'null' => true, 'default' => '0'),
     'wallet' => array('type' => 'integer', 'null' => true, 'default' => '0'),
+    'age' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 256),
     'race' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 256),
     'faction' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 256),
     'residency' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 256),
@@ -53,6 +54,17 @@ class AppSchema extends CakeSchema {
     'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
     'indexes' => array()
   );
+  var $locations = array(
+    'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+    'name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
+    'description' => array('type' => 'text', 'null' => true, 'default' => NULL),
+    'parent_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+    'lft' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+    'rght' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+    'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+    'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+    'indexes' => array()
+  );
   var $stories = array(
     'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
     'name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
@@ -79,16 +91,6 @@ class AppSchema extends CakeSchema {
     'email' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 320),
     'url' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 1024),
     'avatar' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 1024),
-    'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
-    'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
-    'indexes' => array()
-  );
-  var $locations = array(
-    'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
-    'name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
-    'parent_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
-    'lft' => array('type' => 'integer', 'null' => true, 'default' => NULL),
-    'rght' => array('type' => 'integer', 'null' => true, 'default' => NULL),
     'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
     'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
     'indexes' => array()
