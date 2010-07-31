@@ -65,6 +65,21 @@ class AppSchema extends CakeSchema {
     'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
     'indexes' => array()
   );
+  var $location_tags = array(
+    'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+    'name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
+    'description' => array('type' => 'text', 'null' => true, 'default' => NULL),
+    'url' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 1024),
+    'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+    'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+    'indexes' => array()
+  );
+  var $locations_location_tags = array(
+    'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+    'location_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+    'location_tag_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+    'indexes' => array()
+  );
   var $stories = array(
     'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
     'name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
