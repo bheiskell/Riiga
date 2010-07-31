@@ -74,7 +74,7 @@ class AppSchema extends CakeSchema {
     'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
     'indexes' => array()
   );
-  var $locations_location_tags = array(
+  var $location_tags_locations = array(
     'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
     'location_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
     'location_tag_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
