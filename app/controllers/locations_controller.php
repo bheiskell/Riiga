@@ -6,7 +6,7 @@ class LocationsController extends AppController {
 
   function beforeFilter() {
     parent::beforeFilter();
-    $this->Auth->allow('index');
+    $this->Auth->allow('index', 'view');
 
     // TODO: Make the is admin check less sucky
     if (!$this->Auth->user('is_admin')) {
