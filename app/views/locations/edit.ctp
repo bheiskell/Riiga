@@ -3,10 +3,19 @@
   <fieldset>
     <legend><?php __('Edit Location');?></legend>
   <?php
+    $html->css('jquery-cust_select_box.css', null, null, false);
+    $javascript->link('jquery-cust_select_box.js', false);
+    $javascript->link('location_tags.js', false);
+
     echo $form->hidden('id');
     echo $form->input('name');
     echo $form->input('description');
     echo $form->input('parent_id', array('empty' => true));
+    echo $form->input('LocationTags', array(
+      'empty'   => 'Add Tags',
+      'between' => '<div class="select_wrap">',
+      'after'   => '</div>',
+    ));
   ?>
   </fieldset>
 <?php echo $form->end('Submit');?>

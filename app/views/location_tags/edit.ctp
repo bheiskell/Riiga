@@ -3,11 +3,10 @@
 	<fieldset>
  		<legend><?php __('Edit LocationTag');?></legend>
 	<?php
-		echo $form->input('id');
+		echo $form->hidden('id');
 		echo $form->input('name');
 		echo $form->input('description');
 		echo $form->input('url');
-		echo $form->input('Location');
 	?>
 	</fieldset>
 <?php echo $form->end('Submit');?>

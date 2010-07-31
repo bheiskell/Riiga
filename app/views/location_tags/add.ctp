@@ -6,7 +6,6 @@
 		echo $form->input('name');
 		echo $form->input('description');
 		echo $form->input('url');
-		echo $form->input('Location');
 	?>
 	</fieldset>
 <?php echo $form->end('Submit');?>
