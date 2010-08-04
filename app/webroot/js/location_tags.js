@@ -3,5 +3,6 @@
  */
 
 $(document).ready(function() {
-  $('#LocationTagsLocationTags').custSelectBox();
+  $('#LocationDescription').attr('rows', 3);
+  $('#LocationTagsLocationTags').custSelectBox({ selectwidth: 250 });
 });
