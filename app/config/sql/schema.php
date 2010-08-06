@@ -1,6 +1,6 @@
 <?php 
 /* SVN FILE: $Id$ */
-/* App schema generated on: 2010-08-06 00:08:24 : 1281053664*/
+/* App schema generated on: 2010-08-06 01:08:01 : 1281059101*/
 class AppSchema extends CakeSchema {
 	var $name = 'App';
 
@@ -11,6 +11,12 @@ class AppSchema extends CakeSchema {
 	function after($event = array()) {
 	}
 
+	var $character_locations = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'location_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'rank_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'indexes' => array()
+	);
 	var $characters = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
@@ -78,6 +84,12 @@ class AppSchema extends CakeSchema {
 		'rght' => array('type' => 'integer', 'null' => true, 'default' => NULL),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'indexes' => array()
+	);
+	var $ranks = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
+		'entry_count' => array('type' => 'integer', 'null' => true, 'default' => NULL),
 		'indexes' => array()
 	);
 	var $stories = array(
