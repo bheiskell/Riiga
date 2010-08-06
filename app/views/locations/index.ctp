@@ -30,6 +30,18 @@
           <span class="actions">
             <?php
               echo $html->link(
+                __('Up', true),
+                array('action' => 'moveUp', $location['Location']['id'])
+              );
+            ?>
+            <?php
+              echo $html->link(
+                __('Down', true),
+                array('action' => 'moveDown', $location['Location']['id'])
+              );
+            ?>
+            <?php
+              echo $html->link(
                 __('View', true),
                 array('action' => 'view', $location['Location']['id'])
               );

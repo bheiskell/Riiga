@@ -84,5 +84,34 @@ class LocationsController extends AppController {
     $this->redirect(array('action' => 'index'));
   }
 
+  function moveUp($id = null) {
+    if (!$id) {
+      $this->Session->setFlash(__('Invalid id for Location', true));
+      $this->redirect(array('action' => 'index'));
+    }
+    if ($this->Location->moveUp($id, 1)) {
+      $this->Session->setFlash(__('Location moved', true));
+      $this->redirect(array('action' => 'index'));
+    }
+    $this->Session->setFlash(__(
+      'The Location could not be moved. Please, try again.', true
+    ));
+    $this->redirect(array('action' => 'index'));
+  }
+
+  function moveDown($id = null) {
+    if (!$id) {
+      $this->Session->setFlash(__('Invalid id for Location', true));
+      $this->redirect(array('action' => 'index'));
+    }
+    if ($this->Location->moveDown($id, 1)) {
+      $this->Session->setFlash(__('Location moved', true));
+      $this->redirect(array('action' => 'index'));
+    }
+    $this->Session->setFlash(__(
+      'The Location could not be moved. Please, try again.', true
+    ));
+    $this->redirect(array('action' => 'index'));
+  }
 }
 ?>
