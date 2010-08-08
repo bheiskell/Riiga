@@ -22,7 +22,8 @@
           <?php
             echo $html->link(__('Members', true), array(
               'controller' => 'users',
-              'action' => 'index'
+              'action' => 'index',
+              'admin' => false,
             ));
           ?>
         </li>
@@ -30,7 +31,8 @@
           <?php
             echo $html->link(__('Characters', true), array(
               'controller' => 'characters',
-              'action' => 'index'
+              'action' => 'index',
+              'admin' => false,
             ));
           ?>
         </li>
@@ -38,7 +40,8 @@
           <?php
             echo $html->link(__('Stories', true), array(
               'controller' => 'stories',
-              'action' => 'index'
+              'action' => 'index',
+              'admin' => false,
             ));
           ?>
         </li>
@@ -53,7 +56,8 @@
               echo $html->link($user['username'], array(
                 'controller' => 'users',
                 'action' => 'view',
-                'id' => $user['id']
+                'id' => $user['id'],
+                'admin' => false,
               ));
             ?>
           </li>
@@ -61,7 +65,8 @@
             <?php
               echo $html->link(__('Logout', true), array(
                 'controller' => 'users',
-                'action' => 'logout'
+                'action' => 'logout',
+                'admin' => false,
               ));
             ?>
           </li>
@@ -70,7 +75,8 @@
             <?php
               echo $html->link(__('Register', true), array(
                 'controller' => 'users',
-                'action' => 'register'
+                'action' => 'register',
+                'admin' => false,
               ));
             ?>
           </li>
@@ -78,12 +84,14 @@
             <?php
               echo $html->link(__('Login', true), array(
                 'controller' => 'users',
-                'action' => 'login'
+                'action' => 'login',
+                'admin' => false,
               ));
             ?>
           </li>
         <?php endif; ?>
       </ul>
+      <?php echo $this->element('admin_bar'); ?>
     </div>
     <div id="content">
       <div id="flash">

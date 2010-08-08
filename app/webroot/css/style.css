@@ -102,7 +102,24 @@ ul, li {
 #account a:hover {
   border-bottom: 1px solid #fff;
 }
-#content{
+#header #admin {
+  background-color: #C32;
+  clear: both;
+  padding: 6px 24px;
+  margin: 48px -24px 0;
+  overflow: hidden;
+}
+#header #admin li {
+  float: left;
+}
+#header #admin a {
+  border-bottom: 1px solid #C32;
+  color: #fff;
+}
+#header #admin a:hover {
+  border-bottom: 1px solid #fff;
+}
+#content {
   background: #fff;
   clear: both;
   color: #333;
