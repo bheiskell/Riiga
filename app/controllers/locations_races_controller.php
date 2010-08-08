@@ -4,12 +4,12 @@ class LocationsRacesController extends AppController {
 	var $name = 'LocationsRaces';
 	var $helpers = array('Html', 'Form');
 
-	function index() {
+	function admin_index() {
 		$this->LocationsRace->recursive = 0;
 		$this->set('locationsRaces', $this->paginate());
 	}
 
-	function view($id = null) {
+	function admin_view($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid LocationsRace', true));
 			$this->redirect(array('action' => 'index'));
@@ -17,7 +17,7 @@ class LocationsRacesController extends AppController {
 		$this->set('locationsRace', $this->LocationsRace->read(null, $id));
 	}
 
-	function add() {
+	function admin_add() {
 		if (!empty($this->data)) {
 			$this->LocationsRace->create();
 			if ($this->LocationsRace->save($this->data)) {
@@ -42,7 +42,7 @@ class LocationsRacesController extends AppController {
 		$this->set(compact('locations', 'races'));
 	}
 
-	function edit($id = null) {
+	function admin_edit($id = null) {
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid LocationsRace', true));
 			$this->redirect(array('action' => 'index'));
@@ -63,7 +63,7 @@ class LocationsRacesController extends AppController {
 		$this->set(compact('locations','races'));
 	}
 
-	function delete($id = null) {
+	function admin_delete($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for LocationsRace', true));
 			$this->redirect(array('action' => 'index'));

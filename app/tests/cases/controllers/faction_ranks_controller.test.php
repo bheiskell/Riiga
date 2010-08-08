@@ -1,6 +1,6 @@
 <?php 
 /* SVN FILE: $Id$ */
-/* FactionRanksController Test cases generated on: 2010-08-08 12:27:02 : 1281270422*/
+/* FactionRanksController Test cases generated on: 2010-08-08 18:42:06 : 1281292926*/
 App::import('Controller', 'FactionRanks');
 
 class TestFactionRanks extends FactionRanksController {

@@ -9,12 +9,12 @@ class LocationTagsController extends AppController {
     $this->Auth->allow('index');
   }
 
-  function index() {
+  function admin_index() {
     $this->LocationTag->recursive = 0;
     $this->set('locationTags', $this->paginate());
   }
 
-  function view($id = null) {
+  function admin_view($id = null) {
     if (!$id) {
       $this->Session->setFlash(__('Invalid LocationTag', true));
       $this->redirect(array('action' => 'index'));
@@ -22,7 +22,7 @@ class LocationTagsController extends AppController {
     $this->set('locationTag', $this->LocationTag->read(null, $id));
   }
 
-  function add() {
+  function admin_add() {
     if (!empty($this->data)) {
       $this->LocationTag->create();
       if ($this->LocationTag->save($this->data)) {
@@ -32,7 +32,7 @@ class LocationTagsController extends AppController {
     }
   }
 
-  function edit($id = null) {
+  function admin_edit($id = null) {
     if (!$id && empty($this->data)) {
       $this->Session->setFlash(__('Invalid LocationTag', true));
       $this->redirect(array('action' => 'index'));
@@ -48,7 +48,7 @@ class LocationTagsController extends AppController {
     }
   }
 
-  function delete($id = null) {
+  function admin_delete($id = null) {
     if (!$id) {
       $this->Session->setFlash(__('Invalid id for LocationTag', true));
       $this->redirect(array('action' => 'index'));

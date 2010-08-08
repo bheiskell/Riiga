@@ -4,12 +4,12 @@ class FactionsController extends AppController {
 	var $name = 'Factions';
 	var $helpers = array('Html', 'Form');
 
-	function index() {
+	function admin_index() {
 		$this->Faction->recursive = 0;
 		$this->set('factions', $this->paginate());
 	}
 
-	function view($id = null) {
+	function admin_view($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid Faction', true));
 			$this->redirect(array('action' => 'index'));
@@ -17,7 +17,7 @@ class FactionsController extends AppController {
 		$this->set('faction', $this->Faction->read(null, $id));
 	}
 
-	function add() {
+	function admin_add() {
 		if (!empty($this->data)) {
 			$this->Faction->create();
 			if ($this->Faction->save($this->data)) {
@@ -31,7 +31,7 @@ class FactionsController extends AppController {
 		$this->set(compact('races'));
 	}
 
-	function edit($id = null) {
+	function admin_edit($id = null) {
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid Faction', true));
 			$this->redirect(array('action' => 'index'));
@@ -51,7 +51,7 @@ class FactionsController extends AppController {
 		$this->set(compact('races'));
 	}
 
-	function delete($id = null) {
+	function admin_delete($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for Faction', true));
 			$this->redirect(array('action' => 'index'));

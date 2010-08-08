@@ -4,12 +4,12 @@ class CharacterLocationsController extends AppController {
 	var $name = 'CharacterLocations';
 	var $helpers = array('Html', 'Form');
 
-	function index() {
+	function admin_index() {
 		$this->CharacterLocation->recursive = 0;
 		$this->set('characterLocations', $this->paginate());
 	}
 
-	function view($id = null) {
+	function admin_view($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid CharacterLocation', true));
 			$this->redirect(array('action' => 'index'));
@@ -17,7 +17,7 @@ class CharacterLocationsController extends AppController {
 		$this->set('characterLocation', $this->CharacterLocation->read(null, $id));
 	}
 
-	function add() {
+	function admin_add() {
 		if (!empty($this->data)) {
 			$this->CharacterLocation->create();
 			if ($this->CharacterLocation->save($this->data)) {
@@ -32,7 +32,7 @@ class CharacterLocationsController extends AppController {
 		$this->set(compact('locations', 'ranks'));
 	}
 
-	function edit($id = null) {
+	function admin_edit($id = null) {
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid CharacterLocation', true));
 			$this->redirect(array('action' => 'index'));
@@ -53,7 +53,7 @@ class CharacterLocationsController extends AppController {
 		$this->set(compact('locations','ranks'));
 	}
 
-	function delete($id = null) {
+	function admin_delete($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for CharacterLocation', true));
 			$this->redirect(array('action' => 'index'));

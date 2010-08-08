@@ -4,12 +4,12 @@ class RaceAgesController extends AppController {
 	var $name = 'RaceAges';
 	var $helpers = array('Html', 'Form');
 
-	function index() {
+	function admin_index() {
 		$this->RaceAge->recursive = 0;
 		$this->set('raceAges', $this->paginate());
 	}
 
-	function view($id = null) {
+	function admin_view($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid RaceAge', true));
 			$this->redirect(array('action' => 'index'));
@@ -17,7 +17,7 @@ class RaceAgesController extends AppController {
 		$this->set('raceAge', $this->RaceAge->read(null, $id));
 	}
 
-	function add() {
+	function admin_add() {
 		if (!empty($this->data)) {
 			$this->RaceAge->create();
 			if ($this->RaceAge->save($this->data)) {
@@ -31,7 +31,7 @@ class RaceAgesController extends AppController {
 		$this->set(compact('races'));
 	}
 
-	function edit($id = null) {
+	function admin_edit($id = null) {
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid RaceAge', true));
 			$this->redirect(array('action' => 'index'));
@@ -51,7 +51,7 @@ class RaceAgesController extends AppController {
 		$this->set(compact('races'));
 	}
 
-	function delete($id = null) {
+	function admin_delete($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for RaceAge', true));
 			$this->redirect(array('action' => 'index'));

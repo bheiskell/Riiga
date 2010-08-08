@@ -1,6 +1,6 @@
 <?php 
 /* SVN FILE: $Id$ */
-/* ProfessionCategoriesController Test cases generated on: 2010-08-08 14:57:20 : 1281279440*/
+/* ProfessionCategoriesController Test cases generated on: 2010-08-08 18:43:48 : 1281293028*/
 App::import('Controller', 'ProfessionCategories');
 
 class TestProfessionCategories extends ProfessionCategoriesController {
