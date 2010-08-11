@@ -37,6 +37,14 @@ class UsersController extends AppController {
   /* Automagically handled by the Auth component */
   function login() { }
 
+  function admin_login() {
+    $this->redirect(array(
+      'controller' => 'users',
+      'action' => 'login',
+      'admin' => false
+    ));
+  }
+
   function logout() { $this->redirect($this->Auth->logout()); }
 
   function index() {
