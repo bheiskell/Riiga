@@ -27,35 +27,11 @@ class Character extends AppModel {
       'rule'         => array('maxlength', 4096),
       'message'      => 'History must be between one and 4096 characters.'
     ),
-    'wallet' => array(
-      'required'     => true,
-      'allowEmpty'   => false,
-      'rule'         => array('comparison', '>=', 0),
-      'message'      => 'Wallet must be greater than or equal to zero.'
-    ),
-    'rank' => array(
-      'required'     => true,
-      'allowEmpty'   => false,
-      'rule'         => array('range', 0, 11),
-      'message'      => 'Valid ranks are from 1 to 10.'
-    ),
-    'race' => array(
+    'age' => array(
       'required'     => true,
       'allowEmpty'   => false,
       'rule'         => array('maxlength', 256),
-      'message'      => 'Race must be between one and 256 characters.'
-    ),
-    'faction' => array(
-      'required'     => true,
-      'allowEmpty'   => false,
-      'rule'         => array('maxlength', 256),
-      'message'      => 'Faction must be between one and 256 characters.'
-    ),
-    'residency' => array(
-      'required'     => true,
-      'allowEmpty'   => false,
-      'rule'         => array('maxlength', 256),
-      'message'      => 'Residency must be between one and 256 characters.'
+      'message'      => 'Age must be between one and 256 characters.'
     ),
     'profession' => array(
       'required'     => true,
@@ -76,6 +52,6 @@ class Character extends AppModel {
     )
   );
 
-  var $belongsTo = array('User');
+  var $belongsTo = array('User', 'Location', 'Race', 'Rank', 'Faction');
 }
 ?>

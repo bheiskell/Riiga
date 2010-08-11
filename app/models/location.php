@@ -6,5 +6,6 @@ class Location extends AppModel {
   var $order = 'Location.lft ASC';
 
   var $hasAndBelongsToMany = array('LocationTags');
+  var $hasOne = array('CharacterLocations');
 }
 ?>

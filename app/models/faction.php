@@ -24,6 +24,5 @@ class Faction extends AppModel {
 			'insertQuery' => ''
 		)
 	);
-
 }
 ?>

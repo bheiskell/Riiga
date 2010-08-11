@@ -7,33 +7,22 @@
 
 $(document).ready(function() {
 
-  var ranks = $("input[name=data\\[Character\\]\\[rank\\]]");
+  var rank = $("select[name=data\\[Character\\]\\[rank_id\\]]");
 
-  ranks.filter(":first").parent().star({
+  rank.star({
     valueLimit: $("#CharacterUserRank").val(),
     disabledMessage: " exceeds your current rank"
   });
 
-  $("#CharacterWallet").before(
-    $('<div id="CharacterWalletSlider"></div>').slider({
-      change: function() {
-        $("#CharacterWallet").val($(this).slider("option", "value"));
-      }
-    })
-  );
-
   var applyRules = function() {
-    var rank = ranks.filter(":checked").val();
-    function limitResidencyByRank(rank) {
-      var optgroups = $("#CharacterResidency optgroup");
+    function limitSelectByRank(selector, rank) {
+      var optgroups = $(selector).children().filter("optgroup");
       var lastgroup = optgroups.filter("[label=Rank "+rank+"]");
       optgroups.removeAttr("disabled");
       lastgroup.nextAll().attr("disabled", "disabled");
     }
-    limitResidencyByRank(rank);
-
-    $("#CharacterWalletSlider").slider({max: 100});
-
+    limitSelectByRank("#CharacterRaceId", rank.val());
+    limitSelectByRank("#CharacterLocationId", rank.val());
   }
 
   applyRules();
