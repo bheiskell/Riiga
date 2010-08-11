@@ -1,6 +1,6 @@
 <div class="entries index">
 <h2><?php __('Entries');?></h2>
-<table cellpadding="0" cellspacing="0">
+<table>
 <tr>
   <th><?php echo $paginator->sort('Story',  'Story.name');?></th>
   <th><?php echo $paginator->sort('Member', 'User.username');?></th>

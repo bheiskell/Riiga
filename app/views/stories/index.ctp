@@ -1,6 +1,6 @@
 <div class="stories index">
 <h2><?php __('Stories');?></h2>
-<table cellpadding="0" cellspacing="0">
+<table>
 <tr>
   <th><?php echo $paginator->sort('name');?></th>
   <th><?php echo $paginator->sort('location_id');?></th>

@@ -19,19 +19,26 @@
 <table>
 <tr>
   <th>&nbsp;</th>
-  <th><?php echo (isset($p)) ? $p->sort('name')       : __('Name');?></th>
-  <th><?php echo (isset($p)) ? $p->sort('rank')       : __('Rank');?></th>
-  <th><?php echo (isset($p)) ? $p->sort('race')       : __('Race');?></th>
-  <th><?php echo (isset($p)) ? $p->sort('faction')    : __('Faction');?></th>
-  <th><?php echo (isset($p)) ? $p->sort('residency')  : __('Residency');?></th>
-  <th><?php echo (isset($p)) ? $p->sort('profession') : __('Profession');?></th>
-  <?php if (isset($showUser)): ?>
-    <th>
-      <?php
-        if (isset($p)) echo $p->sort('Member', 'User.username');
-        else           echo __('Member');
-      ?>
-    </th>
+  <?php if (isset($p)): ?>
+    <th><?php echo $p->sort('name');?></th>
+    <th><?php echo $p->sort(__('Rank',      true), 'Rank.name');?></th>
+    <th><?php echo $p->sort(__('Race',      true), 'Race.name');?></th>
+    <th><?php echo $p->sort(__('Faction',   true), 'Faction.name');?></th>
+    <th><?php echo $p->sort(__('Residency', true), 'Location.name');?></th>
+    <th><?php echo $p->sort('profession');?></th>
+    <?php if (isset($showUser)): ?>
+      <th><?php echo $p->sort('Member', 'User.username'); ?></th>
+    <?php endif; ?>
+  <?php else: ?>
+    <th><?php echo __('Name');?></th>
+    <th><?php echo __('Rank');?></th>
+    <th><?php echo __('Race');?></th>
+    <th><?php echo __('Faction');?></th>
+    <th><?php echo __('Residency');?></th>
+    <th><?php echo __('Profession');?></th>
+    <?php if (isset($showUser)): ?>
+      <th><?php echo __('Member'); ?></th>
+    <?php endif; ?>
   <?php endif; ?>
 </tr>
 <?php
@@ -55,10 +62,10 @@
         );
       ?>
     </td>
-    <td><?php echo h($character['Character']['rank']); ?></td>
-    <td><?php echo h($character['Character']['race']); ?></td>
-    <td><?php echo h($character['Character']['faction']); ?></td>
-    <td><?php echo h($character['Character']['residency']); ?></td>
+    <td><?php echo h($character['Rank']['name']); ?></td>
+    <td><?php echo h($character['Race']['name']); ?></td>
+    <td><?php echo h($character['Faction']['name']); ?></td>
+    <td><?php echo h($character['Location']['name']); ?></td>
     <td><?php echo h($character['Character']['profession']); ?></td>
     <?php if (isset($showUser) && $showUser): ?>
       <td>
