@@ -63,50 +63,13 @@ class CharactersController extends AppController {
     $this->set('users', $this->Character->User->find('list'));
     $this->set('ranks', $this->Character->Rank->find('list'));
 
-    $this->set('races', $this->Character->Race->find('list', array(
-      'fields' => array('id', 'name', 'rank_id'),
-      'order' => array('rank_id'),
-    )));
+    $this->set('races',     $this->Character->Race->find('grouped'));
+    $this->set('locations', $this->Character->Location->find('grouped'));
+    $this->set('factions',  $this->Character->Faction->find('grouped'));
 
-    $this->set('locations', $this->Character->Location->find('list', array(
-      'joins'  => array(array(
-        'table' => 'character_locations',
-        'alias' => 'CharacterLocation',
-        'type' => 'INNER',
-        'conditions' => array('Location.id = CharacterLocation.location_id')
-      )),
-      'fields' => array('id', 'name', 'CharacterLocation.rank_id'),
-      'order' => array('rank_id'),
-    )));
-
-    foreach(array_keys($this->viewVars['races']) as $key) {
-      $this->viewVars['races']["Rank {$key}"] = $this->viewVars['races'][$key];
-      unset($this->viewVars['races'][$key]);
-    }
-
-    foreach(array_keys($this->viewVars['locations']) as $key) {
-      $this->viewVars['locations']["Rank {$key}"] =
-        $this->viewVars['locations'][$key];
-      unset($this->viewVars['locations'][$key]);
-    }
-
-    $this->set('factions', $this->Character->Faction->find('list', array(
-      'joins'  => array(
-        array(
-          'table' => 'factions_races',
-          'alias' => 'FactionsRace',
-          'type' => 'INNER',
-          'conditions' => array('Faction.id = FactionsRace.faction_id')
-        ),
-        array(
-          'table' => 'races',
-          'alias' => 'Race',
-          'type' => 'INNER',
-          'conditions' => array('Race.id = FactionsRace.race_id')
-        ),
-      ),
-      'fields' => array('id', 'name', 'Race.name'),
-    )));
+    $this->set('factionRanks', $this->Character->Faction->FactionRank->find('table'));
+    //$this->set('locationsRaces', $this->Character->Race('table'));
+    //$this->set('raceAges', $this->Character->Race->RaceAge->find('table'));
   }
 }
 ?>

@@ -1,28 +1,42 @@
 <?php
 class Faction extends AppModel {
 
-	var $name = 'Faction';
-	var $validate = array(
-		'name' => array('notempty')
-	);
+  var $name = 'Faction';
+  var $validate = array(
+    'name' => array('notempty')
+  );
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-	var $hasAndBelongsToMany = array(
-		'Race' => array(
-			'className' => 'Race',
-			'joinTable' => 'factions_races',
-			'foreignKey' => 'faction_id',
-			'associationForeignKey' => 'race_id',
-			'unique' => true,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'finderQuery' => '',
-			'deleteQuery' => '',
-			'insertQuery' => ''
-		)
-	);
+  var $hasAndBelongsToMany = array('Race');
+
+  var $hasMany = array('FactionRank');
+
+  /* Overloading find to offer grouped results to the controller */
+  public function find(
+    $conditions = NULL, $fields = array(), $order = NULL, $recursive = NULL
+  ) {
+    if ('grouped' == $conditions) {
+      return $this->find('list',
+        array(
+          'joins' => array(
+            array(
+              'table' => 'factions_races',
+              'alias' => 'FactionsRace',
+              'type' => 'INNER',
+              'conditions' => array('Faction.id = FactionsRace.faction_id')
+            ),
+            array(
+              'table' => 'races',
+              'alias' => 'Race',
+              'type' => 'INNER',
+              'conditions' => array('Race.id = FactionsRace.race_id')
+            ),
+          ),
+          'fields' => array('id', 'name', 'Race.name'),
+        )
+      );
+    } else {
+      return parent::find($conditions, $fields, $order, $recursive);
+    }
+  }
 }
 ?>
