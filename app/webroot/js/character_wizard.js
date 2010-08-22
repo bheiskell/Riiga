@@ -44,9 +44,9 @@ $(document).ready(function() {
   //$('optgroup').each(function() { $(this).attr('label', $(this).attr('label').replace(' ', '_')); });
   $('select').not(rank).selectmenu({
     //style: 'dropdown',
-    width: 375,
-    menuWidth: 375,
-    maxHeight: 375,
+    width: 373,
+    menuWidth: 373,
+    maxHeight: 373,
   });
 
   $('#CharacterIsNpc').button();

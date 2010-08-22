@@ -480,6 +480,7 @@ div#faction_ranks_tables table th { padding: 2px 4px; }
   margin-bottom: 0;
   margin: 0;
 }
+#faction, #race, #location { padding: 0; border: none; }
 
 #race, #location, #faction {
   /*background: #000 url('http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-darkness/images/ui-bg_glass_20_555555_1x400.png') repeat-x right center;*/
