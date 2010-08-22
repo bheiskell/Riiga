@@ -4,66 +4,106 @@
  * Takes the character form outputted by the new and edit pages and transforms
  * it dynamically to add helper information.
  */
-
 $(document).ready(function() {
+  var userRank  = $('#CharacterUserRank');
+  var rank      = $('#CharacterRankId')
+  var race      = $('#CharacterRaceId');
+  var location  = $('#CharacterLocationId');
+  var age       = $('#CharacterAge');
+  var faction   = $('#CharacterFactionId');
 
-  var rank = $("#CharacterRankId");
+  /* TODO: Cake should set these to disabled. */
+  $('option[value='+ userRank.val() +']', rank)
+    .nextAll()
+    .attr('disabled', 'disabled');
 
-  rank.star({
-    valueLimit: $("#CharacterUserRank").val(),
-    disabledMessage: " exceeds your current rank"
+  race    .bind('limit', limitByRank);
+  location.bind('limit', limitByRank);
+  faction .bind('limit', limitByRace);
+
+  /* Get rid of this freaking thing */
+  //setupFactionRanks(faction);
+  $("#faction_ranks_tables").hide();
+
+  rank.star();
+
+  /* Propagate rules down the form */
+  rank.bind('starselect', function() {
+    race    .trigger('limit', [rank]).trigger('change');
+    location.trigger('limit', [rank]).trigger('change');
+  })
+  race.change(function() {
+    faction.trigger('limit', [race]).trigger('change');
+  });
+  age.change(function() {
+    faction.trigger('change');
   });
 
-  function limitSelectByRank(selector) {
-    var optgroups = $(selector).children().filter("optgroup");
-    var lastgroup = optgroups.filter("[label=Rank "+rank.val()+"]");
-    optgroups.removeAttr("disabled");
-    lastgroup.nextAll().attr("disabled", "disabled");
-    if ($(selector).find(':selected').parent().attr('disabled')) {
-      $(selector).val($(selector).find('option:first').val());
-    }
-  }
-  function limitSelectByRace(selector) {
-    var race = $('#CharacterRaceId');
-    var raceName = race.find('option[value='+race.val()+']').text();
-    $(selector)
-      .children('optgroup')
-      .attr('disabled', 'disabled')
-      .filter("optgroup[label="+raceName+"]")
-      .removeAttr('disabled');
-    if ($(selector).find(':selected').parent().attr('disabled')) {
-      $(selector).val($(selector).find('option:first').val());
-    }
-  }
+  rank.trigger('starselect');
 
-  setupFactionRanks();
-
-  $(".star a").click(function() {
-    limitSelectByRank("#CharacterRaceId");
-    limitSelectByRank("#CharacterLocationId");
-
-    $("#CharacterRaceId").trigger('change');
-  }).trigger('click');
-
-  $("#CharacterRaceId").change(function() {
-    limitSelectByRace("#CharacterFactionId");
+  //$('optgroup').each(function() { $(this).attr('label', $(this).attr('label').replace(' ', '_')); });
+  $('select').not(rank).selectmenu({
+    //style: 'dropdown',
+    width: 375,
+    menuWidth: 375,
+    maxHeight: 375,
   });
 
+  $('#CharacterIsNpc').button();
+
+  // TODO: Clean up
+  $("#age input").focus(function () {
+    $("#age_information").slideDown();
+    $(this).parent().css({'border-bottom': '0 solid #000'});
+  });
+  $("#age input").blur(function () {
+    $("#age_information").slideUp();
+    $(this).parent().css({'border-bottom': '1px solid #ccc'});
+  });
+  $("#age").css({'border-bottom':'1px solid #ccc'});
+  $("#age_information").css({'margin-bottom':0}).hide();
+  $("#faction").css({'margin-top':'12px'});
+  $("#profession").css({'margin-top':'12px'});
+
+  /* TODO: remove title totem */
   document.title = 'Rules Applied';
 });
 
-/* Organizational function which sets up the faction ranks widget */
-function setupFactionRanks() {
+/**
+ * Optgroups are disabled, but their children are not. Ensure that if a child
+ * is a member of a disabled optgroup, the select resets to the default value.
+ */
+var resetIfDisabled = function(select) {
+  if ($(select).find('option:selected').attr('disabled')) {
+    $(select).val($('option:first', $(select)).val());
+  }
+}
 
-  $("#CharacterFactionId").change(function() {
+var limitByRank = function(event, rank) {
+  $('option', this).removeAttr('disabled');
+  $('optgroup[label=Level '+rank.val()+']', this)
+    .nextAll()
+    .children('option')
+    .attr('disabled', 'disabled');
+  resetIfDisabled(this);
+};
+
+var limitByRace = function(event, race) {
+  $('option:not(:first)', this).attr('disabled', 'disabled')
+  $('optgroup[label=' + race.find('option:selected').text() + '] option', this)
+    .removeAttr('disabled');
+  resetIfDisabled(this);
+};
+
+/* Organizational function which sets up the faction ranks widget */
+function setupFactionRanks(faction) {
+
+  faction.change(function() {
     /**
      * For some factions, there are multiple entries for the same faction under
      * different optgroups. We need the text from the first.
      */
-    var factionName = $(this)
-      .find("option[value=" + $(this).val() + "]")
-      .first()
-      .text();
+    var factionName = $(this).find("option:selected").text();
 
     /* The table container is prefixed with 'faction_' */
     var factionContainer = $("#faction_" + factionName.replace(' ', '_'));
@@ -90,11 +130,10 @@ function setupFactionRanks() {
       }
     });
 
-    if (ranks.length) {
-      rows.show().not(ranks).hide();
-      factionContainer.siblings().css({ 'position': 'absolute' }).fadeOut();
-      factionContainer           .css({ 'position': 'relative' }).fadeIn();
-    }
+
+    rows.show().not(ranks).hide();
+    factionContainer.siblings().css({ 'position': 'absolute' }).fadeOut();
+    factionContainer           .css({ 'position': 'relative' }).fadeIn();
   });
 
   /**
@@ -106,7 +145,7 @@ function setupFactionRanks() {
     $(this).find('tr').show();
   }, function() {
     $(this).find('tr').removeClass('altrow');
-    $("#CharacterFactionId").trigger('change');
+    faction.trigger('change');
   });
 
   /**
@@ -129,12 +168,13 @@ function setupFactionRanks() {
   );
 
   /* Initialize the divs to hidden and remove the faction header */
-  $("#faction_ranks_tables").children().hide().children('h3').hide();
+  $("#faction_ranks_tables").children().hide().children('h3').text(
+    'Faction Rank Requirements'
+  );
   $("#faction_ranks_tables").find('tr').removeClass('altrow');
 
   /* Change the CSS - This should be a class... */
   $("#faction_ranks_tables").prev().css({ 'float': 'left' });
-  $("#faction_ranks_tables").next().css({ 'clear': 'both' });
   $("#faction_ranks_tables").css({ padding: '0', float: 'right' });
   $("#faction_ranks_tables").children().css({
     'padding': '0',
@@ -150,4 +190,5 @@ function setupFactionRanks() {
       'font-size': '3px',
       'border-top': '1px solid #ccc'
     });
+
 }

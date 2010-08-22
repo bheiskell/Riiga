@@ -5,8 +5,10 @@
     <?php
     // a (mostly) markup separated rich javascript character creation wizard.
     ?>
-    <?php $javascript->link('jquery-star.js',      false); ?>
-    <?php $javascript->link('character_wizard.js', false); ?>
+    <?php $html->css('jquery-ui-selectmenu', 'stylesheet', array('media'=>'all' ), false); ?>
+    <?php $javascript->link('jquery-ui-selectmenu.js', false); ?>
+    <?php $javascript->link('jquery-ui-star.js',       false); ?>
+    <?php $javascript->link('character_wizard.js',     false); ?>
 
     <?php
     // slightly sloppy inclusion of the user rank into the source for the
@@ -16,14 +18,21 @@
     <?php echo $form->hidden('user_rank', array('value' => $user_rank)); ?>
 
     <?php echo $form->input('id'); ?>
-    <?php echo $form->input('name'); ?>
-    <?php echo $form->input('rank_id'); ?>
-    <?php echo $form->input('race_id'); ?>
-    <?php echo $form->input('location_id'); ?>
-    TODO: Location is soft limited my race
-    <?php echo $form->input('age'); ?>
-    TODO: Age is adjusted by race
-    <?php echo $form->input('faction_id', array('empty' => true)); ?>
+    <?php echo $form->input('name', array('div' => array('id'=>'name'))); ?>
+    <?php echo $form->input('rank_id', array('label'=>'Level','div' => array('id'=>'rank'))); ?>
+    <?php echo $form->input('race_id', array('div' => array('id'=>'race'))); ?>
+    <?php echo $form->input('location_id', array('div' => array('id'=>'location'))); ?>
+    <?php //TODO: Location is soft limited my race ?>
+    <?php echo $form->input('age', array('div' => array('id'=>'age'))); ?>
+    <!--<div class="help"> </div>-->
+    <div id="age_information">
+      <table>
+        <tr><th>Child</th><th>Teen</th><th>Adult</th><th>Mature</th></tr>
+        <tr><td>10</td><td>14</td><td>18</td><td>28</td></tr>
+      </table>
+    </div>
+    <?php //TODO: Age is adjusted by race ?>
+    <?php echo $form->input('faction_id', array('empty' => true, 'div' => array('id' =>'faction'))); ?>
 
     <div id="faction_ranks_tables">
       <?php foreach ($factionRanks as $factionName => $faction): ?>
@@ -48,14 +57,14 @@
         </div>
       <?php endforeach; ?>
     </div>
-    <?php echo $form->input('profession'); ?>
-    TODO: Display profession data
+    <?php echo $form->input('profession', array('div'=>array('id'=>'profession'))); ?>
+    <?php //TODO: Display profession data?>
 
 
-    <?php echo $form->input('description'); ?>
-    <?php echo $form->input('history'); ?>
-    <?php echo $form->input('avatar'); ?>
-    <?php echo $form->input('is_npc'); ?>
+    <?php echo $form->input('description', array('div'=>array('id'=>'description'))); ?>
+    <?php echo $form->input('history', array('div'=>array('id'=>'history'))); ?>
+    <?php echo $form->input('avatar', array('div'=>array('id'=>'avatar'))); ?>
+    <?php echo $form->input('is_npc', array('div'=>array('id'=>'npc'))); ?>
   </fieldset>
 <?php echo $form->end(__('Submit', true));?>
 </div>

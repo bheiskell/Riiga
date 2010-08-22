@@ -67,9 +67,20 @@ class CharactersController extends AppController {
     $this->set('locations', $this->Character->Location->find('grouped'));
     $this->set('factions',  $this->Character->Faction->find('grouped'));
 
-    $this->set('factionRanks', $this->Character->Faction->FactionRank->find('table'));
-    //$this->set('locationsRaces', $this->Character->Race('table'));
-    //$this->set('raceAges', $this->Character->Race->RaceAge->find('table'));
+    $this->set('factionRanks',
+      $this->Character->Faction->FactionRank->find('table')
+    );
+
+    $this->set('locationsRaces',
+      $this->Character->Race->LocationsRace->find('table')
+    );
+
+    $this->set('raceAges', $this->Character->Race->RaceAge->find('table'));
+
+    //$this->set('professions',
+      //$this->Character->Race->ProfessionsRace->find('table')
+    //);
+    // arrayy race => array category => array profession, age
   }
 }
 ?>

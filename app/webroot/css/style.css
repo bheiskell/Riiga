@@ -380,15 +380,15 @@ td.avatar {
 .locations.index .tree li.altrow { background: #f4f4f4; }
 
 /* JS star ranking */
-div.star            { overflow: hidden; }
-div.star a.default  { background-position: -32px 0; }
-div.star a.selected { background-position:   0px 0; }
-div.star a.hover    { background-position: -16px 0; }
-div.star a.disabled { background-position: -48px 0; }
-div.star a:focus    { outline: none; }
-div.star a {
-  background-image: url('../img/stars.png');
-  border-bottom: 0;
+.ui-star .ui-state-default   { background-position: -32px 0; }
+.ui-star .ui-state-highlight { background-position:   0px 0; }
+.ui-star .ui-state-hover     { background-position: -16px 0; }
+.ui-star .ui-state-disabled  { background-position: -48px 0; }
+.ui-star { overflow: hidden; }
+.ui-star a:focus { outline: none; }
+.ui-star a {
+  background: transparent url('../img/stars.png');
+  border: 0;
   display: block;
   height: 16px;
   float: left;
@@ -396,11 +396,22 @@ div.star a {
   text-decoration: none;
   width: 16px;
 }
-div.star span {
+.ui-star span {
   color: #555;
   line-height: 16px;
   margin-left: 8px;
 }
+
+.ui-selectmenu { font-size: 9px; }
+.ui-selectmenu span.ui-selectmenu-status { padding-left: 92px; }
+.ui-selectmenu:hover { border-bottom: inherit; color: inherit; }
+.ui-selectmenu-menu li a { border-bottom: 0; }
+.ui-selectmenu-menu li a:hover { border-bottom: 0; }
+.ui-selectmenu-menu { z-index: 1; /* show up ontop of lower labels */ }
+
+/* TODO: Fix theme and remove this */
+.ui-button.ui-state-default { background-image: url('../img/jquery-ui/ui-bg_glass_75_e6e6e6_1x400.png'); border: 1px outset #e8e8e8; }
+.ui-button.ui-state-active  { background-image: url('../img/jquery-ui/ui-bg_glass_75_dadada_1x400.png'); border: 1px inset  #e8e8e8; }
 
 /* Character wizard */
 div#faction_ranks_tables { overflow: hidden; }
@@ -412,6 +423,113 @@ div#faction_ranks_tables div {
 }
 div#faction_ranks_tables h3 { padding: 0; }
 div#faction_ranks_tables table th { padding: 2px 4px; }
+
+.characters .input {
+  border: 1px solid #B6A792;
+  margin: 0 0 12px 0;
+  padding: 1px 0;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  width: 375px;
+  overflow: hidden;
+}
+
+#name, #race, #faction { float: left; }
+#rank, #location, #profession { float: right; }
+#race, #age, #faction, #description { clear: both; }
+
+#name label,
+#rank label,
+#race label,
+#age label,
+#faction label,
+#profession label,
+#location label,
+#description label,
+#avatar label,
+#history label {
+  /*float: right;*/
+  position: absolute;
+  width: 80px;
+  text-align: right;
+
+  color: #B6A792;
+  margin-top: 6px;
+  margin-right: 6px;
+  font-weight: normal;
+  z-index: 1;
+}
+
+#rank .ui-star,
+#name input,
+#rank input,
+#race input,
+#age input,
+#location input,
+#avatar input,
+#profession input,
+#faction select,
+#race select,
+#location select,
+#description textarea,
+#history textarea {
+  padding: 6px 2px;
+  border: 0;
+  width: auto;
+  padding-left: 92px;
+  margin-bottom: 0;
+  margin: 0;
+}
+
+#race, #location, #faction {
+  /*background: #000 url('http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-darkness/images/ui-bg_glass_20_555555_1x400.png') repeat-x right center;*/
+}
+.characters input:focus {
+  outline: #000 solid 0px;
+}
+
+#faction select,
+#race select,
+#location select {
+  color: #ccc;
+  width: 375px; /*-94*/
+  background-color: transparent;
+}
+#name input,
+#profession input {
+  width: 281px; /*-94*/
+}
+#description textarea,
+#history textarea,
+#avatar input,
+#age input {
+  width: 670px;
+}
+
+#age, #description, #history, #avatar { width: auto;}
+#age {
+  width: auto;
+  border-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-bottomright: 0;
+  margin-bottom: 0;
+}
+#age_information {
+  border: 1px solid #cccccc;
+  border-top: 0;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  -moz-border-radius-bottomright: 3px;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 12px;
+}
+#age_information th:first-of-type, #age_information td:first-of-type { border-left: 0; }
+#age_information th:last-of-type, #age_information td:last-of-type { border-right: 0; }
+#age_information table { border: 0; margin: 0; }
 
 /* Debugging */
 pre {
