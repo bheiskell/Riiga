@@ -31,7 +31,7 @@ class Location extends AppModel {
 
       /* Group by rank prefixed with rank */
       foreach(array_keys($results) as $key) {
-        $results["Rank {$key}"] = $results[$key];
+        $results["Level {$key}"] = $results[$key];
         unset($results[$key]);
       }
 

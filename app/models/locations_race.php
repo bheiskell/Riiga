@@ -1,35 +1,45 @@
 <?php
 class LocationsRace extends AppModel {
 
-	var $name = 'LocationsRace';
-	var $validate = array(
-		'likelihood' => array('numeric')
-	);
+  var $name = 'LocationsRace';
+  var $validate = array(
+    'likelihood' => array('numeric')
+  );
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-	var $belongsTo = array(
-		'Location' => array(
-			'className' => 'Location',
-			'foreignKey' => 'location_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
-		'CharacterLocation' => array(
-			'className' => 'CharacterLocation',
-			'foreignKey' => 'location_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
-		'Race' => array(
-			'className' => 'Race',
-			'foreignKey' => 'race_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
-	);
+  var $belongsTo = array(
+    'Location',
+    'Race',
+    'CharacterLocation' => array(
+      'className' => 'CharacterLocation',
+      'foreignKey' => 'location_id',
+    )
+  );
 
+  /* Overloading find to offer table results to the controller */
+  public function find(
+    $conditions = NULL, $fields = array(), $order = NULL, $recursive = NULL
+  ) {
+    if ('table' == $conditions) {
+      return $this->find('list', array(
+        'joins' => array(
+          array(
+            'table' => 'locations',
+            'alias' => 'Location',
+            'type' => 'INNER',
+            'conditions' => array('LocationsRace.location_id = Location.id')
+          ),
+          array(
+            'table' => 'races',
+            'alias' => 'Race',
+            'type' => 'INNER',
+            'conditions' => array('LocationsRace.race_id = Race.id')
+          ),
+        ),
+        'fields' => array('Location.name', 'likelihood', 'Race.name'),
+      ));
+    } else {
+      return parent::find($conditions, $fields, $order, $recursive);
+    }
+  }
 }
 ?>

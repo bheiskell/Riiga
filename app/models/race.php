@@ -8,6 +8,10 @@ class Race extends AppModel {
 
   var $belongsTo = array('Rank');
 
+  var $hasMany = array('LocationsRace');
+
+  var $hasOne = array('RaceAge');
+
   /* Overloading find to offer grouped results to the controller */
   public function find(
     $conditions = NULL, $fields = array(), $order = NULL, $recursive = NULL
@@ -22,7 +26,7 @@ class Race extends AppModel {
 
       /* Group by rank prefixed with rank */
       foreach(array_keys($results) as $key) {
-        $results["Rank {$key}"] = $results[$key];
+        $results["Level {$key}"] = $results[$key];
         unset($results[$key]);
       }
 
