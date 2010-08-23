@@ -12,6 +12,19 @@ $(document).ready(function() {
   var age       = $('#CharacterAge');
   var faction   = $('#CharacterFactionId');
 
+  race.find('option').each(function() {
+    var rank = parseInt($(this).parent().attr('label').replace('Level ', ''), 10);
+    var rankStar = new Array(rank+1).join('*');
+    $(this).text($(this).text() + ' ' + rankStar);
+  }).clone().appendTo(race);
+  race.find('optgroup').remove();
+  location.find('option').each(function() {
+    var rank = parseInt($(this).parent().attr('label').replace('Level ', ''), 10);
+    var rankStar = new Array(rank+1).join('*');
+    $(this).text($(this).text() + ' ' + rankStar);
+  }).clone().appendTo(location);
+  location.find('optgroup').remove();
+
   /* TODO: Cake should set these to disabled. */
   $('option[value='+ userRank.val() +']', rank)
     .nextAll()
@@ -43,10 +56,14 @@ $(document).ready(function() {
 
   //$('optgroup').each(function() { $(this).attr('label', $(this).attr('label').replace(' ', '_')); });
   $('select').not(rank).selectmenu({
-    //style: 'dropdown',
+    style: 'dropdown',
     width: 373,
     menuWidth: 373,
-    maxHeight: 373,
+    format: function(text) {
+      return text
+        .replace(/(\*+)/,'<span class="stars">$1</span>')
+        .replace(/\*/g, '<span class="star">&nbsp;</span>');
+    },
   });
 
   $('#CharacterIsNpc').button();
