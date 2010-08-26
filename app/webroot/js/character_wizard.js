@@ -5,42 +5,25 @@
  * it dynamically to add helper information.
  */
 $(document).ready(function() {
-  var userRank  = $('#CharacterUserRank');
-  var rank      = $('#CharacterRankId')
-  var race      = $('#CharacterRaceId');
-  var location  = $('#CharacterLocationId');
-  var age       = $('#CharacterAge');
-  var faction   = $('#CharacterFactionId');
+  var userRank  = $('#CharacterUserRank'),
+      rank      = $('#CharacterRankId'),
+      race      = $('#CharacterRaceId'),
+      location  = $('#CharacterLocationId'),
+      age       = $('#CharacterAge'),
+      faction   = $('#CharacterFactionId');
 
-  race.find('option').each(function() {
-    var rank = parseInt($(this).parent().attr('label').replace('Level ', ''), 10);
-    var rankStar = new Array(rank+1).join('*');
-    $(this).text($(this).text() + ' ' + rankStar);
-  }).clone().appendTo(race);
-  race.find('optgroup').remove();
-  location.find('option').each(function() {
-    var rank = parseInt($(this).parent().attr('label').replace('Level ', ''), 10);
-    var rankStar = new Array(rank+1).join('*');
-    $(this).text($(this).text() + ' ' + rankStar);
-  }).clone().appendTo(location);
-  location.find('optgroup').remove();
-
-  /* TODO: Cake should set these to disabled. */
-  $('option[value='+ userRank.val() +']', rank)
+  // TODO: Cake should set these to disabled.
+  $('option[value='+userRank.val()+']', rank)
     .nextAll()
     .attr('disabled', 'disabled');
 
+  rank.star();
+
+  // Reapply rules when a parent field changes
   race    .bind('limit', limitByRank);
   location.bind('limit', limitByRank);
   faction .bind('limit', limitByRace);
 
-  /* Get rid of this freaking thing */
-  //setupFactionRanks(faction);
-  $("#faction_ranks_tables").hide();
-
-  rank.star();
-
-  /* Propagate rules down the form */
   rank.bind('starselect', function() {
     race    .trigger('limit', [rank]).trigger('change');
     location.trigger('limit', [rank]).trigger('change');
@@ -52,18 +35,84 @@ $(document).ready(function() {
     faction.trigger('change');
   });
 
+  // Activate rules
   rank.trigger('starselect');
 
-  //$('optgroup').each(function() { $(this).attr('label', $(this).attr('label').replace(' ', '_')); });
-  $('select').not(rank).selectmenu({
-    style: 'dropdown',
-    width: 373,
-    menuWidth: 373,
-    format: function(text) {
-      return text
-        .replace(/(\*+)/,'<span class="stars">$1</span>')
-        .replace(/\*/g, '<span class="star">&nbsp;</span>');
+  // TODO: Move this elsewhere
+  /**
+   * Use selectmenu as a base and extend required functionality to support a
+   * hover div off to the side. This requires a few new triggers.
+   */
+  $.widget('ui.select', $.ui.selectmenu, {
+    _init: function() {
+      $.ui.selectmenu.prototype._init.call(this);
+      var self = this;
+      $('li', this.list).mouseover(function() {
+        self._trigger('menuHover', 0, this);
+      });
     },
+    open: function(event) {
+      $.ui.selectmenu.prototype.open.call(this);
+      this._trigger('menuOpen', event, this.list);
+    },
+    close: function(event) {
+      $.ui.selectmenu.prototype.close.call(this);
+      this._trigger('menuClose', event, this.list);
+    },
+  });
+
+  // Remove the optgroups and postfix each option with its optgroups label. The
+  // optgroup label will be converted to some number of stars. I.e.:
+  //   <optgroup label="Rank 5"><option ...>Label</option></optgroup> becomes
+  //   <option ...>Label *****</option>
+  $().add(race).add(location).each(function() {
+    $(this).find('option').each(function() {
+      var optgroupLabel = $(this).parent().attr('label');
+
+      var rank = parseInt(optgroupLabel.replace('Level ', ''), 10);
+
+      // Create empty array of rank+1 and join with '*' to get a string of rank
+      // stars. Hack, but simple once you get what's going on.
+      var rankStars = new Array(rank+1).join('*');
+
+      $(this).text($(this).text() + ' ' + rankStars);
+
+    }).clone().appendTo(this);
+    $(this).find('optgroup').remove();
+  });
+
+  $().add(race).add(location).add(faction).each(function() {
+    $(this).select({
+      style: 'dropdown',
+      // TODO: Don't use constants
+      menuWidth: $(this).outerWidth(),
+      menuHover: function(event, option) {
+        $('#selectHoverBox').text($(option).data('index'));
+      },
+      menuOpen: function(event, menu) {
+        $('#selectHoverBox').remove();
+        var element = $('<div id="selectHoverBox"></div>')
+          .css({
+            'height': menu.height()+'px',
+            'width':  menu.width() +'px',
+            'background': '#fff',
+            'z-index': 1,
+            'border': '1px solid #B6A792',
+            '-moz-border-radius': '4px',
+            'border-radius': '4px',
+          })
+          .appendTo('body')
+          .position({ my: "left top", at: "right top", of: menu })
+          .hide()
+          .effect('slide');
+      },
+      menuClose: function(event, menu) { $('#selectHoverBox').remove(); },
+      format: function(text) {
+        return text
+          .replace(/(\*+)/,'<span class="stars">$1</span>')
+          .replace(/\*/g, '<span class="star">&nbsp;</span>');
+      },
+    });
   });
 
   $('#CharacterIsNpc').button();
@@ -81,6 +130,10 @@ $(document).ready(function() {
   $("#age_information").css({'margin-bottom':0}).hide();
   $("#faction").css({'margin-top':'12px'});
   $("#profession").css({'margin-top':'12px'});
+
+  /* Get rid of this freaking thing */
+  //setupFactionRanks(faction);
+  $("#faction_ranks_tables").hide();
 
   /* TODO: remove title totem */
   document.title = 'Rules Applied';

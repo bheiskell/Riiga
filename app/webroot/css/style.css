@@ -366,7 +366,7 @@ td.avatar {
   padding: 12px 0;
 }
 
-.locations.index .tree span { float: right; padding-right: 3px; }
+.locations.index .tree span { float: right; padding-right: 4px; }
 .locations.index .tree li {
   border-left: 1px solid #CCC;
   border-top: 1px solid #CCC;
@@ -380,13 +380,13 @@ td.avatar {
 .locations.index .tree li.altrow { background: #f4f4f4; }
 
 /* JS star ranking */
-.ui-star .ui-state-default   { background-position: -32px 0; }
-.ui-star .ui-state-highlight { background-position:   0px 0; }
-.ui-star .ui-state-hover     { background-position: -16px 0; }
-.ui-star .ui-state-disabled  { background-position: -48px 0; }
-.ui-star { overflow: hidden; }
-.ui-star a:focus { outline: none; }
-.ui-star a {
+.characters .ui-star .ui-state-default   { background-position: -32px 0; }
+.characters .ui-star .ui-state-highlight { background-position:   0px 0; }
+.characters .ui-star .ui-state-hover     { background-position: -16px 0; }
+.characters .ui-star .ui-state-disabled  { background-position: -48px 0; }
+.characters .ui-star { overflow: hidden; }
+.characters .ui-star a:focus { outline: none; }
+.characters .ui-star a {
   background: transparent url('../img/stars.png');
   border: 0;
   display: block;
@@ -396,159 +396,152 @@ td.avatar {
   text-decoration: none;
   width: 16px;
 }
-.ui-star span {
-  color: #555;
-  line-height: 16px;
-  margin-left: 8px;
-}
-/*ul.ui-selectmenu-menu li a { line-height: 16px; padding-top: 0; padding-bottom: 0; }*/
-ul.ui-selectmenu-menu li a { line-height: 18px; padding-top: 0; padding-bottom: 0; }
-ul.ui-selectmenu-menu li a span { margin-bottom: 0; }
-.ui-selectmenu span.stars { display: none; }
-.ui-selectmenu-menu span.stars {
-  float: right;
-  width: 112px;
-  overflow: hidden;
-}
-.ui-selectmenu-menu span.star {
-  background: transparent url('../img/stars.png');
-  display: block;
-  float: left;
-  line-height: 0;
-  font-size: 0;
-  margin: 0;
-  padding: 8px;
-}
 
-.ui-selectmenu { font-size: 9px; }
-.ui-selectmenu span.ui-selectmenu-status { padding-left: 92px; }
-.ui-selectmenu:hover { border-bottom: inherit; color: inherit; }
-.ui-selectmenu-menu li a { border-bottom: 0; }
-.ui-selectmenu-menu li a:hover { border-bottom: 0; }
-.ui-selectmenu-menu { z-index: 1; /* show up ontop of lower labels */ }
+/******************************************************************************/
+/* Character wizard ***********************************************************/
+/******************************************************************************/
 
-/* TODO: Fix theme and remove this */
-.ui-button.ui-state-default { background-image: url('../img/jquery-ui/ui-bg_glass_75_e6e6e6_1x400.png'); border: 1px outset #e8e8e8; }
-.ui-button.ui-state-active  { background-image: url('../img/jquery-ui/ui-bg_glass_75_dadada_1x400.png'); border: 1px inset  #e8e8e8; }
-
-/* Character wizard */
-div#faction_ranks_tables { overflow: hidden; }
-div#faction_ranks_tables div {
-  float: left;
-  width: 225px;
-  height: 300px;
-  margin: 0;
-}
-div#faction_ranks_tables h3 { padding: 0; }
-div#faction_ranks_tables table th { padding: 2px 4px; }
-
+/* Characters input container default to two column */
 .characters .input {
-  border: 1px solid #B6A792;
   margin: 0 0 12px 0;
-  padding: 1px 0;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  width: 375px;
+  padding: 0;
+  width: 50%; /* 50 makes math easier */
   overflow: hidden;
+  position: relative; /* For absolute labels with widths set as % */
 }
 
-#name, #race, #faction { float: left; }
-#rank, #location, #profession { float: right; }
-#race, #age, #faction, #description { clear: both; }
-
-#name label,
-#rank label,
-#race label,
-#age label,
-#faction label,
-#profession label,
-#location label,
-#description label,
-#avatar label,
-#history label {
-  /*float: right;*/
-  position: absolute;
-  width: 80px;
-  text-align: right;
-
-  color: #B6A792;
-  margin-top: 6px;
-  margin-right: 6px;
-  font-weight: normal;
-  z-index: 1;
-}
-
-#rank .ui-star,
-#name input,
-#rank input,
-#race input,
-#age input,
-#location input,
-#avatar input,
-#profession input,
-#faction select,
-#race select,
-#location select,
-#description textarea,
-#history textarea {
-  padding: 6px 2px;
-  border: 0;
-  width: auto;
-  padding-left: 92px;
-  margin-bottom: 0;
+.characters input,
+.characters select,
+.characters textarea,
+.characters .ui-star {
+  border: 1px solid #B6A792;
+  line-height: 18px;
+  padding: 4px 1% 4px 25%; /* 26 */
   margin: 0;
-}
-#faction, #race, #location { padding: 0; border: none; }
+  width: 73%; /* 73 + 26 = 99 -> Margin of 1% set based on float direction */
 
-#race, #location, #faction {
-  /*background: #000 url('http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-darkness/images/ui-bg_glass_20_555555_1x400.png') repeat-x right center;*/
-}
-.characters input:focus {
-  outline: #000 solid 0px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
 }
 
-#faction select,
-#race select,
-#location select {
-  color: #ccc;
-  width: 375px; /*-94*/
-  background-color: transparent;
-}
-#name input,
-#profession input {
-  width: 281px; /*-94*/
-}
-#description textarea,
-#history textarea,
-#avatar input,
-#age input {
-  width: 670px;
+/* Recalc for 100% width elements */
+.characters #age input,
+.characters #description textarea,
+.characters #history textarea,
+.characters #avatar input {
+  padding: 3px 0.5% 3px 12.5%; /* 13 = 26 / 2 -> Half percent for double size */
+  width: 87%; /* 87 + 13 = 100 -> Inner margins not needed for 100% wide */
 }
 
-#age, #description, #history, #avatar { width: auto;}
-#age {
-  width: auto;
+/* For some reason select boxs dont follow the width + padding + margin rule */
+.characters select { width: 99%; }
+
+/* Position labels on inputs */
+.characters label {
+  color: #B6A792;
+  line-height: 18px;
+  padding: 5px 2% 5px 0; /* 2 */
+  position: absolute;
+  text-align: right;
+  width: 23%; /* 2 + 23 = 25 -> Matches against left padding 25% above */
+  z-index: 1; /* Put label above input */
+}
+.characters .required label { font-weight: normal; }
+
+/* Recalc for 100% width elements */
+.characters #age label,
+.characters #description label,
+.characters #history label,
+.characters #avatar label {
+  padding-right: 1%;
+  width: 11.5%; /* 1 + 11.5 = 12.5 -> 12.5 * 2 = 25% */
+}
+
+/* General character page two column layout */
+.characters #name,
+.characters #race,
+.characters #faction { float: left; }
+.characters #rank,
+.characters #location,
+.characters #profession { float: right; }
+.characters #race,
+.characters #age,
+.characters #faction,
+.characters #description { clear: both; }
+/* Margin inward in correct direction */
+.characters #name input,
+.characters #race select,
+.characters #race .ui-select,
+.characters #faction select
+.characters #faction .ui-select { margin-right: 1%; }
+.characters #rank select,
+.characters #rank .ui-star,
+.characters #location select,
+.characters #location .ui-select,
+.characters #profession input { margin-left: 1%; }
+/* Reset for one column layouts */
+.characters #age,
+.characters #description,
+.characters #history,
+.characters #avatar { width: auto; }
+
+.characters .submit input { padding: 4px 1%; width: auto; }
+
+/* Conjoin the age and age information table */
+.characters #age { margin-bottom: 0; }
+.characters #age input {
   border-bottom: 0;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   -moz-border-radius-bottomleft: 0;
   -moz-border-radius-bottomright: 0;
-  margin-bottom: 0;
 }
-#age_information {
-  border: 1px solid #cccccc;
-  border-top: 0;
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
-  -moz-border-radius-bottomleft: 3px;
-  -moz-border-radius-bottomright: 3px;
-  padding: 0;
-  margin: 0;
-  margin-bottom: 12px;
+.characters #age_information { margin: 0 0 12px 0; padding: 0; }
+.characters #age_information th { border-top: 0; }
+.characters #age_information table { border-top: 0; margin: 0; }
+
+/* TODO: Fix theme and remove this - button restyling for toggling */
+.characters .ui-button.ui-state-default { border: 1px outset #e8e8e8; }
+.characters .ui-button.ui-state-active  { border: 1px inset  #e8e8e8; }
+
+/* Select menu restyling - override style to match other inputs sizing */
+.characters .ui-select {
+  height: 26px; /* 26 = 18 line-height + 4 padding top + 4 bottom */
+  padding-left: 25%;
+  padding-right: 1%;
+  width: 73%;
 }
-#age_information th:first-of-type, #age_information td:first-of-type { border-left: 0; }
-#age_information th:last-of-type, #age_information td:last-of-type { border-right: 0; }
-#age_information table { border: 0; margin: 0; }
+.characters .ui-select .ui-select-status { padding: 4px 0; }
+.characters .ui-select:hover { border-bottom: inherit; color: inherit; }
+
+/* Labels are set to z-index: 1. Ensure open menu is displayed over them. */
+.ui-select-menu { z-index: 1; }
+.ui-select-menu li a       { border-bottom: 0; }
+.ui-select-menu li a:hover { border-bottom: 0; }
+
+/**
+ * For select menus limited by rank, star images are displayed inline to the
+ * select option. Formatting these involves overriding default selectmenu
+ * styling.
+ */
+.ui-select-menu span.stars {
+  float: right;
+  width: 112px; /* 112 = 16px x 7 stars */
+  overflow: hidden;
+}
+.ui-select-menu span.star {
+  background: transparent url('../img/stars.png') -16px 0;
+  display: block;
+  float: left;
+  height: 16px;
+  width: 16px;
+}
+/* Rank stars shouldn't be displayed in the closed select menu */
+.ui-select span.stars { display: none; }
+
+/******************************************************************************/
+/* End Character Wizard *******************************************************/
+/******************************************************************************/
 
 /* Debugging */
 pre {
