@@ -120,16 +120,11 @@ $(document).ready(function() {
   // TODO: Clean up
   $("#age input").focus(function () {
     $("#age_information").slideDown();
-    $(this).parent().css({'border-bottom': '0 solid #000'});
   });
   $("#age input").blur(function () {
     $("#age_information").slideUp();
-    $(this).parent().css({'border-bottom': '1px solid #ccc'});
   });
-  $("#age").css({'border-bottom':'1px solid #ccc'});
-  $("#age_information").css({'margin-bottom':0}).hide();
-  $("#faction").css({'margin-top':'12px'});
-  $("#profession").css({'margin-top':'12px'});
+  $("#age_information").hide();
 
   /* Get rid of this freaking thing */
   //setupFactionRanks(faction);

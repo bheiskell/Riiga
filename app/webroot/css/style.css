@@ -1,29 +1,7 @@
-/* SVN FILE: $Id$ */
-/**
- *
- * PHP versions 4 and 5
- *
- * CakePHP(tm) : Rapid Development Framework (http: //cakephp.org)
- * Copyright 2005-2010, Cake Software Foundation, Inc. (http: //cakefoundation.org)
- *
- * Licensed under The MIT License
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http: //cakefoundation.org)
- * @link          http: //cakephp.org CakePHP(tm) Project
- * @package       cake
- * @subpackage    cake.app.webroot.css
- * @since         CakePHP(tm)
- * @version       $Revision$
- * @modifiedby    $LastChangedBy$
- * @lastmodified  $Date$
- * @license       http: //www.opensource.org/licenses/mit-license.php The MIT License
- */
-
-/* General Style Info */
 body {
   font-family: 'lucida grande',verdana,helvetica,arial,sans-serif;
-  font-size: 12px;
+  font-size: 0.75em;
+  line-height: 1.5em;
 }
 a {
   border-bottom: 1px solid #4d4d4d;
@@ -36,26 +14,32 @@ a:hover {
 }
 h1 {
   color: #4d4d4d;
-  font-size: 32px;
+  font-size: 2.5em;
+  line-height: 1.5em;
 }
 h2 {
   color: #ee3322;
   font-family: 'Gill Sans','lucida grande',helvetica, arial, sans-serif;
-  font-size: 24px;
-  padding-top: 24px;
+  font-size: 2em;
+  line-height: 1.5em;
+  margin-top: 0.5em;
 }
 h3 {
   color: #999933;
   font-family: 'Gill Sans','lucida grande',helvetica, arial, sans-serif;
-  font-size: 16px;
-  padding-top: 16px;
+  font-size: 1.5em;
+  line-height: 1.5em;
+  margin-top: 0.75em;
 }
 h4 {
   color: #999933;
-  padding-top: 12px;
+  margin-top: 1em;
 }
 ul, li {
-  margin: 0 12px;
+  margin: 0 1em;
+}
+p {
+  margin: 0 0 1em 0;
 }
 
 /* Layout */
@@ -64,10 +48,12 @@ ul, li {
 #header{
   background: #4d4d4d;
   overflow: hidden;
-  padding: 12px 24px 0 24px;
+  padding: 1em 2em 0 2em;
 }
 #header h1 {
   float: left;
+  line-height: 1em;
+  margin-top: 0.4em; /* 0.4 x 2.5 = 1 */
 }
 #header h1 a {
   color: #fff;
@@ -78,7 +64,7 @@ ul, li {
 }
 #navigation {
   float: left;
-  padding-top: 24px;
+  margin-top: 2em;
 }
 #navigation li {
   float: left;
@@ -91,7 +77,7 @@ ul, li {
 }
 #account {
   float: right;
-  padding-top: 24px;
+  margin-top: 2em;
 }
 #account li {
   float: left;
@@ -105,8 +91,8 @@ ul, li {
 #header #admin {
   background-color: #C32;
   clear: both;
-  padding: 6px 24px;
-  margin: 48px -24px 0;
+  padding: 0.5em 2em;
+  margin: 4em -2em 0;
   overflow: hidden;
 }
 #header #admin li {
@@ -120,25 +106,21 @@ ul, li {
   border-bottom: 1px solid #fff;
 }
 #content {
-  background: #fff;
-  clear: both;
   color: #333;
   overflow: hidden;
-  padding: 12px 24px 48px 24px;
-  width: 800px;
+  padding: 1em 2em 3em 2em;
+  width: 75em;
 }
 #footer {
   background: #4d4d4d;
-  clear: both;
-  padding: 6px 12px;
+  padding: 1em;
 }
 
 /* Tables */
 table {
-  background: #fff;
   border: 1px solid #ccc;
   color: #333;
-  margin-bottom: 12px;
+  margin-bottom: 1em;
   width: 100%;
 }
 th {
@@ -151,7 +133,7 @@ th {
 th a {
   border-bottom: none;
   display: block;
-  padding: 2px 4px;
+  line-height: 1.5em
 }
 th a:hover {
   background: #ccc;
@@ -161,49 +143,42 @@ th a:hover {
 table tr td {
   background: #fff;
   border-right: 1px solid #ccc;
-  padding: 4px;
+  line-height: 1.5em;
+  padding: 0.25em 0.5em;
   vertical-align: top;
 }
 table tr.altrow td {
   background: #f4f4f4;
-}
-td.actions {
 }
 
 /* Paging */
 div.paging {
   background: #fff;
   color: #ccc;
-  margin-bottom: 24px;
+  margin-bottom: 1em;
 }
 div.paging div.disabled {
   color: #ddd;
   display: inline;
 }
-div.paging span {
-}
 div.paging span.current {
   color: #000;
-}
-div.paging span a {
 }
 
 /* Scaffold View */
 dl {
-  line-height: 24px;
+  line-height: 2.5em;
 }
 dl .altrow {
   background: #f4f4f4;
 }
 dt {
-  font-weight: bold;
-  padding-left: 4px;
-  vertical-align: top;
+  color: #B6A792;
+  padding-left: 1em;
 }
 dd {
-  margin-left: 150px;
-  margin-top: -24px;
-  vertical-align: top;
+  margin-left: 10em;
+  margin-top: -2.5em;
 }
 
 /* Forms */
@@ -211,108 +186,74 @@ form {
 }
 fieldset {
   border: 1px solid #ccc;
-  margin-top: 24px;
-  padding: 16px 16px;
+  margin-top: 1em;
+  padding: 0 2em 1em 2em;
 }
 fieldset legend {
-  background: #fff;
   color: #ee3322;
-  font-size: 24px;
+  font-size: 2em;
+  line-height: 1.5em;
 }
 fieldset fieldset {
-  margin-bottom: 24px;
-  padding: 16px 8px;
+  padding: 1em;
 }
 fieldset fieldset legend {
-  font-size: 12px;
-}
-fieldset fieldset div {
-  margin: 0 24px;
+  font-size: 1em;
 }
 form div {
-  margin-bottom: 12px;
-  padding: 6px;
+  margin: 1em 0;
 }
 form div.input {
   color: #444;
-}
-form div.required {
-  color: #333;
 }
 form div.required label {
   font-weight: bold;
 }
 label {
   display: block;
-  font-size: 12px;
 }
-input, textarea {
+input, textarea, select {
+  border: 1px solid #B6A792;
   font-family: "frutiger linotype", "lucida grande", "verdana", sans-serif;
-  padding: 2px;
-  width: 100%;
+  padding: 0.25em 0.25em;
+
+  border-radius: 0.25em;
+  -moz-border-radius: 0.25em;
 }
-select {
+div.checkbox input, div.radio input {
   vertical-align: text-bottom;
 }
-select[multiple=multiple] {
-  width: 100%;
-}
-option {
-  padding: 0 4px;
-}
-input[type=checkbox] {
-  clear: left;
-  float: left;
-  margin: 2px 4px 10px 4px;
-}
-input[type=radio] {
-  float: left;
-  margin: 0 4px 10px 0;
-}
-div.radio label {
-  margin: 0 0 8px 24px;
+div.checkbox label, div.radio label {
+  display: inline;
+  padding-left: 1em;
 }
 input[type=submit] {
-  padding: 4px 8px;
-  width: auto;
-  vertical-align: bottom;
+  padding: 0.25em 0.5em;
 }
 
 /* Notices and Errors */
-div.message {
-  clear: both;
-  color: #900;
-  font-size: 16px;
-  font-weight: bold;
-  margin: 12px 0;
-}
+div.message,
 div.error-message {
   clear: both;
   color: #900;
-  font-weight: bold;
+  font-size: 1.5em;
+  margin: 0.75em 0;
 }
 p.error {
   background-color: #ee3322;
-  color: #fff;
   font-family: Courier, monospace;
-  font-size: 16px;
-  line-height: 24px;
-  padding: 12px;
-  margin: 12px 0;
+  padding: 1em;
 }
 p.error em {
   color: #000;
-  font-weight: normal;
 }
 .notice {
   background: #ffcc00;
   color: #000;
   display: block;
   font-family: Courier, monospace;
-  font-size: 16px;
-  line-height: 24px;
-  padding: 12px;
-  margin: 12px 0;
+  padding: 1em;
+  margin: 1em 0;
 }
 .success {
   background: green;
@@ -320,21 +261,13 @@ p.error em {
 }
 
 /*  Actions  */
-div.actions ul {
-}
 div.actions li {
   display: inline;
-  line-height: 24px;
-}
-div.actions ul li a {
-}
-div.actions ul li a:hover {
+  line-height: 2em;
 }
 
-/* Related */
-div.related {
-  clear: both;
-}
+/* Related section on view pages */
+div.related { clear: both; }
 
 /* Riiga Specific */
 td.avatar {
@@ -342,16 +275,9 @@ td.avatar {
 }
 
 /* Page Specific */
-.users.login div.input {
-  line-height: 32px;
-  margin: 0 8px;
-}
-.users.login div.input label {
-  width: auto;
-}
 .users.login div.input input {
   display: block;
-  margin: -28px 0 0 100px;
+  margin: -1.5em 0 0 10em;
   width: auto;
 }
 .users.view h2 {
@@ -359,52 +285,39 @@ td.avatar {
 }
 .users.view div.avatar {
   float: right;
-  padding-top: 24px;
 }
 .users.view div.website {
   clear: left;
-  padding: 12px 0;
+}
+.users.view div.edit {
+  clear: both;
 }
 
-.locations.index .tree span { float: right; padding-right: 4px; }
+.locations.index .tree span { float: right; padding-right: 0.25em; }
+.locations.index .tree ul { margin-right: 0; padding-bottom: 1.5em; }
 .locations.index .tree li {
   border-left: 1px solid #CCC;
   border-top: 1px solid #CCC;
+  line-height: 2em;
   margin-right: 0;
-  padding: 3px 0 3px 6px;
+  padding-left: 0.5em;
 }
-.locations.index .tree ul { margin: 6px 0 14px 0; }
 .locations.index .tree>ul { border-right: 1px solid #CCC; }
 .locations.index .tree li:last-child { border-bottom: 1px solid #CCC; }
 .locations.index .tree li        { background: #fff; }
 .locations.index .tree li.altrow { background: #f4f4f4; }
 
-/* JS star ranking */
-.characters .ui-star .ui-state-default   { background-position: -32px 0; }
-.characters .ui-star .ui-state-highlight { background-position:   0px 0; }
-.characters .ui-star .ui-state-hover     { background-position: -16px 0; }
-.characters .ui-star .ui-state-disabled  { background-position: -48px 0; }
-.characters .ui-star { overflow: hidden; }
-.characters .ui-star a:focus { outline: none; }
-.characters .ui-star a {
-  background: transparent url('../img/stars.png');
-  border: 0;
-  display: block;
-  height: 16px;
-  float: left;
-  font-size: 0;
-  text-decoration: none;
-  width: 16px;
-}
-
 /******************************************************************************/
 /* Character wizard ***********************************************************/
 /******************************************************************************/
+/*
+fieldset 850px wide
 
+*/
 /* Characters input container default to two column */
 .characters .input {
-  margin: 0 0 12px 0;
-  padding: 0;
+  margin: 0;
+  padding: 1em 0 0 0;
   width: 50%; /* 50 makes math easier */
   overflow: hidden;
   position: relative; /* For absolute labels with widths set as % */
@@ -414,33 +327,31 @@ td.avatar {
 .characters select,
 .characters textarea,
 .characters .ui-star {
-  border: 1px solid #B6A792;
-  line-height: 18px;
-  padding: 4px 1% 4px 25%; /* 26 */
+  line-height: 1.5em;
+  padding: 0.25em 8px/*1%*/ 0.25em 106px/*25%*/; /* Firefox bug - Translating % to px - 26% */
   margin: 0;
-  width: 73%; /* 73 + 26 = 99 -> Margin of 1% set based on float direction */
-
-  border-radius: 3px;
-  -moz-border-radius: 3px;
+  width: 72%; /* 72 + 26 = 98 -> Margin of 1% set based on float direction */
 }
+.characters input { height: 1.5em; } /* Firefox inputs don't respect line height */
 
 /* Recalc for 100% width elements */
 .characters #age input,
 .characters #description textarea,
 .characters #history textarea,
 .characters #avatar input {
-  padding: 3px 0.5% 3px 12.5%; /* 13 = 26 / 2 -> Half percent for double size */
-  width: 87%; /* 87 + 13 = 100 -> Inner margins not needed for 100% wide */
+  padding: 0.25em 8px/*0.5%*/ 0.25em 106px/*12.5%*/; /* 13 = 26 / 2 -> Half percent for double size */
+  width: 86%; /* 87 + 13 = 100 -> Inner margins not needed for 100% wide */
 }
 
 /* For some reason select boxs dont follow the width + padding + margin rule */
-.characters select { width: 99%; }
+.characters select { width: 98%; }
 
 /* Position labels on inputs */
 .characters label {
+  border: 1px solid transparent;
   color: #B6A792;
-  line-height: 18px;
-  padding: 5px 2% 5px 0; /* 2 */
+  line-height: 1.5em;
+  padding: 0.25em 2% 0.25em 0; /* 2 */
   position: absolute;
   text-align: right;
   width: 23%; /* 2 + 23 = 25 -> Matches against left padding 25% above */
@@ -478,27 +389,26 @@ td.avatar {
 .characters #rank .ui-star,
 .characters #location select,
 .characters #location .ui-select,
-.characters #profession input { margin-left: 1%; }
+.characters #profession input { margin-left: 0%; }
 /* Reset for one column layouts */
 .characters #age,
 .characters #description,
 .characters #history,
 .characters #avatar { width: auto; }
 
-.characters .submit input { padding: 4px 1%; width: auto; }
+.characters .submit input { padding: 0.25em 0.5em; width: auto; }
 
 /* Conjoin the age and age information table */
 .characters #age { margin-bottom: 0; }
 .characters #age input {
-  border-bottom: 0;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   -moz-border-radius-bottomleft: 0;
   -moz-border-radius-bottomright: 0;
 }
-.characters #age_information { margin: 0 0 12px 0; padding: 0; }
+.characters #age_information { margin: 0; }
 .characters #age_information th { border-top: 0; }
-.characters #age_information table { border-top: 0; margin: 0; }
+.characters #age_information table { border-top: 0; margin: 0; width: 99.7%; }
 
 /* TODO: Fix theme and remove this - button restyling for toggling */
 .characters .ui-button.ui-state-default { border: 1px outset #e8e8e8; }
@@ -506,10 +416,9 @@ td.avatar {
 
 /* Select menu restyling - override style to match other inputs sizing */
 .characters .ui-select {
-  height: 26px; /* 26 = 18 line-height + 4 padding top + 4 bottom */
+  height: 2em; /* 26 = 18 line-height + 4 padding top + 4 bottom */
   padding-left: 25%;
-  padding-right: 1%;
-  width: 73%;
+  padding-right: 3%;
 }
 .characters .ui-select .ui-select-status { padding: 4px 0; }
 .characters .ui-select:hover { border-bottom: inherit; color: inherit; }
@@ -538,6 +447,32 @@ td.avatar {
 }
 /* Rank stars shouldn't be displayed in the closed select menu */
 .ui-select span.stars { display: none; }
+
+/* JS star ranking */
+.characters .ui-star .ui-state-default   { background-position: -32px 0; }
+.characters .ui-star .ui-state-highlight { background-position:   0px 0; }
+.characters .ui-star .ui-state-hover     { background-position: -16px 0; }
+.characters .ui-star .ui-state-disabled  { background-position: -48px 0; }
+.characters .ui-star { overflow: hidden; }
+.characters .ui-star a:focus { outline: none; }
+.characters .ui-star a {
+  background: transparent url('../img/stars.png');
+  border: 0;
+  display: block;
+  height: 16px;
+  float: left;
+  font-size: 0;
+  text-decoration: none;
+  width: 16px;
+}
+/* Format star container to better mimic other form elements */
+.characters .ui-star {
+  border: 1px solid #B6A792;
+  height: 1.5em;
+
+  border-radius: 0.25em;
+  -moz-border-radius: 0.25em;
+}
 
 /******************************************************************************/
 /* End Character Wizard *******************************************************/
