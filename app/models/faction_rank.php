@@ -23,7 +23,7 @@ class FactionRank extends AppModel {
       $names = $this->find('list', array(
         'joins' => $joins,
         'fields' => array('id', 'name', 'Faction.name'),
-        'order' => array('rank_id', 'age'),
+        'order' => array('Faction.id', 'rank_id', 'age'),
       ));
       $rankIds = $this->find('list', array(
         'joins' => $joins,

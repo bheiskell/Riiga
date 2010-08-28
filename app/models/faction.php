@@ -32,6 +32,7 @@ class Faction extends AppModel {
             ),
           ),
           'fields' => array('id', 'name', 'Race.name'),
+          'order' => array('Faction.id'),
         )
       );
     } else {
