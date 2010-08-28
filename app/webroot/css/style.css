@@ -474,6 +474,22 @@ fieldset 850px wide
   -moz-border-radius: 0.25em;
 }
 
+.ui-selectbox {
+  background: #fff;
+  border: 1px solid #B6A792;
+  z-index: 1;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.ui-selectbox div {
+  padding: 0.5em 1em;
+}
+.ui-selectbox h3 {
+  line-height: 2em;
+  margin: 0;
+  text-align: center;
+}
+
 /******************************************************************************/
 /* End Character Wizard *******************************************************/
 /******************************************************************************/

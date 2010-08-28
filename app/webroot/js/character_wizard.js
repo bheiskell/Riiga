@@ -48,17 +48,45 @@ $(document).ready(function() {
       $.ui.selectmenu.prototype._init.call(this);
       var self = this;
       $('li', this.list).mouseover(function() {
-        self._trigger('menuHover', 0, this);
+        return self._trigger('menuHover', 0, this);
       });
     },
+    value: function(newValue) {
+      $(this).data('clickDisabled', // TODO: HACK THIS SUCKS FIX IT
+        this.element
+          .find('option')
+          .eq(newValue)
+          .attr('disabled')
+      );
+      return (arguments.length && !$(this).data('clickDisabled'))
+        ? $.ui.selectmenu.prototype.value.call(this, newValue)
+        : $.ui.selectmenu.prototype.value.call(this);
+
+    },
     open: function(event) {
-      $.ui.selectmenu.prototype.open.call(this);
+      var ret = $.ui.selectmenu.prototype.open.call(this);
+      this.setDisabled();
       this._trigger('menuOpen', event, this.list);
+      return ret;
     },
-    close: function(event) {
-      $.ui.selectmenu.prototype.close.call(this);
+
+    close: function(event, retainFocus) {
+      if (retainFocus && $(this).data('clickDisabled')) return;
+      var ret = $.ui.selectmenu.prototype.close.call(this, event, retainFocus);
       this._trigger('menuClose', event, this.list);
+      return ret;
     },
+    setDisabled: function() {
+      var options = this.element.find('option');
+      $('li', this.list).each(function() {
+        var disabled = options.eq($(this).data('index')).attr('disabled');
+        if (disabled) {
+          $(this).addClass('ui-state-disabled');
+        } else {
+          $(this).removeClass('ui-state-disabled');
+        }
+      });
+    }
   });
 
   // Remove the optgroups and postfix each option with its optgroups label. The
@@ -80,33 +108,53 @@ $(document).ready(function() {
     }).clone().appendTo(this);
     $(this).find('optgroup').remove();
   });
+/*
+Hover method should take some sort of group of elements indexed by the same
+index as the select menu.
 
+Anonymous functions that map an option tag to a jquery container that will be cloned
+
+*/
   $().add(race).add(location).add(faction).each(function() {
+    var isLocation = location[0] == this;
+    var isFaction = faction[0] == this;
     $(this).select({
       style: 'dropdown',
-      // TODO: Don't use constants
       menuWidth: $(this).outerWidth(),
       menuHover: function(event, option) {
-        $('#selectHoverBox').text($(option).data('index'));
+        $('.ui-selectbox').children().remove();
+        var tmp = function(option) {
+          return (option.val())
+            ? $('#faction_ranks_tables').children().eq(option.val()-1)
+            : false;
+        }
+        var index = $(option).data('index');
+        var box = tmp($(this).find('option').eq(index));
+
+        if (!isFaction) return false; // TMP HACK
+
+        if (box) $('.ui-selectbox').append(box.clone());
+
+        return false; // Don't bubble up to ensure optgroups are ignored
       },
       menuOpen: function(event, menu) {
-        $('#selectHoverBox').remove();
-        var element = $('<div id="selectHoverBox"></div>')
+        $('.ui-selectbox').remove();
+        direction = (isLocation) ? -1 : 1;
+        var element = $('<div class="ui-selectbox"></div>')
           .css({
-            'height': menu.height()+'px',
-            'width':  menu.width() +'px',
-            'background': '#fff',
-            'z-index': 1,
-            'border': '1px solid #B6A792',
-            '-moz-border-radius': '4px',
-            'border-radius': '4px',
+            'height': menu.height() + 'px',
+            'width':  menu.width()  + 'px',
+            'left':   menu.offset().left + menu.width() * direction + 'px',
+            'top':    menu.offset().top + 'px',
+            'position': 'absolute'
           })
-          .appendTo('body')
-          .position({ my: "left top", at: "right top", of: menu })
+          .insertBefore(menu)
           .hide()
-          .effect('slide');
+          .effect('slide', {
+            direction: (isLocation) ? 'right' : 'left'
+          });
       },
-      menuClose: function(event, menu) { $('#selectHoverBox').remove(); },
+      menuClose: function(event, menu) { $('.ui-selectbox').remove(); },
       format: function(text) {
         return text
           .replace(/(\*+)/,'<span class="stars">$1</span>')
@@ -118,12 +166,8 @@ $(document).ready(function() {
   $('#CharacterIsNpc').button();
 
   // TODO: Clean up
-  $("#age input").focus(function () {
-    $("#age_information").slideDown();
-  });
-  $("#age input").blur(function () {
-    $("#age_information").slideUp();
-  });
+  $("#age input").focus(function () { $("#age_information").slideDown(); });
+  $("#age input").blur( function () { $("#age_information").slideUp(); });
   $("#age_information").hide();
 
   /* Get rid of this freaking thing */
@@ -159,101 +203,3 @@ var limitByRace = function(event, race) {
     .removeAttr('disabled');
   resetIfDisabled(this);
 };
-
-/* Organizational function which sets up the faction ranks widget */
-function setupFactionRanks(faction) {
-
-  faction.change(function() {
-    /**
-     * For some factions, there are multiple entries for the same faction under
-     * different optgroups. We need the text from the first.
-     */
-    var factionName = $(this).find("option:selected").text();
-
-    /* The table container is prefixed with 'faction_' */
-    var factionContainer = $("#faction_" + factionName.replace(' ', '_'));
-
-    var age     = parseInt($("#CharacterAge").val(),    10);
-    var rankId  = parseInt($("#CharacterRankId").val(), 10);
-
-    var rows = factionContainer.find('tr').not(':first,:last');
-
-    var ranks = $();
-    $(rows.get().reverse()).each(function() {
-      if (age >= $(this).data('age') && rankId >= $(this).data('rank_id')) {
-
-        /**
-         * Sometimes there will be multiple ranks at the same age/rank_id. If
-         * that occurs, be sure to add both to the ranks collection.
-         */
-        if (0 == ranks.length || (
-             ranks.eq(0).data('age')     == $(this).data('age')
-          && ranks.eq(0).data('rank_id') == $(this).data('rank_id')
-        )) {
-          ranks = ranks.add(this);
-        }
-      }
-    });
-
-
-    rows.show().not(ranks).hide();
-    factionContainer.siblings().css({ 'position': 'absolute' }).fadeOut();
-    factionContainer           .css({ 'position': 'relative' }).fadeIn();
-  });
-
-  /**
-   * Showing the current rank isn't enough, the user should know all the ranks
-   * and ages for their faction. Hovering over the table should display them.
-   */
-  $("#faction_ranks_tables").hover(function() {
-    $(this).find('tr').not(':first,:hidden').addClass('altrow');
-    $(this).find('tr').show();
-  }, function() {
-    $(this).find('tr').removeClass('altrow');
-    faction.trigger('change');
-  });
-
-  /**
-   * To avoid constant dom traversal, set the age and rank_id of each row to the
-   * tr element itself.
-   */
-  $("#faction_ranks_tables").find('td[class=age]').each(function() {
-    $(this).parent().data('age', parseInt($(this).text(), 10));
-  });
-  $("#faction_ranks_tables").find('td[class=rank_id]').each(function() {
-    $(this).parent().data('rank_id', parseInt($(this).text(), 10));
-  });
-
-  /**
-   * Add a visual cue to the table to imply hoving over it will perform some
-   * action. In this case, add a footer that appears to be draggable.
-   */
-  $("#faction_ranks_tables").find('table').append(
-    '<tfoot><tr><td colspan="3">| | |</td></tr></tfoot>'
-  );
-
-  /* Initialize the divs to hidden and remove the faction header */
-  $("#faction_ranks_tables").children().hide().children('h3').text(
-    'Faction Rank Requirements'
-  );
-  $("#faction_ranks_tables").find('tr').removeClass('altrow');
-
-  /* Change the CSS - This should be a class... */
-  $("#faction_ranks_tables").prev().css({ 'float': 'left' });
-  $("#faction_ranks_tables").css({ padding: '0', float: 'right' });
-  $("#faction_ranks_tables").children().css({
-    'padding': '0',
-    'height': 'auto',
-    'width': 'auto',
-  });
-  $("#faction_ranks_tables")
-    .find('tfoot td')
-    .css({
-      'background-color': '#F2F2F2',
-      'padding': '1px',
-      'text-align': 'center',
-      'font-size': '3px',
-      'border-top': '1px solid #ccc'
-    });
-
-}
