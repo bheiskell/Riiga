@@ -51,6 +51,7 @@
 
     _select: function(star) {
       this.element.val($(star).data('value'));
+      this.element.trigger('change');
       this.selected = $(star);
       this._refresh();
       this._trigger('select', 0, star);

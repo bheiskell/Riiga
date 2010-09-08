@@ -428,6 +428,24 @@ fieldset 850px wide
 .ui-select-menu li a       { border-bottom: 0; }
 .ui-select-menu li a:hover { border-bottom: 0; }
 
+/* Flyout menu that associates dropdown menus */
+.ui-select-submenu {
+  background: #fff;
+  border: 1px solid #B6A792;
+  position: absolute;
+  z-index: 1;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.ui-select-submenu div {
+  padding: 0.5em 1em;
+}
+.ui-select-submenu h3 {
+  line-height: 2em;
+  margin: 0;
+  text-align: center;
+}
+
 /**
  * For select menus limited by rank, star images are displayed inline to the
  * select option. Formatting these involves overriding default selectmenu
@@ -472,22 +490,6 @@ fieldset 850px wide
 
   border-radius: 0.25em;
   -moz-border-radius: 0.25em;
-}
-
-.ui-selectbox {
-  background: #fff;
-  border: 1px solid #B6A792;
-  z-index: 1;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-}
-.ui-selectbox div {
-  padding: 0.5em 1em;
-}
-.ui-selectbox h3 {
-  line-height: 2em;
-  margin: 0;
-  text-align: center;
 }
 
 /******************************************************************************/

@@ -20,8 +20,8 @@
     <?php echo $form->input('id'); ?>
     <?php echo $form->input('name', array('div' => array('id'=>'name'))); ?>
     <?php echo $form->input('rank_id', array('label'=>'Level','div' => array('id'=>'rank'))); ?>
-    <?php echo $form->input('race_id', array('div' => array('id'=>'race'))); ?>
-    <?php echo $form->input('location_id', array('div' => array('id'=>'location'))); ?>
+    <?php echo $form->input('race_id', array('empty'=>true,'div' => array('id'=>'race'))); ?>
+    <?php echo $form->input('location_id', array('empty'=>true,'div' => array('id'=>'location'))); ?>
     <?php //TODO: Location is soft limited my race ?>
     <?php echo $form->input('age', array('div' => array('id'=>'age'))); ?>
     <!--<div class="help"> </div>-->
