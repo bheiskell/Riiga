@@ -3,9 +3,11 @@
   <fieldset>
     <legend><?php __('Edit Character');?></legend>
     <?php
-    // a (mostly) markup separated rich javascript character creation wizard.
+      // a (mostly) markup separated rich javascript character creation wizard.
+      $html->css(
+        'jquery-ui-selectmenu', 'stylesheet', array('media' => 'all'), false
+      );
     ?>
-    <?php $html->css('jquery-ui-selectmenu', 'stylesheet', array('media'=>'all' ), false); ?>
     <?php $javascript->link('jquery-ui-selectmenu.js', false); ?>
     <?php $javascript->link('jquery-ui-star.js',       false); ?>
     <?php $javascript->link('character_wizard.js',     false); ?>
@@ -18,53 +20,124 @@
     <?php echo $form->hidden('user_rank', array('value' => $user_rank)); ?>
 
     <?php echo $form->input('id'); ?>
-    <?php echo $form->input('name', array('div' => array('id'=>'name'))); ?>
-    <?php echo $form->input('rank_id', array('label'=>'Level','div' => array('id'=>'rank'))); ?>
-    <?php echo $form->input('race_id', array('empty'=>true,'div' => array('id'=>'race'))); ?>
-    <?php echo $form->input('location_id', array('empty'=>true,'div' => array('id'=>'location'))); ?>
-    <?php //TODO: Location is soft limited my race ?>
-    <?php echo $form->input('age', array('div' => array('id'=>'age'))); ?>
-    <!--<div class="help"> </div>-->
-    <div id="age_information">
-      <table>
-        <tr><th>Child</th><th>Teen</th><th>Adult</th><th>Mature</th></tr>
-        <tr><td>10</td><td>14</td><td>18</td><td>28</td></tr>
-      </table>
-    </div>
-    <?php //TODO: Age is adjusted by race ?>
-    <?php echo $form->input('faction_id', array('empty' => true, 'div' => array('id' =>'faction'))); ?>
+    <?php
+      echo $form->input('name', array(
+        'div' => array('id' => 'name')
+      ));
+      echo $form->input('rank_id', array(
+        'label' => 'Level',
+        'div' => array('id' => 'rank')
+      ));
+      echo $form->input('race_id', array(
+        'empty' => true,
+        'div' => array('id' => 'race')
+      ));
+      echo $form->input('location_id', array(
+        'empty' =>true,
+        'div' => array('id' => 'location')
+      ));
+      echo $form->input('age', array(
+        'div' => array('id' => 'age')
+      ));
+      echo $form->input('faction_id', array(
+        'empty' => true,
+        'div' => array('id' => 'faction')
+      ));
+      echo $form->input('profession', array(
+        'div' => array('id' => 'profession')
+      ));
+      echo $form->input('description', array(
+        'div' => array('id' => 'description')
+      ));
+      echo $form->input('history', array(
+        'div' => array('id' => 'history')
+      ));
+      echo $form->input('avatar', array(
+        'div' => array('id' => 'avatar')
+      ));
+      echo $form->input('is_npc', array(
+        'div' => array('id' => 'npc')
+      ));
+    ?>
+  </fieldset>
+  <?php echo $form->end(__('Submit', true));?>
 
-    <div id="faction_ranks_tables">
-      <?php foreach ($factionRanks as $factionName => $faction): ?>
-        <div id="faction_<?php echo str_replace(' ', '_', $factionName); ?>">
-          <h3><?php echo $factionName; ?></h3>
-          <table>
+  <div id="LocationInformation">
+    <h3>Locations by Race</h3>
+    <div id="LocationId_1">
+      <? // Need to loop through locations not information ?>
+    </div>
+  </div>
+  <div id="AgeInformation">
+    <h3>Age ranges by Race</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Race</th>
+          <th>Child</th>
+          <th>Teen</th>
+          <th>Adult</th>
+          <th>Mature</th>
+          <th>Elder</th>
+          <th>Max</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php $i = 0; ?>
+        <?php foreach ($raceAges as $raceAge): ?>
+        <?php $class = ($i++ % 2 == 0) ? $class = ' class="altrow"' : null; ?>
+        <tr<?php echo $class; ?>
+          id="RaceId_<?php echo $raceAge['Race']['id'];?>"
+        >
+          <th><?php echo $raceAge['Race']['name']; ?></th>
+          <td><?php echo $raceAge['RaceAge']['child']; ?></td>
+          <td><?php echo $raceAge['RaceAge']['child']; ?></td>
+          <td><?php echo $raceAge['RaceAge']['teen']; ?></td>
+          <td><?php echo $raceAge['RaceAge']['adult']; ?></td>
+          <td><?php echo $raceAge['RaceAge']['mature']; ?></td>
+          <td><?php echo $raceAge['RaceAge']['elder']; ?></td>
+          <td><?php echo $raceAge['RaceAge']['max']; ?></td>
+        </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+  </div>
+  <div id="FactionInformation">
+    <h3>Faction ranks by required Level and Age</h3>
+    <?php foreach (Set::extract('/Faction', $factionRanks) as $faction): ?>
+      <div id="FactionId_<?php echo $faction['Faction']['id']; ?>">
+        <h4><?php echo $faction['Faction']['name']; ?></h4>
+        <table>
+          <thead>
             <tr>
               <th>Faction Rank</th>
               <th>Rank</th>
               <th>Min. Age</th>
             </tr>
+          </thead>
+          <tbody>
             <?php $i = 0; ?>
-            <?php foreach ($faction as $factionRank): ?>
+            <?php
+              $factionRankSet = Set::extract(
+                "/FactionRank[faction_id={$faction['Faction']['id']}]",
+                $factionRanks
+              );
+debug($factionRankSet);
+            ?>
+            <?php foreach ($factionRankSet as $factionRank): ?>
               <?php $class = ($i++ % 2 == 0) ? ' class="altrow"' : null; ?>
               <tr<?php echo $class; ?>>
-                <td class="name"   ><?php echo $factionRank['name']; ?></td>
-                <td class="rank_id"><?php echo $factionRank['rank_id']; ?></td>
-                <td class="age"    ><?php echo $factionRank['age']; ?></td>
+                <td class="name"   ><?php echo $factionRank['FactionRank']['name']; ?></td>
+                <td class="rank_id"><?php echo $factionRank['FactionRank']['rank_id']; ?></td>
+                <td class="age"    ><?php echo $factionRank['FactionRank']['age']; ?></td>
               </tr>
             <?php endforeach; ?>
-          </table>
-        </div>
-      <?php endforeach; ?>
-    </div>
-    <?php echo $form->input('profession', array('div'=>array('id'=>'profession'))); ?>
-    <?php //TODO: Display profession data?>
-
-
-    <?php echo $form->input('description', array('div'=>array('id'=>'description'))); ?>
-    <?php echo $form->input('history', array('div'=>array('id'=>'history'))); ?>
-    <?php echo $form->input('avatar', array('div'=>array('id'=>'avatar'))); ?>
-    <?php echo $form->input('is_npc', array('div'=>array('id'=>'npc'))); ?>
-  </fieldset>
-<?php echo $form->end(__('Submit', true));?>
+          </tbody>
+        </table>
+      </div>
+    <?php endforeach; ?>
+  </div>
+  <div id="ProfessionInformation">
+    <h3>Professions by Race and Age</h3>
+  </div>
 </div>

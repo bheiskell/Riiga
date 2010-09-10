@@ -24,7 +24,7 @@ class Race extends AppModel {
         )
       );
 
-      /* Group by rank prefixed with rank */
+      /* Need a prefix to the grouping */
       foreach(array_keys($results) as $key) {
         $results["Level {$key}"] = $results[$key];
         unset($results[$key]);

@@ -15,8 +15,8 @@ $(document).ready(function() {
     isNpc:    $('#CharacterIsNpc'),
   };
   var informations = {
-    age:     $('#age_information'),
-    faction: $('#faction_ranks_tables'),
+    age:     $('#AgeInformation'),
+    faction: $('#FactionInformation'),
   }
 
   $().add(elements.race).add(elements.location).flattenOptgroups();
