@@ -8,5 +8,14 @@ class FactionRank extends AppModel {
   );
 
   var $belongsTo = array('Faction', 'Rank');
+
+  public function getGroupedByFaction() {
+    return Set::combine(
+      $this->find('all'),
+      '{n}.FactionRank.id',
+      '{n}.FactionRank',
+      '{n}.Faction.id'
+    );
+  }
 }
 ?>

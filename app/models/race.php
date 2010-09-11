@@ -12,28 +12,21 @@ class Race extends AppModel {
 
   var $hasOne = array('RaceAge');
 
-  /* Overloading find to offer grouped results to the controller */
-  public function find(
-    $conditions = NULL, $fields = array(), $order = NULL, $recursive = NULL
-  ) {
-    if ('grouped' == $conditions) {
-      $results = $this->find('list',
-        array(
-          'fields' => array('id', 'name', 'rank_id'),
-          'order'  => array('rank_id'),
-        )
-      );
+  public function getGroupedByRank() {
+    $results = $this->find('list',
+      array(
+        'fields' => array('id', 'name', 'rank_id'),
+        'order'  => array('rank_id'),
+      )
+    );
 
-      /* Need a prefix to the grouping */
-      foreach(array_keys($results) as $key) {
-        $results["Level {$key}"] = $results[$key];
-        unset($results[$key]);
-      }
-
-      return $results;
-    } else {
-      return parent::find($conditions, $fields, $order, $recursive);
+    /* Need a prefix to the grouping */
+    foreach(array_keys($results) as $key) {
+      $results["Level {$key}"] = $results[$key];
+      unset($results[$key]);
     }
+
+    return $results;
   }
 }
 ?>

@@ -14,5 +14,14 @@ class LocationsRace extends AppModel {
       'foreignKey' => 'location_id',
     )
   );
+
+  public function getGroupedByRace() {
+    return Set::combine(
+      $this->find('all'),
+      '{n}.Location.id',
+      '{n}',
+      '{n}.Race.id'
+    );
+  }
 }
 ?>

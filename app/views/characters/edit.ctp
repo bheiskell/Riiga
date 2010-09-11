@@ -62,14 +62,22 @@
   </fieldset>
   <?php echo $form->end(__('Submit', true));?>
 
+  <div id="RaceInformation">
+    <h3>Race Information</h3>
+  </div>
   <div id="LocationInformation">
-    <h3>Locations by Race</h3>
-    <div id="LocationId_1">
-      <? // Need to loop through locations not information ?>
-    </div>
+    <h3>Locations Information</h3>
+<?php
+  //debug($locationsRaces);
+?>
+    <?php foreach ($locationsRaces as $raceId => $locationsSubset): ?>
+      <div id="LocationId_<?php ?>">
+      <?php echo $raceId; ?>
+      </div>
+    <?php endforeach; ?>
   </div>
   <div id="AgeInformation">
-    <h3>Age ranges by Race</h3>
+    <h3>Age Information</h3>
     <table>
       <thead>
         <tr>
@@ -91,7 +99,6 @@
         >
           <th><?php echo $raceAge['Race']['name']; ?></th>
           <td><?php echo $raceAge['RaceAge']['child']; ?></td>
-          <td><?php echo $raceAge['RaceAge']['child']; ?></td>
           <td><?php echo $raceAge['RaceAge']['teen']; ?></td>
           <td><?php echo $raceAge['RaceAge']['adult']; ?></td>
           <td><?php echo $raceAge['RaceAge']['mature']; ?></td>
@@ -104,32 +111,25 @@
   </div>
   <div id="FactionInformation">
     <h3>Faction ranks by required Level and Age</h3>
-    <?php foreach (Set::extract('/Faction', $factionRanks) as $faction): ?>
-      <div id="FactionId_<?php echo $faction['Faction']['id']; ?>">
-        <h4><?php echo $faction['Faction']['name']; ?></h4>
+    <?php foreach ($factionRanks as $factionId => $factionRanksSubset): ?>
+      <div id="FactionId_<?php echo $factionId; ?>">
+        <h4><?php echo $factionNames[$factionId]; ?></h4>
         <table>
           <thead>
             <tr>
               <th>Faction Rank</th>
               <th>Rank</th>
-              <th>Min. Age</th>
+              <th>Minimum Age</th>
             </tr>
           </thead>
           <tbody>
             <?php $i = 0; ?>
-            <?php
-              $factionRankSet = Set::extract(
-                "/FactionRank[faction_id={$faction['Faction']['id']}]",
-                $factionRanks
-              );
-debug($factionRankSet);
-            ?>
-            <?php foreach ($factionRankSet as $factionRank): ?>
+            <?php foreach ($factionRanksSubset as $factionRank): ?>
               <?php $class = ($i++ % 2 == 0) ? ' class="altrow"' : null; ?>
               <tr<?php echo $class; ?>>
-                <td class="name"   ><?php echo $factionRank['FactionRank']['name']; ?></td>
-                <td class="rank_id"><?php echo $factionRank['FactionRank']['rank_id']; ?></td>
-                <td class="age"    ><?php echo $factionRank['FactionRank']['age']; ?></td>
+                <td class="name"   ><?php echo $factionRank['name']; ?></td>
+                <td class="rank_id"><?php echo $factionRank['rank_id']; ?></td>
+                <td class="age"    ><?php echo $factionRank['age']; ?></td>
               </tr>
             <?php endforeach; ?>
           </tbody>
