@@ -406,9 +406,9 @@ fieldset 850px wide
   -moz-border-radius-bottomleft: 0;
   -moz-border-radius-bottomright: 0;
 }
-.characters #age_information { margin: 0; }
-.characters #age_information th { border-top: 0; }
-.characters #age_information table { border-top: 0; margin: 0; width: 99.7%; }
+.characters #AgeInformation { margin: 0; }
+.characters #AgeInformation th { border-top: 0; }
+.characters #AgeInformation table { border-top: 0; margin: 0; width: 99.7%; }
 
 /* TODO: Fix theme and remove this - button restyling for toggling */
 .characters .ui-button.ui-state-default { border: 1px outset #e8e8e8; }

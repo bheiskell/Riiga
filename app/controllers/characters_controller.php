@@ -59,29 +59,30 @@ class CharactersController extends AppController {
     if (empty($this->data)) {
       $this->data = $this->Character->read(null, $id);
     }
-    $this->set('user_rank', 3);
-    $this->set('users', $this->Character->User->find('list'));
-    $this->set('ranks', $this->Character->Rank->find('list'));
 
-    $this->set('races',     $this->Character->Race->getGroupedByRank());
-    $this->set('locations', $this->Character->Location->getGroupedByRank());
-    $this->set('factions',  $this->Character->Faction->getGroupedByRace());
+    // Tmps to reduce line length
+    $c = $this->Character;
+    $p = $this->Character->Race->ProfessionsRace;
+    $this->set('user_rank', $this->Auth->user('rank'));
 
-    $this->set('factionNames',  $this->Character->Faction->find('list'));
-    $this->set('factionRanks',
-      $this->Character->Faction->FactionRank->getGroupedByFaction()
-    );
+    $this->set('users', $c->User->find('list'));
+    $this->set('ranks', $c->Rank->find('list'));
 
-    $this->set('locationsRaces',
-      $this->Character->Race->LocationsRace->getGroupedByRace()
-    );
+    $this->set('races',     $c->Race    ->getGroupedByRank());
+    $this->set('locations', $c->Location->getGroupedByRank());
+    $this->set('factions',  $c->Faction ->getGroupedByRace());
 
-    $this->set('raceAges', $this->Character->Race->RaceAge->find('all'));
+    $this->set('ageInfo',  $c->Race->RaceAge->find('all'));
+    $this->set('raceInfo', $c->Race         ->find('all'));
 
-    //$this->set('professions',
-      //$this->Character->Race->ProfessionsRace->find('table')
-    //);
-    // arrayy race => array category => array profession, age
+    $this->set('locationInfo', $c->Location->CharacterLocation->find('all'));
+    $this->set('locationsRaces', $c->Race->LocationsRace->getGroupedByRace());
+
+    $this->set('factionInfo', $c->Faction->FactionRank->getGroupedByFaction());
+    $this->set('factionNames', $c->Faction->find('list'));
+
+    $this->set('professionInfo', $p->Profession->getGroupedByCategory());
+    $this->set('raceNames', $c->Race->find('list'));
   }
 }
 ?>

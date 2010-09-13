@@ -8,7 +8,7 @@ class Race extends AppModel {
 
   var $belongsTo = array('Rank');
 
-  var $hasMany = array('LocationsRace');
+  var $hasMany = array('LocationsRace', 'ProfessionsRace');
 
   var $hasOne = array('RaceAge');
 

@@ -1,21 +1,23 @@
 <?php
 class Profession extends AppModel {
 
-	var $name = 'Profession';
-	var $validate = array(
-		'name' => array('notempty')
-	);
+  var $name = 'Profession';
+  var $validate = array(
+    'name' => array('notempty')
+  );
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-	var $belongsTo = array(
-		'ProfessionCategory' => array(
-			'className' => 'ProfessionCategory',
-			'foreignKey' => 'profession_category_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
-	);
+  var $belongsTo = array('ProfessionCategory');
+  var $hasMany = array('ProfessionsRace');
 
+  // Need profession category as well
+  // Group by category
+  public function getGroupedByCategory() {
+    return Set::combine(
+      $this->find('all'),
+      '{n}.Profession.id',
+      '{n}',
+      '{n}.ProfessionCategory.name'
+    );
+  }
 }
 ?>

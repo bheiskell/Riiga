@@ -15,8 +15,11 @@ $(document).ready(function() {
     isNpc:    $('#CharacterIsNpc'),
   };
   var informations = {
-    age:     $('#AgeInformation'),
-    faction: $('#FactionInformation'),
+    race:       $('#RaceInformation'),
+    location:   $('#LocationInformation'),
+    age:        $('#AgeInformation'),
+    faction:    $('#FactionInformation'),
+    profession: $('#ProfessionInformation'),
   }
 
   $().add(elements.race).add(elements.location).flattenOptgroups();
@@ -24,12 +27,14 @@ $(document).ready(function() {
   new Rules(elements).apply();
 
   // Hide informational divs
-  for (var key in informations) { informations[key].hide(); }
+  //for (var key in informations) { informations[key].hide(); }
 
   // Apply widgets
   elements.rank.star();
   elements.isNpc.button();
 
+  $('h3', informations.age).remove();
+  elements.age.parent().append(informations.age);
   elements.age.focus(function () { informations.age.slideDown(); });
   elements.age.blur( function () { informations.age.slideUp(); });
 
@@ -89,7 +94,7 @@ $(document).ready(function() {
     $(elements.location).select('option', 'submenuPosition', 'left');
     $(elements.faction).select('option', 'submenuContents', function(option) {
       return (option.val())
-        ? $('#faction_ranks_tables').children().eq(option.val()-1)
+        ? $('#FactionInformation').children('.FactionId_' + option.val())
         : false;
     });
 

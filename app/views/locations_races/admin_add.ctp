@@ -7,7 +7,7 @@
 		echo $form->input('race_id');
 		echo $form->input('likelihood', array(
 			'type' => 'select',
-			'options' => array('Likely', 'Possible')
+			'options' => array('Common', 'Uncommon')
 		));
 	?>
 	</fieldset>

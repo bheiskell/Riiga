@@ -64,15 +64,41 @@
 
   <div id="RaceInformation">
     <h3>Race Information</h3>
+    <?php foreach ($raceInfo as $race): ?>
+      <div class="RaceId_<?php echo $race['Race']['id']; ?>">
+        <h4><?php echo $race['Race']['name']; ?></h4>
+        Requires Level <?php echo $race['Rank']['id']; ?>
+      </div>
+    <?php endforeach; ?>
   </div>
   <div id="LocationInformation">
     <h3>Locations Information</h3>
-<?php
-  //debug($locationsRaces);
-?>
-    <?php foreach ($locationsRaces as $raceId => $locationsSubset): ?>
-      <div id="LocationId_<?php ?>">
-      <?php echo $raceId; ?>
+    <?php foreach ($locationInfo as $location): ?>
+      <div class="LocationId_<?php echo $location['Location']['id']; ?>">
+        <h4><?php echo $location['Location']['name']; ?></h4>
+        <p><?php echo $location['Location']['description']; ?></p>
+        <table>
+          <thead>
+            <tr><th>Race</th><th>Likelihood</th></tr>
+          </thead>
+          <tbody>
+            <?php if (isset($locationsRaces[$location['Location']['id']])): ?>
+              <?php $i = 0; ?>
+              <?php
+                foreach ($locationsRaces[$location['Location']['id']] as $race):
+              ?>
+                <tr class="RaceId_<?php
+                  echo $race['Race']['id'];
+                  if (0 == $i++ % 2) echo ' altrow';
+                ?>">
+                  <td><?php echo $race['Race']['name']; ?></td>
+                  <td><?php echo $race['LocationsRace']['likelihood']; ?></td>
+                </tr>
+              <?php endforeach; ?>
+            <?php endif; ?>
+          </tbody>
+        </table>
+        Requires Level <?php echo $location['Rank']['id']; ?>
       </div>
     <?php endforeach; ?>
   </div>
@@ -92,18 +118,18 @@
       </thead>
       <tbody>
         <?php $i = 0; ?>
-        <?php foreach ($raceAges as $raceAge): ?>
-        <?php $class = ($i++ % 2 == 0) ? $class = ' class="altrow"' : null; ?>
-        <tr<?php echo $class; ?>
-          id="RaceId_<?php echo $raceAge['Race']['id'];?>"
-        >
-          <th><?php echo $raceAge['Race']['name']; ?></th>
-          <td><?php echo $raceAge['RaceAge']['child']; ?></td>
-          <td><?php echo $raceAge['RaceAge']['teen']; ?></td>
-          <td><?php echo $raceAge['RaceAge']['adult']; ?></td>
-          <td><?php echo $raceAge['RaceAge']['mature']; ?></td>
-          <td><?php echo $raceAge['RaceAge']['elder']; ?></td>
-          <td><?php echo $raceAge['RaceAge']['max']; ?></td>
+        <?php foreach ($ageInfo as $race): ?>
+        <tr class="RaceId_<?php
+            echo $race['Race']['id'];
+            if (0 == $i++ % 2) echo ' altrow';
+        ?>">
+          <th><?php echo $race['Race']['name']; ?></th>
+          <td><?php echo $race['RaceAge']['child']; ?></td>
+          <td><?php echo $race['RaceAge']['teen']; ?></td>
+          <td><?php echo $race['RaceAge']['adult']; ?></td>
+          <td><?php echo $race['RaceAge']['mature']; ?></td>
+          <td><?php echo $race['RaceAge']['elder']; ?></td>
+          <td><?php echo $race['RaceAge']['max']; ?></td>
         </tr>
         <?php endforeach; ?>
       </tbody>
@@ -111,25 +137,24 @@
   </div>
   <div id="FactionInformation">
     <h3>Faction ranks by required Level and Age</h3>
-    <?php foreach ($factionRanks as $factionId => $factionRanksSubset): ?>
-      <div id="FactionId_<?php echo $factionId; ?>">
+    <?php foreach ($factionInfo as $factionId => $factionRanks): ?>
+      <div class="FactionId_<?php echo $factionId; ?>">
         <h4><?php echo $factionNames[$factionId]; ?></h4>
         <table>
           <thead>
             <tr>
               <th>Faction Rank</th>
-              <th>Rank</th>
+              <th>Minimum Level</th>
               <th>Minimum Age</th>
             </tr>
           </thead>
           <tbody>
             <?php $i = 0; ?>
-            <?php foreach ($factionRanksSubset as $factionRank): ?>
-              <?php $class = ($i++ % 2 == 0) ? ' class="altrow"' : null; ?>
-              <tr<?php echo $class; ?>>
-                <td class="name"   ><?php echo $factionRank['name']; ?></td>
-                <td class="rank_id"><?php echo $factionRank['rank_id']; ?></td>
-                <td class="age"    ><?php echo $factionRank['age']; ?></td>
+            <?php foreach ($factionRanks as $factionRank): ?>
+                <tr <?php if (0 == $i++ % 2) echo 'class="altrow"';?>>
+                <td><?php echo $factionRank['name']; ?></td>
+                <td><?php echo $factionRank['rank_id']; ?></td>
+                <td><?php echo $factionRank['age']; ?></td>
               </tr>
             <?php endforeach; ?>
           </tbody>
@@ -139,5 +164,27 @@
   </div>
   <div id="ProfessionInformation">
     <h3>Professions by Race and Age</h3>
+    <?php foreach ($professionInfo as $categoryName => $professions): ?>
+      <div>
+        <h4><?php echo $categoryName; ?></h4>
+        <?php foreach ($professions as $profession): ?>
+          <div>
+            <h5><?php echo $profession['Profession']['name']; ?></h5>
+            <table>
+              <thead><tr><th>Race</th><th>Minimum Age</th></tr></thead>
+              <tbody>
+                <?php $i = 0; ?>
+                <?php foreach ($profession['ProfessionsRace'] as $race):?>
+                  <tr <?php if (0 == $i++ % 2) echo 'class="altrow"';?>>
+                    <td><?php echo $raceNames[$race['race_id']]; ?></td>
+                    <td><?php echo $race['age']; ?></td>
+                  </tr>
+                <?php endforeach; ?>
+              </tbody>
+            </table>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    <?php endforeach; ?>
   </div>
 </div>

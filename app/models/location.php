@@ -5,8 +5,8 @@ class Location extends AppModel {
   var $actsAs = array('Tree');
   var $order = 'Location.lft ASC';
 
-  var $hasAndBelongsToMany = array('LocationTags');
-  var $hasOne = array('CharacterLocations');
+  var $hasAndBelongsToMany = array('LocationTag');
+  var $hasOne = array('CharacterLocation');
 
   public function getGroupedByRank() {
     $results = $this->find('list',

@@ -126,5 +126,15 @@ class User extends AppModel {
     }
     return $query;
   }
+
+  function afterFind($results) {
+    foreach ($results as &$result) {
+      if (isset($result['User'])) {
+        // TODO: Calculate rank
+        $result['User']['rank'] = 4;
+      }
+    }
+    return $results;
+  }
 }
 ?>
