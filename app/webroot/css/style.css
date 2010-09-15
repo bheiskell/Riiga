@@ -420,9 +420,9 @@ fieldset 850px wide
   border-top: 0;
   margin: 0;
   width: 99.7%;
-  -webkit-box-shadow: 0 0 0.25em #999;
-  -moz-box-shadow: 0 0 0.25em #999;
-  box-shadow: 0 0 0.25em #999;
+  -webkit-box-shadow: 0 0 1em #999;
+  -moz-box-shadow: 0 0 1em #999;
+  box-shadow: 0 0 1em #999;
 }
 
 /* TODO: Fix theme and remove this - button restyling for toggling */
@@ -461,6 +461,11 @@ fieldset 850px wide
   text-align: center;
 }
 
+.ui-select-menu, .ui-select-submenu {
+  -webkit-box-shadow: 0 0.5em 1em #999;
+  -moz-box-shadow: 0 0.5em 1em #999;
+  box-shadow: 0 0.5em 1em #999;
+}
 /**
  * For select menus limited by rank, star images are displayed inline to the
  * select option. Formatting these involves overriding default selectmenu

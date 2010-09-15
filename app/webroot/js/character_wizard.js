@@ -27,7 +27,7 @@ $(document).ready(function() {
   new Rules(elements).apply();
 
   // Hide informational divs
-  //for (var key in informations) { informations[key].hide(); }
+  for (var key in informations) { informations[key].hide(); }
 
   // Apply widgets
   elements.rank.star();
