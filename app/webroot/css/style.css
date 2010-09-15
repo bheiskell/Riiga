@@ -317,7 +317,7 @@ fieldset 850px wide
 /* Characters input container default to two column */
 .characters .input {
   margin: 0;
-  padding: 1em 0 0 0;
+  padding: 1.5em 0 0 0;
   width: 50%; /* 50 makes math easier */
   overflow: hidden;
   position: relative; /* For absolute labels with widths set as % */
@@ -348,14 +348,21 @@ fieldset 850px wide
 
 /* Position labels on inputs */
 .characters label {
-  border: 1px solid transparent;
-  color: #B6A792;
+  background: transparent url(../img/jquery-ui/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+  border: 1px solid #ccc;
+  color: #444;
   line-height: 1.5em;
-  padding: 0.25em 2% 0.25em 0; /* 2 */
+  padding: 0.25em 2% 0.25em 0; /* 1 */
+  margin-right: 2%; /* 1 */
   position: absolute;
   text-align: right;
-  width: 23%; /* 2 + 23 = 25 -> Matches against left padding 25% above */
+  width: 21%; /* 2 + 2 + 21 = 25 -> Matches against left padding 25% above */
   z-index: 1; /* Put label above input */
+
+  border-bottom-left-radius: 0.25em;
+  border-top-left-radius: 0.25em;
+  -moz-border-radius-bottomleft: 0.25em;
+  -moz-border-radius-topleft: 0.25em;
 }
 .characters .required label { font-weight: normal; }
 
@@ -365,7 +372,8 @@ fieldset 850px wide
 .characters #history label,
 .characters #avatar label {
   padding-right: 1%;
-  width: 11.5%; /* 1 + 11.5 = 12.5 -> 12.5 * 2 = 25% */
+  margin-right: 1%;
+  width: 10.5%; /* 1 + 1 + 10.5 = 12.5 -> 12.5 * 2 = 25% */
 }
 
 /* General character page two column layout */
@@ -408,7 +416,14 @@ fieldset 850px wide
 }
 .characters #AgeInformation { margin: 0; }
 .characters #AgeInformation th { border-top: 0; }
-.characters #AgeInformation table { border-top: 0; margin: 0; width: 99.7%; }
+.characters #AgeInformation table {
+  border-top: 0;
+  margin: 0;
+  width: 99.7%;
+  -webkit-box-shadow: 0 0 0.25em #999;
+  -moz-box-shadow: 0 0 0.25em #999;
+  box-shadow: 0 0 0.25em #999;
+}
 
 /* TODO: Fix theme and remove this - button restyling for toggling */
 .characters .ui-button.ui-state-default { border: 1px outset #e8e8e8; }
@@ -434,8 +449,8 @@ fieldset 850px wide
   border: 1px solid #B6A792;
   position: absolute;
   z-index: 1;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+  -moz-border-radius: 0.25em;
+  border-radius: 0.25em;
 }
 .ui-select-submenu div {
   padding: 0.5em 1em;

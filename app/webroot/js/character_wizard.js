@@ -34,8 +34,24 @@ $(document).ready(function() {
   elements.isNpc.button();
 
   $('h3', informations.age).remove();
-  elements.age.parent().append(informations.age);
-  elements.age.focus(function () { informations.age.slideDown(); });
+  elements.age.parent().after(informations.age);
+  $('tr', informations.age).removeClass('altrow').each(function() {
+    $('th:first', this).remove();
+  });
+  /*informations.age.css({
+    position: 'absolute',
+    width: elements.age.parent().outerWidth() + 'px',
+    'z-index': 999
+  }).position({
+    my: 'top left',
+    at: 'top left',
+    using: elements.age
+  });*/
+  elements.age.focus(function () {
+    // TODO fix mega hack : )
+    if(1==$('tr:not(:first)', informations.age).hide().filter('.RaceId_'+elements.race.val()).show().length)
+      informations.age.slideDown();
+  });
   elements.age.blur( function () { informations.age.slideUp(); });
 
 ////////////////////////////////////////////////////////////////////////////////
