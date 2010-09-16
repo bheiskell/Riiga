@@ -44,10 +44,9 @@ $(document).ready(function() {
   elements.age.parent().after(informations.age);
 
   elements.age.focus(function () {
-    var ages = $('.RaceId_' + elements.race.val(), informations.age)
-      .show()
-      .siblings()
-      .hide();
+    var ages = $('.RaceId_' + elements.race.val(), informations.age);
+
+    ages.show().siblings().hide();
 
     if (ages.length == 1) { informations.age.slideDown(); }
   });
@@ -180,7 +179,7 @@ function Rules(targets) {
     self._resetIfDisabled(this);
   };
   this._limitByRace = function(event, race) {
-    var raceName = $('option:selected', race).text();
+    var raceName = $('option:selected', race).text().replace(/\*+/, '');
 
     $('option:not(:first)', this).attr('disabled', 'disabled');
     $('optgroup[label='+ raceName +'] option', this)
@@ -309,8 +308,7 @@ $.widget('ui.select', $.ui.selectmenu, {
 
   /* Empty options do not render correctly. Fixing this bug here. */
   _formatText: function(text){
-    var firstOption = $('option:first', this);
-    if ('' == firstOption.text()) { firstOption.text('&nbsp;'); }
+    if ('' == text) text = '&nbsp;';
 
     return $.ui.selectmenu.prototype._formatText.call(this, text);
   }
