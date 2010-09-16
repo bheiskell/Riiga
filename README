@@ -1,3 +1,11 @@
 Riiga Project Readme
 
-More detail is needed in this readme before release. However in case someone stumbles upon this project, this is a web forum designed for collaborative fiction. It's very targeted for Riiga however.
+More detail is needed in this readme before release. However in case someone
+stumbles upon this project, this is a web forum designed for collaborative
+fiction. It's very targeted for our specific usage however.
+
+Some directories need to be writable by the webserver
+$ cd app
+$ sudo chgrp www-data db db/riiga.db tmp/*
+$ chmod g+w db db/riiga.db tmp/*
+
