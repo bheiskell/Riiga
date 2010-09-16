@@ -33,103 +33,71 @@ $(document).ready(function() {
   elements.rank.star();
   elements.isNpc.button();
 
-  $('h3', informations.age).remove();
-  elements.age.parent().after(informations.age);
-  $('tr', informations.age).removeClass('altrow').each(function() {
-    $('th:first', this).remove();
-  });
-  /*informations.age.css({
-    position: 'absolute',
-    width: elements.age.parent().outerWidth() + 'px',
-    'z-index': 999
-  }).position({
-    my: 'top left',
-    at: 'top left',
-    using: elements.age
-  });*/
-  elements.age.focus(function () {
-    // TODO fix mega hack : )
-    if(1==$('tr:not(:first)', informations.age).hide().filter('.RaceId_'+elements.race.val()).show().length)
-      informations.age.slideDown();
-  });
-  elements.age.blur( function () { informations.age.slideUp(); });
-
 ////////////////////////////////////////////////////////////////////////////////
 
-// TODO: Merge the following base stuff into select ui. Then add a submenuContents call back that passes an option to a function specified and returns the jquery object that is to be cloned? Deep copy?
-  $().add(elements.race).add(elements.location).add(elements.faction)
-    .each(function() {
-      /**
-       * Pull optgroup level from data and convert to stars, e.g., 2 -> **. This
-       * format is used by the format function to generate star icons.
-       */
-      $('option', this).each(function() {
-        var optgroup = $(this).data('optgroup');
-        if (optgroup) {
-          var rank = parseInt(optgroup.replace(/Level /, ''));
-          var stars = new Array(rank + 1).join('*');
-          $(this).text($(this).text() + stars);
-        }
+  // reformat age information html
+  $('h3', informations.age).remove();
+  $('tr', informations.age)
+    .removeClass('altrow')
+    .each(function() { $('th:first', this).remove(); });
+
+  elements.age.parent().after(informations.age);
+
+  elements.age.focus(function () {
+    var ages = $('.RaceId_' + elements.race.val(), informations.age)
+      .show()
+      .siblings()
+      .hide();
+
+    if (ages.length == 1) { informations.age.slideDown(); }
+  });
+
+  elements.age.blur( function () { informations.age.slideUp(); });
+
+  /**
+   * Pull optgroup level from data and convert to stars, e.g., 2 -> **. This
+   * format is used by the format function to generate star icons.
+   */
+  $().add(elements.race).add(elements.location).each(function() {
+    $('option', this).each(function() {
+      var optgroup = $(this).data('optgroup');
+      if (optgroup) {
+        var rank = parseInt(optgroup.replace(/Level /, ''));
+        var stars = new Array(rank + 1).join('*');
+        $(this).text($(this).text() + stars);
+      }
+    });
+  });
+
+  var filterStars = function(text) {
+    return text
+      .replace(/(\*+)/, '<span class="stars">$1</span>')
+      .replace(/\*/g, '<span class="star">&nbsp;</span>');
+  }
+
+  elements.race.select({
+    format: filterStars,
+  });
+
+  elements.location.select({
+    format: filterStars,
+    submenuPosition: 'left',
+  });
+
+  elements.faction.select({
+    fillSubmenu: function(o, submenu) {
+      if (!o.val()) return;
+
+      var content = $('#FactionInformation')
+        .children('.FactionId_' + o.val())
+        .clone();
+
+      submenu.append(content).clearQueue().animate({
+        height: content.outerHeight(),
+        width:  content.outerWidth(),
       });
-
-      $(this).select({
-        style:           'dropdown',
-        submenuPosition: 'right',
-        menuWidth:       $(this).outerWidth(),
-
-        menuOpen: function(event, menu) {
-          $('.ui-select-submenu').remove();
-
-          var conf = ('right' == $(this).select('option', 'submenuPosition'))
-            ? { offset: menu.width() *  1, slide: 'left' }
-            : { offset: menu.width() * -1, slide: 'right' };
-
-          $('<div class="ui-select-submenu"></div>').css({
-              'height': menu.height() + 'px',
-              'width':  menu.width()  + 'px',
-              'top':    menu.offset().top + 'px',
-              'left':   menu.offset().left + conf.offset + 'px',
-            })
-            .mousedown(function() { return false; }) // dont close selectmenu
-            .insertBefore(menu)
-            .hide()
-            .effect('slide', { direction: conf.slide });
-        },
-        menuClose: function(event, menu) {
-          $('.ui-select-submenu').remove();
-        },
-
-        format: function(text) {
-          return text
-            .replace(/(\*+)/, '<span class="stars">$1</span>')
-            .replace(/\*/g, '<span class="star">&nbsp;</span>');
-        },
-      });
-    });
-
-    $(elements.location).select('option', 'submenuPosition', 'left');
-    $(elements.faction).select('option', 'submenuContents', function(option) {
-      return (option.val())
-        ? $('#FactionInformation').children('.FactionId_' + option.val())
-        : false;
-    });
-
-    $(elements.faction).bind('selectmenuhover', function(event, option) {
-      $('.ui-select-submenu').children().remove();
-
-      // TMP HACK
-      var submenuContents = $(this).select('option', 'submenuContents');
-
-      if (!submenuContents) { return false; }
-
-      var index = $(option).data('index');
-
-      var box = submenuContents($('option', this).eq(index));
-
-      if (box) $('.ui-select-submenu').append(box.clone());
-
-      return false; // Don't bubble up to ensure optgroups are ignored
-    });
+    }
+  });
 });
 
 /**
@@ -197,7 +165,7 @@ function Rules(targets) {
 
   // CakePHP doesn't support disabling individual option tags. Hack it into JS.
   this._limitByUserRank = function(event, userRank) {
-    $('option[value='+$(userRank).val()+']', this)
+    $('option[value=' + $(userRank).val() + ']', this)
       .nextAll()
       .attr('disabled', 'disabled');
   };
@@ -211,7 +179,6 @@ function Rules(targets) {
     });
     self._resetIfDisabled(this);
   };
-
   this._limitByRace = function(event, race) {
     var raceName = $('option:selected', race).text();
 
@@ -223,7 +190,7 @@ function Rules(targets) {
 
   /**
    * Options disabled by JS will not automatically be unselected by a select
-   * box. This will default to the first
+   * box. This will default to the first option.
    */
   this._resetIfDisabled = function(select) {
     if ($(select).find('option:selected').attr('disabled')) {
@@ -234,57 +201,117 @@ function Rules(targets) {
   this._init();
 }
 
-
 /**
- * Use selectmenu as a base and extend required functionality to support a
- * hover div off to the side. This requires a few new triggers.
+ * Extend selectmenu as select to add required functionality not supported by
+ * the base selectmenu. Such features include minor bug fixes / tweaks, Adding
+ * a slide out menu with callbacks, and adding support for individual options
+ * to be disabled.
  */
 $.widget('ui.select', $.ui.selectmenu, {
+  options: {
+    style: 'dropdown',
+    menuWidth: 0,
+    submenuPosition: 'right',
+    submenuWidth: 0,
+    submenuHeight: 0,
+  },
+
   _init: function() {
-    $.ui.selectmenu.prototype._init.call(this);
     var self = this;
-    $('li', this.list).mouseover(function() {
-      return self._trigger('menuHover', 0, this);
-    });
-    this.element.change(function() { self.setDisabled(); });
-    if ('' == $('option:first', this).text()) {
-      $('option:first', this).text('&nbsp;');
+    $.ui.selectmenu.prototype._init.call(this);
+
+    // by default selectmenu ignores padding width which we need included
+    if (!this.options.menuWidth) this.list.width(this.newelement.innerWidth());
+
+    this.element.change(function() { self._updateDisabledFields(); });
+
+    $('li', this.list).mouseover(function(event) { self._hover(event) });
+
+    this._updateDisabledFields();
+  },
+
+  /* Add submenu slide out */
+  open: function(event) {
+    $(document).trigger('mousedown'); // close other open selectmenus
+
+    $.ui.selectmenu.prototype.open.call(this);
+
+    var submenuCss = {
+      'height': (this.options.submenuHeight || this.list.height()),
+      'width':  (this.options.submenuWidth  || this.list.width()),
+      'top':    this.list.offset().top,
+    }
+
+    if ('right' == this.options.submenuPosition) {
+      submenuCss.left = this.list.offset().left + this.list.innerWidth();
+    } else {
+      submenuCss.left = this.list.offset().left - submenuCss.width;
+    }
+
+    var slideFromLeft = ('right' == this.options.submenuPosition);
+
+    var conf = ('right' == this.options.submenuPosition)
+    this.submenu = $('<div class="ui-select-submenu"></div>')
+      .css(submenuCss)
+      .mousedown(function(event) { event.stopPropagation(); })
+      .insertBefore(this.list)
+      .hide()
+      .effect('slide', { direction: (slideFromLeft) ? 'left' : 'right' });
+  },
+
+  /* Provide a hover callback for obtaining submenu content */
+  _hover: function(event) {
+    this.submenu.children().remove();
+
+    var index = $(event.currentTarget).data('index');
+    if (index) {
+      var option = $('option', this.element).eq(index);
+
+      if (this.options.fillSubmenu) {
+        var contents = this.options.fillSubmenu(option, this.submenu);
+      }
+
+      event.stopPropagation();
     }
   },
-  value: function(newValue) {
-    $(this).data('clickDisabled', // TODO: HACK THIS SUCKS FIX IT
-      this.element
-        .find('option')
-        .eq(newValue)
-        .attr('disabled')
-    );
-    return (arguments.length && !$(this).data('clickDisabled'))
-      ? $.ui.selectmenu.prototype.value.call(this, newValue)
-      : $.ui.selectmenu.prototype.value.call(this);
 
-  },
-  open: function(event) {
-    var ret = $.ui.selectmenu.prototype.open.call(this);
-    this.setDisabled();
-    this._trigger('menuOpen', event, this.list);
-    return ret;
-  },
+  /* Add support for disabled options */
+  _updateDisabledFields: function() {
+    var options = $('option', this.element);
 
-  close: function(event, retainFocus) {
-    if (retainFocus && $(this).data('clickDisabled')) return;
-    var ret = $.ui.selectmenu.prototype.close.call(this, event, retainFocus);
-    this._trigger('menuClose', event, this.list);
-    return ret;
-  },
-  setDisabled: function() {
-    var options = this.element.find('option');
     $('li', this.list).each(function() {
       var disabled = options.eq($(this).data('index')).attr('disabled');
+
       if (disabled) {
         $(this).addClass('ui-state-disabled');
       } else {
         $(this).removeClass('ui-state-disabled');
       }
     });
+
+    this._refreshValue();
+  },
+  value: function(index) {
+    if (arguments.length) this.disabledOptionSelected = 
+      $('option', this.element).eq(index).attr('disabled');
+
+    return (!this.disabledOptionSelected && arguments.length)
+      ? $.ui.selectmenu.prototype.value.call(this, index)
+      : $.ui.selectmenu.prototype.value.call(this);
+  },
+  close: function(event, retainFocus) {
+    if (retainFocus && this.disabledOptionSelected) return;
+
+    if (this.submenu) this.submenu.remove();
+
+    return $.ui.selectmenu.prototype.close.call(this, event, retainFocus);
+  },
+
+  /* Empty options do not render correctly. Fixing this bug here. */
+  _formatText: function(text){
+    var firstOption = $('option:first', this);
+    if ('' == firstOption.text()) { firstOption.text('&nbsp;'); }
+
+    return $.ui.selectmenu.prototype._formatText.call(this, text);
   }
 });

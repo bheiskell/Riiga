@@ -8,7 +8,7 @@
     _init: function() {
       var self = this, o = this.options;
 
-      this.starContainer  = $(
+      this.starContainer = $(
         '<div class="'+ this.widgetBaseClass +' ui-widget"></div>'
       );
 
@@ -57,19 +57,19 @@
       this._trigger('select', 0, star);
     },
     _highlight: function(star) {
-      var class = $(star).data('disabled')
+      var state = $(star).data('disabled')
                 ? 'ui-state-highlight'
                 : 'ui-state-hover';
-      this._refresh(star, class);
+      this._refresh(star, state);
       this._trigger('highlight', 0, star);
     },
-    _refresh: function(star, class) {
+    _refresh: function(star, state) {
       star  = star  || this.selected;
-      class = class || 'ui-state-highlight';
+      state = state || 'ui-state-highlight';
 
       $(star).prevAll().andSelf().not('.ui-state-disabled')
         .removeClass()
-        .addClass(class);
+        .addClass(state);
       $(star).nextAll().not('.ui-state-disabled')
         .removeClass()
         .addClass('ui-state-default');
