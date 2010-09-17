@@ -15,14 +15,14 @@ $(document).ready(function() {
     profession:  $('#CharacterProfession'),
     description: $('#CharacterDescription'),
     history:     $('#CharacterHistory'),
-    isNpc:       $('#CharacterIsNpc'),
+    isNpc:       $('#CharacterIsNpc')
   };
   var informations = {
     race:       $('#RaceInformation'),
     location:   $('#LocationInformation'),
     age:        $('#AgeInformation'),
     faction:    $('#FactionInformation'),
-    profession: $('#ProfessionInformation'),
+    profession: $('#ProfessionInformation')
   }
 
   $().add(elements.race).add(elements.location).flattenOptgroups();
@@ -38,7 +38,7 @@ $(document).ready(function() {
   elements.history    .autoResize().trigger('change.dynSiz');
   elements.isNpc.checkbuttons({
     messageOff: 'Player Character',
-    messageOn:  'Non-player Character',
+    messageOn:  'Non-player Character'
   });
 
 
@@ -84,12 +84,12 @@ $(document).ready(function() {
   }
 
   elements.race.select({
-    format: filterStars,
+    format: filterStars
   });
 
   elements.location.select({
     format: filterStars,
-    submenuPosition: 'left',
+    submenuPosition: 'left'
   });
 
   elements.faction.select({
@@ -102,7 +102,7 @@ $(document).ready(function() {
 
       submenu.append(content).clearQueue().animate({
         height: content.outerHeight(),
-        width:  content.outerWidth(),
+        width:  content.outerWidth()
       });
     }
   });
@@ -215,7 +215,7 @@ function Rules(targets) {
 $.widget('ui.checkbuttons', {
   options: {
     messageOff: 'Off',
-    messageOn:  'On',
+    messageOn:  'On'
   },
   _init: function() {
     var self = this, id = this.element.attr('id');
@@ -251,7 +251,7 @@ $.widget('ui.checkbuttons', {
   _destroy: function() {
     this.radios.remove();
     this.element.parent().show();
-  },
+  }
 });
 
 /**
@@ -266,7 +266,7 @@ $.widget('ui.select', $.ui.selectmenu, {
     menuWidth: 0,
     submenuPosition: 'right',
     submenuWidth: 0,
-    submenuHeight: 0,
+    submenuHeight: 0
   },
 
   _init: function() {
@@ -292,7 +292,7 @@ $.widget('ui.select', $.ui.selectmenu, {
     var submenuCss = {
       'height': (this.options.submenuHeight || this.list.height()),
       'width':  (this.options.submenuWidth  || this.list.width()),
-      'top':    this.list.offset().top,
+      'top':    this.list.offset().top
     }
 
     if ('right' == this.options.submenuPosition) {

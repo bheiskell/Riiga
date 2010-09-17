@@ -17,7 +17,7 @@
           .data({
             text:     $(this).text(),
             value:    $(this).attr('value'),
-            disabled: $(this).attr('disabled'),
+            disabled: $(this).attr('disabled')
           })
           .click(    function(event) { self._select(this); return false; })
           .mouseover(function(event) { self._highlight(this); })
@@ -73,7 +73,7 @@
       $(star).nextAll().not('.ui-state-disabled')
         .removeClass()
         .addClass('ui-state-default');
-    },
+    }
   });
 
   $.extend($.ui.star, { defaults: { } });
