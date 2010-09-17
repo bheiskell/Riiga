@@ -10,7 +10,7 @@
     echo $form->input('name');
     echo $form->input('description');
     echo $form->input('parent_id', array('empty' => true));
-    echo $form->input('LocationTags', array(
+    echo $form->input('LocationTag', array(
       'empty'   => 'Add Tags',
       'between' => '<div class="select_wrap">',
       'after'   => '</div>',
