@@ -84,21 +84,11 @@ $(document).ready(function() {
   }
 
   elements.race.select({
-    format: filterStars
-  });
-
-  elements.location.select({
     format: filterStars,
-    submenuPosition: 'left'
-  });
-
-  elements.faction.select({
     fillSubmenu: function(o, submenu) {
       if (!o.val()) return;
 
-      var content = $('#FactionInformation')
-        .children('.FactionId_' + o.val())
-        .clone();
+      var content = $('#RaceInformation .RaceId_' + o.val()).clone();
 
       submenu.append(content).clearQueue().animate({
         height: content.outerHeight(),
@@ -106,6 +96,72 @@ $(document).ready(function() {
       });
     }
   });
+
+  elements.location.select({
+    format: filterStars,
+    submenuPosition: 'left',
+    fillSubmenu: function(o, submenu) {
+      if (!o.val()) return;
+
+      var content = $('#LocationInformation .LocationId_' + o.val()).clone();
+
+      submenu.append(content).clearQueue().animate({
+        height: content.outerHeight(),
+        width:  content.outerWidth()
+      });
+    }
+  });
+
+  elements.faction.select({
+    fillSubmenu: function(o, submenu) {
+      if (!o.val()) return;
+
+      var content = $('#FactionInformation .FactionId_' + o.val()).clone();
+
+      submenu.append(content).clearQueue().animate({
+        height: content.outerHeight(),
+        width:  content.outerWidth()
+      });
+    }
+  });
+////////////////////////////////////////////////////////////////////////////////
+
+  // Convert professions into a traversable data-structure.
+  var categories = [ ];
+  $('#ProfessionInformation h4').each(function() {
+    var category = {
+      name: $(this).text(),
+      professions: [ ]
+    };
+
+    $(this).siblings('div').children('h5').each(function() {
+      var profession = {
+        name: $(this).text(),
+        races: [ ]
+      };
+
+      var races = $(this).siblings('table').find('tr td:first-child');
+
+      races.each(function() {
+        var race =  {
+          name: $(this).text(),
+          age: parseInt($(this).next().text())
+        };
+
+        var id = parseInt($(this).attr('class').replace(/[^0-9]+/,''));
+
+        profession.races[id] = race;
+      });
+      category.professions.push(profession);
+    });
+    categories.push(category);
+  });
+
+  var elementsData = $('<div></div>').insertAfter(elements.profession);
+  elements.profession.blur(function() {
+
+  });
+////////////////////////////////////////////////////////////////////////////////
 });
 
 /**

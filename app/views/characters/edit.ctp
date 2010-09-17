@@ -177,7 +177,9 @@
                 <?php $i = 0; ?>
                 <?php foreach ($profession['ProfessionsRace'] as $race):?>
                   <tr <?php if (0 == $i++ % 2) echo 'class="altrow"';?>>
-                    <td><?php echo $raceNames[$race['race_id']]; ?></td>
+                    <td class="RaceId_<?php echo $race['race_id']; ?>">
+                      <?php echo $raceNames[$race['race_id']]; ?>
+                    </td>
                     <td><?php echo $race['age']; ?></td>
                   </tr>
                 <?php endforeach; ?>
