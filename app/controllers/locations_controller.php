@@ -39,7 +39,7 @@ class LocationsController extends AppController {
         ));
       }
     }
-    $this->set('locationTags', $this->Location->LocationTags->find('list'));
+    $this->set('locationTags', $this->Location->LocationTag->find('list'));
     $this->set('parents', $this->Location->generatetreelist(
       null, null, null, '|  '
     ));
@@ -63,7 +63,7 @@ class LocationsController extends AppController {
     if (empty($this->data)) {
       $this->data = $this->Location->read(null, $id);
     }
-    $this->set('locationTags', $this->Location->LocationTags->find('list'));
+    $this->set('locationTags', $this->Location->LocationTag->find('list'));
     $this->set('parents', $this->Location->generatetreelist(
       null, null, null, '|  '
     ));
