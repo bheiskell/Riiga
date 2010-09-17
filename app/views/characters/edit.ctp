@@ -8,9 +8,10 @@
         'jquery-ui-selectmenu', 'stylesheet', array('media' => 'all'), false
       );
     ?>
-    <?php $javascript->link('jquery-ui-selectmenu.js', false); ?>
-    <?php $javascript->link('jquery-ui-star.js',       false); ?>
-    <?php $javascript->link('character_wizard.js',     false); ?>
+    <?php $javascript->link('jquery-autoresize.min.js', false); ?>
+    <?php $javascript->link('jquery-ui-selectmenu.js',  false); ?>
+    <?php $javascript->link('jquery-ui-star.js',        false); ?>
+    <?php $javascript->link('character_wizard.js',      false); ?>
 
     <?php
     // slightly sloppy inclusion of the user rank into the source for the

@@ -315,7 +315,9 @@ fieldset 850px wide
 
 */
 /* Characters input container default to two column */
-.characters .input {
+.characters .text,
+.characters .textarea,
+.characters .select {
   margin: 0;
   padding: 1.5em 0 0 0;
   width: 50%; /* 50 makes math easier */
@@ -347,7 +349,9 @@ fieldset 850px wide
 .characters select { width: 98%; }
 
 /* Position labels on inputs */
-.characters label {
+.characters .text label,
+.characters .textarea label,
+.characters .select label {
   background: transparent url(../img/jquery-ui/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
   border: 1px solid #ccc;
   color: #444;
@@ -424,10 +428,6 @@ fieldset 850px wide
   -moz-box-shadow: 0 0 1em #999;
   box-shadow: 0 0 1em #999;
 }
-
-/* TODO: Fix theme and remove this - button restyling for toggling */
-.characters .ui-button.ui-state-default { border: 1px outset #e8e8e8; }
-.characters .ui-button.ui-state-active  { border: 1px inset  #e8e8e8; }
 
 /* Select menu restyling - override style to match other inputs sizing */
 .characters .ui-select {
