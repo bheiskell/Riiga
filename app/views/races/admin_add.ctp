@@ -4,6 +4,7 @@
  		<legend><?php __('Add Race');?></legend>
 	<?php
 		echo $form->input('name');
+		echo $form->input('description');
 		echo $form->input('rank_id');
 	?>
 	</fieldset>

@@ -1,6 +1,6 @@
 <?php 
 /* SVN FILE: $Id$ */
-/* App schema generated on: 2010-08-06 01:08:01 : 1281059101*/
+/* App schema generated on: 2010-09-18 23:09:44 : 1284851624*/
 class AppSchema extends CakeSchema {
 	var $name = 'App';
 
@@ -59,6 +59,26 @@ class AppSchema extends CakeSchema {
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array()
 	);
+	var $faction_ranks = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
+		'faction_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'rank_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'age' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'indexes' => array()
+	);
+	var $factions = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
+		'description' => array('type' => 'text', 'null' => true, 'default' => NULL),
+		'indexes' => array()
+	);
+	var $factions_races = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'faction_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'race_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'indexes' => array()
+	);
 	var $location_tags = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
@@ -83,6 +103,49 @@ class AppSchema extends CakeSchema {
 		'rght' => array('type' => 'integer', 'null' => true, 'default' => NULL),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'indexes' => array()
+	);
+	var $locations_races = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'location_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'race_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'likelihood' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'indexes' => array()
+	);
+	var $profession_categories = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
+		'indexes' => array()
+	);
+	var $professions = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
+		'profession_category_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'indexes' => array()
+	);
+	var $professions_races = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'profession_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'race_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'age' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'indexes' => array()
+	);
+	var $race_ages = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'race_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'child' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'teen' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'adult' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'mature' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'elder' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'max' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'indexes' => array()
+	);
+	var $races = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
+		'description' => array('type' => 'text', 'null' => true, 'default' => NULL),
+		'rank_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
 		'indexes' => array()
 	);
 	var $ranks = array(

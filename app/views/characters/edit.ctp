@@ -68,6 +68,7 @@
     <?php foreach ($raceInfo as $race): ?>
       <div class="RaceId_<?php echo $race['Race']['id']; ?>">
         <h4><?php echo $race['Race']['name']; ?></h4>
+        <p><?php echo $race['Race']['description']; ?></p>
         Requires Level <?php echo $race['Rank']['id']; ?>
       </div>
     <?php endforeach; ?>
@@ -138,9 +139,11 @@
   </div>
   <div id="FactionInformation">
     <h3>Faction ranks by required Level and Age</h3>
-    <?php foreach ($factionInfo as $factionId => $factionRanks): ?>
+    <?php foreach ($factionInfo as $faction): ?>
+      <?php $factionId = $faction['Faction']['id']; ?>
       <div class="FactionId_<?php echo $factionId; ?>">
-        <h4><?php echo $factionNames[$factionId]; ?></h4>
+        <h4><?php echo $faction['Faction']['name']; ?></h4>
+        <p><?php echo $faction['Faction']['description']; ?></p>
         <table>
           <thead>
             <tr>
@@ -151,7 +154,7 @@
           </thead>
           <tbody>
             <?php $i = 0; ?>
-            <?php foreach ($factionRanks as $factionRank): ?>
+            <?php foreach ($factionRanks[$factionId] as $factionRank): ?>
                 <tr <?php if (0 == $i++ % 2) echo 'class="altrow"';?>>
                 <td><?php echo $factionRank['name']; ?></td>
                 <td><?php echo $factionRank['rank_id']; ?></td>

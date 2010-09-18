@@ -5,6 +5,7 @@
 	<?php
 		echo $form->input('id');
 		echo $form->input('name');
+		echo $form->input('description');
 		echo $form->input('Race');
 	?>
 	</fieldset>

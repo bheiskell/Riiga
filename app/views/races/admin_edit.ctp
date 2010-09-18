@@ -5,6 +5,7 @@
 	<?php
 		echo $form->input('id');
 		echo $form->input('name');
+		echo $form->input('description');
 		echo $form->input('rank_id');
 	?>
 	</fieldset>

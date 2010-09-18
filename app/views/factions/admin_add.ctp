@@ -4,6 +4,7 @@
  		<legend><?php __('Add Faction');?></legend>
 	<?php
 		echo $form->input('name');
+		echo $form->input('description');
 		echo $form->input('Race');
 	?>
 	</fieldset>
