@@ -157,8 +157,125 @@ $(document).ready(function() {
     categories.push(category);
   });
 
-  var elementsData = $('<div></div>').insertAfter(elements.profession);
+  // cat length 9
+  // professions in cat length max 19
+
+  var elementsData = $('<div></div>').insertAfter(elements.profession)
+    .addClass('ui-widget')
+    .addClass('ui-corner-bottom')
+    .css({
+      overflow: 'hidden',
+      border: '1px solid #B6A792',
+      marginTop: '0',
+      position: 'relative',
+      top: '-1px',
+      width: elements.profession.innerWidth() + 'px',
+      WebkitBoxShadow: '0 0.25em 1em #999',
+      MozBoxShadow: '0 0.25em 1em #999',
+      boxShadow: '0 0.25em 1em #999'
+
+    })
+  $('<h5>Profession Ideas</h5>').appendTo(elementsData)
+    .css({
+      color: '#555555',
+      fontSize: '1.25em',
+      fontWeight: 'normal',
+      textAlign: 'center',
+      padding: '0.3em 1em',
+      borderTop: '0',
+      borderLeft: '0',
+      borderRight: '0'
+    })
+    .addClass('ui-state-default');
+  var categoriesList = $('<ul></ul>').appendTo(elementsData).css({
+    float: 'left',
+    width: '25%',
+    margin: '0'
+    });
+  var professionsList = $('<ul></ul>').appendTo(elementsData).css({
+    float: 'right',
+    width: '75%',
+    margin: '0',
+    MozColumnCount: '3',
+    WebkitColumnCount: '3',
+    columnCount: '3'
+    });
+  $('<p></p>').text(
+    'Tip: Hover over grey (not recommended) professions for details'
+  )
+  .css({
+    clear: 'both',
+    color: '#AAA',
+    padding: '0.3em 1em',
+    margin: '0',
+    textAlign: 'center'
+  })
+  .appendTo(elementsData);
+
+  for (var i = 0; i < categories.length; i++) {
+    $('<li></li>')
+      .css({
+        cursor: 'pointer',
+        margin: '0',
+        padding: '0.3em 1em',
+        borderTop: '0',
+        borderLeft: '0'
+      })
+      .data('categoryId', i)
+      .text(categories[i].name)
+      .addClass('ui-state-default')
+      .hover(
+        function() { $(this).addClass('ui-state-hover'); },
+        function() { $(this).removeClass('ui-state-hover'); }
+      )
+      .appendTo(categoriesList)
+      .mouseover(function() {
+        professionsList.children().remove();
+        var i = $(this).data('categoryId');
+
+        categories[i].professions.sort(function(left, right) {
+          var leftRace  = left.races[elements.race.val()];
+          var rightRace = right.races[elements.race.val()];
+          var leftAge   = leftRace   && (leftRace.age  <= elements.age.val());
+          var rightAge  = rightRace  && (rightRace.age <= elements.age.val());
+
+          if (!!leftRace != !!rightRace) return (!!leftRace) ? -1 : 1;
+          if (leftAge != rightAge) return (leftAge) ? -1 : 1;
+          return left.name < right.name ? -1 : 1;
+        });
+
+        for (var j = 0; j < categories[i].professions.length; j++) {
+          var race = categories[i].professions[j].races[elements.race.val()];
+
+          var raceEnabled = !!race;
+
+          var ageEnabled = raceEnabled && race.age <= elements.age.val();
+
+          $('<li></li>').text(categories[i].professions[j].name)
+            .css({
+              display: 'inline-block',
+              margin: '0',
+              padding: '0.3em 1em',
+              borderLeft: '0',
+              borderRight: '0',
+              width: elementsData.width() / 4 + 'px',
+              color: (ageEnabled && raceEnabled) ? 'inherited' :
+                ((raceEnabled) ? '#BBB' : '#E0E0E0')
+            })
+            .attr('title',
+              (ageEnabled) ? '' : (
+                (raceEnabled)
+                  ? 'Character should be at least ' + race.age + ' years old'
+                  : 'Profession not avaliable for your race'
+              )
+            )
+            .appendTo(professionsList);
+        }
+      });
+  }
+
   elements.profession.blur(function() {
+    //alert (categories[5].professions[3].races[3].name);
 
   });
 ////////////////////////////////////////////////////////////////////////////////
@@ -346,9 +463,9 @@ $.widget('ui.select', $.ui.selectmenu, {
     $.ui.selectmenu.prototype.open.call(this);
 
     var submenuCss = {
-      'height': (this.options.submenuHeight || this.list.height()),
-      'width':  (this.options.submenuWidth  || this.list.width()),
-      'top':    this.list.offset().top
+      height: (this.options.submenuHeight || this.list.height()),
+      width:  (this.options.submenuWidth  || this.list.width()),
+      top:    this.list.offset().top
     }
 
     if ('right' == this.options.submenuPosition) {

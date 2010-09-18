@@ -274,7 +274,19 @@ td.avatar {
   width: 0px; /* shrink to image size, might not be cross browser */
 }
 
-/* Page Specific */
+/******************************************************************************/
+/* jQuery UI ******************************************************************/
+/******************************************************************************/
+/**
+ * This section is only for overloading functionality that always should
+ * overload theme roller templates. Truly cosmetic changes should be in the
+ * jquery-ui.css.
+ */
+input.ui-button { padding: 0.25em 0.5em; }
+
+/******************************************************************************/
+/* Page Specific **************************************************************/
+/******************************************************************************/
 .users.login div.input input {
   display: block;
   margin: -1.5em 0 0 10em;
@@ -334,7 +346,8 @@ fieldset 850px wide
   margin: 0;
   width: 72%; /* 72 + 26 = 98 -> Margin of 1% set based on float direction */
 }
-.characters input { height: 1.5em; } /* Firefox inputs don't respect line height */
+/* Firefox inputs don't respect line height */
+.characters fieldset input { height: 1.5em; }
 
 /* Recalc for 100% width elements */
 .characters #age input,

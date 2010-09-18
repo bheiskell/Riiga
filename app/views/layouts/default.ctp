@@ -10,6 +10,7 @@
     echo $html->css('jquery-ui');
     echo $javascript->link('jquery.min.js');
     echo $javascript->link('jquery-ui.min.js');
+    echo $javascript->link('script.js');
     echo $scripts_for_layout;
   ?>
 </head>
