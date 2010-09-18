@@ -21,7 +21,7 @@ class Location extends AppModel {
           )
         ),
         'fields' => array('id', 'name', 'CharacterLocation.rank_id'),
-        'order' => array('rank_id'),
+        'order' => array('rank_id', 'Location.lft'),
       )
     );
 

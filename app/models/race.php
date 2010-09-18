@@ -16,7 +16,7 @@ class Race extends AppModel {
     $results = $this->find('list',
       array(
         'fields' => array('id', 'name', 'rank_id'),
-        'order'  => array('rank_id'),
+        'order'  => array('rank_id, id asc'),
       )
     );
 
