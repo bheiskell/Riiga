@@ -284,6 +284,13 @@ td.avatar {
  */
 input.ui-button { padding: 0.25em 0.5em; }
 
+/* By default UI doesn't include a shadow class without adding a sub-element */
+.ui-shadow {
+  -webkit-box-shadow: 0 0.5em 1em #999;
+  -moz-box-shadow: 0 0.5em 1em #999;
+  box-shadow: 0 0.5em 1em #999;
+}
+
 /******************************************************************************/
 /* Page Specific **************************************************************/
 /******************************************************************************/
@@ -523,6 +530,70 @@ fieldset 850px wide
 
   border-radius: 0.25em;
   -moz-border-radius: 0.25em;
+}
+
+/******************************************************************************/
+/* Profession Widget **********************************************************/
+/******************************************************************************/
+
+.ui-profession {
+  margin-top: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: 1;
+}
+.ui-profession h5 {
+  background: url("../img/jquery-ui/ui-bg_glass_75_e6e6e6_1x400.png")
+    repeat-x scroll 50% 50% #E6E6E6;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  color: #555555;
+  font-weight: normal;
+  padding: 0.3em 1em;
+  text-align: center;
+}
+
+.ui-profession ul.ui-profession-categories {
+  float: left;
+  margin: 0;
+  width: 25%;
+}
+.ui-profession ul.ui-profession-categories li {
+  border-top: 0;
+  border-left: 0;
+  cursor: pointer;
+  padding: 0.3em 1em;
+  margin: 0;
+}
+
+.ui-profession ul.ui-profession-professions {
+  float: right;
+  margin: 0;
+  width: 75%;
+
+  -moz-column-count: 3;
+  -webkit-column-count: 3;
+  column-count: 3;
+}
+
+.ui-profession ul.ui-profession-professions li {
+  display: inline-block;
+  margin: 0;
+  padding: 0.3em 1em;
+  border-left: 0;
+  border-right: 0;
+}
+
+.ui-profession .ui-limited-by-age { color: #BBB; }
+.ui-profession .ui-limited-by-race { color: #E0E0E0; }
+
+.ui-profession p {
+  clear: both;
+  color: #AAA;
+  margin: 0;
+  padding: 0.3em 1em;
+  text-align: center;
 }
 
 /******************************************************************************/

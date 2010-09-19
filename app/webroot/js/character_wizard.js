@@ -41,26 +41,16 @@ $(document).ready(function() {
     messageOn:  'Non-player Character'
   });
 
-
-////////////////////////////////////////////////////////////////////////////////
-
-  // reformat age information html
-  $('h3', informations.age).remove();
-  $('tr', informations.age)
-    .removeClass('altrow')
-    .each(function() { $('th:first', this).remove(); });
-
-  elements.age.parent().after(informations.age);
-
-  elements.age.focus(function () {
-    var ages = $('.RaceId_' + elements.race.val(), informations.age);
-
-    ages.show().siblings().hide();
-
-    if (ages.length == 1) { informations.age.slideDown(); }
+  elements.age.age({
+    info: informations.age,
+    race: elements.race,
   });
 
-  elements.age.blur( function () { informations.age.slideUp(); });
+  elements.profession.profession({
+    categories: getCategories(informations.profession),
+    race: elements.race,
+    age: elements.age
+  });
 
   /**
    * Pull optgroup level from data and convert to stars, e.g., 2 -> **. This
@@ -88,7 +78,7 @@ $(document).ready(function() {
     fillSubmenu: function(o, submenu) {
       if (!o.val()) return;
 
-      var content = $('#RaceInformation .RaceId_' + o.val()).clone();
+      var content = $('.RaceId_' + o.val(), informations.race).clone();
 
       submenu.append(content).clearQueue().animate({
         height: content.outerHeight(),
@@ -103,7 +93,7 @@ $(document).ready(function() {
     fillSubmenu: function(o, submenu) {
       if (!o.val()) return;
 
-      var content = $('#LocationInformation .LocationId_' + o.val()).clone();
+      var content = $('.LocationId_' + o.val(), informations.location).clone();
 
       submenu.append(content).clearQueue().animate({
         height: content.outerHeight(),
@@ -116,7 +106,7 @@ $(document).ready(function() {
     fillSubmenu: function(o, submenu) {
       if (!o.val()) return;
 
-      var content = $('#FactionInformation .FactionId_' + o.val()).clone();
+      var content = $('.FactionId_' + o.val(), informations.faction).clone();
 
       submenu.append(content).clearQueue().animate({
         height: content.outerHeight(),
@@ -124,161 +114,6 @@ $(document).ready(function() {
       });
     }
   });
-////////////////////////////////////////////////////////////////////////////////
-
-  // Convert professions into a traversable data-structure.
-  var categories = [ ];
-  $('#ProfessionInformation h4').each(function() {
-    var category = {
-      name: $(this).text(),
-      professions: [ ]
-    };
-
-    $(this).siblings('div').children('h5').each(function() {
-      var profession = {
-        name: $(this).text(),
-        races: [ ]
-      };
-
-      var races = $(this).siblings('table').find('tr td:first-child');
-
-      races.each(function() {
-        var race =  {
-          name: $(this).text(),
-          age: parseInt($(this).next().text())
-        };
-
-        var id = parseInt($(this).attr('class').replace(/[^0-9]+/,''));
-
-        profession.races[id] = race;
-      });
-      category.professions.push(profession);
-    });
-    categories.push(category);
-  });
-
-  // cat length 9
-  // professions in cat length max 19
-
-  var elementsData = $('<div></div>').insertAfter(elements.profession)
-    .addClass('ui-widget')
-    .addClass('ui-corner-bottom')
-    .css({
-      overflow: 'hidden',
-      border: '1px solid #B6A792',
-      marginTop: '0',
-      position: 'relative',
-      top: '-1px',
-      width: elements.profession.innerWidth() + 'px',
-      WebkitBoxShadow: '0 0.25em 1em #999',
-      MozBoxShadow: '0 0.25em 1em #999',
-      boxShadow: '0 0.25em 1em #999'
-
-    })
-  $('<h5>Profession Ideas</h5>').appendTo(elementsData)
-    .css({
-      color: '#555555',
-      fontSize: '1.25em',
-      fontWeight: 'normal',
-      textAlign: 'center',
-      padding: '0.3em 1em',
-      borderTop: '0',
-      borderLeft: '0',
-      borderRight: '0'
-    })
-    .addClass('ui-state-default');
-  var categoriesList = $('<ul></ul>').appendTo(elementsData).css({
-    float: 'left',
-    width: '25%',
-    margin: '0'
-    });
-  var professionsList = $('<ul></ul>').appendTo(elementsData).css({
-    float: 'right',
-    width: '75%',
-    margin: '0',
-    MozColumnCount: '3',
-    WebkitColumnCount: '3',
-    columnCount: '3'
-    });
-  $('<p></p>').text(
-    'Tip: Hover over grey (not recommended) professions for details'
-  )
-  .css({
-    clear: 'both',
-    color: '#AAA',
-    padding: '0.3em 1em',
-    margin: '0',
-    textAlign: 'center'
-  })
-  .appendTo(elementsData);
-
-  for (var i = 0; i < categories.length; i++) {
-    $('<li></li>')
-      .css({
-        cursor: 'pointer',
-        margin: '0',
-        padding: '0.3em 1em',
-        borderTop: '0',
-        borderLeft: '0'
-      })
-      .data('categoryId', i)
-      .text(categories[i].name)
-      .addClass('ui-state-default')
-      .hover(
-        function() { $(this).addClass('ui-state-hover'); },
-        function() { $(this).removeClass('ui-state-hover'); }
-      )
-      .appendTo(categoriesList)
-      .mouseover(function() {
-        professionsList.children().remove();
-        var i = $(this).data('categoryId');
-
-        categories[i].professions.sort(function(left, right) {
-          var leftRace  = left.races[elements.race.val()];
-          var rightRace = right.races[elements.race.val()];
-          var leftAge   = leftRace   && (leftRace.age  <= elements.age.val());
-          var rightAge  = rightRace  && (rightRace.age <= elements.age.val());
-
-          if (!!leftRace != !!rightRace) return (!!leftRace) ? -1 : 1;
-          if (leftAge != rightAge) return (leftAge) ? -1 : 1;
-          return left.name < right.name ? -1 : 1;
-        });
-
-        for (var j = 0; j < categories[i].professions.length; j++) {
-          var race = categories[i].professions[j].races[elements.race.val()];
-
-          var raceEnabled = !!race;
-
-          var ageEnabled = raceEnabled && race.age <= elements.age.val();
-
-          $('<li></li>').text(categories[i].professions[j].name)
-            .css({
-              display: 'inline-block',
-              margin: '0',
-              padding: '0.3em 1em',
-              borderLeft: '0',
-              borderRight: '0',
-              width: elementsData.width() / 4 + 'px',
-              color: (ageEnabled && raceEnabled) ? 'inherited' :
-                ((raceEnabled) ? '#BBB' : '#E0E0E0')
-            })
-            .attr('title',
-              (ageEnabled) ? '' : (
-                (raceEnabled)
-                  ? 'Character should be at least ' + race.age + ' years old'
-                  : 'Profession not avaliable for your race'
-              )
-            )
-            .appendTo(professionsList);
-        }
-      });
-  }
-
-  elements.profession.blur(function() {
-    //alert (categories[5].professions[3].races[3].name);
-
-  });
-////////////////////////////////////////////////////////////////////////////////
 });
 
 /**
@@ -421,7 +256,8 @@ $.widget('ui.checkbuttons', {
 
     this.element.parent().hide();
   },
-  _destroy: function() {
+  destroy: function() {
+    this.radios.buttonset('destroy');
     this.radios.remove();
     this.element.parent().show();
   }
@@ -517,6 +353,7 @@ $.widget('ui.select', $.ui.selectmenu, {
 
     this._refreshValue();
   },
+
   value: function(index) {
     if (arguments.length) this.disabledOptionSelected = 
       $('option', this.element).eq(index).attr('disabled');
@@ -525,6 +362,7 @@ $.widget('ui.select', $.ui.selectmenu, {
       ? $.ui.selectmenu.prototype.value.call(this, index)
       : $.ui.selectmenu.prototype.value.call(this);
   },
+
   close: function(event, retainFocus) {
     if (retainFocus && this.disabledOptionSelected) return;
 
@@ -538,5 +376,203 @@ $.widget('ui.select', $.ui.selectmenu, {
     if ('' == text) text = '&nbsp;';
 
     return $.ui.selectmenu.prototype._formatText.call(this, text);
+  }
+});
+
+/**
+ * Parses HTML and retuns profession information in the format needed by the
+ * profession widget.
+ */
+function getCategories(professionInfo) {
+  var categories = [ ];
+  $('h4', professionInfo).each(function() {
+    var category = {
+      name: $(this).text(),
+      professions: [ ]
+    };
+
+    $(this).siblings('div').children('h5').each(function() {
+      var profession = {
+        name: $(this).text(),
+        races: [ ]
+      };
+
+      var races = $(this).siblings('table').find('tr td:first-child');
+
+      races.each(function() {
+        var race =  {
+          name: $(this).text(),
+          age: parseInt($(this).next().text())
+        };
+
+        var id = parseInt($(this).attr('class').replace(/[^0-9]+/,''));
+
+        profession.races[id] = race;
+      });
+      category.professions.push(profession);
+    });
+    categories.push(category);
+  });
+
+  return categories;
+}
+
+/**
+ * Professions widget
+ * This isn't really intended to be reused. Instead I'm just trying to
+ * encapsulate some functionality. Race and age could be call backs, but
+ * passing raw jQuery objects is just more to the point. Categories is of the
+ * following format:
+ *
+ *   categories[category_id].professions[profession_id].race[race_id].age;
+ * 
+ * Each JSON component has a name key for identifying the category, profession,
+ * and race:
+ *   categories[category_id].name;
+ *   categories[category_id].professions[profession_id].name;
+ *   categories[category_id].professions[profession_id].race[race_id].name;
+ */
+$.widget('ui.profession', {
+  options: {
+    categories: false, // custom JSON structure for the profession's widget
+    race:       false, // jquery object that .val will return current race id
+    age:        false  // jquery object that .val will return current age
+  },
+  _init: function() {
+    var self = this;
+
+    this.element.parent().css('overflow', 'visible');
+
+    this.data = $('<div></div>')
+      .addClass('ui-profession')
+      .addClass('ui-widget')
+      .addClass('ui-widget-content')
+      .addClass('ui-corner-bottom')
+      .addClass('ui-shadow')
+      .css({
+        width: this.element.innerWidth() + 'px',
+        top: this.element.innerHeight() + this.element.position().top + 'px'
+      })
+      .insertAfter(this.element);
+
+    $('<h5>Profession Ideas</h5>')
+      .addClass('ui-widget-header')
+      .appendTo(this.data);
+
+    this.categoriesList = $('<ul></ul>')
+      .addClass('ui-profession-categories')
+      .appendTo(this.data);
+
+    this.professionsList = $('<ul></ul>')
+      .addClass('ui-profession-professions')
+      .appendTo(this.data);
+
+    $('<p></p>')
+      .text( 'Tip: Hover over grey (not recommended) professions for details')
+      .appendTo(this.data);
+
+    for (var c = 0; c < this.options.categories.length; c++) {
+      $('<li></li>')
+        .addClass('ui-state-default')
+        .text(this.options.categories[c].name)
+        .data('id', c)
+        .hover(
+          function() { $(this).addClass('ui-state-hover'); },
+          function() { $(this).removeClass('ui-state-hover'); }
+        )
+        .appendTo(this.categoriesList)
+        .mouseover(function(event) { self._categoryMouseOver(event); })
+        .mouseout(function() { self.professionsList.children().remove(); });
+    }
+
+    this.data.hide();
+
+    this.element.focus(function() { self.data.slideDown(); });
+    this.element.blur( function() { self.data.slideUp(); });
+  },
+
+  destroy: function() {
+    this.data.remove();
+    this.element.unbind('focus blur');
+  },
+
+  _categoryMouseOver: function(event) {
+    var categories = this.options.categories;
+    var c = $(event.target).data('id');
+
+    this.professionsList.children().remove();
+
+    this._sortProfessions(c);
+
+    for (var p = 0; p < categories[c].professions.length; p++) {
+      var r = this.options.race.val();
+      var race = categories[c].professions[p].races[r];
+
+      var raceEnabled = undefined != race;
+      var ageEnabled  = undefined != race && race.age <= this.options.age.val();
+
+      var profession = $('<li></li>')
+        .text(categories[c].professions[p].name)
+        .appendTo(this.professionsList);
+
+      // when race is disabled, age info is overriden
+      if (!ageEnabled) profession
+          .removeClass()
+          .addClass('ui-limited-by-age')
+          .attr('title', 'Should be at least '+(race && race.age)+' years old');
+      if (!raceEnabled) profession
+          .removeClass()
+          .addClass('ui-limited-by-race')
+          .attr('title', 'Profession not avaliable for your race');
+    }
+  },
+
+  /* Sort by age and race availability */
+  _sortProfessions: function(category) {
+    var self = this;
+
+    this.options.categories[category].professions
+      .sort(function(left, right) {
+        var age  = self.options.age.val();
+        var race = self.options.race.val();
+
+        var leftRace  = undefined != left.races[race];
+        var rightRace = undefined != right.races[race];
+
+        var leftAge  = left.races[race]  && left.races[race].age  <= age;
+        var rightAge = right.races[race] && right.races[race].age <= age;
+
+        if (leftRace != rightRace) return (leftRace) ? -1 : 1;
+        if (leftAge  != rightAge)  return (leftAge)  ? -1 : 1;
+        return (left.name < right.name) ? -1 : 1;
+      });
+  }
+});
+
+/* Age widget */
+$.widget('ui.age', {
+  options: {
+    info: false,
+    race: false
+  },
+  _init: function() {
+    var self = this;
+
+    // restructure table
+    $('h3', this.options.info).remove();
+    $('tr', this.options.info)
+      .removeClass('altrow')
+      .each(function() { $('th:first', this).remove(); });
+
+    this.element.parent().after(this.options.info);
+
+    this.element.blur( function () { self.options.info.slideUp(); });
+    this.element.focus(function () {
+      var ages = $('.RaceId_' + self.options.race.val(), self.options.info);
+
+      ages.show().siblings().hide();
+
+      if (ages.length == 1) { self.options.info.slideDown(); }
+    });
   }
 });
