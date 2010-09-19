@@ -35,7 +35,8 @@ class CharactersController extends AppController {
         ));
       }
     }
-    $this->set('users', $this->Character->User->find('list'));
+
+    $this->_form();
   }
 
   function edit($id = null) {
@@ -60,6 +61,10 @@ class CharactersController extends AppController {
       $this->data = $this->Character->read(null, $id);
     }
 
+    $this->_form();
+  }
+
+  function _form() {
     // Tmps to reduce line length
     $c = $this->Character;
     $p = $this->Character->Race->ProfessionsRace;
@@ -83,6 +88,8 @@ class CharactersController extends AppController {
 
     $this->set('professionInfo', $p->Profession->getGroupedByCategory());
     $this->set('raceNames', $c->Race->find('list'));
+
+    $this->render('form');
   }
 }
 ?>

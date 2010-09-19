@@ -329,10 +329,9 @@ input.ui-button { padding: 0.25em 0.5em; }
 /******************************************************************************/
 /* Character wizard ***********************************************************/
 /******************************************************************************/
-/*
-fieldset 850px wide
 
-*/
+.characters .error-message { font-size: 1em; margin: 0.5em 0 0 0; }
+
 /* Characters input container default to two column */
 .characters .text,
 .characters .textarea,

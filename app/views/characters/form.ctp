@@ -1,7 +1,11 @@
 <div class="characters form">
 <?php echo $form->create('Character');?>
   <fieldset>
-    <legend><?php __('Edit Character');?></legend>
+    <legend>
+      <?php
+        (isset($this->data)) ? __('Edit Character') : __('Create Character');
+      ?>
+    </legend>
     <?php
       // a (mostly) markup separated rich javascript character creation wizard.
       $html->css(
@@ -20,7 +24,7 @@
     ?>
     <?php echo $form->hidden('user_rank', array('value' => $user_rank)); ?>
 
-    <?php echo $form->input('id'); ?>
+    <?php if(isset($this->data)) echo $form->input('id'); ?>
     <?php
       echo $form->input('name', array(
         'div' => array('id' => 'name')
