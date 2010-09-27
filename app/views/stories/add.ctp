@@ -20,26 +20,19 @@ $.widget('ui.location', {
     height: 0,
     width: 0
   },
-  aspectRatio: {
-    x: 1,
-    y: 1
-  },
   _init: function() {
     var self = this, o = this.options;
 
     this.element.wrap('<div class="ui-location"/>');
-    this.container = this.element.parent();
 
     this.element.load(function() {
       o.height = (o.height) ? o.height : this.height;
-      o.width =  (o.width)  ? o.width  : this.width;
+      o.width  = (o.width)  ? o.width  : this.width;
 
-      var aspectX = 1.0 * o.width  / self.element[0].width;
-      var aspectY = 1.0 * o.height / self.element[0].height;
-      self.aspectRatio.x = (1 < aspectY/aspectX) ? 1 : aspectY/aspectX;
-      self.aspectRatio.y = (1 < aspectX/aspectY) ? 1 : aspectX/aspectY;
+      self.imgWidth  = this.width;
+      self.imgHeight = this.height;
 
-      self.container.css({
+      self.element.parent().css({
         height: o.height + 'px',
         width:  o.width  + 'px'
       });
@@ -48,24 +41,38 @@ $.widget('ui.location', {
     });
   },
   destroy: function() {
-    this.element.removeClass('ui-location-container');
   },
-  // reposition the map using percents
+  // Normalize percents to image pixels.
+  _translate: function(percentX, percentY) {
+    return {
+      x: this.imgWidth  * percentX / 100.0,
+      y: this.imgHeight * percentY / 100.0
+    };
+  },
   position: function(x, y, width, height, duration) {
-    var zoomX = 100.0 / width;
-    var zoomY = 100.0 / height;
-    var zoom = (zoomX < zoomY) ? zoomX : zoomY;
-
-
-    //alert((x / y) / (this.apsectRatio.x / this.aspectRatio.y));
+    // Because container is in pixels convert from percents
+    var position  = this._translate(x, y);
+    var dimension = this._translate(width, height);
+    // Zoom based on ratio of container to region dimension
+    var zoomX = this.options.width  / dimension.x;
+    var zoomY = this.options.height / dimension.y;
+    // Use smaller zoom to ensure full map in sight
+    var zoom    = (zoomX < zoomY) ? zoomX : zoomY;
+    // When zooming on one dimension, offset the other to centered focal point
+    var offsetX = (zoomX < zoomY) ? 0 : (zoomX - zoomY) * dimension.x / 2;
+    var offsetY = (zoomX > zoomY) ? 0 : (zoomY - zoomX) * dimension.y / 2;
+    // Top left position taking into account offset
+    var positionX = position.x * zoom - offsetX;
+    var positionY = position.y * zoom - offsetY;
+    // Image size, not container, needs to be used for zooming
+    var dimensionX = this.imgWidth * zoom;
+    var dimensionY = this.imgHeight * zoom;
 
     this.element.animate({
-        left:
-         - (x * this.aspectRatio.x * zoom * this.options.width  / 100.0) + 'px',
-        top:
-         - (y * this.aspectRatio.y * zoom * this.options.height / 100.0) + 'px',
-        height: (zoom * this.aspectRatio.y * this.options.height) + 'px',
-        width:  (zoom * this.aspectRatio.x * this.options.width)  + 'px'
+        left: -positionX + 'px',
+        top:  -positionY + 'px',
+        width:  dimensionX + 'px',
+        height: dimensionY + 'px'
       },
       duration
     );
