@@ -82,7 +82,7 @@ $.widget('ui.location', {
 });
 $('img[src$="riiga.jpg"]').location({
   width:  600,
-  height: 536
+  height: 436
 })
 .load(function () {
   $(this)

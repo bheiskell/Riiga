@@ -605,6 +605,7 @@ input.ui-button { padding: 0.25em 0.5em; }
 .ui-location {
   border: 1px dotted red;
   overflow: hidden;
+  position: relative;
 }
 .ui-location img {
   position: relative;
