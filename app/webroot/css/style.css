@@ -610,6 +610,10 @@ input.ui-button { padding: 0.25em 0.5em; }
 .ui-location img {
   position: relative;
 }
+.ui-location-selector {
+  position: absolute;
+  border: 1px dotted grey;
+}
 
 /******************************************************************************/
 

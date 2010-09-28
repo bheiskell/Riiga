@@ -15,6 +15,10 @@
       'between' => '<div class="select_wrap">',
       'after'   => '</div>',
     ));
+    echo $form->input('LocationRegion.left');
+    echo $form->input('LocationRegion.top');
+    echo $form->input('LocationRegion.width');
+    echo $form->input('LocationRegion.height');
   ?>
   </fieldset>
 <?php echo $form->end('Submit');?>

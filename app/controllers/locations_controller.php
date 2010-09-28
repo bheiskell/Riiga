@@ -31,6 +31,9 @@ class LocationsController extends AppController {
     if (!empty($this->data)) {
       $this->Location->create();
       if ($this->Location->save($this->data)) {
+        $this->data['LocationRegion']['location_id'] = $this->Location->id;
+        $this->Location->LocationRegion->save($this->data);
+
         $this->Session->setFlash(__('The Location has been saved', true));
         $this->redirect(array('action' => 'index'));
       } else {
@@ -52,6 +55,9 @@ class LocationsController extends AppController {
     }
     if (!empty($this->data)) {
       if ($this->Location->save($this->data)) {
+        $this->data['LocationRegion']['location_id'] = $this->Location->id;
+        $this->Location->LocationRegion->save($this->data);
+
         $this->Session->setFlash(__('The Location has been saved', true));
         $this->redirect(array('action' => 'index'));
       } else {
