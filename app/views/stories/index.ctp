@@ -1,5 +1,9 @@
 <div class="stories index">
 <h2><?php __('Stories');?></h2>
+<ul class="todo">
+<li>Filter by user, character, story name, status, invite only, location</li>
+<li>Sort by, story name, last entry, creation date</li>
+</ul>
 <table>
 <tr>
   <th><?php echo $paginator->sort('name');?></th>

@@ -1,4 +1,16 @@
 <div class="stories view">
+<ul class="todo">
+<li>Add character</li>
+<li>Invite user / character</li>
+<li>Manage invites user / character</li>
+<li>Toggle invite only</li>
+<li>Change story name</li>
+<li>Close story</li>
+<li>Join story</li>
+<li>Delete entries</li>
+<li>Leave story (toggle user as having left)</li>
+<li>Promote user to story moderator</li>
+</ul>
 <h2><?php
   echo $story['Story']['name'];
   echo ($story['Story']['is_completed'])   ? __(' (Completed)')   : null;

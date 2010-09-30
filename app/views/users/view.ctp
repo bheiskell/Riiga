@@ -17,6 +17,13 @@
     );
   }
 ?>
+<ul class="todo">
+<li>Invite to a story</li>
+<li>Send private message</li>
+<li>List characters</li>
+<li>List all stories (include character name here if set)</li>
+<li>Edit profile (if self)</li>
+</ul>
 </div>
 <?php if (!empty($user['Character'])):?>
 <div class="related">

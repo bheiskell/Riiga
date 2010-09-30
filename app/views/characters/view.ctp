@@ -1,5 +1,14 @@
 <div class="characters view">
 <h2><?php  __('Character');?></h2>
+<ul class="todo">
+<li>Invite to a story</li>
+<li>Add to story (if owner)</li>
+<li>Change character</li>
+<li>Create a new story with this character</li>
+<li>Show owner</li>
+<li>List stories with this character</li>
+<li></li>
+</ul>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
