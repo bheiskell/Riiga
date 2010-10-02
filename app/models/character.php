@@ -53,5 +53,6 @@ class Character extends AppModel {
   );
 
   var $belongsTo = array('User', 'Location', 'Race', 'Rank', 'Faction');
+  var $hasAndBelongsToMany = array('Story');
 }
 ?>

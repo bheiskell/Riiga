@@ -129,7 +129,7 @@ class User extends AppModel {
 
   function afterFind($results) {
     foreach ($results as &$result) {
-      if (isset($result['User'])) {
+      if (isset($result['User']) && is_array($result['User'])) {
         // TODO: Calculate rank
         $result['User']['rank'] = 4;
       }

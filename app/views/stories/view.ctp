@@ -1,14 +1,7 @@
 <div class="stories view">
 <ul class="todo">
-<li>Add character</li>
-<li>Invite user / character</li>
-<li>Manage invites user / character</li>
-<li>Toggle invite only</li>
 <li>Change story name</li>
-<li>Close story</li>
-<li>Join story</li>
 <li>Delete entries</li>
-<li>Leave story (toggle user as having left)</li>
 <li>Promote user to story moderator</li>
 </ul>
 <h2><?php
@@ -17,25 +10,17 @@
   echo ($story['Story']['is_invite_only']) ? __(' (Invite Only)') : null;
 ?></h2>
 <div class="actions">
-  <ul>
-    <li>
-      <?php
-        echo $html->link(__('Edit Story', true), array(
-          'action' => 'edit',
-          $story['Story']['id']
-        ));
-      ?>
-    </li>
-    <li>
-      <?php
-        echo $html->link(__('New Entry', true), array(
-          'controller' => 'entries',
-          'action' => 'add',
-          $story['Story']['id']
-        ));
-      ?>
-    </li>
-  </ul>
+<ul>
+<?php $id = $story['Story']['id']; ?>
+<li><?php echo $html->link(__('Post', true), array('controller' => 'entries', 'action' => 'add', $id)); ?></li>
+<li><?php echo $html->link(__('Add Character', true), array('action' => 'add_character', $id)); ?></li>
+<li><?php echo $html->link(__('Invite', true), array('action' => 'invite', $id)); ?></li>
+<li><?php echo $html->link(__('Manage', true), array('action' => 'manage', $id)); ?></li>
+<li><?php echo $html->link(__('Join', true), array('action' => 'join', $id)); ?></li>
+<li><?php echo $html->link(__('Leave', true), array('action' => 'leave', $id)); ?></li>
+<li><?php echo $html->link(__('Set to Invite Only', true), array('action' => 'toggle_invite_only', $id)); ?></li>
+<li><?php echo $html->link(__('Close', true), array('action' => 'close', $id)); ?></li>
+</ul>
 </div>
 <div>
   <dl><?php $i = 0; $class = ' class="altrow"';?>
