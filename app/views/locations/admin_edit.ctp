@@ -16,11 +16,17 @@
       'between' => '<div class="select_wrap">',
       'after'   => '</div>',
     ));
-    echo $form->input('LocationRegion.id');
-    echo $form->input('LocationRegion.left');
-    echo $form->input('LocationRegion.top');
-    echo $form->input('LocationRegion.width');
-    echo $form->input('LocationRegion.height');
+    if (2 == $depth) {
+      echo $form->input('LocationRegion.id');
+      echo $form->input('LocationRegion.left');
+      echo $form->input('LocationRegion.top');
+      echo $form->input('LocationRegion.width');
+      echo $form->input('LocationRegion.height');
+    } else if (4 == $depth) {
+      echo $form->input('LocationPoint.id');
+      echo $form->input('LocationPoint.x');
+      echo $form->input('LocationPoint.y');
+    }
   ?>
   </fieldset>
 <?php echo $form->end('Submit');?>

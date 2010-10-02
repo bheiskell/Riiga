@@ -73,6 +73,7 @@ class LocationsController extends AppController {
     $this->set('parents', $this->Location->generatetreelist(
       null, null, null, '|  '
     ));
+    $this->set('depth', count($this->Location->getpath()));
   }
 
   function admin_delete($id = null) {
