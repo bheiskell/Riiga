@@ -20,20 +20,6 @@ class UsersController extends AppController {
     }
   }
 
-  function register() {
-    if (!empty($this->data)) {
-      $this->User->create();
-      if ($this->User->save($this->data)) {
-        $this->Auth->login($this->User->hashPasswords($this->data, false));
-        $this->Session->setFlash(__('Registration Successful', true));
-        $this->redirect($this->Auth->redirect());
-      }
-    }
-    /* Unset sensitive fields */
-    unset($this->data['password']);
-    unset($this->data['password_confirm']);
-  }
-
   /* Automagically handled by the Auth component */
   function login() { }
 
@@ -63,7 +49,22 @@ class UsersController extends AppController {
     );
   }
 
-  function edit() {
+  function register() {
+    if (!empty($this->data)) {
+      $this->User->create();
+      if ($this->User->save($this->data)) {
+        $this->Auth->login($this->User->hashPasswords($this->data, false));
+        $this->Session->setFlash(__('Registration Successful', true));
+        $this->redirect($this->Auth->redirect());
+      }
+    }
+    /* Unset sensitive fields */
+    unset($this->data['password']);
+    unset($this->data['password_confirm']);
+    $this->render('form');
+  }
+
+  function edit($id = null) {
     $id = $this->Auth->user('id');
     if (!empty($this->data)) {
       $this->data['User']['id'] = $id;
@@ -83,6 +84,7 @@ class UsersController extends AppController {
      */
     unset($this->data['User']['password']);
     unset($this->data['User']['password_confirm']);
+    $this->render('form');
   }
 }
 ?>
