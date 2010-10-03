@@ -72,6 +72,13 @@
     <h3>Race Information</h3>
     <?php foreach ($raceInfo as $race): ?>
       <div class="RaceId_<?php echo $race['Race']['id']; ?>">
+        <div>
+          <?php
+            echo $html->image(
+              'race/' . strtolower($race['Race']['name']) . '.png'
+            );
+          ?>
+        </div>
         <h4><?php echo $race['Race']['name']; ?></h4>
         <p><?php echo $race['Race']['description']; ?></p>
         Requires Level <?php echo $race['Rank']['id']; ?>

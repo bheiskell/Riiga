@@ -81,10 +81,7 @@ $(document).ready(function() {
 
       var content = $('.RaceId_' + o.val(), informations.race).clone();
 
-      submenu.append(content).clearQueue().animate({
-        height: content.outerHeight(),
-        width:  content.outerWidth()
-      });
+      submenu.append(content);
     }
   });
 
