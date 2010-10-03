@@ -1,39 +1,41 @@
 <div class="users index">
-<h2><?php __('Members'); ?></h2>
-<table>
-<tr>
-  <th>&nbsp;</th>
-  <th><?php echo $paginator->sort('Member', 'username'); ?></th>
-  <th><?php echo $paginator->sort('Homepage', 'url'); ?></th>
-</tr>
-<?php
-  $i = 0;
-  foreach ($users as $user):
-    $class = ($i++ % 2 == 0) ? ' class="altrow"' : null;
-?>
-  <tr<?= $class; ?>>
-    <td class="avatar">
-      <?php echo $riiga->avatar($user['User']); ?>
-    <td>
-      <?php
-        echo $html->link(
-          $user['User']['username'],
-          array('action' => 'view', $user['User']['id'])
-        );
-      ?>
-    </td>
-    <td>
-      <?php
-        if ($user['User']['url']) {
-          echo $html->link(
-            $user['User']['username'] . "'s website", 
-            $user['User']['url']
-          );
-        } else { echo '&nbsp;'; }
-    ?>
-    </td>
-  </tr>
-<?php endforeach; ?>
-</table>
+  <h2><?php __('Members'); ?></h2>
+  <table>
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th><?php echo $paginator->sort('Member', 'username'); ?></th>
+        <th><?php echo $paginator->sort('Homepage', 'url'); ?></th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php $i = 0; ?>
+      <?php foreach ($users as $user): ?>
+        <tr <?php echo ($i++ % 2 == 0) ? ' class="altrow"' : null; ?>>
+          <td class="avatar"><?php echo $riiga->avatar($user['User']); ?></td>
+          <td>
+            <?php
+              echo $html->link(
+                $user['User']['username'],
+                array('action' => 'view', $user['User']['id'])
+              );
+            ?>
+          </td>
+          <td>
+            <?php if ($user['User']['url']): ?>
+              <?php
+                echo $html->link(
+                  $user['User']['username'] . "'s website", 
+                  $user['User']['url']
+                );
+              ?>
+            <?php else: ?>
+              &nbsp;
+            <?php endif; ?>
+          </td>
+        </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+  <?php echo $this->element('pager'); ?>
 </div>
-<?php echo $this->element('pager'); ?>

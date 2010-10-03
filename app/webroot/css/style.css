@@ -305,11 +305,8 @@ input.ui-button { padding: 0.25em 0.5em; }
 .users.view div.avatar {
   float: right;
 }
-.users.view div.website {
+.users.view ul {
   clear: left;
-}
-.users.view div.edit {
-  clear: both;
 }
 
 .locations.index .tree span { float: right; padding-right: 0.25em; }
