@@ -5,6 +5,7 @@
       'Races'                 => 'races',
       'Race Ages'             => 'race_ages',
       'Character Locations'   => 'character_locations',
+      'Locations'             => 'locations',
       'Locations Races'       => 'locations_races',
       'Factions'              => 'factions',
       'Faction Ranks'         => 'faction_ranks',
