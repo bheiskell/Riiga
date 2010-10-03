@@ -76,6 +76,7 @@ $(document).ready(function() {
   elements.race.select({
     format: filterStars,
     fillSubmenu: function(o, submenu) {
+      submenu.children().remove();
       if (!o.val()) return;
 
       var content = $('.RaceId_' + o.val(), informations.race).clone();
@@ -91,19 +92,45 @@ $(document).ready(function() {
     format: filterStars,
     submenuPosition: 'left',
     fillSubmenu: function(o, submenu) {
+
+      var map;
+      if (0 == submenu.children().length) {
+        map = $('img', informations.location).clone().location_map({
+          width:  400,
+          height: 200
+        }).parent();
+      } else {
+        map = submenu.children(':first').detach();
+      }
+
+      submenu.children().remove().end().append(map);
+      $('img', submenu).location_map('region', 0, 0, 100, 100, 1000);
+
       if (!o.val()) return;
 
-      var content = $('.LocationId_' + o.val(), informations.location).clone();
+      var content =$('.LocationId_' + o.val(), informations.location).clone();
+
+      $('dl', content).hide();
 
       submenu.append(content).clearQueue().animate({
-        height: content.outerHeight(),
+        height: content.outerHeight() + map.outerHeight(),
         width:  content.outerWidth()
       });
+
+      $('img', submenu).location_map(
+        'region',
+        parseInt($('dt:contains("Left")', content).next().text()),
+        parseInt($('dt:contains("Top")', content).next().text()),
+        parseInt($('dt:contains("Width")', content).next().text()),
+        parseInt($('dt:contains("Height")', content).next().text()),
+        1000
+      );
     }
   });
 
   elements.faction.select({
     fillSubmenu: function(o, submenu) {
+      submenu.children().remove();
       if (!o.val()) return;
 
       var content = $('.FactionId_' + o.val(), informations.faction).clone();
@@ -323,8 +350,6 @@ $.widget('ui.select', $.ui.selectmenu, {
 
   /* Provide a hover callback for obtaining submenu content */
   _hover: function(event) {
-    this.submenu.children().remove();
-
     var index = $(event.currentTarget).data('index');
     if (index) {
       var option = $('option', this.element).eq(index);
@@ -481,9 +506,12 @@ $.widget('ui.profession', {
           function() { $(this).removeClass('ui-state-hover'); }
         )
         .appendTo(this.categoriesList)
-        .mouseover(function(event) { self._categoryMouseOver(event); })
-        .mouseout(function() { self.professionsList.children().remove(); });
+        .mouseover(function(event) { self._categoryMouseOver(event); });
     }
+
+    this.data.mouseleave(function() {
+      self.professionsList.children().remove();
+    });
 
     this.data.hide();
 
@@ -497,6 +525,7 @@ $.widget('ui.profession', {
   },
 
   _categoryMouseOver: function(event) {
+    var self = this;
     var categories = this.options.categories;
     var c = $(event.target).data('id');
 
@@ -513,6 +542,7 @@ $.widget('ui.profession', {
 
       var profession = $('<li></li>')
         .text(categories[c].professions[p].name)
+        .click(function() { self.element.val($(this).text()); })
         .appendTo(this.professionsList);
 
       // when race is disabled, age info is overriden

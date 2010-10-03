@@ -15,6 +15,7 @@
     <?php $javascript->link('jquery-autoresize.min.js', false); ?>
     <?php $javascript->link('jquery-ui-selectmenu.js',  false); ?>
     <?php $javascript->link('jquery-ui-star.js',        false); ?>
+    <?php $javascript->link('jquery-ui-location.js',    false); ?>
     <?php $javascript->link('character_wizard.js',      false); ?>
 
     <?php
@@ -79,6 +80,7 @@
   </div>
   <div id="LocationInformation">
     <h3>Locations Information</h3>
+    <?php echo $html->image('map/riiga.jpg'); ?>
     <?php foreach ($locationInfo as $location): ?>
       <div class="LocationId_<?php echo $location['Location']['id']; ?>">
         <h4><?php echo $location['Location']['name']; ?></h4>
@@ -104,7 +106,25 @@
             <?php endif; ?>
           </tbody>
         </table>
-        Requires Level <?php echo $location['Rank']['id']; ?>
+        <p>Requires Level <?php echo $location['Rank']['id']; ?></p>
+        <dl>
+          <dt>Left</dt>
+          <dd>
+            <?php echo $location['Location']['LocationRegion']['left']; ?>
+          </dd>
+          <dt>Top</dt>
+          <dd>
+            <?php echo $location['Location']['LocationRegion']['top']; ?>
+          </dd>
+          <dt>Width</dt>
+          <dd>
+            <?php echo $location['Location']['LocationRegion']['width']; ?>
+          </dd>
+          <dt>Height</dt>
+          <dd>
+            <?php echo $location['Location']['LocationRegion']['height']; ?>
+          </dd>
+        </dl>
       </div>
     <?php endforeach; ?>
   </div>
