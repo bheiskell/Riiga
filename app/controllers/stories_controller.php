@@ -12,7 +12,22 @@ class StoriesController extends AppController {
 
   function index() {
     $this->Story->recursive = 0;
-    $this->set('stories', $this->paginate());
+    $this->set('stories', $this->paginate('Story', $this->_filter()));
+  }
+
+  function _filter() {
+    $url = $this->params['named'];
+
+    $filters = array();
+    $likes = array();
+
+    if (isset($url['filter_name'])) $likes['name'] = $url['filter_name'];
+
+    foreach ($likes as $column => $like) {
+      $filters[$column . ' LIKE'] = "%{$like}%";
+    }
+
+    return $filters;
   }
 
   function view($id = null) {

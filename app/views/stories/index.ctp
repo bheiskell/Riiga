@@ -1,3 +1,5 @@
+<?php // The paginator doesn't allow param passing from the controller... ?>
+<?php $paginator->options(array('url' => $this->params['named'])); ?>
 <div class="stories index">
 <h2><?php __('Stories');?></h2>
 <ul class="todo">
