@@ -2,27 +2,20 @@
 <?php $paginator->options(array('url' => $this->params['named'])); ?>
 <div class="stories index">
 <h2><?php __('Stories');?></h2>
-<ul class="todo">
-<li>Filter by user, character, story name, status, invite only, location</li>
-<li>Sort by, story name, last entry, creation date</li>
-</ul>
 <table>
 <tr>
   <th><?php echo $paginator->sort('name');?></th>
   <th><?php echo $paginator->sort('location_id');?></th>
   <th><?php echo $paginator->sort('Turn', 'user_id_turn');?></th>
+  <th><?php echo $paginator->sort('created');?></th>
+  <th><?php echo $paginator->sort('Last Entry', 'LatestEntry.created');?></th>
 </tr>
 <?php
-$i = 0;
 foreach ($stories as $story):
-  $altrow     = ($i++ % 2 == 0)                     ? 'altrow'      : null;
   $completed  = ($story['Story']['is_completed'])   ? 'completed'   : null;
   $inviteOnly = ($story['Story']['is_invite_only']) ? 'invite_only' : null;
-
-  $classes = trim(implode(' ', array($altrow, $completed, $inviteOnly)));
-  $class = (!empty($classes)) ? " class=\"{$classes}\"" : null;
 ?>
-  <tr<?php echo $class;?>>
+  <tr<?php echo $altrow->get($completed, $inviteOnly);?>>
     <td>
       <?php
         echo $html->link($story['Story']['name'], array(
@@ -41,6 +34,8 @@ foreach ($stories as $story):
         ));
       ?>
     </td>
+    <td><?php echo date('F j, Y', strtotime($story['Story']['created'])); ?></td>
+    <td><?php if($story['LatestEntry']['created']) echo date('F j, Y', strtotime($story['LatestEntry']['created'])); ?></td>
   </tr>
 <?php endforeach; ?>
 </table>
@@ -51,6 +46,11 @@ foreach ($stories as $story):
     <li>
       <?php
         echo $html->link(__('New Story', true), array('action' => 'add'));
+      ?>
+    </li>
+    <li>
+      <?php
+        echo $html->link(__('Filter', true), array('action' => 'filter'));
       ?>
     </li>
   </ul>

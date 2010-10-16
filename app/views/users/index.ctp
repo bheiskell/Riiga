@@ -9,10 +9,9 @@
       </tr>
     </thead>
     <tbody>
-      <?php $i = 0; ?>
       <?php foreach ($users as $user): ?>
-        <tr <?php echo ($i++ % 2 == 0) ? ' class="altrow"' : null; ?>>
-          <td class="avatar"><?php echo $riiga->avatar($user['User']); ?></td>
+        <tr<?php echo $altrow; ?>>
+          <td class="avatar"><?php echo $avatar->avatar($user['User']); ?></td>
           <td>
             <?php
               echo $html->link(

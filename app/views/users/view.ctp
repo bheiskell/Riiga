@@ -1,9 +1,6 @@
-<ul class="todo">
-  <li>List all stories (include character name here if set)</li>
-</ul>
 <div class="users view">
   <h2><?php echo h($user['User']['username']); ?></h2>
-  <div class="avatar"><?php echo $riiga->avatar($user['User']); ?></div>
+  <div class="avatar"><?php echo $avatar->avatar($user['User']); ?></div>
   <ul>
     <?php if ($session->read('Auth.User.id') == $user['User']['id']): ?>
       <li>
@@ -41,6 +38,35 @@
     <div class="related">
       <h3><?php __('Characters');?></h3>
       <?php echo $this->element('characters'); ?>
+    </div>
+  <?php endif; ?>
+  <?php if (!empty($stories)):?>
+    <div class="related">
+      <h3><?php __('Stories');?></h3>
+      <table>
+        <thead>
+          <tr><th>Name</th></tr>
+        </thead>
+        <tbody>
+          <?php $altrow->reset(); ?>
+          <?php foreach($stories as $story): ?>
+            <tr<?php echo $altrow; ?>>
+              <td>
+                <?php
+                  echo $html->link(
+                    $story['Story']['name'],
+                    array(
+                      'controller' => 'stories',
+                      'action' => 'view',
+                      $story['Story']['id']
+                    )
+                  );
+                ?>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
     </div>
   <?php endif; ?>
 </div>

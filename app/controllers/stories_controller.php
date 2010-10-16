@@ -3,31 +3,20 @@ class StoriesController extends AppController {
 
   var $name = 'Stories';
   var $helpers = array('Html', 'Form');
-  var $paginate = array('order' => array('Story.id' => 'desc'));
 
   function beforeFilter() {
     parent::beforeFilter();
     $this->Auth->allow('index', 'view');
   }
 
+  function filter($id = null) { }
+
   function index() {
-    $this->Story->recursive = 0;
-    $this->set('stories', $this->paginate('Story', $this->_filter()));
-  }
+    $this->Story->paginateBindModels();
 
-  function _filter() {
-    $url = $this->params['named'];
+    $paginate['contain'] = $this->Story->paginateGetContainables();
 
-    $filters = array();
-    $likes = array();
-
-    if (isset($url['filter_name'])) $likes['name'] = $url['filter_name'];
-
-    foreach ($likes as $column => $like) {
-      $filters[$column . ' LIKE'] = "%{$like}%";
-    }
-
-    return $filters;
+    $this->set('stories', $this->paginate($this->paginateGetFilters()));
   }
 
   function view($id = null) {
@@ -36,13 +25,12 @@ class StoriesController extends AppController {
       $this->redirect(array('action' => 'index'));
     }
 
-    // Hack: Wasteful queries in my opinion. If this turns out not to scale
-    // well, I'll have to come back and replicate these results manually with
-    // a few well crafted queries.
-    $this->Story->Behaviors->attach('Containable');
-    $this->Story->recursive = 2;
-    $this->Story->contain(array('Turn', 'User', 'Character', 'Character.User',
-                                'Entry', 'Entry.Character', 'Entry.User'));
+    $this->Story->contain(array(
+      'Turn',
+      'User',
+      'Character' => array('User'),
+      'Entry' => array('Character', 'User'),
+    ));
     $story = $this->Story->findById($id);
     $this->set(compact('story'));
   }
@@ -82,6 +70,35 @@ class StoriesController extends AppController {
     $users = $this->Story->User->find('list');
     $turns = $this->Story->Turn->find('list');
     $this->set(compact('characters','users','turns'));
+  }
+
+  /**
+   * paginateGetFilters
+   *
+   * Obtain filters for the search fields from the filter form.
+   *
+   * @access private
+   * @return Array acceptable by $this->paginate
+   */
+  private function paginateGetFilters() {
+    $filters = Set::filter($this->postConditions($this->data, array(
+        'FilterCharacter.name' => 'LIKE',
+        'FilterUser.username'  => 'LIKE',
+        'Location.name'        => 'LIKE',
+        'Story.name'           => 'LIKE',
+        'Story.is_completed'   => '=',
+        'Story.is_invite_only' => '=',
+      ), 'AND', true
+    ));
+
+    // Post conditions creates '%%' for empty LIKE fields. This results in
+    // removing rows that have NULL for those fields.
+    if (is_array($filters)) {
+      function removeEmptyLikes($condition) { return !($condition == '%%'); }
+
+      $filters = array_filter($filters, 'removeEmptyLikes');
+    }
+    return $filters;
   }
 }
 ?>

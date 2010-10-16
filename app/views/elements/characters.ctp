@@ -48,9 +48,9 @@
     <tbody>
       <?php $i = 0; ?>
       <?php foreach ($characters as $character): ?>
-        <tr<?php echo ($i++ % 2 == 0) ? ' class="altrow"' : null; ?>>
+        <tr<?php echo $altrow; ?>>
           <td class="avatar">
-            <?php echo $riiga->avatar($character['Character']); ?>
+            <?php echo $avatar->avatar($character['Character']); ?>
           </td>
           <td>
             <?php

@@ -23,14 +23,14 @@
 </ul>
 </div>
 <div>
-  <dl><?php $i = 0; $class = ' class="altrow"';?>
-    <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Location Id'); ?></dt>
-    <dd<?php if ($i++ % 2 == 0) echo $class;?>>
+  <dl>
+    <dt><?php __('Location Id'); ?></dt>
+    <dd>
       <?php echo h($story['Story']['location_id']); ?>
       &nbsp;
     </dd>
-    <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Turn'); ?></dt>
-    <dd<?php if ($i++ % 2 == 0) echo $class;?>>
+    <dt><?php __('Turn'); ?></dt>
+    <dd>
       <?php
         echo $html->link($story['Turn']['username'], array(
           'controller' => 'users',
@@ -45,16 +45,10 @@
 <div>
 <?php if (!empty($story['Entry'])):?>
 <table cellpadding = "0" cellspacing = "0">
-  <?php
-    $i = 0;
-    foreach ($story['Entry'] as $entry):
-      $altrow   = ($i++ % 2 == 0)       ? 'altrow'    : null;
-      $isDialog = ($entry['is_dialog']) ? 'is_dialog' : null;
-
-      $classes = trim(implode(' ', array($altrow, $isDialog)));
-      $class = (!empty($classes)) ? " class=\"{$classes}\"" : null;
-  ?>
-    <tr<?php echo $class; ?>>
+  <?php $altrow->reset(); ?>
+  <?php foreach ($story['Entry'] as $entry): ?>
+    <?php $isDialog = ($entry['is_dialog']) ? 'is_dialog' : null; ?>
+    <tr<?php echo $altrow->get($isDialog); ?>>
       <td>
         <?php echo h($entry['User']['username']);?>
         <?php if (!empty($entry['Character'])): ?>
@@ -92,13 +86,10 @@
     <th>&nbsp;</th>
     <th><?php __('Username'); ?></th>
   </tr>
-  <?php
-    $i = 0;
-    foreach ($story['User'] as $user):
-      $class = ($i++ % 2 == 0) ? ' class="altrow"' : null;
-    ?>
-    <tr<?php echo $class;?>>
-      <td><?php echo $riiga->avatar($user); ?></td>
+  <?php $altrow->reset(); ?>
+  <?php foreach ($story['User'] as $user): ?>
+    <tr<?php echo $altrow;?>>
+      <td><?php echo $avatar->avatar($user); ?></td>
       <td>
         <?php
           echo $html->link($user['username'], array(
@@ -122,13 +113,10 @@
     <th><?php __('Name'); ?></th>
     <th><?php __('Member'); ?></th>
   </tr>
-  <?php
-    $i = 0;
-    foreach ($story['Character'] as $character):
-      $class = ($i++ % 2 == 0) ? ' class="altrow"' : null;
-    ?>
-    <tr<?php echo $class;?>>
-      <td><?php echo $riiga->avatar($character);?></td>
+  <?php $altrow->reset(); ?>
+  <?php foreach ($story['Character'] as $character): ?>
+    <tr<?php echo $altrow;?>>
+      <td><?php echo $avatar->avatar($character);?></td>
       <td>
         <?php
           echo $html->link($character['name'], array(

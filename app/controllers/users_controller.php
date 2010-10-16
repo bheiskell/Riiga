@@ -47,6 +47,7 @@ class UsersController extends AppController {
     $this->set('characters', $this->User->Character->find(
       'all', array('conditions' => array('Character.user_id' => $id)))
     );
+    $this->set('stories', $this->User->Character->Story->findAllByUserId($id));
   }
 
   function register() {

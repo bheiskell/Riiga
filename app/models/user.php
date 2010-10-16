@@ -1,6 +1,6 @@
 <?php
 class User extends AppModel {
-
+  var $actsAs = array('Containable');
   var $name = 'User';
   var $displayField = 'username';
   var $validate = array(
@@ -129,7 +129,10 @@ class User extends AppModel {
 
   function afterFind($results) {
     foreach ($results as &$result) {
-      if (isset($result['User']) && is_array($result['User'])) {
+      if ( isset($result['User'])
+        && is_array($result['User'])
+        && !empty($result['User'])
+      ) {
         // TODO: Calculate rank
         $result['User']['rank'] = 4;
       }

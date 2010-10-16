@@ -90,14 +90,11 @@
           </thead>
           <tbody>
             <?php if (isset($locationsRaces[$location['Location']['id']])): ?>
-              <?php $i = 0; ?>
+              <?php $altrow->reset(); ?>
               <?php
                 foreach ($locationsRaces[$location['Location']['id']] as $race):
               ?>
-                <tr class="RaceId_<?php
-                  echo h($race['Race']['id']);
-                  if (0 == $i++ % 2) echo ' altrow';
-                ?>">
+                <tr<?php echo $altrow->get('RaceId_'.h($race['Race']['id']));?>>
                   <td><?php echo h($race['Race']['name']); ?></td>
                   <td><?php echo h($race['LocationsRace']['likelihood']);?></td>
                 </tr>
@@ -142,12 +139,9 @@
         </tr>
       </thead>
       <tbody>
-        <?php $i = 0; ?>
+        <?php $altrow->reset(); ?>
         <?php foreach ($ageInfo as $race): ?>
-        <tr class="RaceId_<?php
-            echo h($race['Race']['id']);
-            if (0 == $i++ % 2) echo ' altrow';
-        ?>">
+        <tr <?php echo $altrow->get('RaceId_'.h($race['Race']['id'])); ?>>
           <th><?php echo h($race['Race']['name']); ?></th>
           <td><?php echo h($race['RaceAge']['child']); ?></td>
           <td><?php echo h($race['RaceAge']['teen']); ?></td>
@@ -176,9 +170,9 @@
             </tr>
           </thead>
           <tbody>
-            <?php $i = 0; ?>
+            <?php $altrow->reset(); ?>
             <?php foreach ($factionRanks[$factionId] as $factionRank): ?>
-                <tr <?php if (0 == $i++ % 2) echo 'class="altrow"';?>>
+                <tr<?php echo $altrow;?>>
                 <td><?php echo h($factionRank['name']); ?></td>
                 <td><?php echo h($factionRank['rank_id']); ?></td>
                 <td><?php echo h($factionRank['age']); ?></td>
@@ -200,9 +194,9 @@
             <table>
               <thead><tr><th>Race</th><th>Minimum Age</th></tr></thead>
               <tbody>
-                <?php $i = 0; ?>
+                <?php $altrow->reset(); ?>
                 <?php foreach ($profession['ProfessionsRace'] as $race):?>
-                  <tr <?php if (0 == $i++ % 2) echo 'class="altrow"';?>>
+                  <tr<?php echo $altrow;?>>
                     <td class="RaceId_<?php echo h($race['race_id']); ?>">
                       <?php echo h($raceNames[$race['race_id']]); ?>
                     </td>

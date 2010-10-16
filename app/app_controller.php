@@ -1,6 +1,6 @@
 <?php
 class AppController extends Controller {
   var $components = array('Auth', 'Session');
-  var $helpers    = array('Riiga', 'Html', 'Form', 'Javascript');
+  var $helpers    = array('Avatar', 'Altrow', 'Html', 'Form', 'Javascript');
 }
 ?>

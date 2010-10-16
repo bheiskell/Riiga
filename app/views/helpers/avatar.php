@@ -1,5 +1,5 @@
 <?php
-class RiigaHelper extends AppHelper {
+class AvatarHelper extends AppHelper {
 
   var $helpers = array('Html');
 

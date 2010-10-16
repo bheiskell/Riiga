@@ -83,27 +83,28 @@
   <h3><?php __('History'); ?></h3>
   <p><?php echo h($character['Character']['history']); ?>&nbsp;</p>
 
-  <table>
-    <thead><tr><th>Story</th></tr></thead>
-    <tbody>
-      <?php $i = 0; ?>
-      <?php foreach ($character['Story'] as $story): ?>
-        <tr <?php if (0 == $i++ % 2) echo 'class="altrow"';?>>
-          <td>
-            <?php
-              echo $html->link(
-                $story['name'], array(
-                  'controller' => 'stories',
-                  'action' => 'view',
-                  $story['id'],
-                )
-              );
-            ?>
-          </td>
-        </tr>
-      <?php endforeach; ?>
-    </tbody>
-  </table>
+  <?php if (!empty($character['Story'])): ?>
+    <table>
+      <thead><tr><th>Story</th></tr></thead>
+      <tbody>
+        <?php foreach ($character['Story'] as $story): ?>
+          <tr<?php echo $altrow;?>>
+            <td>
+              <?php
+                echo $html->link(
+                  $story['name'], array(
+                    'controller' => 'stories',
+                    'action' => 'view',
+                    $story['id'],
+                  )
+                );
+              ?>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+  <?php endif; ?>
   <div class="actions">
     <ul>
       <li>

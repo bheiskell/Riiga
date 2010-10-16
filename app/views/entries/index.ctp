@@ -6,12 +6,8 @@
   <th><?php echo $paginator->sort('Member', 'User.username');?></th>
   <th><?php echo $paginator->sort('content');?></th>
 </tr>
-<?php
-$i = 0;
-foreach ($entries as $entry):
-  $class = ($i++ % 2 == 0) ? $class = ' class="altrow"' : null;
-?>
-  <tr<?php echo $class;?>>
+<?php foreach ($entries as $entry): ?>
+  <tr<?php echo $altrow;?>>
     <td>
       <?php
         echo $html->link($entry['Story']['name'], array(
