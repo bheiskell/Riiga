@@ -42,9 +42,15 @@ class UsersController extends AppController {
       $this->Session->setFlash(__('Invalid User', true));
       $this->redirect(array('action' => 'index'));
     }
-    $this->set('user', $this->User->read(null, $id));
-    $this->set('characters', $this->User->Character->find(
-      'all', array('conditions' => array('Character.user_id' => $id)))
+    $this->User->contain(array(
+      'Character'
+    ));
+    $this->set('user', $this->User->findById($id));
+    $this->set('characters',
+      $this->User->Character->find('all', array(
+        'conditions' => array('Character.user_id' => $id),
+        'contain' => array('Faction', 'Location', 'Race', 'Rank'),
+      ))
     );
     $this->set('stories', $this->User->Character->Story->findAllByUserId($id));
   }

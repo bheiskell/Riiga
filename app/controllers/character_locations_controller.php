@@ -5,6 +5,7 @@ class CharacterLocationsController extends AppController {
 	var $helpers = array('Html', 'Form');
 
 	function admin_index() {
+		$this->paginate['contain'] = array('Location', 'Rank');
 		$this->set('characterLocations', $this->paginate());
 	}
 

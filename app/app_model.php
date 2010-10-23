@@ -1,6 +1,6 @@
 <?php
 class AppModel extends Model {
-  var $actAs = array('Containable');
+  var $actsAs = array('Containable');
   var $recursive = -1;
 
   // TODO: Implement http://github.com/mcurry/find/ as it will make dealing

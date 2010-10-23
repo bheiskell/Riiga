@@ -9,8 +9,8 @@ class StoriesController extends AppController {
   }
 
   function index() {
-    $this->Story->paginateContain();
     $this->Story->paginateBindModels();
+    $this->paginate['contain'] = $this->Story->paginateGetContain();
     $this->set('stories', $this->paginate($this->paginateGetFilters()));
   }
 

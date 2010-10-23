@@ -5,6 +5,7 @@ class LocationsRacesController extends AppController {
 	var $helpers = array('Html', 'Form');
 
 	function admin_index() {
+		$this->paginate['contain'] = array('Location', 'Race');
 		$this->set('locationsRaces', $this->paginate());
 	}
 

@@ -5,6 +5,7 @@ class FactionRanksController extends AppController {
 	var $helpers = array('Html', 'Form');
 
 	function admin_index() {
+		$this->paginate['contain'] = array('Faction', 'Rank');
 		$this->set('factionRanks', $this->paginate());
 	}
 

@@ -5,6 +5,7 @@ class ProfessionsController extends AppController {
 	var $helpers = array('Html', 'Form');
 
 	function admin_index() {
+		$this->paginate['contain'] = array('ProfessionCategory');
 		$this->set('professions', $this->paginate());
 	}
 

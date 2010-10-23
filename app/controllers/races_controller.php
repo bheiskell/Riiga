@@ -1,11 +1,10 @@
 <?php
 class RacesController extends AppController {
-
 	var $name = 'Races';
-	var $helpers = array('Html', 'Form');
 
 	function admin_index() {
-		$this->set('races', $this->paginate());
+		$this->paginate['contain'] = array('Rank');
+		$this->set('races', $this->paginate('Race'));
 	}
 
 	function admin_view($id = null) {

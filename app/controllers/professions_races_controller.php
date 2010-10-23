@@ -4,21 +4,8 @@ class ProfessionsRacesController extends AppController {
 	var $name = 'ProfessionsRaces';
 	var $helpers = array('Html', 'Form');
 
-	function delete($id = null) {
-		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for ProfessionsRace', true));
-			$this->redirect(array('action' => 'index'));
-		}
-		if ($this->ProfessionsRace->del($id)) {
-			$this->Session->setFlash(__('ProfessionsRace deleted', true));
-			$this->redirect(array('action' => 'index'));
-		}
-		$this->Session->setFlash(__('The ProfessionsRace could not be deleted. Please, try again.', true));
-		$this->redirect(array('action' => 'index'));
-	}
-
-
 	function admin_index() {
+		$this->paginate['contain'] = array('Profession', 'Race');
 		$this->set('professionsRaces', $this->paginate());
 	}
 

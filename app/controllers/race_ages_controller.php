@@ -5,6 +5,7 @@ class RaceAgesController extends AppController {
 	var $helpers = array('Html', 'Form');
 
 	function admin_index() {
+		$this->paginate['contain'] = array('Race');
 		$this->set('raceAges', $this->paginate());
 	}
 

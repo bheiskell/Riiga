@@ -73,15 +73,15 @@ class Story extends AppModel {
   }
 
   /**
-   * paginateContain
+   * paginateGetContain
    *
    * Get the containment for the index paginator
    *
    * @access public
-   * @return void
+   * @return array Containable array
    */
-  public function paginateContain() {
-    $this->contain(array(
+  public function paginateGetContain() {
+    return array(
       'Character'       => array('fields' => array('id', 'name')),
       'FilterCharacter' => array('fields' => array('id', 'name')),
       'FilterUser'      => array('fields' => array('id', 'username')),
@@ -95,7 +95,7 @@ class Story extends AppModel {
       'StoriesUser' => array('fields' => array(
         'id', 'story_id', 'user_id'
       )),
-    ));
+    );
   }
 
   /**

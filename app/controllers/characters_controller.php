@@ -11,6 +11,7 @@ class CharactersController extends AppController {
   }
 
   function index() {
+    $this->paginate['contain'] = array('User');
     $this->set('characters', $this->paginate());
   }
 
@@ -19,6 +20,9 @@ class CharactersController extends AppController {
       $this->Session->setFlash(__('Invalid Character', true));
       $this->redirect(array('action' => 'index'));
     }
+    $this->Character->contain(array(
+      'Faction', 'Location', 'Race', 'Rank', 'User',
+    ));
     $this->set('character', $this->Character->read(null, $id));
   }
 
