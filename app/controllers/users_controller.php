@@ -2,8 +2,6 @@
 class UsersController extends AppController {
 
   var $name = 'Users';
-  var $helpers = array('Html', 'Form');
-  var $paginate = array('order' => array('User.id' => 'desc'));
 
   function beforeFilter() {
     parent::beforeFilter();

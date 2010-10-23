@@ -34,8 +34,16 @@ foreach ($stories as $story):
         ));
       ?>
     </td>
-    <td><?php echo date('F j, Y', strtotime($story['Story']['created'])); ?></td>
-    <td><?php if($story['LatestEntry']['created']) echo date('F j, Y', strtotime($story['LatestEntry']['created'])); ?></td>
+    <td>
+      <?php echo date('Y-m-d', strtotime($story['Story']['created'])); ?>
+    </td>
+    <td>
+      <?php if ($story['LatestEntry']['created']): ?>
+        <?php
+          echo date('Y-m-d', strtotime($story['LatestEntry']['created']));
+        ?>
+      <?php endif; ?>
+    </td>
   </tr>
 <?php endforeach; ?>
 </table>

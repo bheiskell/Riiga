@@ -2,6 +2,7 @@
 class Character extends AppModel {
 
   var $name = 'Character';
+  var $order = array('Character.id' => 'desc');
   var $validate = array(
     'user_id' => array(
       'required'     => false,

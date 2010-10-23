@@ -2,8 +2,6 @@
 class EntriesController extends AppController {
 
   var $name = 'Entries';
-  var $helpers = array('Html', 'Form');
-  var $paginate = array('order' => array('Entry.id' => 'desc'));
 
   function beforeFilter() {
     parent::beforeFilter();
@@ -11,6 +9,7 @@ class EntriesController extends AppController {
   }
 
   function index() {
+    $this->paginate['contain'] = array('Story', 'User');
     $this->set('entries', $this->paginate());
   }
 

@@ -2,6 +2,7 @@
 class User extends AppModel {
   var $name = 'User';
   var $displayField = 'username';
+  var $order = array('User.id' => 'desc');
   var $validate = array(
     'username' => array(
       'range' => array(
@@ -141,14 +142,16 @@ class User extends AppModel {
   function findRankById($id) {
     $score = $this->Entry->findCountByUserId($id);
     //$score += $this->findOffsetByUserId(); // TODO: score offset
-         if ( 20 >  $score) return 1; // TODO: move to database so PM can set
+    // TODO: check for admin status
+    // TODO: deal with rank 0 as it will cause issues with the character wizard
+         if (  0 == $score) return 0; // TODO: move to database so PM can set
+    else if ( 20 >  $score) return 1; 
     else if ( 50 >  $score) return 2;
-    else if ( 75 >  $score) return 3;
-    else if (100 >  $score) return 4;
-    else if (250 >  $score) return 5;
-    else if (500 >  $score) return 6;
-    else if (999 >  $score) return 7;
-    else return -1; // TODO: exception?
+    else if (100 >  $score) return 3;
+    else if (225 >  $score) return 4;
+    else if (400 >  $score) return 5;
+    else if (600 >  $score) return 6;
+    else return 7;
   }
 }
 ?>
