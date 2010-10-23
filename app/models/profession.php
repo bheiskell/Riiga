@@ -13,7 +13,9 @@ class Profession extends AppModel {
   // Group by category
   public function getGroupedByCategory() {
     return Set::combine(
-      $this->find('all'),
+      $this->find('all', array(
+        'contain' => array('ProfessionCategory')
+      )),
       '{n}.Profession.id',
       '{n}',
       '{n}.ProfessionCategory.name'

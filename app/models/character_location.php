@@ -2,6 +2,7 @@
 class CharacterLocation extends AppModel {
 
 	var $name = 'CharacterLocation';
+	var $order = array('CharacterLocation.id' => 'ASC');
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	var $belongsTo = array(

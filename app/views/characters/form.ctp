@@ -73,7 +73,7 @@
         </div>
         <h4><?php echo h($race['Race']['name']); ?></h4>
         <p><?php echo h($race['Race']['description']); ?></p>
-        Requires Level <?php echo h($race['Rank']['id']); ?>
+        Requires Level <?php echo h($race['Race']['rank_id']); ?>
       </div>
     <?php endforeach; ?>
   </div>

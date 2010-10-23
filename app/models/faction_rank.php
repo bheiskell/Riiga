@@ -11,7 +11,7 @@ class FactionRank extends AppModel {
 
   public function getGroupedByFaction() {
     return Set::combine(
-      $this->find('all'),
+      $this->find('all', array('contain' => 'Faction')),
       '{n}.FactionRank.id',
       '{n}.FactionRank',
       '{n}.Faction.id'

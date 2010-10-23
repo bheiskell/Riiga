@@ -69,6 +69,15 @@ class CharactersController extends AppController {
     // Tmps to reduce line length
     $c = $this->Character;
     $p = $this->Character->Race->ProfessionsRace;
+
+    // TODO: move these
+    $c->Race->RaceAge->contain(array('Race'));
+    $p->Profession->contain(array('ProfessionsRace'));
+    $c->Location->CharacterLocation->contain(array(
+      'Location' => array('LocationRegion'),
+      'Rank',
+    ));
+
     $this->set('user_rank', $this->Auth->user('rank'));
 
     $this->set('users', $c->User->find('list'));
