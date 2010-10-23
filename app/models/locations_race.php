@@ -2,6 +2,7 @@
 class LocationsRace extends AppModel {
 
   var $name = 'LocationsRace';
+  var $order = array('LocationsRace.id' => 'ASC');
   var $validate = array(
     'likelihood' => array('numeric')
   );

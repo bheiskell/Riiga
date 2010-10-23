@@ -2,6 +2,7 @@
 class RaceAge extends AppModel {
 
   var $name = 'RaceAge';
+  var $order = array('RaceAge.id' => 'ASC');
   var $validate = array(
     'child' => array('numeric'),
     'teen' => array('numeric'),

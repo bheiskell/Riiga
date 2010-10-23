@@ -2,6 +2,7 @@
 class ProfessionCategory extends AppModel {
 
 	var $name = 'ProfessionCategory';
+	var $order = array('UPPER(ProfessionCategory.name)' => 'ASC');
 	var $validate = array(
 		'name' => array('notempty')
 	);

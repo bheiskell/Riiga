@@ -2,7 +2,7 @@
 class User extends AppModel {
   var $name = 'User';
   var $displayField = 'username';
-  var $order = array('User.id' => 'desc');
+  var $order = array('LOWER(User.username)' => 'ASC');
   var $validate = array(
     'username' => array(
       'range' => array(

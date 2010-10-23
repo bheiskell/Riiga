@@ -2,7 +2,7 @@
 class Entry extends AppModel {
 
   var $name  = 'Entry';
-  var $order = array('Entry.id' => 'desc');
+  var $order = array('Entry.id' => 'DESC');
 
   var $belongsTo           = array('Story', 'User');
   var $hasAndBelongsToMany = array('Character');

@@ -2,6 +2,7 @@
 class FactionRank extends AppModel {
 
   var $name = 'FactionRank';
+  var $order = array('FactionRank.id' => 'ASC');
   var $validate = array(
     'name' => array('notempty'),
     'age' => array('numeric')

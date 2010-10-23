@@ -2,6 +2,7 @@
 class Faction extends AppModel {
 
   var $name = 'Faction';
+  var $order = array('Faction.id' => 'ASC');
   var $validate = array(
     'name' => array('notempty')
   );

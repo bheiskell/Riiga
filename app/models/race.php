@@ -2,6 +2,7 @@
 class Race extends AppModel {
 
   var $name = 'Race';
+  var $order = array('Race.id' => 'ASC');
   var $validate = array(
     'name' => array('notempty')
   );

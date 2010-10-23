@@ -1,4 +1,7 @@
 <?php
+App::import('Vendor', 'Find.find_app_model');
+
+//class AppModel extends FindAppModel {
 class AppModel extends Model {
   var $actsAs = array('Containable');
   var $recursive = -1;

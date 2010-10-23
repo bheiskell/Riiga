@@ -2,6 +2,7 @@
 class LocationRegion extends AppModel {
 
 	var $name = 'LocationRegion';
+	var $order = array('LocationRegion.id' => 'ASC');
 	var $validate = array(
 		'location_id' => array('numeric'),
 		'left' => array('numeric'),

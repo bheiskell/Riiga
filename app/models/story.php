@@ -1,8 +1,8 @@
 <?php
 class Story extends AppModel {
 
-  var $name   = 'Story';
-  var $order  = array('Story.id' => 'desc');
+  var $name  = 'Story';
+  var $order = array('Story.id' => 'DESC');
 
   var $hasMany             = array('Entry');
   var $hasAndBelongsToMany = array('Character', 'User');
