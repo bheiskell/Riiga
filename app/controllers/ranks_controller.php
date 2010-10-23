@@ -5,7 +5,6 @@ class RanksController extends AppController {
 	var $helpers = array('Html', 'Form');
 
 	function admin_index() {
-		$this->Rank->recursive = 0;
 		$this->set('ranks', $this->paginate());
 	}
 

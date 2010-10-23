@@ -2,7 +2,6 @@
 class Story extends AppModel {
 
   var $name   = 'Story';
-  var $actsAs = array('Containable');
   var $order  = array('Story.id' => 'desc');
 
   var $hasMany             = array('Entry');
@@ -14,6 +13,38 @@ class Story extends AppModel {
       'foreignKey' => 'user_id_turn',
     )
   );
+
+  public function findById($id) {
+    // This is extremely wasteful; causes a linear increase in queries as the
+    // story grows, which is clearly not acceptable. The issue here is the
+    // nested contains. This probably can be cleaned by a simple loop through
+    // the result that maps User's and Characters to the first tier's data.
+    $this->contain(array(
+      'Turn' => array('fields' => array('id', 'username')),
+      'User' => array('fields' => array('id', 'username', 'avatar')),
+      'Character' => array(
+        'fields' => array('id', 'name', 'avatar', 'user_id'),
+      ),
+      'Entry' => array(
+        'Character' => array('fields' => array('id', 'name', 'avatar')),
+      ),
+    ));
+
+    $result = parent::findById($id);
+
+    foreach ($result['Character'] as &$character) {
+      $character['User'] = array_shift(
+        Set::extract("/User[id={$character['user_id']}]/.[:first]", $result)
+      );
+    }
+    foreach ($result['Entry'] as &$entry) {
+      $entry['User'] = array_shift(
+        Set::extract("/User[id={$entry['user_id']}]/.[:first]", $result)
+      );
+    }
+
+    return $result;
+  }
 
   /**
    * findAllByUserId
@@ -42,15 +73,15 @@ class Story extends AppModel {
   }
 
   /**
-   * paginateGetContainables
+   * paginateContain
    *
    * Get the containment for the index paginator
    *
    * @access public
    * @return void
    */
-  public function paginateGetContainables() {
-    return array(
+  public function paginateContain() {
+    $this->contain(array(
       'Character'       => array('fields' => array('id', 'name')),
       'FilterCharacter' => array('fields' => array('id', 'name')),
       'FilterUser'      => array('fields' => array('id', 'username')),
@@ -64,7 +95,7 @@ class Story extends AppModel {
       'StoriesUser' => array('fields' => array(
         'id', 'story_id', 'user_id'
       )),
-    );
+    ));
   }
 
   /**

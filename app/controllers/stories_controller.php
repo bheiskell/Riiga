@@ -2,22 +2,19 @@
 class StoriesController extends AppController {
 
   var $name = 'Stories';
-  var $helpers = array('Html', 'Form');
 
   function beforeFilter() {
     parent::beforeFilter();
-    $this->Auth->allow('index', 'view');
+    $this->Auth->allow('index', 'filter', 'view');
+  }
+
+  function index() {
+    $this->Story->paginateContain();
+    $this->Story->paginateBindModels();
+    $this->set('stories', $this->paginate($this->paginateGetFilters()));
   }
 
   function filter($id = null) { }
-
-  function index() {
-    $this->Story->paginateBindModels();
-
-    $paginate['contain'] = $this->Story->paginateGetContainables();
-
-    $this->set('stories', $this->paginate($this->paginateGetFilters()));
-  }
 
   function view($id = null) {
     if (!$id) {
@@ -25,14 +22,7 @@ class StoriesController extends AppController {
       $this->redirect(array('action' => 'index'));
     }
 
-    $this->Story->contain(array(
-      'Turn',
-      'User',
-      'Character' => array('User'),
-      'Entry' => array('Character', 'User'),
-    ));
-    $story = $this->Story->findById($id);
-    $this->set(compact('story'));
+    $this->set('story', $this->Story->findById($id));
   }
 
   function add() {
@@ -44,9 +34,10 @@ class StoriesController extends AppController {
         $this->redirect(array('action' => 'view', 'id' => $this->Story->id));
       }
     }
+
     $characters = $this->Story->Character->find('list');
-    $users = $this->Story->User->find('list');
-    $turns = $this->Story->Turn->find('list');
+    $users      = $this->Story->User->find('list');
+    $turns      = $this->Story->Turn->find('list');
     $this->set(compact('characters', 'users', 'turns'));
   }
 
@@ -67,9 +58,9 @@ class StoriesController extends AppController {
       $this->data = $this->Story->read(null, $id);
     }
     $characters = $this->Story->Character->find('list');
-    $users = $this->Story->User->find('list');
-    $turns = $this->Story->Turn->find('list');
-    $this->set(compact('characters','users','turns'));
+    $users      = $this->Story->User->find('list');
+    $turns      = $this->Story->Turn->find('list');
+    $this->set(compact('characters', 'users', 'turns'));
   }
 
   /**
@@ -101,4 +92,3 @@ class StoriesController extends AppController {
     return $filters;
   }
 }
-?>

@@ -5,7 +5,6 @@ class LocationsRacesController extends AppController {
 	var $helpers = array('Html', 'Form');
 
 	function admin_index() {
-		$this->LocationsRace->recursive = 0;
 		$this->set('locationsRaces', $this->paginate());
 	}
 

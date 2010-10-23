@@ -5,7 +5,6 @@ class FactionRanksController extends AppController {
 	var $helpers = array('Html', 'Form');
 
 	function admin_index() {
-		$this->FactionRank->recursive = 0;
 		$this->set('factionRanks', $this->paginate());
 	}
 

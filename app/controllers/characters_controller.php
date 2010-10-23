@@ -11,7 +11,6 @@ class CharactersController extends AppController {
   }
 
   function index() {
-    $this->Character->recursive = 1;
     $this->set('characters', $this->paginate());
   }
 

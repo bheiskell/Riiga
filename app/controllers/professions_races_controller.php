@@ -19,7 +19,6 @@ class ProfessionsRacesController extends AppController {
 
 
 	function admin_index() {
-		$this->ProfessionsRace->recursive = 0;
 		$this->set('professionsRaces', $this->paginate());
 	}
 

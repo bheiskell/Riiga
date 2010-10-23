@@ -1,6 +1,5 @@
 <?php
 class User extends AppModel {
-  var $actsAs = array('Containable');
   var $name = 'User';
   var $displayField = 'username';
   var $validate = array(
@@ -50,7 +49,7 @@ class User extends AppModel {
     )
   );
 
-  var $hasMany = array('Character');
+  var $hasMany = array('Character', 'Entry');
 
   /**
    * Validator rule used by password_confirm.
@@ -131,13 +130,25 @@ class User extends AppModel {
     foreach ($results as &$result) {
       if ( isset($result['User'])
         && is_array($result['User'])
-        && !empty($result['User'])
+        && isset($result['User']['id'])
       ) {
-        // TODO: Calculate rank
-        $result['User']['rank'] = 4;
+        $result['User']['rank'] = $this->findRankById($result['User']['id']);
       }
     }
     return $results;
+  }
+
+  function findRankById($id) {
+    $score = $this->Entry->findCountByUserId($id);
+    //$score += $this->findOffsetByUserId(); // TODO: score offset
+         if ( 20 >  $score) return 1; // TODO: move to database so PM can set
+    else if ( 50 >  $score) return 2;
+    else if ( 75 >  $score) return 3;
+    else if (100 >  $score) return 4;
+    else if (250 >  $score) return 5;
+    else if (500 >  $score) return 6;
+    else if (999 >  $score) return 7;
+    else return -1; // TODO: exception?
   }
 }
 ?>

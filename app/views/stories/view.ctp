@@ -1,26 +1,85 @@
 <div class="stories view">
 <ul class="todo">
-<li>Change story name</li>
-<li>Delete entries</li>
-<li>Promote user to story moderator</li>
+  <li>Change story name</li>
+  <li>Delete entries</li>
+  <li>Promote user to story moderator</li>
 </ul>
-<h2><?php
-  echo $story['Story']['name'];
-  echo ($story['Story']['is_completed'])   ? __(' (Completed)')   : null;
-  echo ($story['Story']['is_invite_only']) ? __(' (Invite Only)') : null;
-?></h2>
+<h2>
+  <?php echo $story['Story']['name']; ?>
+  <?php echo $story['Story']['is_completed']   ? __(' (Completed)')   : null; ?>
+  <?php echo $story['Story']['is_invite_only'] ? __(' (Invite Only)') : null; ?>
+</h2>
 <div class="actions">
-<ul>
-<?php $id = $story['Story']['id']; ?>
-<li><?php echo $html->link(__('Post', true), array('controller' => 'entries', 'action' => 'add', $id)); ?></li>
-<li><?php echo $html->link(__('Add Character', true), array('action' => 'add_character', $id)); ?></li>
-<li><?php echo $html->link(__('Invite', true), array('action' => 'invite', $id)); ?></li>
-<li><?php echo $html->link(__('Manage', true), array('action' => 'manage', $id)); ?></li>
-<li><?php echo $html->link(__('Join', true), array('action' => 'join', $id)); ?></li>
-<li><?php echo $html->link(__('Leave', true), array('action' => 'leave', $id)); ?></li>
-<li><?php echo $html->link(__('Set to Invite Only', true), array('action' => 'toggle_invite_only', $id)); ?></li>
-<li><?php echo $html->link(__('Close', true), array('action' => 'close', $id)); ?></li>
-</ul>
+  <ul>
+    <li>
+      <?php
+        echo $html->link(
+          __('Post', true),
+          array(
+            'controller' => 'entries',
+            'action' => 'add',
+            $story['Story']['id']
+          )
+        );
+      ?>
+    </li>
+    <li>
+      <?php
+        echo $html->link(
+          __('Add Character', true),
+          array('action' => 'add_character', $story['Story']['id'])
+        );
+      ?>
+    </li>
+    <li>
+      <?php
+        echo $html->link(
+          __('Invite', true),
+          array('action' => 'invite', $story['Story']['id'])
+        );
+      ?>
+    </li>
+    <li>
+      <?php
+        echo $html->link(
+          __('Manage', true),
+          array('action' => 'manage', $story['Story']['id'])
+        );
+      ?>
+    </li>
+    <li>
+      <?php
+        echo $html->link(
+          __('Join', true),
+          array('action' => 'join', $story['Story']['id'])
+        );
+      ?>
+    </li>
+    <li>
+      <?php
+        echo $html->link(
+          __('Leave', true),
+          array('action' => 'leave', $story['Story']['id'])
+        );
+      ?>
+    </li>
+    <li>
+      <?php
+        echo $html->link(
+          __('Set to Invite Only', true),
+          array('action' => 'toggle_invite_only', $story['Story']['id'])
+        );
+      ?>
+    </li>
+    <li>
+      <?php
+        echo $html->link(
+          __('Close', true),
+          array('action' => 'close', $story['Story']['id'])
+        );
+      ?>
+    </li>
+  </ul>
 </div>
 <div>
   <dl>
@@ -44,36 +103,36 @@
 </div>
 <div>
 <?php if (!empty($story['Entry'])):?>
-<table cellpadding = "0" cellspacing = "0">
-  <?php $altrow->reset(); ?>
-  <?php foreach ($story['Entry'] as $entry): ?>
-    <?php $isDialog = ($entry['is_dialog']) ? 'is_dialog' : null; ?>
-    <tr<?php echo $altrow->get($isDialog); ?>>
-      <td>
-        <?php echo h($entry['User']['username']);?>
-        <?php if (!empty($entry['Character'])): ?>
-          <ul>
-            <?php foreach ($entry['Character'] as $character): ?>
-              <li><?php echo h($character['name']); ?></li>
-            <?php endforeach; ?>
-          </ul>
-        <?php endif; ?>
-      </td>
-      <td><?php echo str_replace("\n", "<br/>", h($entry['content']));?></td>
-
-      <?php if ($entry['user_id'] == $session->read('Auth.User.id')): ?>
-        <td class="actions">
-          <?php
-            echo $html->link(__('Edit', true), array(
-              'controller' => 'entries',
-              'action' => 'edit',
-              $entry['id']
-            ));
-          ?>
+  <table cellpadding = "0" cellspacing = "0">
+    <?php $altrow->reset(); ?>
+    <?php foreach ($story['Entry'] as $entry): ?>
+      <?php $isDialog = ($entry['is_dialog']) ? 'is_dialog' : null; ?>
+      <tr<?php echo $altrow->get($isDialog); ?>>
+        <td>
+          <?php echo h($entry['User']['username']);?>
+          <?php if (!empty($entry['Character'])): ?>
+            <ul>
+              <?php foreach ($entry['Character'] as $character): ?>
+                <li><?php echo h($character['name']); ?></li>
+              <?php endforeach; ?>
+            </ul>
+          <?php endif; ?>
         </td>
-      <?php endif; ?>
-    </tr>
-  <?php endforeach; ?>
+        <td><?php echo str_replace("\n", "<br/>", h($entry['content']));?></td>
+
+        <?php if ($entry['user_id'] == $session->read('Auth.User.id')): ?>
+          <td class="actions">
+            <?php
+              echo $html->link(__('Edit', true), array(
+                'controller' => 'entries',
+                'action' => 'edit',
+                $entry['id']
+              ));
+            ?>
+          </td>
+        <?php endif; ?>
+      </tr>
+    <?php endforeach; ?>
   </table>
 <?php endif; ?>
 </div>
@@ -119,11 +178,14 @@
       <td><?php echo $avatar->avatar($character);?></td>
       <td>
         <?php
-          echo $html->link($character['name'], array(
-            'controller' => 'characters',
-            'action' => 'view',
-            $character['id']
-          ));
+          echo $html->link(
+            $character['name'],
+            array(
+              'controller' => 'characters',
+              'action' => 'view',
+              $character['id']
+            )
+          );
         ?>
       </td>
       <td><?php echo h($character['User']['username']);?></td>

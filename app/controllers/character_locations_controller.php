@@ -5,7 +5,6 @@ class CharacterLocationsController extends AppController {
 	var $helpers = array('Html', 'Form');
 
 	function admin_index() {
-		$this->CharacterLocation->recursive = 0;
 		$this->set('characterLocations', $this->paginate());
 	}
 

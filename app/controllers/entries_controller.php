@@ -11,7 +11,6 @@ class EntriesController extends AppController {
   }
 
   function index() {
-    $this->Entry->recursive = 0;
     $this->set('entries', $this->paginate());
   }
 
@@ -35,7 +34,6 @@ class EntriesController extends AppController {
     }
     $this->set('characters', $this->Entry->Character->find('list'));
 
-    $this->Entry->Story->recursive = 0;
     $this->set('story', $this->Entry->Story->findById($story_id));
   }
 

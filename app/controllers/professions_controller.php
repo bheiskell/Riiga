@@ -5,7 +5,6 @@ class ProfessionsController extends AppController {
 	var $helpers = array('Html', 'Form');
 
 	function admin_index() {
-		$this->Profession->recursive = 0;
 		$this->set('professions', $this->paginate());
 	}
 

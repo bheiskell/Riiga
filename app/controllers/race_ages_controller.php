@@ -5,7 +5,6 @@ class RaceAgesController extends AppController {
 	var $helpers = array('Html', 'Form');
 
 	function admin_index() {
-		$this->RaceAge->recursive = 0;
 		$this->set('raceAges', $this->paginate());
 	}
 

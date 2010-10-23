@@ -10,7 +10,6 @@ class LocationTagsController extends AppController {
   }
 
   function admin_index() {
-    $this->LocationTag->recursive = 0;
     $this->set('locationTags', $this->paginate());
   }
 

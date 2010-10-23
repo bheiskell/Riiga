@@ -5,7 +5,6 @@ class FactionsController extends AppController {
 	var $helpers = array('Html', 'Form');
 
 	function admin_index() {
-		$this->Faction->recursive = 0;
 		$this->set('factions', $this->paginate());
 	}
 
