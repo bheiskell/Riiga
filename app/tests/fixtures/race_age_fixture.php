@@ -1,30 +1,119 @@
-<?php 
-/* SVN FILE: $Id$ */
-/* RaceAge Fixture generated on: 2010-08-08 12:03:33 : 1281269013*/
+<?php
 
 class RaceAgeFixture extends CakeTestFixture {
 	var $name = 'RaceAge';
-	var $table = 'race_ages';
-	var $fields = array(
-		'id' => array('type'=>'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
-		'race_id' => array('type'=>'integer', 'null' => true, 'default' => NULL),
-		'child' => array('type'=>'integer', 'null' => true, 'default' => NULL),
-		'teen' => array('type'=>'integer', 'null' => true, 'default' => NULL),
-		'adult' => array('type'=>'integer', 'null' => true, 'default' => NULL),
-		'mature' => array('type'=>'integer', 'null' => true, 'default' => NULL),
-		'elder' => array('type'=>'integer', 'null' => true, 'default' => NULL),
-		'max' => array('type'=>'integer', 'null' => true, 'default' => NULL),
-		'indexes' => array()
+	var $records = array(
+		array(
+			'id' => '1',
+			'race_id' => '1',
+			'child' => '6',
+			'teen' => '14',
+			'adult' => '20',
+			'mature' => '35',
+			'elder' => '60',
+			'max' => '140',
+		),
+		array(
+			'id' => '2',
+			'race_id' => '2',
+			'child' => '5',
+			'teen' => '12',
+			'adult' => '17',
+			'mature' => '30',
+			'elder' => '50',
+			'max' => '100',
+		),
+		array(
+			'id' => '3',
+			'race_id' => '3',
+			'child' => '4',
+			'teen' => '11',
+			'adult' => '17',
+			'mature' => '25',
+			'elder' => '120',
+			'max' => '200',
+		),
+		array(
+			'id' => '4',
+			'race_id' => '4',
+			'child' => '4',
+			'teen' => '10',
+			'adult' => '16',
+			'mature' => '22',
+			'elder' => '40',
+			'max' => '60',
+		),
+		array(
+			'id' => '5',
+			'race_id' => '5',
+			'child' => '5',
+			'teen' => '10',
+			'adult' => '15',
+			'mature' => '25',
+			'elder' => '30',
+			'max' => '40',
+		),
+		array(
+			'id' => '6',
+			'race_id' => '6',
+			'child' => '5',
+			'teen' => '15',
+			'adult' => '25',
+			'mature' => '40',
+			'elder' => '90',
+			'max' => '180',
+		),
+		array(
+			'id' => '7',
+			'race_id' => '7',
+			'child' => '4',
+			'teen' => '10',
+			'adult' => '15',
+			'mature' => '30',
+			'elder' => '100',
+			'max' => '160',
+		),
+		array(
+			'id' => '8',
+			'race_id' => '8',
+			'child' => '6',
+			'teen' => '13',
+			'adult' => '18',
+			'mature' => '40',
+			'elder' => '160',
+			'max' => '250',
+		),
+		array(
+			'id' => '9',
+			'race_id' => '9',
+			'child' => '7',
+			'teen' => '20',
+			'adult' => '50',
+			'mature' => '250',
+			'elder' => '500',
+			'max' => '0',
+		),
+		array(
+			'id' => '10',
+			'race_id' => '10',
+			'child' => '10',
+			'teen' => '25',
+			'adult' => '35',
+			'mature' => '75',
+			'elder' => '350',
+			'max' => '500',
+		),
+		array(
+			'id' => '11',
+			'race_id' => '11',
+			'child' => '50',
+			'teen' => '80',
+			'adult' => '160',
+			'mature' => '300',
+			'elder' => '0',
+			'max' => '0',
+		),
 	);
-	var $records = array(array(
-		'id' => 1,
-		'race_id' => 1,
-		'child' => 1,
-		'teen' => 1,
-		'adult' => 1,
-		'mature' => 1,
-		'elder' => 1,
-		'max' => 1
-	));
 }
+
 ?>

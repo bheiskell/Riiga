@@ -1,24 +1,185 @@
-<?php 
-/* SVN FILE: $Id$ */
-/* LocationTag Fixture generated on: 2010-07-31 01:18:19 : 1280539099*/
+<?php
 
 class LocationTagFixture extends CakeTestFixture {
 	var $name = 'LocationTag';
-	var $table = 'location_tags';
-	var $fields = array(
-		'id' => array('type'=>'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
-		'name' => array('type'=>'string', 'null' => false, 'default' => NULL, 'length' => 256),
-		'description' => array('type'=>'text', 'null' => true, 'default' => NULL),
-		'created' => array('type'=>'datetime', 'null' => true, 'default' => NULL),
-		'modified' => array('type'=>'datetime', 'null' => true, 'default' => NULL),
-		'indexes' => array()
+	var $records = array(
+		array(
+			'id' => '1',
+			'name' => 'Low Danger',
+			'description' => 'This area is moderately safe. Watch your back.',
+			'url' => '',
+			'created' => '2010-07-31 01:26:14',
+			'modified' => '2010-07-31 05:36:34',
+		),
+		array(
+			'id' => '2',
+			'name' => 'Dangerous',
+			'description' => 'This area is dangerous. Fighting experience is recommended. ',
+			'url' => '',
+			'created' => '2010-07-31 05:35:28',
+			'modified' => '2010-08-02 09:51:34',
+		),
+		array(
+			'id' => '3',
+			'name' => 'High Danger',
+			'description' => 'This area is very dangerous. Never go alone.',
+			'url' => '',
+			'created' => '2010-07-31 05:35:51',
+			'modified' => '2010-07-31 05:37:03',
+		),
+		array(
+			'id' => '4',
+			'name' => 'Very High Danger',
+			'description' => 'Only fools venture here.',
+			'url' => '',
+			'created' => '2010-07-31 05:36:26',
+			'modified' => '2010-07-31 05:36:26',
+		),
+		array(
+			'id' => '5',
+			'name' => 'Wilderness',
+			'description' => 'This area is uncivilised; nobody lives here. ',
+			'url' => '',
+			'created' => '2010-07-31 05:39:58',
+			'modified' => '2010-07-31 05:39:58',
+		),
+		array(
+			'id' => '6',
+			'name' => 'Temple',
+			'description' => 'This is an ancient religious structure, built before humans by a lost race. ',
+			'url' => '',
+			'created' => '2010-07-31 05:41:33',
+			'modified' => '2010-08-01 12:13:39',
+		),
+		array(
+			'id' => '7',
+			'name' => 'Abandoned',
+			'description' => 'This place is no longer inhabited. ',
+			'url' => '',
+			'created' => '2010-07-31 05:42:09',
+			'modified' => '2010-07-31 05:42:09',
+		),
+		array(
+			'id' => '8',
+			'name' => 'Corrupt',
+			'description' => 'The governing powers here are corrupt. ',
+			'url' => '',
+			'created' => '2010-07-31 05:45:14',
+			'modified' => '2010-07-31 05:45:14',
+		),
+		array(
+			'id' => '9',
+			'name' => 'Capital',
+			'description' => 'This city is the largest and most important city in the country. ',
+			'url' => '',
+			'created' => '2010-07-31 05:46:29',
+			'modified' => '2010-07-31 05:46:29',
+		),
+		array(
+			'id' => '10',
+			'name' => 'City',
+			'description' => 'This is a city of reasonable size where most trades may be found.',
+			'url' => '',
+			'created' => '2010-07-31 05:47:06',
+			'modified' => '2010-07-31 05:47:06',
+		),
+		array(
+			'id' => '11',
+			'name' => 'Minor City',
+			'description' => 'This is a small city; some trades may not be found here.',
+			'url' => '',
+			'created' => '2010-07-31 05:47:43',
+			'modified' => '2010-07-31 05:47:43',
+		),
+		array(
+			'id' => '12',
+			'name' => 'The Guards',
+			'description' => 'This area is ruled and governed by The Guards, led by General Talos.',
+			'url' => '',
+			'created' => '2010-07-31 05:48:24',
+			'modified' => '2010-07-31 05:48:24',
+		),
+		array(
+			'id' => '13',
+			'name' => 'Legionites',
+			'description' => 'This area is ruled and governed by the Legionites, led by King Cyril. ',
+			'url' => '',
+			'created' => '2010-07-31 05:49:01',
+			'modified' => '2010-07-31 05:49:01',
+		),
+		array(
+			'id' => '14',
+			'name' => 'The Empire',
+			'description' => 'This area is ruled and governed by The Empire, led by Emperor Voldagen. ',
+			'url' => '',
+			'created' => '2010-07-31 05:49:42',
+			'modified' => '2010-07-31 05:49:42',
+		),
+		array(
+			'id' => '15',
+			'name' => 'Phedailin Knights',
+			'description' => 'This area is ruled and governed by the Phedailin Knights, led by King Enos. ',
+			'url' => '',
+			'created' => '2010-07-31 05:51:06',
+			'modified' => '2010-07-31 05:51:16',
+		),
+		array(
+			'id' => '16',
+			'name' => 'Dualkedorian Order',
+			'description' => 'The Order of Dualkedor has a church or some kind of presence here. ',
+			'url' => '',
+			'created' => '2010-07-31 05:52:27',
+			'modified' => '2010-07-31 05:52:27',
+		),
+		array(
+			'id' => '17',
+			'name' => 'Ports',
+			'description' => 'This place has boats with good access to the sea. ',
+			'url' => '',
+			'created' => '2010-07-31 05:55:47',
+			'modified' => '2010-07-31 05:55:47',
+		),
+		array(
+			'id' => '18',
+			'name' => 'Mines',
+			'description' => 'This place has a good mining industry.',
+			'url' => '',
+			'created' => '2010-07-31 05:57:02',
+			'modified' => '2010-07-31 05:57:02',
+		),
+		array(
+			'id' => '19',
+			'name' => 'Fortress',
+			'description' => 'This place is partly or mostly a fortress or outpost of some kind.',
+			'url' => '',
+			'created' => '2010-07-31 06:21:05',
+			'modified' => '2010-07-31 06:21:05',
+		),
+		array(
+			'id' => '20',
+			'name' => 'Island',
+			'description' => 'This place is a relatively small landmass surrounded by sea. ',
+			'url' => '',
+			'created' => '2010-07-31 06:30:22',
+			'modified' => '2010-07-31 06:30:22',
+		),
+		array(
+			'id' => '21',
+			'name' => 'Outlawed',
+			'description' => 'This place is not governed by any official faction; officials are not welcome here. ',
+			'url' => '',
+			'created' => '2010-07-31 06:39:39',
+			'modified' => '2010-07-31 06:43:05',
+		),
+		array(
+			'id' => '22',
+			'name' => 'Foreign',
+			'description' => 'This place is inhabited by inhuman races; humans may be unwelcome. ',
+			'url' => '',
+			'created' => '2010-08-02 07:57:25',
+			'modified' => '2010-08-02 07:57:25',
+		),
 	);
-	var $records = array(array(
-		'id' => 1,
-		'name' => 'Lorem ipsum dolor sit amet',
-		'description' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida,phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam,vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit,feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-		'created' => '2010-07-31 01:18:19',
-		'modified' => '2010-07-31 01:18:19'
-	));
 }
+
 ?>

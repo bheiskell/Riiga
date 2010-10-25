@@ -1,18 +1,45 @@
-<?php 
-/* SVN FILE: $Id$ */
-/* ProfessionCategory Fixture generated on: 2010-08-08 14:56:27 : 1281279387*/
+<?php
 
 class ProfessionCategoryFixture extends CakeTestFixture {
 	var $name = 'ProfessionCategory';
-	var $table = 'profession_categories';
-	var $fields = array(
-		'id' => array('type'=>'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
-		'name' => array('type'=>'string', 'null' => false, 'default' => NULL, 'length' => 256),
-		'indexes' => array()
+	var $records = array(
+		array(
+			'id' => '1',
+			'name' => 'Food',
+		),
+		array(
+			'id' => '2',
+			'name' => 'Timber',
+		),
+		array(
+			'id' => '3',
+			'name' => 'Animals',
+		),
+		array(
+			'id' => '4',
+			'name' => 'Clothing',
+		),
+		array(
+			'id' => '5',
+			'name' => 'Minerals',
+		),
+		array(
+			'id' => '6',
+			'name' => 'Religious',
+		),
+		array(
+			'id' => '7',
+			'name' => 'Creative',
+		),
+		array(
+			'id' => '8',
+			'name' => 'Protective',
+		),
+		array(
+			'id' => '9',
+			'name' => 'Other',
+		),
 	);
-	var $records = array(array(
-		'id' => 1,
-		'name' => 'Lorem ipsum dolor sit amet'
-	));
 }
+
 ?>

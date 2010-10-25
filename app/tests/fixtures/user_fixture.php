@@ -1,24 +1,29 @@
-<?php 
-/* SVN FILE: $Id$ */
-/* User Fixture generated on: 2010-03-15 21:04:04 : 1268701444*/
+<?php
 
 class UserFixture extends CakeTestFixture {
 	var $name = 'User';
-	var $table = 'users';
-	var $fields = array(
-		'id' => array('type'=>'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
-		'username' => array('type'=>'string', 'null' => false, 'default' => NULL, 'length' => 50),
-		'password' => array('type'=>'string', 'null' => false, 'default' => NULL, 'length' => 40),
-		'email' => array('type'=>'string', 'null' => true, 'default' => NULL, 'length' => 320),
-		'avatar' => array('type'=>'string', 'null' => true, 'default' => NULL, 'length' => 1024),
-		'indexes' => array()
+	var $records = array(
+		array(
+			'id' => '1',
+			'username' => 'etherealpanda',
+			'password' => '244bc28b8a354fbb07bcede5d3a9e686f19d41d6',
+			'email' => 'etherealpanda.mail@gmail.com',
+			'url' => 'http://www.etherealpanda.com',
+			'avatar' => '',
+			'created' => '2010-06-16 19:56:07',
+			'modified' => '2010-10-03 21:44:23',
+		),
+		array(
+			'id' => '2',
+			'username' => 'Treijim',
+			'password' => '7915b468925d1cbd2e21a2f741603dd90877ba34',
+			'email' => 'treijim@gmail.com',
+			'url' => '',
+			'avatar' => '',
+			'created' => '2010-06-16 21:49:58',
+			'modified' => '2010-06-16 21:49:58',
+		),
 	);
-	var $records = array(array(
-		'id' => 1,
-		'username' => 'Lorem ipsum dolor sit amet',
-		'password' => 'Lorem ipsum dolor sit amet',
-		'email' => 'Lorem ipsum dolor sit amet',
-		'avatar' => 'Lorem ipsum dolor sit amet'
-	));
 }
+
 ?>

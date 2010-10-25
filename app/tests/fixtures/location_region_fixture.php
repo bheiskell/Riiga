@@ -1,26 +1,161 @@
-<?php 
-/* SVN FILE: $Id$ */
-/* LocationRegion Fixture generated on: 2010-09-26 22:09:46 : 1285538986*/
+<?php
 
 class LocationRegionFixture extends CakeTestFixture {
 	var $name = 'LocationRegion';
-	var $table = 'location_regions';
-	var $fields = array(
-		'id' => array('type'=>'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
-		'location_id' => array('type'=>'integer', 'null' => false, 'default' => NULL),
-		'left' => array('type'=>'integer', 'null' => false, 'default' => NULL),
-		'top' => array('type'=>'integer', 'null' => false, 'default' => NULL),
-		'width' => array('type'=>'integer', 'null' => false, 'default' => NULL),
-		'height' => array('type'=>'integer', 'null' => false, 'default' => NULL),
-		'indexes' => array()
+	var $records = array(
+		array(
+			'id' => '1',
+			'location_id' => '4',
+			'left' => '38',
+			'top' => '29',
+			'width' => '13',
+			'height' => '19',
+		),
+		array(
+			'id' => '2',
+			'location_id' => '5',
+			'left' => '37',
+			'top' => '44',
+			'width' => '11',
+			'height' => '18',
+		),
+		array(
+			'id' => '3',
+			'location_id' => '6',
+			'left' => '47',
+			'top' => '27',
+			'width' => '8',
+			'height' => '13',
+		),
+		array(
+			'id' => '4',
+			'location_id' => '7',
+			'left' => '47',
+			'top' => '54',
+			'width' => '7',
+			'height' => '11',
+		),
+		array(
+			'id' => '5',
+			'location_id' => '8',
+			'left' => '56',
+			'top' => '36',
+			'width' => '6',
+			'height' => '10',
+		),
+		array(
+			'id' => '6',
+			'location_id' => '9',
+			'left' => '37',
+			'top' => '9',
+			'width' => '14',
+			'height' => '16',
+		),
+		array(
+			'id' => '7',
+			'location_id' => '10',
+			'left' => '49',
+			'top' => '6',
+			'width' => '15',
+			'height' => '23',
+		),
+		array(
+			'id' => '8',
+			'location_id' => '101',
+			'left' => '57',
+			'top' => '46',
+			'width' => '5',
+			'height' => '7',
+		),
+		array(
+			'id' => '9',
+			'location_id' => '123',
+			'left' => '5',
+			'top' => '18',
+			'width' => '16',
+			'height' => '25',
+		),
+		array(
+			'id' => '10',
+			'location_id' => '124',
+			'left' => '9',
+			'top' => '51',
+			'width' => '14',
+			'height' => '22',
+		),
+		array(
+			'id' => '11',
+			'location_id' => '105',
+			'left' => '31',
+			'top' => '56',
+			'width' => '20',
+			'height' => '25',
+		),
+		array(
+			'id' => '12',
+			'location_id' => '114',
+			'left' => '23',
+			'top' => '40',
+			'width' => '8',
+			'height' => '14',
+		),
+		array(
+			'id' => '13',
+			'location_id' => '121',
+			'left' => '22',
+			'top' => '10',
+			'width' => '12',
+			'height' => '16',
+		),
+		array(
+			'id' => '14',
+			'location_id' => '125',
+			'left' => '5',
+			'top' => '41',
+			'width' => '13',
+			'height' => '11',
+		),
+		array(
+			'id' => '15',
+			'location_id' => '182',
+			'left' => '66',
+			'top' => '40',
+			'width' => '16',
+			'height' => '24',
+		),
+		array(
+			'id' => '16',
+			'location_id' => '183',
+			'left' => '53',
+			'top' => '54',
+			'width' => '17',
+			'height' => '17',
+		),
+		array(
+			'id' => '17',
+			'location_id' => '184',
+			'left' => '67',
+			'top' => '25',
+			'width' => '19',
+			'height' => '23',
+		),
+		array(
+			'id' => '18',
+			'location_id' => '185',
+			'left' => '67',
+			'top' => '7',
+			'width' => '12',
+			'height' => '21',
+		),
+		array(
+			'id' => '19',
+			'location_id' => '116',
+			'left' => '22',
+			'top' => '62',
+			'width' => '10',
+			'height' => '19',
+		),
 	);
-	var $records = array(array(
-		'id' => 1,
-		'location_id' => 1,
-		'left' => 1,
-		'top' => 1,
-		'width' => 1,
-		'height' => 1
-	));
 }
+
 ?>

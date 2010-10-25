@@ -1,20 +1,75 @@
-<?php 
-/* SVN FILE: $Id$ */
-/* Race Fixture generated on: 2010-08-07 22:28:16 : 1281220096*/
+<?php
 
 class RaceFixture extends CakeTestFixture {
 	var $name = 'Race';
-	var $table = 'races';
-	var $fields = array(
-		'id' => array('type'=>'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
-		'name' => array('type'=>'string', 'null' => false, 'default' => NULL, 'length' => 256),
-		'rank_id' => array('type'=>'integer', 'null' => true, 'default' => NULL),
-		'indexes' => array()
+	var $records = array(
+		array(
+			'id' => '1',
+			'name' => 'Human',
+			'description' => '',
+			'rank_id' => '1',
+		),
+		array(
+			'id' => '2',
+			'name' => 'Ildemin',
+			'description' => '',
+			'rank_id' => '1',
+		),
+		array(
+			'id' => '3',
+			'name' => 'Keid',
+			'description' => '',
+			'rank_id' => '2',
+		),
+		array(
+			'id' => '4',
+			'name' => 'Gruitin',
+			'description' => '',
+			'rank_id' => '2',
+		),
+		array(
+			'id' => '5',
+			'name' => 'Sirin',
+			'description' => '',
+			'rank_id' => '3',
+		),
+		array(
+			'id' => '6',
+			'name' => 'Hamakro',
+			'description' => '',
+			'rank_id' => '4',
+		),
+		array(
+			'id' => '7',
+			'name' => 'Fanoran',
+			'description' => '',
+			'rank_id' => '5',
+		),
+		array(
+			'id' => '8',
+			'name' => 'Modeoa',
+			'description' => '',
+			'rank_id' => '7',
+		),
+		array(
+			'id' => '9',
+			'name' => 'Trueblood',
+			'description' => '',
+			'rank_id' => '7',
+		),
+		array(
+			'id' => '10',
+			'name' => 'Karithian',
+			'description' => '',
+			'rank_id' => '7',
+		),
+		array(
+			'id' => '11',
+			'name' => 'Cullashin',
+			'description' => '',
+			'rank_id' => '7',
+		),
 	);
-	var $records = array(array(
-		'id' => 1,
-		'name' => 'Lorem ipsum dolor sit amet',
-		'rank_id' => 1
-	));
 }
+
 ?>
