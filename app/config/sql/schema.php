@@ -1,6 +1,6 @@
 <?php 
 /* SVN FILE: $Id$ */
-/* App schema generated on: 2010-09-26 22:09:18 : 1285538838*/
+/* App schema generated on: 2010-10-30 20:10:55 : 1288472275*/
 class AppSchema extends CakeSchema {
 	var $name = 'App';
 
@@ -79,6 +79,22 @@ class AppSchema extends CakeSchema {
 		'race_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
 		'indexes' => array()
 	);
+	var $location_points = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'location_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'x' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'y' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'indexes' => array()
+	);
+	var $location_regions = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'location_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'left' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'top' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'width' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'height' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'indexes' => array()
+	);
 	var $location_tags = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
@@ -110,6 +126,26 @@ class AppSchema extends CakeSchema {
 		'location_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
 		'race_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
 		'likelihood' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'indexes' => array()
+	);
+	var $pending_characters = array(
+		'pending_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'id' => array('type' => 'integer', 'null' => true, 'default' => NULL, 'key' => 'primary'),
+		'name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
+		'description' => array('type' => 'text', 'null' => false, 'default' => NULL),
+		'history' => array('type' => 'text', 'null' => false, 'default' => NULL),
+		'rank_id' => array('type' => 'integer', 'null' => true, 'default' => '1'),
+		'location_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'race_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'faction_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'age' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
+		'profession' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
+		'avatar' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 1024),
+		'is_npc' => array('type' => 'boolean', 'null' => true, 'default' => '0'),
+		'is_deactivated' => array('type' => 'boolean', 'null' => true, 'default' => '0'),
+		'user_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array()
 	);
 	var $profession_categories = array(
@@ -180,6 +216,7 @@ class AppSchema extends CakeSchema {
 		'email' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 320),
 		'url' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 1024),
 		'avatar' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 1024),
+		'is_admin' => array('type' => 'integer', 'null' => true, 'default' => NULL),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array()

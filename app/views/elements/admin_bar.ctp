@@ -1,5 +1,6 @@
-<?php if (1 || $is_admin): //TODO ?>
+<?php if ($session->read('Auth.User.is_admin')): ?>
   <?php
+    // TODO: Inflect
     $links = array(
       'Ranks'                 => 'ranks',
       'Races'                 => 'races',
