@@ -2,6 +2,7 @@
   <?php
     // TODO: Inflect
     $links = array(
+      'Characters'            => 'characters',
       'Ranks'                 => 'ranks',
       'Races'                 => 'races',
       'Race Ages'             => 'race_ages',
@@ -21,6 +22,7 @@
         <?php
           echo $html->link(__($text, true), array(
             'controller' => $controller,
+            'action' => 'index',
             'admin' => true,
           ));
         ?>
