@@ -113,40 +113,57 @@
             __('Edit', true),
             array(
               'action' => 'edit',
-              $character['Character']['id'],
+               $character['Character']['id'],
+              'pending_id' => (isset($character['Character']['pending_id']))
+                ? $character['Character']['pending_id'] : false
             )
           );
         ?>
       </li>
-      <li>
-        <?php
-          if (
+      <?php if (!isset($character['Character']['pending_id'])): ?>
+        <li>
+          <?php
+            if (
             $character['Character']['user_id'] == $session->read('Auth.User.id')
-          ):
-        ?>
+            ):
+          ?>
+            <?php
+              echo $html->link(
+                __('Add to a story', true),
+                array(
+                  'controller' => 'story',
+                  'action' => 'add_character',
+                  'character_id' => $character['Character']['id'],
+                )
+              );
+            ?>
+          <?php else: ?>
+            <?php
+              echo $html->link(
+                __('Invite to a story', true),
+                array(
+                  'controller' => 'story',
+                  'action' => 'invite',
+                  'character_id' => $character['Character']['id'],
+                )
+              );
+            ?>
+          <?php endif; ?>
+        </li>
+      <?php elseif ($session->read('Auth.User.is_admin')): ?>
+        <li>
           <?php
             echo $html->link(
-              __('Add to a story', true),
+              __('Approve', true),
               array(
-                'controller' => 'story',
-                'action' => 'add_character',
-                'character_id' => $character['Character']['id'],
+                'action' => 'approve_pending',
+                $character['Character']['pending_id'],
+                'admin' => true,
               )
             );
           ?>
-        <?php else: ?>
-          <?php
-            echo $html->link(
-              __('Invite to a story', true),
-              array(
-                'controller' => 'story',
-                'action' => 'invite',
-                'character_id' => $character['Character']['id'],
-              )
-            );
-          ?>
-        <?php endif; ?>
-      </li>
+        </li>
+      <?php endif; ?>
     </ul>
   </div>
 </div>

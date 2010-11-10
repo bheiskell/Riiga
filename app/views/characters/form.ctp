@@ -18,7 +18,8 @@
       </legend>
 
       <?php echo $form->hidden('user_rank', array('value' => $user_rank)); ?>
-      <?php echo (isset($this->data)) ? $form->input('id') : null; ?>
+      <?php echo $form->input('id'); ?>
+      <?php echo $form->hidden('pending_id'); ?>
       <?php
         echo $form->input('name', array(
           'div' => array('id' => 'name')

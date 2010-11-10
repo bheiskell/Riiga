@@ -53,16 +53,31 @@
             <?php echo $avatar->avatar($character['Character']); ?>
           </td>
           <td>
-            <?php
-              echo $html->link(
-                $character['Character']['name'],
-                array(
-                  'controller' => 'characters',
-                  'action'     => 'view',
-                  $character['Character']['id']
-                )
-              );
-            ?>
+            <?php if (isset($character['Character']['pending_id'])): ?>
+              <?php
+                echo $html->link(
+                  $character['Character']['name'],
+                  array(
+                    'controller' => 'characters',
+                    'action'     => 'view',
+                    'pending_id' => $character['Character']['pending_id'],
+                    'admin'      => false,
+                  )
+                );
+              ?>
+            <?php else: ?>
+              <?php
+                echo $html->link(
+                  $character['Character']['name'],
+                  array(
+                    'controller' => 'characters',
+                    'action'     => 'view',
+                    $character['Character']['id'],
+                    'admin'      => false,
+                  )
+                );
+              ?>
+            <?php endif; ?>
           </td>
           <td><?php echo h($character['Rank']['name']); ?></td>
           <td><?php echo h($character['Race']['name']); ?></td>
@@ -77,7 +92,8 @@
                   array(
                     'controller' => 'users',
                     'action'     => 'view',
-                    $character['User']['id']
+                    $character['User']['id'],
+                    'admin'      => false,
                   )
                 );
               ?>

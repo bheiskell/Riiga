@@ -2,11 +2,6 @@
 App::import('Vendor', 'Find.find_app_model');
 
 class AppModel extends FindAppModel {
-  var $actsAs = array('Containable');
+  var $actsAs = array('Containable', 'VerifyBelongsTo');
   var $recursive = -1;
-
-  // TODO: Implement http://github.com/mcurry/find/ as it will make dealing
-  // with find overloading much nicer. Found in "Super Awesome Advanced CakePHP
-  // Tips" by Matt Curry
 }
-?>
