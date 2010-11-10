@@ -63,13 +63,15 @@ class PendingBehavior extends ModelBehavior {
    * @return boolean Success of save
    */
   function savePending(&$Model, $data) {
+    $Model->set($data);
+
+    if (!$Model->validates()) { return false; }
+
     $Model->Pending->set($data);
 
     if (!$Model->id) { $Model->Pending->create(); }
 
     $result = $Model->Pending->save($data);
-
-    $Model->validationErrors = $Model->Pending->validationErrors;
 
     return $result;
   }

@@ -21,17 +21,47 @@ class Character extends AppModel {
       'rule'         => array('maxlength', 256),
       'message'      => 'Name must be between one and 256 characters.'
     ),
-    'race_id' => array(
+    'rank_id' => array(
       'required'     => true,
       'allowEmpty'   => false,
-      'rule'         => array('numeric'),
-      'message'      => "Specify the character's race."
+      'rule'         => array('checkRank'),
+    ),
+    'race_id' => array(
+      'numeric' => array (
+        'required'     => true,
+        'allowEmpty'   => false,
+        'rule'         => array('numeric'),
+        'message'      => "Specify the character's race."
+      ),
+      'limitByRank' => array(
+        'required'     => true,
+        'allowEmpty'   => false,
+        'rule'         => array('limitByRank', 'Race'),
+      ),
     ),
     'location_id' => array(
-      'required'     => true,
-      'allowEmpty'   => false,
-      'rule'         => array('numeric'),
-      'message'      => "Specify the character's residency."
+      'numeric' => array (
+        'required'     => true,
+        'allowEmpty'   => false,
+        'rule'         => array('numeric'),
+        'message'      => "Specify the character's residency.",
+      ),
+      'limitByRank' => array(
+        'required'     => true,
+        'allowEmpty'   => false,
+        'rule'         => array('limitByRank', 'Location'),
+      ),
+    ),
+    'faction_id' => array(
+      'numeric' => array (
+        'required'     => true,
+        'allowEmpty'   => true,
+        'rule'         => array('numeric'),
+        'message'      => "Faction ID must be numeric.",
+      ),
+      'checkFaction' => array(
+        'rule'         => array('checkFaction'),
+      ),
     ),
     'description' => array(
       'required'     => true,
@@ -69,5 +99,125 @@ class Character extends AppModel {
       )
     ),
   );
+
+  /**
+   * checkRank
+   *
+   * The character rank cannot exceed the user's rank.
+   *
+   * @param mixed $check array('key' => 'value')
+   * @access public
+   * @return boolean Always true, because on failure a custom invalidate is
+   *                 called with a dynamic message explaining the failure.
+   */
+  function checkRank($check) {
+    $key   = array_shift(array_keys($check));
+    $value = array_shift(array_values($check));
+
+    $userRank = $this->User->findRankById($this->data['Character']['user_id']);
+
+    if (0 !== $userRank && $userRank < $value) {
+      $this->invalidate($key, sprintf(
+        __("The character level cannot exceed your rank (%d)", true), $userRank
+      ));
+    }
+
+    return true;
+  }
+
+  /**
+   * limitByRank
+   *
+   * Check that the field doesn't exceed the character's rank.
+   *
+   * @param mixed $check array('key' => 'value')
+   * @access public
+   * @return boolean Always true, because on failure a custom invalidate is
+   *                 called with a dynamic message explaining the failure.
+   */
+  function limitByRank($check, $model) {
+    $key   = array_shift(array_keys($check));
+    $value = array_shift(array_values($check));
+
+    switch ($model) {
+      case 'Location':
+        $this->{$model}->CharacterLocation->contain('Rank');
+        $data = $this->{$model}->CharacterLocation->findByLocationId($value);
+        break;
+      case 'Race':
+        $this->{$model}->contain('Rank');
+        $data = $this->{$model}->findById($value);
+        break;
+      default: return false;
+    }
+
+    if (empty($data) || !isset($data['Rank']['id'])) { return false; }
+
+    $rank = $data['Rank']['id'];
+
+    if ($rank > $this->data['Character']['rank_id']) {
+      $this->invalidate($key, sprintf(__(
+        "Your character is not a high enough level (%d) for this option", true
+      ), $rank));
+    }
+
+    return true;
+  }
+
+  /**
+   * checkFaction
+   *
+   * Verify the numerous rules for factions. This whole block feels hack.
+   *
+   * @param mixed $check array('key' => 'value')
+   * @access public
+   * @return boolean Always true, because on failure a custom invalidate is
+   *                 called with a dynamic message explaining the failure.
+   */
+  function checkFaction($check) {
+    $key   = array_shift(array_keys($check));
+    $value = array_shift(array_values($check));
+
+    $this->Faction->contain('Race');
+    $data = $this->Faction->findById($value);
+
+    $path = sprintf('/Race[id=%d]', $this->data['Character']['race_id']);
+    $data = Set::extract($path, $data);
+
+    if (empty($data)) {
+      $this->invalidate($key, __(
+        "This faction doesn't accept members of your character's race.", true
+      ));
+      return true;
+    }
+
+    $data = $this->Faction->FactionRank->find('all', array(
+      'conditions' => array(
+        'faction_id =' => $this->data['Character']['faction_id'],
+        'rank_id <=' => $this->data['Character']['rank_id'],
+      )
+    ));
+
+    if (empty($data)) {
+      $this->invalidate($key, __(
+        'Your character is not a high enough rank to join this faction.', true
+      ));
+      return true;
+    }
+
+    if (is_numeric($this->data['Character']['age'])) {
+      $path = sprintf('/FactionRank[age<=%d]', $this->data['Character']['age']);
+      $data = Set::extract($path, $data);
+
+      if (empty($data)) {
+        $this->invalidate($key, __(
+          'Your character is not old enough to join this faction.', true
+        ));
+        return true;
+      }
+    }
+
+    return true;
+  }
 }
 ?>

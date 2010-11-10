@@ -17,7 +17,8 @@ class VerifyBelongsToBehavior extends ModelBehavior {
 
     foreach ($Model->belongsTo as $model => $settings) {
       $key = $settings['foreignKey'];
-      $id  = $Model->data[$Model->alias][$key];
+      $id  = isset($Model->data[$Model->alias][$key])
+        ? $Model->data[$Model->alias][$key] : false;
 
       $Model->{$model}->id = $id;
 
