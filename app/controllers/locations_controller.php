@@ -4,17 +4,6 @@ class LocationsController extends AppController {
   var $name = 'Locations';
   var $helpers = array('Html', 'Form');
 
-  function beforeFilter() {
-    parent::beforeFilter();
-    $this->Auth->allow('index', 'view');
-
-    // TODO: Make the is admin check less sucky
-    if (!$this->Auth->user('is_admin')) {
-    // TODO: Uncomment following line - used for testing
-    //  $this->redirect(array('action' => 'index'));
-    }
-  }
-
   function admin_index() {
     $this->set('locations', $this->Location->findAllThreaded());
   }

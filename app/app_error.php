@@ -1,9 +1,10 @@
 <?php
 class AppError extends ErrorHandler {
+
   /**
    * error500
    *
-   * Catch all error handler.
+   * Catch all error handler. Redirecting to a 404 doesn't always make sense.
    *
    * @param mixed $params
    * @access public

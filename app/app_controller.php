@@ -1,8 +1,28 @@
 <?php
 class AppController extends Controller {
+
   var $components = array('Auth', 'Session');
   var $helpers    = array('Avatar', 'Altrow', 'Html', 'Form', 'Javascript');
-  var $view = 'App';
+  var $view       = 'App';
+
+  /**
+   * beforeFilter
+   *
+   * Pre-controller processing. This allows for global checks like admin urls.
+   *
+   * @access public
+   * @return void
+   */
+  function beforeFilter() {
+    if (isset($this->params['admin']) && !$this->Auth->user('is_admin')) {
+      $this->log(sprintf(__(
+        'An unauthorized user attempted to access an admin resource: %s',
+        true
+      ), $this->Auth->user('is_admin')));
+
+      $this->cakeError('error404');
+    }
+  }
 
   /**
    * _isAllowed
