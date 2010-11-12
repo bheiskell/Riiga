@@ -19,8 +19,17 @@ class Race extends AppModel {
   private function clearCache() {
     Cache::delete('RaceGroupByRank');
     Cache::delete('FactionGroupByRace');
+    Cache::delete('LocationsRaceGroupByRace');
   }
 
+  /**
+   * __findGroupByRank
+   *
+   * Find race keyed by the rank in the format 'Level ##'
+   *
+   * @access public
+   * @return mixed array('Level ' . rank => array(race id => race name))
+   */
   public function __findGroupByRank() {
     $results = Cache::read('RaceGroupByRank');
 

@@ -17,6 +17,14 @@ class FactionRank extends AppModel {
     Cache::delete('FactionRankGroupByFaction');
   }
 
+  /**
+   * __findGroupByFaction
+   *
+   * Obtain faction ranks keyed by the faction id
+   *
+   * @access public
+   * @return mixed array(faction id => array(faction ranks))
+   */
   public function __findGroupByFaction() {
     $results = Cache::read('FactionRankGroupByFaction');
 

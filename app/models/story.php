@@ -8,12 +8,21 @@ class Story extends AppModel {
   var $hasAndBelongsToMany = array('Character', 'User');
   var $belongsTo           = array(
     'Location',
-    'Turn' => array(
-      'className' => 'User',
+    'Turn'         => array(
+      'className'  => 'User',
       'foreignKey' => 'user_id_turn',
     )
   );
 
+  /**
+   * findById
+   *
+   * Overloading default method to only contain pertinent information
+   *
+   * @param mixed $id Story id
+   * @access public
+   * @return mixed Story in standard cakephp format
+   */
   public function findById($id) {
     // This is extremely wasteful; causes a linear increase in queries as the
     // story grows, which is clearly not acceptable. The issue here is the

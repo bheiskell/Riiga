@@ -17,6 +17,14 @@ class Profession extends AppModel {
     Cache::delete('ProfessionGroupByCategory');
   }
 
+  /**
+   * __findGroupByCategory
+   *
+   * Obtain profession information keyed by the category name
+   *
+   * @access public
+   * @return mixed array(category => array(profession))
+   */
   public function __findGroupByCategory() {
     $results = Cache::read('ProfessionGroupByCategory');
 

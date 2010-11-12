@@ -12,6 +12,7 @@ class CharacterLocation extends AppModel {
   private function clearCache() {
     Cache::delete('CharacterLocationLocationIds');
     Cache::delete('CharacterLocationRanks');
+    Cache::delete('LocationGroupByRank');
   }
 
   /**

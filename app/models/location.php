@@ -15,6 +15,14 @@ class Location extends AppModel {
     Cache::delete('LocationGroupByRank');
   }
 
+  /**
+   * __findGroupByRank
+   *
+   * Obtain the locations keyed by rank
+   *
+   * @access public
+   * @return mixed array('Level ' . rank => array(location id => location name))
+   */
   public function __findGroupByRank() {
     $results = Cache::read('LocationGroupByRank');
 

@@ -23,6 +23,14 @@ class LocationsRace extends AppModel {
     Cache::delete('LocationsRaceGroupByRace');
   }
 
+  /**
+   * __findGroupByRace
+   *
+   * Obtain the location race information keyed by the location id
+   *
+   * @access public
+   * @return mixed array(location id => array(race id => all info))
+   */
   public function __findGroupByRace() {
     Cache::delete('LocationsRaceGroupByRace');
     $results = Cache::read('LocationsRaceGroupByRace');
@@ -41,8 +49,19 @@ class LocationsRace extends AppModel {
     return $results;
   }
 
-  // HACK: I didn't have enums avaliable so likelihood is an integer instead.
-  // 0 means common and 1 means possible. There is no entry for unlikely.
+  /**
+   * afterFind
+   *
+   * Translate likelihood from an int to a string to centralize the conversion.
+   * This value isn't used programatically anywhere.
+   *
+   * I didn't have enums avaliable so likelihood is an integer instead.
+   * 0 means common and 1 means possible. There is no entry for unlikely.
+   *
+   * @param mixed $results Results from find
+   * @access public
+   * @return mixed Results from find with likelihood translated
+   */
   public function afterFind($results) {
     foreach ($results as $key => &$result) {
       if (isset($result['LocationsRace']['likelihood'])) {
