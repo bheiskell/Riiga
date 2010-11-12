@@ -16,13 +16,29 @@ class LocationsRace extends AppModel {
     )
   );
 
-  public function getGroupedByRace() {
-    return Set::combine(
-      $this->find('all'),
-      '{n}.Race.id',
-      '{n}',
-      '{n}.Location.id'
-    );
+  function afterSave()   { $this->clearCache(); }
+  function afterDelete() { $this->clearCache(); }
+
+  private function clearCache() {
+    Cache::delete('LocationsRaceGroupByRace');
+  }
+
+  public function __findGroupByRace() {
+    Cache::delete('LocationsRaceGroupByRace');
+    $results = Cache::read('LocationsRaceGroupByRace');
+
+    if (false === $results) {
+      $this->contain('Race');
+      $results = Set::combine(
+        $this->find('all'),
+        '{n}.LocationsRace.race_id',
+        '{n}',
+        '{n}.LocationsRace.location_id'
+      );
+      Cache::write('LocationsRaceGroupByRace', $results);
+    }
+
+    return $results;
   }
 
   // HACK: I didn't have enums avaliable so likelihood is an integer instead.

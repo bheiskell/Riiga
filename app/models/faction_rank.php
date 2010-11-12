@@ -10,13 +10,27 @@ class FactionRank extends AppModel {
 
   var $belongsTo = array('Faction', 'Rank');
 
-  public function getGroupedByFaction() {
-    return Set::combine(
-      $this->find('all', array('contain' => 'Faction')),
-      '{n}.FactionRank.id',
-      '{n}.FactionRank',
-      '{n}.Faction.id'
-    );
+  function afterSave()   { $this->clearCache(); }
+  function afterDelete() { $this->clearCache(); }
+
+  private function clearCache() {
+    Cache::delete('FactionRankGroupByFaction');
+  }
+
+  public function __findGroupByFaction() {
+    $results = Cache::read('FactionRankGroupByFaction');
+
+    if (false === $results) {
+      $results = Set::combine(
+        $this->find('all', array('contain' => 'Faction')),
+        '{n}.FactionRank.id',
+        '{n}.FactionRank',
+        '{n}.Faction.id'
+      );
+      Cache::write('FactionRankGroupByFaction', $results);
+    }
+
+    return $results;
   }
 }
 ?>

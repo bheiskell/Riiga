@@ -1,26 +1,66 @@
 <?php
 class LocationRegion extends AppModel {
 
-	var $name = 'LocationRegion';
-	var $order = array('LocationRegion.id' => 'ASC');
-	var $validate = array(
-		'location_id' => array('numeric'),
-		'left' => array('numeric'),
-		'top' => array('numeric'),
-		'width' => array('numeric'),
-		'height' => array('numeric')
-	);
+  var $name  = 'LocationRegion';
+  var $order = array('LocationRegion.id' => 'ASC');
+  var $belongsTo = array('Location');
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-	var $belongsTo = array(
-		'Location' => array(
-			'className' => 'Location',
-			'foreignKey' => 'location_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
-	);
+  var $validate = array(
+    'location_id'  => array(
+      'rule'       => 'numeric',
+      'required'   => true,
+      'allowEmpty' => false
+    ),
+    'left'         => array(
+      'rule'       => 'numeric',
+      'required'   => true,
+      'allowEmpty' => false
+    ),
+    'top'          => array(
+      'rule'       => 'numeric',
+      'required'   => true,
+      'allowEmpty' => false
+    ),
+    'width'        => array(
+      'rule'       => 'numeric',
+      'required'   => true,
+      'allowEmpty' => false
+    ),
+    'height'       => array(
+      'rule'       => 'numeric',
+      'required'   => true,
+      'allowEmpty' => false
+    ),
+  );
 
+  function afterSave()   { $this->clearCache(); }
+  function afterDelete() { $this->clearCache(); }
+
+  function clearCache() {
+    Cache::delete('LocationRegionGroupByLocation');
+  }
+
+  /**
+   * __findGroupedByLocation
+   *
+   * Return all location regions keyed by the location id
+   *
+   * @access public
+   * @return mixed array(location_id => array(top, left, width, height))
+   */
+  public function __findGroupByLocation() {
+    $results = Cache::read('LocationRegionGroupByLocation');
+
+    if (false === $results) {
+      $results = Set::combine(
+        $this->find('all'),
+        '{n}.LocationRegion.location_id',
+        '{n}.LocationRegion'
+      );
+      Cache::write('LocationRegionGroupByLocation', $results);
+    }
+
+    return $results;
+  }
 }
 ?>

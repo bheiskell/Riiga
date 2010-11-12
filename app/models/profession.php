@@ -10,17 +10,29 @@ class Profession extends AppModel {
   var $belongsTo = array('ProfessionCategory');
   var $hasMany = array('ProfessionsRace');
 
-  // Need profession category as well
-  // Group by category
-  public function getGroupedByCategory() {
-    return Set::combine(
-      $this->find('all', array(
-        'contain' => array('ProfessionCategory')
-      )),
-      '{n}.Profession.id',
-      '{n}',
-      '{n}.ProfessionCategory.name'
-    );
+  function afterSave()   { $this->clearCache(); }
+  function afterDelete() { $this->clearCache(); }
+
+  private function clearCache() {
+    Cache::delete('ProfessionGroupByCategory');
+  }
+
+  public function __findGroupByCategory() {
+    $results = Cache::read('ProfessionGroupByCategory');
+
+    if (false === $results) {
+      $results = Set::combine(
+        $this->find('all', array(
+          'contain' => array('ProfessionCategory')
+        )),
+        '{n}.Profession.id',
+        '{n}',
+        '{n}.ProfessionCategory.name'
+      );
+      Cache::write('ProfessionGroupByCategory', $results);
+    }
+
+    return $results;
   }
 }
 ?>

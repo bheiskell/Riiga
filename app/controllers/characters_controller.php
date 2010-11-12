@@ -106,38 +106,41 @@ class CharactersController extends AppController {
     $this->Character->Race->ProfessionsRace->Profession->contain(array(
       'ProfessionsRace'
     ));
-    $this->Character->Location->CharacterLocation->contain(array(
-      'Location' => array('LocationRegion'),
-      'Rank',
-    ));
 
     $this->set('user_rank', $this->Auth->user('rank'));
 
     $users = $this->Character->User->find('list');
     $ranks = $this->Character->Rank->find('list');
 
-    $races     = $this->Character->Race->getGroupedByRank();
-    $locations = $this->Character->Location->getGroupedByRank();
-    $factions  = $this->Character->Faction->getGroupedByRace();
+    $races     = $this->Character->Race    ->find('group_by_rank');
+    $locations = $this->Character->Location->find('group_by_rank');
+    $factions  = $this->Character->Faction ->find('group_by_race');
 
     $raceInfo     = $this->Character->Race->find('all');
     $factionInfo  = $this->Character->Faction->find('all');
     $ageInfo      = $this->Character->Race->RaceAge->find('all');
-    $locationInfo = $this->Character->Location->CharacterLocation->find('all');
 
-    $locationsRaces = $this->Character->Race->LocationsRace->getGroupedByRace();
+    $locationInfo
+      = $this->Character->Location->CharacterLocation->find('locations');
+    $locationRanks
+      = $this->Character->Location->CharacterLocation->find('ranks');
+    $locationRegions
+      = $this->Character->Location->LocationRegion->find('group_by_location');
+    $locationsRaces
+      = $this->Character->Race->LocationsRace->find('group_by_race');
+
     $professionInfo = $this->Character->Race->ProfessionsRace
-                           ->Profession->getGroupedByCategory();
-    $factionRanks   = $this->Character->Faction->FactionRank
-                           ->getGroupedByFaction();
+                           ->Profession->find('group_by_category');
+    $factionRanks
+      = $this->Character->Faction->FactionRank->find('group_by_faction');
 
     $raceNames = $this->Character->Race->find('list');
 
     $this->set(compact(
-      'ageInfo',   'factions',     'factionInfo',    'factionRanks',
-      'locations', 'locationInfo', 'locationsRaces', 'professionInfo',
-      'races',     'raceNames',    'raceInfo',       'ranks',
-      'users'
+      'ageInfo',         'factions',       'factionInfo',    'factionRanks',
+      'locations',       'locationInfo',   'locationsRaces', 'locationRanks',
+      'locationRegions', 'professionInfo', 'races',          'raceNames',
+      'raceInfo',        'ranks',          'users'
     ));
 
     $this->render('form');

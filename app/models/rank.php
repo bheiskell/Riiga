@@ -8,5 +8,12 @@ class Rank extends AppModel {
     'entry_count' => array('numeric')
   );
 
+  function afterSave()   { $this->clearCache(); }
+  function afterDelete() { $this->clearCache(); }
+
+  private function clearCache() {
+    Cache::delete('RaceGroupByRank');
+    Cache::delete('LocationGroupByRank');
+  }
 }
 ?>

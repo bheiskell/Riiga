@@ -11,27 +11,41 @@ class Faction extends AppModel {
 
   var $hasMany = array('FactionRank');
 
-  public function getGroupedByRace() {
-    return $this->find('list',
-      array(
-        'joins' => array(
-          array(
-            'table' => 'factions_races',
-            'alias' => 'FactionsRace',
-            'type' => 'INNER',
-            'conditions' => array('Faction.id = FactionsRace.faction_id')
+  function afterSave()   { $this->clearCache(); }
+  function afterDelete() { $this->clearCache(); }
+
+  private function clearCache() {
+    Cache::delete('FactionGroupByRace');
+  }
+
+  public function __findGroupByRace() {
+    $results = Cache::read('FactionGroupByRace');
+
+    if (false === $results) {
+      $results = $this->find('list',
+        array(
+          'joins' => array(
+            array(
+              'table' => 'factions_races',
+              'alias' => 'FactionsRace',
+              'type' => 'INNER',
+              'conditions' => array('Faction.id = FactionsRace.faction_id')
+            ),
+            array(
+              'table' => 'races',
+              'alias' => 'Race',
+              'type' => 'INNER',
+              'conditions' => array('Race.id = FactionsRace.race_id')
+            ),
           ),
-          array(
-            'table' => 'races',
-            'alias' => 'Race',
-            'type' => 'INNER',
-            'conditions' => array('Race.id = FactionsRace.race_id')
-          ),
-        ),
-        'fields' => array('id', 'name', 'Race.name'),
-        'order' => array('Faction.id'),
-      )
-    );
+          'fields' => array('id', 'name', 'Race.name'),
+          'order' => array('Faction.id'),
+        )
+      );
+      Cache::write('FactionGroupByRace', $results);
+    }
+
+    return $results;
   }
 }
 ?>

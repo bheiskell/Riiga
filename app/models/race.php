@@ -13,18 +13,32 @@ class Race extends AppModel {
 
   var $hasOne = array('RaceAge');
 
-  public function getGroupedByRank() {
-    $results = $this->find('list',
-      array(
-        'fields' => array('id', 'name', 'rank_id'),
-        'order'  => array('rank_id, id asc'),
-      )
-    );
+  function afterSave()   { $this->clearCache(); }
+  function afterDelete() { $this->clearCache(); }
 
-    /* Need a prefix to the grouping */
-    foreach(array_keys($results) as $key) {
-      $results["Level {$key}"] = $results[$key];
-      unset($results[$key]);
+  private function clearCache() {
+    Cache::delete('RaceGroupByRank');
+    Cache::delete('FactionGroupByRace');
+  }
+
+  public function __findGroupByRank() {
+    $results = Cache::read('RaceGroupByRank');
+
+    if (false === $results) {
+      $results = $this->find('list',
+        array(
+          'fields' => array('id', 'name', 'rank_id'),
+          'order'  => array('rank_id, id asc'),
+        )
+      );
+
+      /* Need a prefix to the grouping */
+      foreach(array_keys($results) as $key) {
+        $results["Level {$key}"] = $results[$key];
+        unset($results[$key]);
+      }
+
+      Cache::write('RaceGroupByRank', $results);
     }
 
     return $results;

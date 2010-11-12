@@ -82,7 +82,8 @@
     <h3>Locations Information</h3>
     <?php echo $html->image('map/riiga.jpg'); ?>
     <?php foreach ($locationInfo as $location): ?>
-      <div class="LocationId_<?php echo h($location['Location']['id']); ?>">
+      <?php $locationId = $location['Location']['id']; ?>
+      <div class="LocationId_<?php echo h($locationId); ?>">
         <h4><?php echo h($location['Location']['name']); ?></h4>
         <p><?php echo h($location['Location']['description']); ?></p>
         <table>
@@ -90,10 +91,10 @@
             <tr><th>Race</th><th>Likelihood</th></tr>
           </thead>
           <tbody>
-            <?php if (isset($locationsRaces[$location['Location']['id']])): ?>
+            <?php if (isset($locationsRaces[$locationId])): ?>
               <?php $altrow->reset(); ?>
               <?php
-                foreach ($locationsRaces[$location['Location']['id']] as $race):
+                foreach ($locationsRaces[$locationId] as $race):
               ?>
                 <tr<?php echo $altrow->get('RaceId_'.h($race['Race']['id']));?>>
                   <td><?php echo h($race['Race']['name']); ?></td>
@@ -103,23 +104,26 @@
             <?php endif; ?>
           </tbody>
         </table>
-        <p>Requires Level <?php echo h($location['Rank']['id']); ?></p>
+        <p>
+          Requires Level
+          <?php echo h($locationRanks[$locationId]); ?>
+        </p>
         <dl>
           <dt>Left</dt>
           <dd>
-            <?php echo h($location['Location']['LocationRegion']['left']); ?>
+            <?php echo h($locationRegions[$locationId]['left']); ?>
           </dd>
           <dt>Top</dt>
           <dd>
-            <?php echo h($location['Location']['LocationRegion']['top']); ?>
+            <?php echo h($locationRegions[$locationId]['top']); ?>
           </dd>
           <dt>Width</dt>
           <dd>
-            <?php echo h($location['Location']['LocationRegion']['width']); ?>
+            <?php echo h($locationRegions[$locationId]['width']); ?>
           </dd>
           <dt>Height</dt>
           <dd>
-            <?php echo h($location['Location']['LocationRegion']['height']); ?>
+            <?php echo h($locationRegions[$locationId]['height']); ?>
           </dd>
         </dl>
       </div>
@@ -143,7 +147,7 @@
         <?php $altrow->reset(); ?>
         <?php foreach ($ageInfo as $race): ?>
         <tr <?php echo $altrow->get('RaceId_'.h($race['Race']['id'])); ?>>
-          <th><?php echo h($race['Race']['name']); ?></th>
+          <th><?php echo h($raceNames[$race['Race']['id']]); ?></th>
           <td><?php echo h($race['RaceAge']['child']); ?></td>
           <td><?php echo h($race['RaceAge']['teen']); ?></td>
           <td><?php echo h($race['RaceAge']['adult']); ?></td>

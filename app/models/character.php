@@ -1,12 +1,19 @@
 <?php
 class Character extends AppModel {
 
-  var $name = 'Character';
-  var $order = array('UPPER(Character.name)' => 'ASC');
+  var $name   = 'Character';
   var $actsAs = array('Pending');
+  var $order  = array('UPPER(Character.name)' => 'ASC');
 
-  var $belongsTo = array('User', 'Location', 'Race', 'Rank', 'Faction');
   var $hasAndBelongsToMany = array('Story');
+
+  var $belongsTo = array(
+    'Faction',
+    'Location',
+    'Race',
+    'Rank',
+    'User',
+  );
 
   var $validate = array(
     'user_id' => array(
@@ -27,40 +34,30 @@ class Character extends AppModel {
       'rule'         => array('checkRank'),
     ),
     'race_id' => array(
+      'limitByRank' => array('rule' => array('limitByRank', 'Race')),
       'numeric' => array (
         'required'     => true,
         'allowEmpty'   => false,
         'rule'         => array('numeric'),
         'message'      => "Specify the character's race."
       ),
-      'limitByRank' => array(
-        'required'     => true,
-        'allowEmpty'   => false,
-        'rule'         => array('limitByRank', 'Race'),
-      ),
     ),
     'location_id' => array(
+      'limitByRank' => array('rule' => array('limitByRank', 'Location')),
       'numeric' => array (
         'required'     => true,
         'allowEmpty'   => false,
         'rule'         => array('numeric'),
         'message'      => "Specify the character's residency.",
       ),
-      'limitByRank' => array(
-        'required'     => true,
-        'allowEmpty'   => false,
-        'rule'         => array('limitByRank', 'Location'),
-      ),
     ),
     'faction_id' => array(
+      'checkFaction' => array('rule' => array('checkFaction')),
       'numeric' => array (
         'required'     => true,
         'allowEmpty'   => true,
         'rule'         => array('numeric'),
         'message'      => "Faction ID must be numeric.",
-      ),
-      'checkFaction' => array(
-        'rule'         => array('checkFaction'),
       ),
     ),
     'description' => array(
@@ -178,6 +175,8 @@ class Character extends AppModel {
     $key   = array_shift(array_keys($check));
     $value = array_shift(array_values($check));
 
+    if (!$value) { return true; }
+
     $this->Faction->contain('Race');
     $data = $this->Faction->findById($value);
 
@@ -193,8 +192,8 @@ class Character extends AppModel {
 
     $data = $this->Faction->FactionRank->find('all', array(
       'conditions' => array(
-        'faction_id =' => $this->data['Character']['faction_id'],
-        'rank_id <=' => $this->data['Character']['rank_id'],
+        'faction_id  =' => $this->data['Character']['faction_id'],
+        'rank_id    <=' => $this->data['Character']['rank_id'],
       )
     ));
 
