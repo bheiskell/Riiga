@@ -10,30 +10,17 @@
     <thead>
       <tr>
         <th><?php __('Rank'); ?></th>
-        <th><?php __('Location'); ?></th>
         <th><?php __('Race'); ?></th>
         <th><?php __('Faction'); ?></th>
         <th><?php __('Age'); ?></th>
         <th><?php __('Profession'); ?></th>
         <th><?php __('User'); ?></th>
+        <th><?php __('Location'); ?></th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><?php echo h($character['Rank']['id']); ?>&nbsp;</td>
-        <td>
-          <?php
-            echo $html->link(
-              $character['Location']['name'],
-              array(
-                'controller' => 'locations',
-                'action' => 'view',
-                $character['Location']['id']
-              )
-            );
-          ?>
-          &nbsp;
-        </td>
+        <td><?php echo $stars->render($character['Rank']['id']); ?></td>
         <td>
           <?php
             echo $html->link(
@@ -75,9 +62,22 @@
           ?>
           &nbsp;
         </td>
+        <td><?php echo h($character['Location']['name']); ?>&nbsp;</td>
       </tr>
     </tbody>
   </table>
+  <div class="map">
+    <?php if (isset($character['Location']['LocationRegion'])): ?>
+      <?php
+        echo $minimap->render(
+          $character['Location']['LocationRegion']['left'],
+          $character['Location']['LocationRegion']['top'],
+          $character['Location']['LocationRegion']['width'],
+          $character['Location']['LocationRegion']['height']
+        );
+      ?>
+    <?php endif; ?>
+  </div>
   <h3><?php __('Description'); ?></h3>
   <p><?php echo h($character['Character']['description']); ?>&nbsp;</p>
   <h3><?php __('History'); ?></h3>

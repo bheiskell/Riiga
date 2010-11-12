@@ -42,6 +42,9 @@ class StoriesController extends AppController {
   }
 
   function edit($id = null) {
+    // TODO: Make a call to the story's model that will check for a location
+    // change and create a location change entry in that case
+    //
     // TODO: Check that user is in the users section and is moderator.
     if (!$id && empty($this->data)) {
       $this->Session->setFlash(__('Invalid Story', true));

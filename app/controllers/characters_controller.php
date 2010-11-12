@@ -5,6 +5,7 @@ class CharactersController extends AppController {
   var $paginate = array(
     'contain' => array('User', 'Rank', 'Location', 'Race', 'Faction')
   );
+  var $helpers = array('Minimap', 'Stars');
 
   function beforeFilter() {
     parent::beforeFilter();
@@ -39,7 +40,13 @@ class CharactersController extends AppController {
   }
 
   function view($id = null) {
-    $contain = array('Faction', 'Location', 'Race', 'Rank', 'User', 'Story');
+    $contain = array('Faction',
+      'Location' => array('LocationRegion'),
+      'Race',
+      'Rank',
+      'User',
+      'Story'
+    );
 
     if ($id) {
       $this->Character->contain($contain);

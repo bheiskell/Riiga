@@ -274,6 +274,18 @@ td.avatar {
   width: 0px; /* shrink to image size, might not be cross browser */
 }
 
+/* Rank stars */
+.star { overflow: hidden; }
+.star span {
+  background: transparent url('../img/stars.png');
+  border: 0;
+  display: block;
+  height: 16px;
+  float: left;
+  font-size: 0;
+  width: 16px;
+}
+
 /******************************************************************************/
 /* jQuery UI ******************************************************************/
 /******************************************************************************/
@@ -322,6 +334,13 @@ input.ui-button { padding: 0.25em 0.5em; }
 .locations.index .tree li:last-child { border-bottom: 1px solid #CCC; }
 .locations.index .tree li        { background: #fff; }
 .locations.index .tree li.altrow { background: #f4f4f4; }
+
+.characters.view .map {
+  border: 1px solid #CCC;
+  float: right;
+  margin: 0.5em;
+  margin-right: 0;
+}
 
 /******************************************************************************/
 /* Character wizard ***********************************************************/
