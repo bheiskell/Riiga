@@ -1,11 +1,11 @@
 <div class="characters view">
+  <div class="avatar">
+    <?php echo $avatar->avatar($character['Character']); ?>
+  </div>
   <h2>
     <?php echo h($character['Character']['name']);?>
     <?php if ($character['Character']['is_npc']) echo '(NPC)'; ?>
   </h2>
-  <?php if ($character['Character']['avatar']): ?>
-    <?php echo $html->image($character['Character']['avatar']); ?>
-  <?php endif; ?>
   <table>
     <thead>
       <tr>

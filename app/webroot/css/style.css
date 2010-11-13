@@ -321,6 +321,15 @@ input.ui-button { padding: 0.25em 0.5em; }
   clear: left;
 }
 
+.characters.view h2 {
+  float: left;
+  margin-top: 1.25em;
+  margin-left: 0.5em;
+}
+.characters.view div.avatar {
+  float: left;
+}
+
 .locations.index .tree span { float: right; padding-right: 0.25em; }
 .locations.index .tree ul { margin-right: 0; padding-bottom: 1.5em; }
 .locations.index .tree li {
