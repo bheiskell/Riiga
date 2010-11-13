@@ -14,11 +14,11 @@ class MinimapHelper extends AppHelper {
 
   var $helpers = array('Html');
 
-  var $imageWidth  = 983;
-  var $imageHeight = 715;
+  var $imageWidth  = 3314;
+  var $imageHeight = 2441;
 
   var $frameWidth  = 200;
-  var $frameHeight = 145.473; // width * 715 / 983
+  var $frameHeight = 147.314; // width * imageheight / imagewidth
 
   /**
    * _translate
