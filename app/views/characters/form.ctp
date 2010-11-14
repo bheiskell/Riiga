@@ -80,7 +80,7 @@
   </div>
   <div id="LocationInformation">
     <h3>Locations Information</h3>
-    <?php echo $html->image('map/riiga.jpg'); ?>
+    <?php echo $html->image('map/riiga.png'); ?>
     <?php foreach ($locationInfo as $location): ?>
       <?php $locationId = $location['Location']['id']; ?>
       <div class="LocationId_<?php echo h($locationId); ?>">

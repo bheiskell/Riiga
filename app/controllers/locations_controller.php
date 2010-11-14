@@ -56,6 +56,7 @@ class LocationsController extends AppController {
       }
     }
     if (empty($this->data)) {
+      $this->Location->contain(array('LocationRegion', 'LocationTag'));
       $this->data = $this->Location->read(null, $id);
     }
     $this->set('locationTags', $this->Location->LocationTag->find('list'));

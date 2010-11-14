@@ -57,4 +57,4 @@
 </div>
 <?php $javascript->link('jquery-ui-location.js', false); ?>
 <?php $javascript->link('locations_form.js', false); ?>
-<?php echo $html->image('map/riiga.jpg'); ?>
+<?php echo $html->image('map/riiga.png'); ?>

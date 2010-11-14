@@ -4,6 +4,15 @@ $.widget('ui.location_map', {
     width: 0
   },
   _init: function() {
+    var self = this;
+    // Wait until the image is loaded to initialize
+    if (this.element[0].complete) {
+      this._load();
+    } else {
+      this.element.load(function() { self._load(); });
+    }
+  },
+  _load: function() {
     var o = this.options;
 
     this.element.wrap('<div class="ui-location"/>');

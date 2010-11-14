@@ -81,7 +81,7 @@ class MinimapHelper extends AppHelper {
     return $this->Html->div(
       'ui-location',
       $this->Html->image(
-        'map/riiga.jpg',
+        'map/riiga.png',
         array(
           'style' => implode(';', array(
             'left:  -' . $positionX  . 'px',
