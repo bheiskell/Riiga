@@ -22,7 +22,7 @@
   clear:both;
   margin:0 5px 0px 0px;
   border:1px solid #fff;
-  
+  overflow: hidden;
 }
 .selectboxopen{
   clear:both;
