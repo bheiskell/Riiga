@@ -7,6 +7,15 @@
     );
   ?>
   <?php echo $this->element('pager'); ?>
+  <?php if (!empty($pendingCharacters)): ?>
+  <h3><?php __('Your Pending Characters');?></h3>
+    <?php
+      echo $this->element(
+        'characters',
+        array('showUser' => true, 'characters' => $pendingCharacters)
+      );
+    ?>
+  <?php endif; ?>
   <div class="actions">
     <ul>
       <li>

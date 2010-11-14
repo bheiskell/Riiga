@@ -14,6 +14,9 @@ class CharactersController extends AppController {
 
   function index() {
     $this->set('characters', $this->paginate());
+
+    // Not paginating pending, because this list should never be very long.
+    // Also, I don't know how to do two paginations on the same page.
     $this->set('pendingCharacters',
       $this->Character->Pending->findAllByUserId($this->Auth->user('id'))
     );
@@ -28,9 +31,9 @@ class CharactersController extends AppController {
     if ($this->Character->approvePending($pending_id)) {
       $this->Session->setFlash(__('Character Approved', true));
       $this->redirect(array(
+        'admin'  => false,
         'action' => 'view',
         $this->Character->id,
-        'admin' => false,
       ));
 
     } else {
@@ -40,21 +43,20 @@ class CharactersController extends AppController {
   }
 
   function view($id = null) {
-    $contain = array('Faction',
+    $this->Character->contain(array(
+      'Faction',
       'Location' => array('LocationRegion'),
       'Race',
       'Rank',
       'User',
-      'Story'
-    );
+      'Story',
+    ));
 
     if ($id) {
-      $this->Character->contain($contain);
       $this->set('character', $this->Character->findById($id));
 
     } else if (isset($this->params['named']['pending_id'])) {
       $id = $this->params['named']['pending_id'];
-      $this->Character->contain($contain);
       $this->set('character', $this->Character->Pending->findByPendingId($id));
 
     } else {
