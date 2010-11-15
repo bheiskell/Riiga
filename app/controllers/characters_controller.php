@@ -116,6 +116,8 @@ class CharactersController extends AppController {
       'ProfessionsRace'
     ));
 
+    // TODO: pull down location tags
+
     $this->set('user_rank', $this->Auth->user('rank'));
 
     $users = $this->Character->User->find('list');

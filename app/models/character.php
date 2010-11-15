@@ -97,6 +97,8 @@ class Character extends AppModel {
     ),
   );
 
+  // TODO: Need character creation limit
+
   /**
    * checkRank
    *

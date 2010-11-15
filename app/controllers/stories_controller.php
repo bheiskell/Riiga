@@ -25,45 +25,33 @@ class StoriesController extends AppController {
     $this->set('story', $this->Story->findById($id));
   }
 
-  function add() {
-    // TODO: Default the Turn to your user
-    if (!empty($this->data)) {
-      $this->Story->create();
-      if ($this->Story->save($this->data)) {
-        $this->Session->setFlash(__('Story saved.', true));
-        $this->redirect(array('action' => 'view', 'id' => $this->Story->id));
-      }
-    }
+  function add()     { $this->form(); }
+  function edit($id) { $this->form($id); }
 
-    $characters = $this->Story->Character->find('list');
-    $users      = $this->Story->User->find('list');
-    $turns      = $this->Story->Turn->find('list');
-    $this->set(compact('characters', 'users', 'turns'));
-  }
-
-  function edit($id = null) {
+  function form($id = null) {
     // TODO: Make a call to the story's model that will check for a location
-    // change and create a location change entry in that case
+    // change and create a location change entry in that case. Issue 43
     //
     // TODO: Check that user is in the users section and is moderator.
-    if (!$id && empty($this->data)) {
-      $this->Session->setFlash(__('Invalid Story', true));
-      $this->redirect(array('action' => 'index'));
-    }
+    // TODO: Default the Turn to your user. Issue 29
     if (!empty($this->data)) {
+
+      if (!$this->Story->id) { $this->Story->create(); }
+
       if ($this->Story->save($this->data)) {
         $this->Session->setFlash(__('The Story has been saved.', true));
         $this->redirect(array('action' => 'view', 'id' => $this->Story->id));
       } else {
       }
     }
-    if (empty($this->data)) {
+    if ($id && empty($this->data)) {
       $this->data = $this->Story->read(null, $id);
     }
     $characters = $this->Story->Character->find('list');
     $users      = $this->Story->User->find('list');
     $turns      = $this->Story->Turn->find('list');
     $this->set(compact('characters', 'users', 'turns'));
+    $this->render('form');
   }
 
   /**
