@@ -33,7 +33,6 @@ class StoriesController extends AppController {
     // change and create a location change entry in that case. Issue 43
     //
     // TODO: Check that user is in the users section and is moderator.
-    // TODO: Default the Turn to your user. Issue 29
     if (!empty($this->data)) {
 
       if (!$this->Story->id) { $this->Story->create(); }
@@ -41,12 +40,15 @@ class StoriesController extends AppController {
       if ($this->Story->save($this->data)) {
         $this->Session->setFlash(__('The Story has been saved.', true));
         $this->redirect(array('action' => 'view', 'id' => $this->Story->id));
-      } else {
       }
     }
+
     if ($id && empty($this->data)) {
       $this->data = $this->Story->read(null, $id);
+    } else {
+      $this->data['Story']['user_id_turn'] = $this->Auth->user('id');
     }
+
     $characters = $this->Story->Character->find('list');
     $users      = $this->Story->User->find('list');
     $turns      = $this->Story->Turn->find('list');
