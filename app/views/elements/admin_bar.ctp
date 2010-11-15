@@ -9,6 +9,7 @@
       'Character Locations'   => 'character_locations',
       'Locations'             => 'locations',
       'Locations Races'       => 'locations_races',
+      'Location Tags'         => 'location_tags',
       'Factions'              => 'factions',
       'Faction Ranks'         => 'faction_ranks',
       'Profession Categories' => 'profession_categories',

@@ -2,23 +2,19 @@
 class LocationsController extends AppController {
 
   var $name = 'Locations';
-  var $helpers = array('Html', 'Form');
+  var $scaffold = 'admin';
 
   function admin_index() {
     $this->set('locations', $this->Location->findAllThreaded());
   }
 
-  function admin_view($id = null) {
-    if (!$id) {
-      $this->Session->setFlash(__('Invalid Location', true));
-      $this->redirect(array('action' => 'index'));
-    }
-    $this->set('location', $this->Location->read(null, $id));
-  }
+  function admin_add()     { $this->_form(); }
+  function admin_edit($id) { $this->_form($id); }
 
-  function admin_add() {
+  function _form($id = false) {
     if (!empty($this->data)) {
-      $this->Location->create();
+      if (!$this->Location->id) { $this->Location->create(); }
+
       if ($this->Location->save($this->data)) {
         $this->data['LocationRegion']['location_id'] = $this->Location->id;
         $this->Location->LocationRegion->save($this->data);
@@ -30,55 +26,19 @@ class LocationsController extends AppController {
           'The Location could not be saved. Please, try again.', true
         ));
       }
-    }
-    $this->set('locationTags', $this->Location->LocationTag->find('list'));
-    $this->set('parents', $this->Location->generatetreelist(
-      null, null, null, '|  '
-    ));
-  }
 
-  function admin_edit($id = null) {
-    if (!$id && empty($this->data)) {
-      $this->Session->setFlash(__('Invalid Location', true));
-      $this->redirect(array('action' => 'index'));
-    }
-    if (!empty($this->data)) {
-      if ($this->Location->save($this->data)) {
-        $this->data['LocationRegion']['location_id'] = $this->Location->id;
-        $this->Location->LocationRegion->save($this->data);
-
-        $this->Session->setFlash(__('The Location has been saved', true));
-        $this->redirect(array('action' => 'index'));
-      } else {
-        $this->Session->setFlash(__(
-          'The Location could not be saved. Please, try again.', true
-        ));
-      }
-    }
-    if (empty($this->data)) {
+    } else if($id) {
       $this->Location->contain(array('LocationRegion', 'LocationTag'));
       $this->data = $this->Location->read(null, $id);
     }
+
     $this->set('locationTags', $this->Location->LocationTag->find('list'));
     $this->set('parents', $this->Location->generatetreelist(
       null, null, null, '|  '
     ));
     $this->set('depth', count($this->Location->getpath()));
-  }
 
-  function admin_delete($id = null) {
-    if (!$id) {
-      $this->Session->setFlash(__('Invalid id for Location', true));
-      $this->redirect(array('action' => 'index'));
-    }
-    if ($this->Location->del($id)) {
-      $this->Session->setFlash(__('Location deleted', true));
-      $this->redirect(array('action' => 'index'));
-    }
-    $this->Session->setFlash(__(
-      'The Location could not be deleted. Please, try again.', true
-    ));
-    $this->redirect(array('action' => 'index'));
+    $this->render('admin_form');
   }
 
   function admin_moveUp($id = null) {

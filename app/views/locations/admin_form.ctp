@@ -1,7 +1,9 @@
 <div class="locations form">
 <?php echo $form->create('Location');?>
   <fieldset>
-    <legend><?php __('Edit Location');?></legend>
+    <legend>
+      <?php (isset($this->data)) ? __('Edit Location') : __('New Location'); ?>
+    </legend>
   <?php
     $html->css('jquery-cust_select_box.css', null, null, false);
     $javascript->link('jquery-cust_select_box.js', false);
@@ -33,19 +35,21 @@
 </div>
 <div class="actions">
   <ul>
-    <li>
-      <?php
-        echo $html->link(
-          __('Delete', true),
-          array('action' => 'delete', $form->value('Location.id')),
-          null,
-          sprintf(
-            __('Are you sure you want to delete # %s?', true),
-            $form->value('Location.id')
-          )
-        );
-      ?>
-    </li>
+    <?php if (isset($this->data)): ?>
+      <li>
+        <?php
+          echo $html->link(
+            __('Delete', true),
+            array('action' => 'delete', $form->value('Location.id')),
+            null,
+            sprintf(
+              __('Are you sure you want to delete # %s?', true),
+              $form->value('Location.id')
+            )
+          );
+        ?>
+      </li>
+    <?php endif; ?>
     <li>
       <?php
         echo $html->link(
