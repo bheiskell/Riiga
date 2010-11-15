@@ -101,7 +101,7 @@ class TextHelperTest extends CakeTestCase {
 		$this->assertIdentical($this->Text->{$m}($text8, 15), 'Vive la R'.chr(195).chr(169).'pu...');
 		$this->assertIdentical($this->Text->{$m}($text1, 25, 'Read more'), 'The quick brown Read more');
 		$this->assertIdentical($this->Text->{$m}($text1, 25, '<a href="http://www.google.com/">Read more</a>', true, true), 'The quick brown <a href="http://www.google.com/">Read more</a>');
-		
+
 		if ($this->method == 'truncate') {
 			$this->method = 'trim';
 			$this->testTruncate();
@@ -199,6 +199,36 @@ class TextHelperTest extends CakeTestCase {
 		$result = $this->Text->autoLink($text);
 		$expected = 'Text with a partial <a href="http://www.cakephp.org">www.cakephp.org</a> URL and <a href="mailto:test@cakephp\.org">test@cakephp\.org</a> email address';
 		$this->assertPattern('#^' . $expected . '$#', $result);
+
+		$text = 'This is a test text with URL http://www.cakephp.org';
+		$expected = 'This is a test text with URL <a href="http://www.cakephp.org">http://www.cakephp.org</a>';
+		$result = $this->Text->autoLink($text);
+		$this->assertEqual($result, $expected);
+
+		$text = 'This is a test text with URL http://www.cakephp.org and some more text';
+		$expected = 'This is a test text with URL <a href="http://www.cakephp.org">http://www.cakephp.org</a> and some more text';
+		$result = $this->Text->autoLink($text);
+		$this->assertEqual($result, $expected);
+
+		$text = "This is a test text with URL http://www.cakephp.org\tand some more text";
+		$expected = "This is a test text with URL <a href=\"http://www.cakephp.org\">http://www.cakephp.org</a>\tand some more text";
+		$result = $this->Text->autoLink($text);
+		$this->assertEqual($result, $expected);
+
+		$text = 'This is a test text with URL http://www.cakephp.org(and some more text)';
+		$expected = 'This is a test text with URL <a href="http://www.cakephp.org">http://www.cakephp.org</a>(and some more text)';
+		$result = $this->Text->autoLink($text);
+		$this->assertEqual($result, $expected);
+
+		$text = 'This is a test text with URL http://www.cakephp.org';
+		$expected = 'This is a test text with URL <a href="http://www.cakephp.org" class="link">http://www.cakephp.org</a>';
+		$result = $this->Text->autoLink($text, array('class'=>'link'));
+		$this->assertEqual($result, $expected);
+
+		$text = 'This is a test text with URL http://www.cakephp.org';
+		$expected = 'This is a test text with URL <a href="http://www.cakephp.org" class="link" id="MyLink">http://www.cakephp.org</a>';
+		$result = $this->Text->autoLink($text, array('class'=>'link', 'id'=>'MyLink'));
+		$this->assertEqual($result, $expected);
 	}
 /**
  * testAutoLinkUrls method
@@ -228,15 +258,19 @@ class TextHelperTest extends CakeTestCase {
 		$this->assertPattern('#^' . $expected . '$#', $result);
 
 		$text = 'Text with a partial WWW.cakephp.org URL';
-		$expected = 'Text with a partial <a href="http://www.cakephp.org"\s*>WWW.cakephp.org</a> URL';
+		$expected = 'Text with a partial <a href="http://WWW.cakephp.org"\s*>WWW.cakephp.org</a> URL';
 		$result = $this->Text->autoLinkUrls($text);
 		$this->assertPattern('#^' . $expected . '$#', $result);
 
 		$text = 'Text with a partial WWW.cakephp.org &copy; URL';
-		$expected = 'Text with a partial <a href="http://www.cakephp.org"\s*>WWW.cakephp.org</a> &copy; URL';
+		$expected = 'Text with a partial <a href="http://WWW.cakephp.org"\s*>WWW.cakephp.org</a> &copy; URL';
 		$result = $this->Text->autoLinkUrls($text, array('escape' => false));
 		$this->assertPattern('#^' . $expected . '$#', $result);
 
+		$text = 'Text with a url www.cot.ag/cuIb2Q and more';
+		$expected = 'Text with a url <a href="http://www.cot.ag/cuIb2Q">www.cot.ag/cuIb2Q</a> and more';
+		$result = $this->Text->autoLinkUrls($text);
+		$this->assertEqual($expected, $result);
 	}
 /**
  * testAutoLinkEmails method
@@ -288,19 +322,19 @@ class TextHelperTest extends CakeTestCase {
 		$expected = '...with test text...';
 		$result = $this->Text->excerpt($text, 'test', 9, '...');
 		$this->assertEqual($expected, $result);
-		
+
 		$expected = 'This is a...';
 		$result = $this->Text->excerpt($text, 'not_found', 9, '...');
 		$this->assertEqual($expected, $result);
-		
+
 		$expected = 'This is a phras...';
 		$result = $this->Text->excerpt($text, null, 9, '...');
 		$this->assertEqual($expected, $result);
-		
+
 		$expected = $text;
 		$result = $this->Text->excerpt($text, null, 200, '...');
 		$this->assertEqual($expected, $result);
-		
+
 		$expected = '...phrase...';
 		$result = $this->Text->excerpt($text, 'phrase', 2, '...');
 		$this->assertEqual($expected, $result);

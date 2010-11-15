@@ -390,11 +390,11 @@ class Set extends Object {
 		$options = array_merge(array('flatten' => true), $options);
 		if (!isset($contexts[0])) {
 			$current = current($data);
-			if ((is_array($current) && count($data) <= 1) || !is_array($current) || !Set::numeric(array_keys($data))) {
+			if ((is_array($current) && count($data) < 1) || !is_array($current) || !Set::numeric(array_keys($data))) {
 				$contexts = array($data);
 			}
 		}
-		$tokens = array_slice(preg_split('/(?<!=)\/(?![a-z-]*\])/', $path), 1);
+		$tokens = array_slice(preg_split('/(?<!=)\/(?![a-z-\s]*\])/', $path), 1);
 
 		do {
 			$token = array_shift($tokens);
@@ -438,7 +438,8 @@ class Set extends Object {
 						$items = array($items);
 					} elseif (!isset($items[0])) {
 						$current = current($items);
-						if ((is_array($current) && count($items) <= 1) || !is_array($current)) {
+						$currentKey = key($items);
+						if (!is_array($current) || (is_array($current) && count($items) <= 1 && !is_numeric($currentKey))) {
 							$items = array($items);
 						}
 					}
@@ -447,18 +448,18 @@ class Set extends Object {
 						$ctext = array($context['key']);
 						if (!is_numeric($key)) {
 							$ctext[] = $token;
-							$token = array_shift($tokens);
-							if (isset($items[$token])) {
-								$ctext[] = $token;
-								$item = $items[$token];
+							$tok = array_shift($tokens);
+							if (isset($items[$tok])) {
+								$ctext[] = $tok;
+								$item = $items[$tok];
 								$matches[] = array(
 									'trace' => array_merge($context['trace'], $ctext),
-									'key' => $token,
+									'key' => $tok,
 									'item' => $item,
 								);
 								break;
-							} else {
-								array_unshift($tokens, $token);
+							} elseif ($tok !== null) {
+								array_unshift($tokens, $tok);
 							}
 						} else {
 							$key = $token;
@@ -485,7 +486,7 @@ class Set extends Object {
 					$length = count($matches);
 					foreach ($matches as $i => $match) {
 						if (Set::matches(array($condition), $match['item'], $i + 1, $length)) {
-							$filtered[] = $match;
+							$filtered[$i] = $match;
 						}
 					}
 					$matches = $filtered;
@@ -947,6 +948,9 @@ class Set extends Object {
 		} else {
 			$keys = Set::extract($data, $path1);
 		}
+		if (empty($keys)) {
+			return array();
+		}
 
 		if (!empty($path2) && is_array($path2)) {
 			$format = array_shift($path2);
@@ -978,7 +982,9 @@ class Set extends Object {
 				return $out;
 			}
 		}
-
+		if (empty($vals)) {
+			return array();
+		}
 		return array_combine($keys, $vals);
 	}
 /**

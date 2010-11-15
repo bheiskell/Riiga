@@ -688,7 +688,7 @@ class XmlNode extends Object {
 				if (isset($out[$key]) || isset($multi[$key])) {
 					if (!isset($multi[$key])) {
 						$multi[$key] = array($out[$key]);
-						unset($out[$key]);
+						//unset($out[$key]);
 					}
 					$multi[$key][] = $value;
 				} elseif (!empty($value)) {
@@ -841,7 +841,7 @@ class Xml extends XmlNode {
 		parent::__construct('#document');
 
 		if ($options['root'] !== '#document') {
-			$Root = $this->createNode($options['root']);
+			$Root =& $this->createNode($options['root']);
 		} else {
 			$Root =& $this;
 		}
@@ -921,6 +921,8 @@ class Xml extends XmlNode {
 				break;
 			}
 		}
+		xml_parser_free($this->__parser);
+		$this->__parser = null;
 		return true;
 	}
 /**
@@ -1088,9 +1090,6 @@ class Xml extends XmlNode {
  * @access private
  */
 	function __destruct() {
-		if (is_resource($this->__parser)) {
-			xml_parser_free($this->__parser);
-		}
 		$this->_killParent(true);
 	}
 /**

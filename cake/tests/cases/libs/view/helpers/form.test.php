@@ -1798,6 +1798,19 @@ class FormHelperTest extends CakeTestCase {
 		}
 	}
 /**
+ * test input name with leading integer, ensure attributes are generated correctly.
+ *
+ * @return void
+ */
+	function testInputWithLeadingInteger() {
+		$result = $this->Form->text('0.Node.title');
+		$expected = array(
+			'input' => array('name' => 'data[0][Node][title]', 'id' => '0NodeTitle', 'value' => '', 'type' => 'text')
+		);
+		$this->assertTags($result, $expected);
+	}
+
+/**
  * test form->input() with select type inputs.
  *
  * @return void
@@ -4701,6 +4714,23 @@ class FormHelperTest extends CakeTestCase {
 		$this->assertTags($result, array('input' => array(
 			'name' => 'user_form', 'type' => 'text', 'value' => '', 'id' => 'ContactUserForm'
 		)));
+	}
+/**
+ * test that datetime() works with GET style forms.
+ *
+ * @return void
+ */
+	function testDateTimeWithGetForms() {
+		extract($this->dateRegex);
+		$this->Form->create('Contact', array('type' => 'get'));
+		$result = $this->Form->datetime('created');
+
+		$this->assertPattern('/name="created\[year\]"/', $result, 'year name attribute is wrong.');
+		$this->assertPattern('/name="created\[month\]"/', $result, 'month name attribute is wrong.');
+		$this->assertPattern('/name="created\[day\]"/', $result, 'day name attribute is wrong.');
+		$this->assertPattern('/name="created\[hour\]"/', $result, 'hour name attribute is wrong.');
+		$this->assertPattern('/name="created\[min\]"/', $result, 'min name attribute is wrong.');
+		$this->assertPattern('/name="created\[meridian\]"/', $result, 'meridian name attribute is wrong.');
 	}
 /**
  * testEditFormWithData method

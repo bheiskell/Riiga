@@ -237,7 +237,7 @@ class HtmlHelper extends AppHelper {
 			}
 			$out .= sprintf($this->tags['metalink'], $attributes['link'], $this->_parseAttributes($attributes, array('link'), ' ', ' '));
 		} else {
-			$out = sprintf($this->tags['meta'], $this->_parseAttributes($attributes, array('type')));
+			$out = sprintf($this->tags['meta'], $this->_parseAttributes($attributes, array('type'), ' ', ' '));
 		}
 
 		if ($inline) {
@@ -343,7 +343,7 @@ class HtmlHelper extends AppHelper {
 			}
 
 			if (strpos($path, '?') === false) {
-				if (substr($path, -4) !== '.css') {
+				if (!preg_match('/.*\.(css|php)$/i', $path)) {
 					$path .= '.css';
 				}
 			}

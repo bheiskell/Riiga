@@ -365,6 +365,10 @@ class HtmlHelperTest extends CakeTestCase {
 		$expected['link']['href'] = 'preg:/.*css\/my\.css\.library\.css/';
 		$this->assertTags($result, $expected);
 
+		$result = $this->Html->css('my.css.php');
+		$expected['link']['href'] = 'preg:/.*css\/my\.css\.php/';
+		$this->assertTags($result, $expected);
+
 		$result = $this->Html->css('screen.css?1234');
 		$expected['link']['href'] = 'preg:/.*css\/screen\.css\?1234/';
 		$this->assertTags($result, $expected);
@@ -844,6 +848,8 @@ class HtmlHelperTest extends CakeTestCase {
 
 		$result = $this->Html->meta('keywords', 'these, are, some, meta, keywords');
 		$this->assertTags($result, array('meta' => array('name' => 'keywords', 'content' => 'these, are, some, meta, keywords')));
+		$this->assertPattern('/\s+\/>$/', $result);
+
 
 		$result = $this->Html->meta('description', 'this is the meta description');
 		$this->assertTags($result, array('meta' => array('name' => 'description', 'content' => 'this is the meta description')));

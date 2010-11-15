@@ -105,7 +105,7 @@ class DboSource extends DataSource {
  * @param array $config An array defining the new configuration settings
  * @return boolean True on success, false on failure
  */
-	function reconnect($config = null) {
+	function reconnect($config = array()) {
 		$this->disconnect();
 		$this->setConfig($config);
 		$this->_sources = null;
@@ -380,11 +380,11 @@ class DboSource extends DataSource {
  * @return string SQL field
  */
 	function name($data) {
-		if ($data == '*') {
-			return '*';
-		}
 		if (is_object($data) && isset($data->type)) {
 			return $data->value;
+		}
+		if ($data == '*') {
+			return '*';
 		}
 		$array = is_array($data);
 		$data = (array)$data;
@@ -675,7 +675,7 @@ class DboSource extends DataSource {
 						$db =& $this;
 					}
 
-					if (isset($db)) {
+					if (isset($db) && method_exists($db, 'queryAssociation')) {
 						$stack = array($assoc);
 						$db->queryAssociation($model, $linkModel, $type, $assoc, $assocData, $array, true, $resultSet, $model->recursive - 1, $stack);
 						unset($db);
@@ -1477,6 +1477,24 @@ class DboSource extends DataSource {
 		} elseif ($conditions === null) {
 			$conditions = $this->conditions($this->defaultConditions($model, $conditions, false), true, true, $model);
 		} else {
+			$noJoin = true;
+			foreach ($conditions as $field => $value) {
+				$originalField = $field;
+				if (strpos($field, '.') !== false) {
+					list($alias, $field) = explode('.', $field);
+				}
+				if (!$model->hasField($field)) {
+					$noJoin = false;
+					break;
+				}
+				if ($field !== $originalField) {
+					$conditions[$field] = $value;
+					unset($conditions[$originalField]);
+				}
+			}
+			if ($noJoin === true) {
+				return $this->conditions($conditions);
+			}
 			$idList = $model->find('all', array(
 				'fields' => "{$model->alias}.{$model->primaryKey}",
 				'conditions' => $conditions
