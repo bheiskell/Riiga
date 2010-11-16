@@ -11,4 +11,10 @@ $(document).ready(function() {
       $('#LocationRegionHeight').val(height);
     }
   });
+
+  /**
+   * Apply the location tag formatter
+   */
+  $('#LocationDescription').attr('rows', 3);
+  $('#LocationTagLocationTag').custSelectBox({ selectwidth: 250 });
 });

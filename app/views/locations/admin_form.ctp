@@ -7,7 +7,6 @@
   <?php
     $html->css('jquery-cust_select_box.css', null, null, false);
     $javascript->link('jquery-cust_select_box.js', false);
-    $javascript->link('location_tags.js', false);
 
     echo $form->hidden('id');
     echo $form->input('name');
