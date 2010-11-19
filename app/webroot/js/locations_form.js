@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('img[src$="riiga.png"]').location_map({
+  $('img[src$="riiga.jpg"]').location_map({
     width:  600,
     height: 436
   })

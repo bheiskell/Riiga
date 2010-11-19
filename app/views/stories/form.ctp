@@ -8,7 +8,7 @@
   <?php $javascript->link('jquery-ui-tree_drilldown.js', false); ?>
   <?php $javascript->link('stories_form.js', false); ?>
   <?php $html->css('jquery-ui-tree_drilldown.css', null, null, false); ?>
-  <?php echo $html->image('map/riiga.png'); ?>
+  <?php echo $html->image('map/riiga.jpg'); ?>
   <?php
     echo $form->input('id');
     echo $form->input('name');
@@ -25,7 +25,7 @@
 </div>
 <script>
 $().ready(function() {
-  $('img[src$="riiga.png"]').location_map({
+  $('img[src$="riiga.jpg"]').location_map({
     width:  600,
     height: 436
   })
