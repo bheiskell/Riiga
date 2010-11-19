@@ -58,18 +58,33 @@ class CharacterLocation extends AppModel {
   }
 
   /**
-   * __findLocations
+   * __findInfo
    *
-   * Find Locations that are character locations. Result is not cached as it
-   * would create a cache dependency on Location.
+   * Find Locations that are character locations. Result is not cached as there
+   * are too many dependencies.
    *
    * @access public
    * @return mixed Location data
    */
-  public function __findLocations() {
-    return $this->Location->find('all', array(
+  public function __findInfo() {
+    $this->Location->bindModel(array('hasMany' => array('LocationsRace')));
+
+    $locations = $this->Location->find('all', array(
       'conditions' => array('id' => $this->find('location_ids'))
     ));
+
+    $ranks   = $this->find('ranks');
+    $races   = $this->Location->LocationsRace->find('group_by_race');
+    $regions = $this->Location->LocationRegion->find('group_by_location');
+
+    foreach ($locations as &$l) {
+      $id = $l['Location']['id'];
+      $l['Rank']['id']     = (isset($ranks[$id]))   ? $ranks[$id]   : null;
+      $l['Race']           = (isset($races[$id]))   ? $races[$id]   : null;
+      $l['LocationRegion'] = (isset($regions[$id])) ? $regions[$id] : null;
+    }
+
+    return $locations;
   }
 }
 ?>
