@@ -52,7 +52,9 @@ class StoriesController extends AppController {
     $characters = $this->Story->Character->find('list');
     $users      = $this->Story->User->find('list');
     $turns      = $this->Story->Turn->find('list');
-    $locations  = $this->Story->Location->find('list');
+    $this->set('locations', $this->Story->Location->generatetreelist(
+      null, null, null, '|  '
+    ));
     $this->set(compact('characters', 'users', 'turns', 'locations'));
     $this->render('form');
   }

@@ -5,6 +5,9 @@
       <?php (isset($this->data)) ? __('Edit Story') : __('Add Story'); ?>
     </legend>
   <?php $javascript->link('jquery-ui-location.js', false); ?>
+  <?php $javascript->link('jquery-ui-tree_drilldown.js', false); ?>
+  <?php $javascript->link('stories_form.js', false); ?>
+  <?php $html->css('jquery-ui-tree_drilldown.css', null, null, false); ?>
   <?php echo $html->image('map/riiga.png'); ?>
   <?php
     echo $form->input('id');
@@ -20,3 +23,11 @@
   </fieldset>
 <?php echo $form->end('Submit');?>
 </div>
+<script>
+$().ready(function() {
+  $('img[src$="riiga.png"]').location_map({
+    width:  600,
+    height: 436
+  })
+});
+</script>

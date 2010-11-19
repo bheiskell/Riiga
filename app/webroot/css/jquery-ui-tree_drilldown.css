@@ -1,0 +1,35 @@
+div.ui-tree-drilldown {
+  border-top: 1px solid #d3d3d3;
+  overflow: hidden;
+  height: 300px;
+}
+div.ui-tree-drilldown ul {
+  background: white;
+  list-style-type: none;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+}
+div.ui-tree-drilldown li {
+  position: relative;
+  margin: 0;
+}
+div.ui-tree-drilldown span {
+  cursor: pointer;
+  display: block;
+  padding: 0.25em 0.5em;
+  position: relative;
+}
+div.ui-tree-drilldown span.ui-state-default {
+  border-top: 0;
+}
+div.ui-tree-drilldown span.ui-state-active {
+  background: #E6E6E6 url(../img/jquery-ui/ui-bg_glass_75_dadada_1x400.png) repeat-x 50% 50%;
+}
+div.ui-tree-drilldown ul.ui-widget-content {
+  border: none;
+}
+div.ui-tree-drilldown ul.ui-widget-content span {
+  background: inherit;
+}
