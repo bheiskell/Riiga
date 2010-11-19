@@ -7,7 +7,7 @@
 <?php $javascript->link('jquery-ui-selectmenu.js',  false); ?>
 <?php $javascript->link('jquery-ui-star.js',        false); ?>
 <?php $javascript->link('jquery-ui-location.js',    false); ?>
-<?php $javascript->link('character_wizard.js',      false); ?>
+<?php $javascript->link('characters_form.js',       false); ?>
 <div class="characters form">
   <?php echo $form->create('Character');?>
     <fieldset>
