@@ -81,7 +81,13 @@ $(document).ready(function() {
 
       var content = $('.RaceId_' + o.val(), informations.race).clone();
 
-      submenu.append(content);
+      // Hack to get the image height so that the block renders correctly
+      var image = $('.RaceId_' + o.val() + ' img', informations.race)[0];
+
+      submenu.append(content).clearQueue().animate({
+        height: submenu.children().outerHeight() + image.height,
+        width:  submenu.children().outerWidth()
+      });
     }
   });
 
