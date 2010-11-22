@@ -1,5 +1,5 @@
 <div class="users form">
-  <?php echo $form->create('User'); ?>
+  <?php echo $form->create('User', array('action'=>$this->params['action'])); ?>
     <fieldset>
       <legend>
         <?php (isset($this->data)) ? __('Edit Profile') : __('Register'); ?>
