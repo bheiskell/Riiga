@@ -77,13 +77,6 @@
  */
 class DATABASE_CONFIG {
 
-  //var $default = array(
-    //'driver' => 'sqlite',
-    //'connect' =>'sqlite_popen',
-    //'host' => 'localhost',
-    //'database' => '//var/www/misc/apps/riiga/app/db/riiga.db'
-  //);
-
   var $default = array(
     'driver' => 'mysql',
     'host' => 'localhost',
