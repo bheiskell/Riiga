@@ -2,6 +2,7 @@
 
 class RaceFixture extends CakeTestFixture {
 	var $name = 'Race';
+	var $import = 'Race';
 	var $records = array(
 		array(
 			'id' => '1',

@@ -2,6 +2,7 @@
 
 class RankFixture extends CakeTestFixture {
 	var $name = 'Rank';
+	var $import = 'Rank';
 	var $records = array(
 		array(
 			'id' => '1',

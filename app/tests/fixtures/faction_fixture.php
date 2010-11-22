@@ -2,6 +2,7 @@
 
 class FactionFixture extends CakeTestFixture {
 	var $name = 'Faction';
+	var $import = 'Faction';
 	var $records = array(
 		array(
 			'id' => '1',

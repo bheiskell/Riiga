@@ -220,5 +220,34 @@ class Character extends AppModel {
 
     return true;
   }
+
+  /**
+   * __findAvailable
+   *
+   * Get a list of characters that are not currently in a story.
+   *
+   * @param mixed $user_id Character's owner
+   * @access protected
+   * @return array Results in the find('list') format
+   */
+  function __findAvailable($user_id) {
+    $this->bindModel(array('hasOne' => array('CharactersStory')));
+    $this->contain('CharactersStory');
+
+    return Set::combine(
+      $this->find('all', array(
+        'fields' => array('id', 'name'),
+        'conditions' => array(
+          'Character.user_id' => $user_id,
+          'OR' => array(
+            'CharactersStory.is_active = 0',
+            'CharactersStory.is_active IS NULL',
+          )
+        )
+      )),
+      '{n}.Character.id',
+      '{n}.Character.name'
+    );
+  }
 }
 ?>

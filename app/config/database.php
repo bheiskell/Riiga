@@ -77,11 +77,27 @@
  */
 class DATABASE_CONFIG {
 
+  //var $default = array(
+    //'driver' => 'sqlite',
+    //'connect' =>'sqlite_popen',
+    //'host' => 'localhost',
+    //'database' => '//var/www/misc/apps/riiga/app/db/riiga.db'
+  //);
+
   var $default = array(
-    'driver' => 'sqlite',
-    'connect' =>'sqlite_popen',
+    'driver' => 'mysql',
     'host' => 'localhost',
-    'database' => '//var/www/misc/apps/riiga/app/db/riiga.db'
+    'login' => 'riiga',
+    'password' => '',
+    'database' => 'riiga',
+  );
+
+  var $test = array(
+    'driver' => 'mysql',
+    'host' => 'localhost',
+    'login' => 'riiga_test',
+    'password' => '',
+    'database' => 'riiga_test',
   );
 
 }

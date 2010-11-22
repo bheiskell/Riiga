@@ -1,6 +1,6 @@
 <?php 
 /* SVN FILE: $Id$ */
-/* App schema generated on: 2010-10-30 20:10:55 : 1288472275*/
+/* App schema generated on: 2010-11-22 20:11:28 : 1290456208*/
 class AppSchema extends CakeSchema {
 	var $name = 'App';
 
@@ -46,6 +46,7 @@ class AppSchema extends CakeSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
 		'character_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 		'story_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'is_active' => array('type' => 'boolean', 'null' => true, 'default' => '1'),
 		'indexes' => array()
 	);
 	var $entries = array(
@@ -130,7 +131,7 @@ class AppSchema extends CakeSchema {
 	);
 	var $pending_characters = array(
 		'pending_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
-		'id' => array('type' => 'integer', 'null' => true, 'default' => NULL, 'key' => 'primary'),
+		'id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
 		'name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
 		'description' => array('type' => 'text', 'null' => false, 'default' => NULL),
 		'history' => array('type' => 'text', 'null' => false, 'default' => NULL),

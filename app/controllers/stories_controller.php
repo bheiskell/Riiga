@@ -48,9 +48,8 @@ class StoriesController extends AppController {
     } else {
       $this->data['Story']['user_id_turn'] = $this->Auth->user('id');
     }
-
-    // TODO: My untaken characters only
-    $characters   = $this->Story->Character->find('list');
+    $user_id      = $this->Auth->user('id');
+    $characters   = $this->Story->Character->find('available', $user_id);
     $users        = $this->Story->User->find('list');
     $turns        = $this->Story->Turn->find('list');
     $locationInfo = $this->Story->Location->find('info');

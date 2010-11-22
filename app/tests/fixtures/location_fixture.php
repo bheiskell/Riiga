@@ -2,6 +2,7 @@
 
 class LocationFixture extends CakeTestFixture {
 	var $name = 'Location';
+	var $import = 'Location';
 	var $records = array(
 		array(
 			'id' => '1',

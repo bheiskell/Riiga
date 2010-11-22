@@ -1,37 +1,36 @@
-<?php 
-/* SVN FILE: $Id$ */
-/* Character Test cases generated on: 2010-03-15 21:03:16 : 1268701396*/
+<?php
 App::import('Model', 'Character');
 
 class CharacterTestCase extends CakeTestCase {
-	var $Character = null;
-	var $fixtures = array('app.character', 'app.member');
+  var $Character = null;
+  var $fixtures = array('app.character', 'app.characters_story');
 
-	function startTest() {
-		$this->Character =& ClassRegistry::init('Character');
-	}
+  function startTest() {
+    $this->Character =& ClassRegistry::init('Character');
+  }
 
-	function testCharacterInstance() {
-		$this->assertTrue(is_a($this->Character, 'Character'));
-	}
+  function testCharacterInstance() {
+    $this->assertTrue(is_a($this->Character, 'Character'));
+  }
 
-	function testCharacterFind() {
-		$this->Character->recursive = -1;
-		$results = $this->Character->find('first');
-		$this->assertTrue(!empty($results));
+  function testCharacterFindAvailable() {
+    $results = $this->Character->find('available');
+    $this->assertFalse($results);
 
-		$expected = array('Character' => array(
-			'id' => 1,
-			'rank' => 1,
-			'wallet' => 1,
-			'race' => 'Lorem ipsum dolor sit amet',
-			'faction' => 'Lorem ipsum dolor sit amet',
-			'residency' => 'Lorem ipsum dolor sit amet',
-			'profession' => 'Lorem ipsum dolor sit amet',
-			'avatar' => 'Lorem ipsum dolor sit amet',
-			'member_id' => 1
-		));
-		$this->assertEqual($results, $expected);
-	}
+    $results = $this->Character->find('available', -1);
+    $this->assertFalse($results);
+
+    $results = $this->Character->find('available', 0);
+    $this->assertFalse($results);
+
+    $results = $this->Character->find('available', 1);
+    $this->assertEqual($results, array('1' => 'Test Character 1'));
+
+    $results = $this->Character->find('available', 2);
+    $this->assertEqual($results, array('2' => 'Test Character 2'));
+
+    $results = $this->Character->find('available', 3);
+    $this->assertFalse($results);
+  }
 }
 ?>
