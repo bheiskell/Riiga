@@ -131,7 +131,7 @@ class CharactersController extends AppController {
     $factionInfo  = $this->Character->Faction->find('all');
     $ageInfo      = $this->Character->Race->RaceAge->find('all');
 
-    $locationInfo = $this->Character->Location->CharacterLocation->find('info');
+    $locationInfo = $this->Character->Location->find('info_for_characters');
 
     $professionInfo = $this->Character->Race->ProfessionsRace
                            ->Profession->find('group_by_category');
@@ -142,9 +142,8 @@ class CharactersController extends AppController {
 
     $this->set(compact(
       'ageInfo',         'factions',       'factionInfo',    'factionRanks',
-      'locations',       'locationInfo',   'locationsRaces', 'locationRanks',
-      'locationRegions', 'professionInfo', 'races',          'raceNames',
-      'raceInfo',        'ranks',          'users'
+      'locations',       'locationInfo',   'professionInfo', 'races',
+      'raceNames',       'raceInfo',       'ranks',          'users'
     ));
 
     $this->render('form');

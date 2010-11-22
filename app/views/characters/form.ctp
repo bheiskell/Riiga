@@ -78,49 +78,7 @@
       </div>
     <?php endforeach; ?>
   </div>
-  <div id="LocationInformation">
-    <h3>Locations Information</h3>
-    <?php echo $html->image('map/riiga.jpg'); ?>
-    <?php foreach ($locationInfo as $location): ?>
-      <?php $locationId = $location['Location']['id']; ?>
-      <div class="LocationId_<?php echo h($locationId); ?>">
-        <h4><?php echo h($location['Location']['name']); ?></h4>
-        <p><?php echo h($location['Location']['description']); ?></p>
-        <table>
-          <thead>
-            <tr><th>Race</th><th>Likelihood</th></tr>
-          </thead>
-          <tbody>
-            <?php if (isset($location['Race'])): ?>
-              <?php $altrow->reset(); ?>
-              <?php
-                foreach ($location['Race'] as $race):
-              ?>
-                <tr<?php echo $altrow->get('RaceId_'.h($race['Race']['id']));?>>
-                  <td><?php echo h($race['Race']['name']); ?></td>
-                  <td><?php echo h($race['LocationsRace']['likelihood']);?></td>
-                </tr>
-              <?php endforeach; ?>
-            <?php endif; ?>
-          </tbody>
-        </table>
-        <p>
-          Requires Level
-          <?php echo h($location['Rank']['id']); ?>
-        </p>
-        <dl>
-          <dt>Left</dt>
-          <dd><?php echo h($location['LocationRegion']['left']); ?></dd>
-          <dt>Top</dt>
-          <dd><?php echo h($location['LocationRegion']['top']); ?></dd>
-          <dt>Width</dt>
-          <dd><?php echo h($location['LocationRegion']['width']); ?></dd>
-          <dt>Height</dt>
-          <dd><?php echo h($location['LocationRegion']['height']); ?></dd>
-        </dl>
-      </div>
-    <?php endforeach; ?>
-  </div>
+  <?php echo $this->element('location_info', compact('locationInfo')); ?>
   <div id="AgeInformation">
     <h3>Age Information</h3>
     <table>

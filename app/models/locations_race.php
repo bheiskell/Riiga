@@ -20,20 +20,20 @@ class LocationsRace extends AppModel {
   function afterDelete() { $this->clearCache(); }
 
   private function clearCache() {
-    Cache::delete('LocationsRaceGroupByRace');
+    Cache::delete('LocationsRaceRaceByLocation');
   }
 
   /**
-   * __findGroupByRace
+   * __findRaceByLocation
    *
    * Obtain the location race information keyed by the location id
    *
    * @access public
    * @return mixed array(location id => array(race id => all info))
    */
-  public function __findGroupByRace() {
-    Cache::delete('LocationsRaceGroupByRace');
-    $results = Cache::read('LocationsRaceGroupByRace');
+  public function __findRaceByLocation() {
+    Cache::delete('LocationsRaceRaceByLocation');
+    $results = Cache::read('LocationsRaceRaceByLocation');
 
     if (false === $results) {
       $this->contain('Race');
@@ -43,7 +43,7 @@ class LocationsRace extends AppModel {
         '{n}',
         '{n}.LocationsRace.location_id'
       );
-      Cache::write('LocationsRaceGroupByRace', $results);
+      Cache::write('LocationsRaceRaceByLocation', $results);
     }
 
     return $results;

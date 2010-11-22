@@ -49,13 +49,15 @@ class StoriesController extends AppController {
       $this->data['Story']['user_id_turn'] = $this->Auth->user('id');
     }
 
-    $characters = $this->Story->Character->find('list');
-    $users      = $this->Story->User->find('list');
-    $turns      = $this->Story->Turn->find('list');
-    $this->set('locations', $this->Story->Location->generatetreelist(
-      null, null, null, '|  '
-    ));
-    $this->set(compact('characters', 'users', 'turns', 'locations'));
+    // TODO: My untaken characters only
+    $characters   = $this->Story->Character->find('list');
+    $users        = $this->Story->User->find('list');
+    $turns        = $this->Story->Turn->find('list');
+    $locationInfo = $this->Story->Location->find('info');
+    $locations    = $this->Story->Location->generatetreelist(0, 0, 0, '|  ');
+    $this->set(
+      compact('characters', 'users', 'turns', 'locations', 'locationInfo')
+    );
     $this->render('form');
   }
 

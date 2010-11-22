@@ -37,7 +37,7 @@ class LocationRegion extends AppModel {
   function afterDelete() { $this->clearCache(); }
 
   function clearCache() {
-    Cache::delete('LocationRegionGroupByLocation');
+    Cache::delete('LocationRegionLocationRegionByLocation');
   }
 
   /**
@@ -48,8 +48,8 @@ class LocationRegion extends AppModel {
    * @access public
    * @return mixed array(location_id => array(top, left, width, height))
    */
-  public function __findGroupByLocation() {
-    $results = Cache::read('LocationRegionGroupByLocation');
+  public function __findLocationRegionByLocation() {
+    $results = Cache::read('LocationRegionLocationRegionByLocation');
 
     if (false === $results) {
       $results = Set::combine(
@@ -57,7 +57,7 @@ class LocationRegion extends AppModel {
         '{n}.LocationRegion.location_id',
         '{n}.LocationRegion'
       );
-      Cache::write('LocationRegionGroupByLocation', $results);
+      Cache::write('LocationRegionLocationRegionByLocation', $results);
     }
 
     return $results;
