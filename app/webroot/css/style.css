@@ -181,56 +181,6 @@ dd {
   margin-top: -2.5em;
 }
 
-/* Forms */
-form {
-}
-fieldset {
-  border: 1px solid #ccc;
-  margin-top: 1em;
-  padding: 0 2em 1em 2em;
-}
-fieldset legend {
-  color: #ee3322;
-  font-size: 2em;
-  line-height: 1.5em;
-}
-fieldset fieldset {
-  padding: 1em;
-}
-fieldset fieldset legend {
-  font-size: 1em;
-}
-form div {
-  margin: 1em 0;
-}
-form div.input {
-  color: #444;
-}
-form div.required label {
-  font-weight: bold;
-}
-label {
-  display: block;
-}
-input, textarea, select {
-  border: 1px solid #B6A792;
-  font-family: "frutiger linotype", "lucida grande", "verdana", sans-serif;
-  padding: 0.25em 0.25em;
-
-  border-radius: 0.25em;
-  -moz-border-radius: 0.25em;
-}
-div.checkbox input, div.radio input {
-  vertical-align: text-bottom;
-}
-div.checkbox label, div.radio label {
-  display: inline;
-  padding-left: 1em;
-}
-input[type=submit] {
-  padding: 0.25em 0.5em;
-}
-
 /* Notices and Errors */
 div.message,
 div.error-message {
@@ -238,6 +188,10 @@ div.error-message {
   color: #900;
   font-size: 1.5em;
   margin: 0.75em 0;
+}
+fieldset div.error-message {
+  font-size: 1em;
+  margin: 0.5em 0;
 }
 p.error {
   background-color: #ee3322;
@@ -269,7 +223,133 @@ div.actions li {
 /* Related section on view pages */
 div.related { clear: both; }
 
-/* Riiga Specific */
+/******************************************************************************/
+/* Forms **********************************************************************/
+/******************************************************************************/
+
+fieldset {
+  border: 1px solid #ccc;
+  margin-top: 1em;
+  padding: 0 2em 1em 2em;
+}
+fieldset legend {
+  color: #ee3322;
+  font-size: 2em;
+  line-height: 1.5em;
+}
+fieldset fieldset {
+  padding: 1em;
+}
+fieldset fieldset legend {
+  font-size: 1em;
+}
+form div {
+  margin: 1em 0;
+}
+form div.input {
+  color: #444;
+}
+form div label {
+  font-style: oblique;
+}
+form div.required label {
+  font-style: normal;
+}
+label {
+  display: block;
+}
+input, select, textarea {
+  background-color: #ffffff;
+  border: 1px solid #B6A792;
+  font-family: "frutiger linotype", "lucida grande", "verdana", sans-serif;
+  padding: 0.25em 0.25em;
+
+  border-radius: 0.25em;
+  -moz-border-radius: 0.25em;
+}
+input:focus, select:focus, textarea:focus {
+  background-color: #f8f8fd;
+  border: 1px solid #a8b1ba;
+  outline: none;
+}
+div.checkbox input, div.radio input {
+  vertical-align: text-bottom;
+}
+div.checkbox label, div.radio label {
+  display: inline;
+  padding-left: 1em;
+}
+input[type=submit] {
+  padding: 0.25em 0.5em;
+}
+
+/* Further layout oriented customizations */
+
+.input {
+  margin: 0;
+  padding: 1.5em 0 0 0;
+  width: 100%;
+  overflow: hidden;
+  position: relative; /* For absolute labels with widths set as % */
+}
+
+.password input,
+.text input,
+.textarea textarea,
+.select select {
+  display: block;
+  position: relative;
+  line-height: 1.5em;
+  /* padding pixels 1% and 13% translated to px - 1 for the borders */
+  padding: 0.25em 7px 0.25em 109px;
+  margin: 0;
+  width: 86%;
+}
+
+/* Position labels on inputs */
+.password label,
+.text label,
+.textarea label,
+.select label {
+  background: transparent url(../img/jquery-ui/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+  border: 1px solid #ccc;
+  color: #444;
+  line-height: 1.5em;
+  padding: 0.25em 1% 0.25em 0;
+  position: absolute;
+  text-align: right;
+  width: 11%;
+  z-index: 1; /* Put label above input */
+
+  border-bottom-left-radius: 0.25em;
+  border-top-left-radius: 0.25em;
+  -moz-border-radius-bottomleft: 0.25em;
+  -moz-border-radius-topleft: 0.25em;
+}
+.required label {
+  font-weight: normal;
+}
+.submit input {
+  padding: 0.25em 0.5em;
+  width: auto;
+}
+
+/* Cross browser weirdness */
+
+/* Firefox inputs don't respect line height */
+fieldset input { height: 1.5em; }
+
+/* Hardcode height because calculation of selects is weird cross browser */
+.select select { height: 26px; }
+.select select[multiple=multiple] { height: auto; }
+
+/* For some reason select boxs dont follow the width + padding + margin rule */
+.select select { width: 100%; }
+
+/******************************************************************************/
+/* Riiga Specific *************************************************************/
+/******************************************************************************/
+
 td.avatar {
   width: 0px; /* shrink to image size, might not be cross browser */
 }
@@ -289,12 +369,6 @@ td.avatar {
 /******************************************************************************/
 /* jQuery UI ******************************************************************/
 /******************************************************************************/
-/**
- * This section is only for overloading functionality that always should
- * overload theme roller templates. Truly cosmetic changes should be in the
- * jquery-ui.css.
- */
-input.ui-button { padding: 0.25em 0.5em; }
 
 /* By default UI doesn't include a shadow class without adding a sub-element */
 .ui-shadow {
@@ -304,22 +378,28 @@ input.ui-button { padding: 0.25em 0.5em; }
 }
 
 /******************************************************************************/
+/* Location Widget ************************************************************/
+/******************************************************************************/
+.ui-location {
+  border-bottom: 1px solid #d3d3d3;
+  overflow: hidden;
+  position: relative;
+}
+.ui-location img {
+  position: relative;
+}
+.ui-location-selector {
+  position: absolute;
+  border: 1px dotted grey;
+}
+
+/******************************************************************************/
 /* Page Specific **************************************************************/
 /******************************************************************************/
-.users.login div.input input {
-  display: block;
-  margin: -1.5em 0 0 10em;
-  width: auto;
-}
-.users.view h2 {
-  float: left;
-}
-.users.view div.avatar {
-  float: right;
-}
-.users.view ul {
-  clear: left;
-}
+
+.users.view h2         { float: left; }
+.users.view div.avatar { float: right; }
+.users.view ul         { clear: left; }
 
 .characters.view h2 {
   float: left;
@@ -328,6 +408,13 @@ input.ui-button { padding: 0.25em 0.5em; }
 }
 .characters.view div.avatar {
   float: left;
+}
+.characters.view table { clear: both; }
+.characters.view .map {
+  border: 1px solid #CCC;
+  float: right;
+  margin: 0.5em;
+  margin-right: 0;
 }
 
 .locations.index .tree span { float: right; padding-right: 0.25em; }
@@ -344,130 +431,43 @@ input.ui-button { padding: 0.25em 0.5em; }
 .locations.index .tree li        { background: #fff; }
 .locations.index .tree li.altrow { background: #f4f4f4; }
 
-.characters.view .map {
-  border: 1px solid #CCC;
-  float: right;
-  margin: 0.5em;
-  margin-right: 0;
-}
-
 /******************************************************************************/
 /* Character wizard ***********************************************************/
 /******************************************************************************/
 
-.characters .error-message { font-size: 1em; margin: 0.5em 0 0 0; }
-
-/* Characters input container default to two column */
-.characters .text,
-.characters .textarea,
-.characters .select {
-  margin: 0;
-  padding: 1.5em 0 0 0;
-  width: 50%; /* 50 makes math easier */
-  overflow: hidden;
-  position: relative; /* For absolute labels with widths set as % */
+/* JS star ranking */
+.characters .ui-star .ui-state-default   { background-position: -32px 0; }
+.characters .ui-star .ui-state-highlight { background-position:   0px 0; }
+.characters .ui-star .ui-state-hover     { background-position: -16px 0; }
+.characters .ui-star .ui-state-disabled  { background-position: -48px 0; }
+.characters .ui-star { overflow: hidden; }
+.characters .ui-star a:focus { outline: none; }
+.characters .ui-star a {
+  background: transparent url('../img/stars.png');
+  border: 0;
+  display: block;
+  height: 16px;
+  float: left;
+  font-size: 0;
+  text-decoration: none;
+  width: 16px;
 }
-
-.characters input,
-.characters select,
-.characters textarea,
+/* Format star container to better mimic other form elements */
 .characters .ui-star {
-  line-height: 1.5em;
-  padding: 0.25em 8px/*1%*/ 0.25em 106px/*25%*/; /* Firefox bug - Translating % to px - 26% */
+  border: 1px solid #B6A792;
+  height: 1.5em; /* 26 = 18 line-height + 4 padding top + 4 bottom */
+  padding: 0.25em 7px 0.25em 109px;
   margin: 0;
-  width: 72%; /* 72 + 26 = 98 -> Margin of 1% set based on float direction */
-}
-/* Firefox inputs don't respect line height */
-.characters fieldset input { height: 1.5em; }
 
-/* Recalc for 100% width elements */
-.characters #age input,
-.characters #description textarea,
-.characters #history textarea,
-.characters #avatar input {
-  padding: 0.25em 8px/*0.5%*/ 0.25em 106px/*12.5%*/; /* 13 = 26 / 2 -> Half percent for double size */
-  width: 86%; /* 87 + 13 = 100 -> Inner margins not needed for 100% wide */
+  border-radius: 0.25em;
+  -moz-border-radius: 0.25em;
 }
 
-/* For some reason select boxs dont follow the width + padding + margin rule */
-.characters select { width: 98%; }
-
-/* Position labels on inputs */
-.characters .text label,
-.characters .textarea label,
-.characters .select label {
-  background: transparent url(../img/jquery-ui/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
-  border: 1px solid #ccc;
-  color: #444;
-  line-height: 1.5em;
-  padding: 0.25em 2% 0.25em 0; /* 1 */
-  margin-right: 2%; /* 1 */
-  position: absolute;
-  text-align: right;
-  width: 21%; /* 2 + 2 + 21 = 25 -> Matches against left padding 25% above */
-  z-index: 1; /* Put label above input */
-
-  border-bottom-left-radius: 0.25em;
-  border-top-left-radius: 0.25em;
-  -moz-border-radius-bottomleft: 0.25em;
-  -moz-border-radius-topleft: 0.25em;
-}
-.characters .required label { font-weight: normal; }
-
-/* Recalc for 100% width elements */
-.characters #age label,
-.characters #description label,
-.characters #history label,
-.characters #avatar label {
-  padding-right: 1%;
-  margin-right: 1%;
-  width: 10.5%; /* 1 + 1 + 10.5 = 12.5 -> 12.5 * 2 = 25% */
-}
-
-/* General character page two column layout */
-.characters #name,
-.characters #race,
-.characters #faction { float: left; }
-.characters #rank,
-.characters #location,
-.characters #profession { float: right; }
-.characters #race,
-.characters #age,
-.characters #faction,
-.characters #description { clear: both; }
-/* Margin inward in correct direction */
-.characters #name input,
-.characters #race select,
-.characters #race .ui-select,
-.characters #faction select
-.characters #faction .ui-select { margin-right: 1%; }
-.characters #rank select,
-.characters #rank .ui-star,
-.characters #location select,
-.characters #location .ui-select,
-.characters #profession input { margin-left: 0%; }
-/* Reset for one column layouts */
-.characters #age,
-.characters #description,
-.characters #history,
-.characters #avatar { width: auto; }
-
-.characters .submit input { padding: 0.25em 0.5em; width: auto; }
-
-/* Conjoin the age and age information table */
-.characters #age { margin-bottom: 0; }
-.characters #age input {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  -moz-border-radius-bottomleft: 0;
-  -moz-border-radius-bottomright: 0;
-}
 .characters #AgeInformation { margin: 0; }
 .characters #AgeInformation th { border-top: 0; }
 .characters #AgeInformation table {
   border-top: 0;
   margin: 0;
-  width: 99.7%;
   -webkit-box-shadow: 0 0 1em #999;
   -moz-box-shadow: 0 0 1em #999;
   box-shadow: 0 0 1em #999;
@@ -476,11 +476,16 @@ input.ui-button { padding: 0.25em 0.5em; }
 /* Select menu restyling - override style to match other inputs sizing */
 .characters .ui-select {
   height: 2em; /* 26 = 18 line-height + 4 padding top + 4 bottom */
-  padding-left: 25%;
-  padding-right: 3%;
+  padding-left: 109px;
+  padding-right: 7px;
 }
-.characters .ui-select .ui-select-status { padding: 4px 0; }
-.characters .ui-select:hover { border-bottom: inherit; color: inherit; }
+.characters .ui-select .ui-select-status {
+  padding: 4px 0;
+}
+.characters .ui-select:hover {
+  border-bottom: 1px solid #D3D3D3;
+  color: inherit;
+}
 
 /* Labels are set to z-index: 1. Ensure open menu is displayed over them. */
 .ui-select-menu { z-index: 1; }
@@ -504,12 +509,12 @@ input.ui-button { padding: 0.25em 0.5em; }
   margin: 0;
   text-align: center;
 }
-
 .ui-select-menu, .ui-select-submenu {
   -webkit-box-shadow: 0 0.5em 1em #999;
   -moz-box-shadow: 0 0.5em 1em #999;
   box-shadow: 0 0.5em 1em #999;
 }
+
 /**
  * For select menus limited by rank, star images are displayed inline to the
  * select option. Formatting these involves overriding default selectmenu
@@ -530,41 +535,12 @@ input.ui-button { padding: 0.25em 0.5em; }
 /* Rank stars shouldn't be displayed in the closed select menu */
 .ui-select span.stars { display: none; }
 
-/* JS star ranking */
-.characters .ui-star .ui-state-default   { background-position: -32px 0; }
-.characters .ui-star .ui-state-highlight { background-position:   0px 0; }
-.characters .ui-star .ui-state-hover     { background-position: -16px 0; }
-.characters .ui-star .ui-state-disabled  { background-position: -48px 0; }
-.characters .ui-star { overflow: hidden; }
-.characters .ui-star a:focus { outline: none; }
-.characters .ui-star a {
-  background: transparent url('../img/stars.png');
-  border: 0;
-  display: block;
-  height: 16px;
-  float: left;
-  font-size: 0;
-  text-decoration: none;
-  width: 16px;
-}
-/* Format star container to better mimic other form elements */
-.characters .ui-star {
-  border: 1px solid #B6A792;
-  height: 1.5em;
-
-  border-radius: 0.25em;
-  -moz-border-radius: 0.25em;
-}
-
-/******************************************************************************/
-/* Profession Widget **********************************************************/
-/******************************************************************************/
-
+/* Profession Widget */
 .ui-profession {
   margin-top: 0;
   overflow: hidden;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
 }
 .ui-profession h5 {
   background: url("../img/jquery-ui/ui-bg_glass_75_e6e6e6_1x400.png")
@@ -596,9 +572,9 @@ input.ui-button { padding: 0.25em 0.5em; }
   margin: 0;
   width: 75%;
 
-  -moz-column-count: 3;
-  -webkit-column-count: 3;
-  column-count: 3;
+  -moz-column-count: 5;
+  -webkit-column-count: 5;
+  column-count: 5;
 }
 
 .ui-profession ul.ui-profession-professions li {
@@ -622,25 +598,7 @@ input.ui-button { padding: 0.25em 0.5em; }
 }
 
 /******************************************************************************/
-/* End Character Wizard *******************************************************/
 /******************************************************************************/
-
-/******************************************************************************/
-/* Location Widget ************************************************************/
-/******************************************************************************/
-.ui-location {
-  border-bottom: 1px solid #d3d3d3;
-  overflow: hidden;
-  position: relative;
-}
-.ui-location img {
-  position: relative;
-}
-.ui-location-selector {
-  position: absolute;
-  border: 1px dotted grey;
-}
-
 /******************************************************************************/
 
 /* Debugging */

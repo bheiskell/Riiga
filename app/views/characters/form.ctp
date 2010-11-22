@@ -21,43 +21,17 @@
       <?php echo $form->input('id'); ?>
       <?php echo $form->hidden('pending_id'); ?>
       <?php
-        echo $form->input('name', array(
-          'div' => array('id' => 'name')
-        ));
-        echo $form->input('rank_id', array(
-          'label' => 'Level',
-          'div' => array('id' => 'rank')
-        ));
-        echo $form->input('race_id', array(
-          'empty' => true,
-          'div' => array('id' => 'race')
-        ));
-        echo $form->input('location_id', array(
-          'empty' =>true,
-          'div' => array('id' => 'location')
-        ));
-        echo $form->input('age', array(
-          'div' => array('id' => 'age')
-        ));
-        echo $form->input('faction_id', array(
-          'empty' => true,
-          'div' => array('id' => 'faction')
-        ));
-        echo $form->input('profession', array(
-          'div' => array('id' => 'profession')
-        ));
-        echo $form->input('description', array(
-          'div' => array('id' => 'description')
-        ));
-        echo $form->input('history', array(
-          'div' => array('id' => 'history')
-        ));
-        echo $form->input('avatar', array(
-          'div' => array('id' => 'avatar')
-        ));
-        echo $form->input('is_npc', array(
-          'div' => array('id' => 'npc')
-        ));
+        echo $form->input('name');
+        echo $form->input('rank_id', array('label' => 'Level'));
+        echo $form->input('race_id', array('empty' => true));
+        echo $form->input('location_id', array('empty' =>true));
+        echo $form->input('age');
+        echo $form->input('faction_id', array('empty' => true));
+        echo $form->input('profession');
+        echo $form->input('description');
+        echo $form->input('history');
+        echo $form->input('avatar');
+        echo $form->input('is_npc');
       ?>
     </fieldset>
   <?php echo $form->end(__('Submit', true));?>

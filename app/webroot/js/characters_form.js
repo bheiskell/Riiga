@@ -87,7 +87,6 @@ $(document).ready(function() {
 
   elements.location.select({
     format: filterStars,
-    submenuPosition: 'left',
     fillSubmenu: function(o, submenu) {
 
       var map;
@@ -306,8 +305,11 @@ $.widget('ui.select', $.ui.selectmenu, {
     var self = this;
     $.ui.selectmenu.prototype._init.call(this);
 
-    // by default selectmenu ignores padding width which we need included
-    if (!this.options.menuWidth) this.list.width(this.newelement.innerWidth());
+    // by default selectmenu ignores padding width which we need included. also
+    // need to half the space for the submenu to use.
+    if (!this.options.menuWidth) {
+      this.list.width(this.newelement.innerWidth()/2);
+    }
 
     this.element.change(function() { self._updateDisabledFields(); });
 

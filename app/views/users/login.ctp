@@ -1,7 +1,9 @@
 <div class="users login">
-  <h2><?php __('Login'); ?></h2>
   <?php echo $form->create('User', array('action' => 'login')); ?>
-    <?php echo $form->input('username'); ?>
-    <?php echo $form->input('password'); ?>
+    <fieldset>
+      <legend><?php __('Login'); ?></legend>
+      <?php echo $form->input('username'); ?>
+      <?php echo $form->input('password'); ?>
+    </fieldset>
   <?php echo $form->end('login'); ?>
 </div>
