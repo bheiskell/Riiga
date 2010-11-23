@@ -57,6 +57,24 @@ class CharacterFixture extends CakeTestFixture {
       'created' => '2010-08-10 23:21:21',
       'modified' => '2010-10-03 00:20:01',
     ),
+    array(
+      'id' => '4',
+      'name' => 'New Character',
+      'description' => 'Description Text',
+      'history' => 'History Text',
+      'rank_id' => '1',
+      'location_id' => '4',
+      'race_id' => '1',
+      'faction_id' => '',
+      'age' => '11',
+      'profession' => 'Herb Farmer',
+      'avatar' => '',
+      'is_npc' => '0',
+      'is_deactivated' => '0',
+      'user_id' => '4',
+      'created' => '2010-08-10 23:21:21',
+      'modified' => '2010-10-03 00:20:01',
+    ),
   );
 }
 

@@ -31,6 +31,9 @@ class CharacterTestCase extends CakeTestCase {
 
     $results = $this->Character->find('available', 3);
     $this->assertFalse($results);
+
+    $results = $this->Character->find('available', 4);
+    $this->assertEqual($results, array('4' => 'New Character'));
   }
 }
 ?>

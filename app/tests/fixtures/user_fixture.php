@@ -33,6 +33,16 @@ class UserFixture extends CakeTestFixture {
       'created' => '2010-06-16 19:56:07',
       'modified' => '2010-10-03 21:44:23',
     ),
+    array(
+      'id' => '4',
+      'username' => 'test_account_4',
+      'password' => 'BOGUS_DATA',
+      'email' => '',
+      'url' => '',
+      'avatar' => '',
+      'created' => '2010-06-16 19:56:07',
+      'modified' => '2010-10-03 21:44:23',
+    ),
   );
 }
 ?>
