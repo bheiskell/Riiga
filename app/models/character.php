@@ -54,7 +54,7 @@ class Character extends AppModel {
     'faction_id' => array(
       'checkFaction' => array('rule' => array('checkFaction')),
       'numeric' => array (
-        'required'     => true,
+        //'required'     => true,
         'allowEmpty'   => true,
         'rule'         => array('numeric'),
         'message'      => "Faction ID must be numeric.",

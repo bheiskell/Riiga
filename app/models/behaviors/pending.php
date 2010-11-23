@@ -49,7 +49,7 @@ class PendingBehavior extends ModelBehavior {
 
     if (!$Model->id) { $Model->create(); }
 
-    return $Model->save($data);
+    return $Model->save($data) && $Model->Pending->delete($pending_id, false);
   }
 
   /**
