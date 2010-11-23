@@ -11,10 +11,10 @@
     <?php echo $form->input('id'); ?>
     <?php echo $form->input('name'); ?>
     <?php // TODO: Location widget. Issue 28 ?>
-    <?php echo $form->input('Location'); ?>
+    <?php echo $form->input('location_id'); ?>
     <?php echo $form->input('User'); ?>
     <?php echo $form->input('Character'); ?>
-    <?php echo $form->input('Turn'); ?>
+    <?php echo $form->input('user_id_turn'); ?>
     <?php echo $form->input('is_invite_only'); ?>
   </fieldset>
 <?php echo $form->end('Submit');?>
