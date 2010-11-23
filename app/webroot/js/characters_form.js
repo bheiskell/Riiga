@@ -210,7 +210,12 @@ function Rules(targets) {
 
   // CakePHP doesn't support disabling individual option tags. Hack it into JS.
   this._limitByUserRank = function(event, userRank) {
-    $('option[value=' + $(userRank).val() + ']', this)
+    var rank = $(userRank).val();
+
+    // When rank is set to 0, the user is brand new. Default to rank 1 star.
+    if ('0' == rank) { rank = '1'; }
+
+    $('option[value=' + rank + ']', this)
       .nextAll()
       .attr('disabled', 'disabled');
   };

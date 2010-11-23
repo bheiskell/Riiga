@@ -115,7 +115,10 @@ class Character extends AppModel {
 
     $userRank = $this->User->findRankById($this->data['Character']['user_id']);
 
-    if (0 !== $userRank && $userRank < $value) {
+    // New users need to be able to register a character
+    if (0 === $userRank) $userRank = 1;
+
+    if ($userRank < $value) {
       $this->invalidate($key, sprintf(
         __("The character level cannot exceed your rank (%d)", true), $userRank
       ));
