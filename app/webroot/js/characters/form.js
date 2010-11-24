@@ -94,39 +94,18 @@ $(document).ready(function() {
   elements.location.selectsubmenu({
     format: filterStars,
     fillSubmenu: function(o, submenu) {
-
-      var map;
       if (0 == submenu.children().length) {
-        map = $('img', informations.location).clone().locationMap({
-          width:  400,
-          height: 200
-        }).parent();
-      } else {
-        map = submenu.children(':first').detach();
+        submenu.append(informations.location.clone());
+        submenu.children().locationInfo({
+          width: 400,
+          height: 250
+        });
       }
-
-      submenu.children().remove().end().append(map);
-      $('img', submenu).locationMap('region', 0, 0, 100, 100, 1000);
-
-      if (!o.val()) return;
-
-      var content =$('.LocationId_' + o.val(), informations.location).clone();
-
-      $('dl', content).hide();
-
-      submenu.append(content).clearQueue().animate({
-        height: content.outerHeight() + map.outerHeight(),
-        width:  content.outerWidth()
+      submenu.children().locationInfo('select', o.val());
+      submenu.clearQueue().animate({
+        height: submenu.children().outerHeight(),
+        width:  submenu.children().outerWidth()
       });
-
-      $('img', submenu).locationMap(
-        'region',
-        parseInt($('dt:contains("Left")', content).next().text()),
-        parseInt($('dt:contains("Top")', content).next().text()),
-        parseInt($('dt:contains("Width")', content).next().text()),
-        parseInt($('dt:contains("Height")', content).next().text()),
-        1000
-      );
     }
   });
 
