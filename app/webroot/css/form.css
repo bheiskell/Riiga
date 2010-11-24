@@ -1,0 +1,118 @@
+fieldset {
+  border: 1px solid #ccc;
+  margin-top: 1em;
+  padding: 0 2em 1em 2em;
+}
+fieldset legend {
+  color: #ee3322;
+  font-size: 2em;
+  line-height: 1.5em;
+}
+fieldset fieldset {
+  padding: 1em;
+}
+fieldset fieldset legend {
+  font-size: 1em;
+}
+form div {
+  margin: 1em 0;
+}
+form div.input {
+  color: #444;
+}
+form div label {
+  font-style: oblique;
+}
+form div.required label {
+  font-style: normal;
+}
+label {
+  display: block;
+}
+input, select, textarea {
+  background-color: #ffffff;
+  border: 1px solid #B6A792;
+  font-family: "frutiger linotype", "lucida grande", "verdana", sans-serif;
+  padding: 0.25em 0.25em;
+
+  border-radius: 0.25em;
+  -moz-border-radius: 0.25em;
+}
+input:focus, select:focus, textarea:focus {
+  background-color: #f8f8fd;
+  border: 1px solid #a8b1ba;
+  outline: none;
+}
+div.checkbox input, div.radio input {
+  vertical-align: text-bottom;
+}
+div.checkbox label, div.radio label {
+  display: inline;
+  padding-left: 1em;
+}
+input[type=submit] {
+  padding: 0.25em 0.5em;
+}
+
+/* Further layout oriented customizations */
+
+.input {
+  margin: 0;
+  padding: 1.5em 0 0 0;
+  width: 100%;
+  overflow: hidden;
+  position: relative; /* For absolute labels with widths set as % */
+}
+
+.password input,
+.text input,
+.textarea textarea,
+.select select {
+  display: block;
+  position: relative;
+  line-height: 1.5em;
+  /* padding pixels 1% and 13% translated to px - 1 for the borders */
+  padding: 0.25em 7px 0.25em 109px;
+  margin: 0;
+  width: 86%;
+}
+
+/* Position labels on inputs */
+.password label,
+.text label,
+.textarea label,
+.select label {
+  background: transparent url(../img/jquery-ui/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+  border: 1px solid #ccc;
+  color: #444;
+  line-height: 1.5em;
+  padding: 0.25em 1% 0.25em 0;
+  position: absolute;
+  text-align: right;
+  width: 11%;
+  z-index: 1; /* Put label above input */
+
+  border-bottom-left-radius: 0.25em;
+  border-top-left-radius: 0.25em;
+  -moz-border-radius-bottomleft: 0.25em;
+  -moz-border-radius-topleft: 0.25em;
+}
+.required label {
+  font-weight: normal;
+}
+.submit input {
+  padding: 0.25em 0.5em;
+  width: auto;
+}
+
+/* Cross browser weirdness */
+
+/* Firefox inputs don't respect line height */
+fieldset input { height: 1.5em; }
+
+/* Hardcode height because calculation of selects is weird cross browser */
+.select select { height: 26px; }
+.select select[multiple=multiple] { height: auto; }
+
+/* For some reason select boxs dont follow the width + padding + margin rule */
+.select select { width: 100%; }

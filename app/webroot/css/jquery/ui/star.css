@@ -1,0 +1,27 @@
+/* JS star ranking */
+.ui-star .ui-state-default   { background-position: -32px 0; }
+.ui-star .ui-state-highlight { background-position:   0px 0; }
+.ui-star .ui-state-hover     { background-position: -16px 0; }
+.ui-star .ui-state-disabled  { background-position: -48px 0; }
+.ui-star { overflow: hidden; }
+.ui-star a:focus { outline: none; }
+.ui-star a {
+  background: transparent url(../../../img/stars.png);
+  border: 0;
+  display: block;
+  height: 16px;
+  float: left;
+  font-size: 0;
+  text-decoration: none;
+  width: 16px;
+}
+/* Format star container to better mimic other form elements */
+.ui-star {
+  border: 1px solid #B6A792;
+  height: 1.5em; /* 26 = 18 line-height + 4 padding top + 4 bottom */
+  padding: 0.25em 7px 0.25em 109px;
+  margin: 0;
+
+  border-radius: 0.25em;
+  -moz-border-radius: 0.25em;
+}

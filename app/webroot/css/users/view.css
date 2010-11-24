@@ -1,0 +1,3 @@
+.users.view h2         { float: left; }
+.users.view div.avatar { float: right; }
+.users.view ul         { clear: left; }

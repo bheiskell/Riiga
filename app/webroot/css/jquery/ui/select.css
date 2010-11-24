@@ -22,3 +22,54 @@
 .ui-select-menu .ui-select-group { font-size: 1em; }
 .ui-select-menu .ui-select-group .ui-select-group-label { line-height: 1.4em; display:block; padding:.6em .5em 0; font-weight: bold; }
 .ui-select-menu .ui-select-group ul { margin: 0; padding: 0; }
+
+/* END COPIED SECTION */
+
+/* Rank stars shouldn't be displayed in the closed select menu */
+.ui-select span.stars { display: none; }
+
+/**
+ * For select menus limited by rank, star images are displayed inline to the
+ * select option. Formatting these involves overriding default selectmenu
+ * styling.
+ */
+.ui-select-menu span.stars {
+  float: right;
+  width: 112px; /* 112 = 16px x 7 stars */
+  overflow: hidden;
+}
+.ui-select-menu span.star {
+  background: transparent url(../../../img/stars.png) -16px 0;
+  display: block;
+  float: left;
+  height: 16px;
+  width: 16px;
+}
+
+/* Labels are set to z-index: 1. Ensure open menu is displayed over them. */
+.ui-select-menu { z-index: 1; }
+.ui-select-menu li a       { border-bottom: 0; }
+.ui-select-menu li a:hover { border-bottom: 0; }
+
+/* Flyout menu that associates dropdown menus */
+.ui-select-submenu {
+  background: #fff;
+  border: 1px solid #B6A792;
+  position: absolute;
+  z-index: 1;
+  -moz-border-radius: 0.25em;
+  border-radius: 0.25em;
+}
+.ui-select-submenu div {
+  padding: 0.5em 1em;
+}
+.ui-select-submenu h3 {
+  line-height: 2em;
+  margin: 0;
+  text-align: center;
+}
+.ui-select-menu, .ui-select-submenu {
+  -webkit-box-shadow: 0 0.5em 1em #999;
+  -moz-box-shadow: 0 0.5em 1em #999;
+  box-shadow: 0 0.5em 1em #999;
+}

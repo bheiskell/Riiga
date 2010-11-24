@@ -5,8 +5,9 @@
       <?php (isset($this->data)) ? __('Edit Location') : __('New Location'); ?>
     </legend>
   <?php
-    $html->css('jquery-cust_select_box.css', null, null, false);
-    $javascript->link('jquery-cust_select_box.js', false);
+    $javascript->link('jquery/cust_select_box.js', false);
+    $javascript->link('jquery/ui/location.js', false);
+    $javascript->link('locations/form.js', false);
 
     echo $form->hidden('id');
     echo $form->input('name');
@@ -58,6 +59,4 @@
     </li>
   </ul>
 </div>
-<?php $javascript->link('jquery-ui-location.js', false); ?>
-<?php $javascript->link('locations_form.js', false); ?>
 <?php echo $html->image('map/riiga.jpg'); ?>

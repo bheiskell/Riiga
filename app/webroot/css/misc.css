@@ -1,0 +1,74 @@
+/* Only include CSS here that affects almost every page */
+
+/* Notices */
+div.message,
+div.error-message {
+  clear: both;
+  color: #900;
+  font-size: 1.5em;
+  margin: 0.75em 0;
+}
+fieldset div.error-message {
+  font-size: 1em;
+  margin: 0.5em 0;
+}
+p.error {
+  background-color: #ee3322;
+  font-family: Courier, monospace;
+  padding: 1em;
+}
+p.error em {
+  color: #000;
+}
+.notice {
+  background: #ffcc00;
+  color: #000;
+  display: block;
+  font-family: Courier, monospace;
+  padding: 1em;
+  margin: 1em 0;
+}
+.success {
+  background: green;
+  color: #fff;
+}
+
+/*  Actions  */
+div.actions li {
+  display: inline;
+  line-height: 2em;
+}
+
+/* Index */
+div.paging {
+  background: #fff;
+  color: #ccc;
+  margin-bottom: 1em;
+}
+div.paging div.disabled {
+  color: #ddd;
+  display: inline;
+}
+div.paging span.current {
+  color: #000;
+}
+
+/* View */
+div.related { clear: both; }
+
+td.avatar {
+  width: 0px; /* shrink to image size, might not be cross browser */
+}
+
+/* Rank stars */
+.star { overflow: hidden; }
+.star span {
+  background: transparent url(../img/stars.png);
+  border: 0;
+  display: block;
+  height: 16px;
+  float: left;
+  font-size: 0;
+  width: 16px;
+}
+

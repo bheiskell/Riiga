@@ -1,13 +1,8 @@
-<?php
-  $html->css(
-    'jquery-ui-selectmenu', 'stylesheet', array('media' => 'all'), false
-  );
-?>
-<?php $javascript->link('jquery-autoresize.min.js', false); ?>
-<?php $javascript->link('jquery-ui-selectmenu.js',  false); ?>
-<?php $javascript->link('jquery-ui-star.js',        false); ?>
-<?php $javascript->link('jquery-ui-location.js',    false); ?>
-<?php $javascript->link('characters_form.js',       false); ?>
+<?php $javascript->link('jquery/autoresize.js',     false); ?>
+<?php $javascript->link('jquery/ui/selectmenu.js',  false); ?>
+<?php $javascript->link('jquery/ui/star.js',        false); ?>
+<?php $javascript->link('jquery/ui/location.js',    false); ?>
+<?php $javascript->link('characters/form.js',       false); ?>
 <div class="characters form">
   <?php echo $form->create('Character');?>
     <fieldset>

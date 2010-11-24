@@ -1,0 +1,6 @@
+/* By default UI doesn't include a shadow class without adding a sub-element */
+.ui-shadow {
+  -webkit-box-shadow: 0 0.5em 1em #999;
+  -moz-box-shadow: 0 0.5em 1em #999;
+  box-shadow: 0 0.5em 1em #999;
+}

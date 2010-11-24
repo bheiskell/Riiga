@@ -1,0 +1,13 @@
+.locations.index .tree span { float: right; padding-right: 0.25em; }
+.locations.index .tree ul { margin-right: 0; padding-bottom: 1.5em; }
+.locations.index .tree li {
+  border-left: 1px solid #CCC;
+  border-top: 1px solid #CCC;
+  line-height: 2em;
+  margin-right: 0;
+  padding-left: 0.5em;
+}
+.locations.index .tree>ul { border-right: 1px solid #CCC; }
+.locations.index .tree li:last-child { border-bottom: 1px solid #CCC; }
+.locations.index .tree li        { background: #fff; }
+.locations.index .tree li.altrow { background: #f4f4f4; }

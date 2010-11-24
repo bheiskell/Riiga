@@ -1,7 +1,7 @@
 (function($) {
   $.widget("ui.tree_drilldown", {
     options: {
-      name: 'Riiga',
+      name: '',
       click: null,
       hover: null
     },
@@ -67,7 +67,7 @@
     _mouseover: function(location) {
       $(location).addClass('ui-state-hover');
 
-      if (this.options.hover) { $.proxy(this.options.hover, menu)(); }
+      if (this.options.hover) { $.proxy(this.options.hover, location)(); }
     },
     _mouseout: function(location) {
       $(location).removeClass('ui-state-hover');
@@ -91,7 +91,7 @@
       var previous_depth = 0;
       for (var i = 0; i < opts.length; i++) {
         var tiers    = opts.eq(i).text().split('|');
-        var location = tiers.pop().trim();
+        var location = tiers.pop();
         var depth    = tiers.length;
         var delta    = depth - previous_depth;
 

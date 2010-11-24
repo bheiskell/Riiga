@@ -1,7 +1,5 @@
 div.ui-tree-drilldown {
-  border-top: 1px solid #d3d3d3;
   overflow: hidden;
-  height: 300px;
 }
 div.ui-tree-drilldown ul {
   background: white;
@@ -25,7 +23,7 @@ div.ui-tree-drilldown span.ui-state-default {
   border-top: 0;
 }
 div.ui-tree-drilldown span.ui-state-active {
-  background: #E6E6E6 url(../img/jquery-ui/ui-bg_glass_75_dadada_1x400.png) repeat-x 50% 50%;
+  background: #E6E6E6 url(../../../img/jquery-ui/ui-bg_glass_75_dadada_1x400.png) repeat-x 50% 50%;
 }
 div.ui-tree-drilldown ul.ui-widget-content {
   border: none;

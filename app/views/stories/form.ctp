@@ -1,7 +1,6 @@
-<?php $html->css('jquery-ui-tree_drilldown.css', null, null, false); ?>
-<?php $javascript->link('jquery-ui-location.js', false); ?>
-<?php $javascript->link('jquery-ui-tree_drilldown.js', false); ?>
-<?php $javascript->link('stories_form.js', false); ?>
+<?php $javascript->link('jquery/ui/location.js', false); ?>
+<?php $javascript->link('jquery/ui/tree_drilldown.js', false); ?>
+<?php $javascript->link('stories/form.js', false); ?>
 <div class="stories form">
 <?php echo $form->create('Story');?>
   <fieldset>

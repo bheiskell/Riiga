@@ -1,9 +1,21 @@
 <?php
 class AppController extends Controller {
   // TODO: Activate security component
-  var $components = array('Auth', 'Session');
-  var $helpers    = array('Avatar', 'Altrow', 'Html', 'Form', 'Javascript');
   var $view       = 'App';
+  var $components = array('Auth', 'Session');
+  var $helpers    = array(
+    'Avatar',
+    'Altrow',
+    'Html',
+    'Form',
+    'Javascript',
+    'Asset.asset' => array(
+      'debug'       => -1,
+      'checkTs'     => true,
+      'md5FileName' => true,
+      'fixCssImg'   => true,
+    )
+  );
 
   /**
    * beforeFilter

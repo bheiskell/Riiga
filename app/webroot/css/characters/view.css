@@ -1,0 +1,15 @@
+.characters.view h2 {
+  float: left;
+  margin-top: 1.25em;
+  margin-left: 0.5em;
+}
+.characters.view div.avatar {
+  float: left;
+}
+.characters.view table { clear: both; }
+.characters.view .map {
+  border: 1px solid #CCC;
+  float: right;
+  margin: 0.5em;
+  margin-right: 0;
+}

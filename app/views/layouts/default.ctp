@@ -5,13 +5,35 @@
   <?php
     echo $html->charset();
     echo $html->meta('icon');
-    echo $html->css('reset');
-    echo $html->css('style');
-    echo $html->css('jquery-ui');
-    echo $javascript->link('jquery.min.js');
-    echo $javascript->link('jquery-ui.min.js');
-    echo $javascript->link('script.js');
-    echo $scripts_for_layout;
+
+    $css = array(
+      "reset",
+      "style",
+      "layout",
+      "form",
+      "debug",
+      "misc",
+      "jquery/cust_select_box",
+      "jquery/ui/ui",
+      "jquery/ui/location",
+      "jquery/ui/profession",
+      "jquery/ui/select",
+      "jquery/ui/selectmenu",
+      "jquery/ui/shadow",
+      "jquery/ui/star",
+      "jquery/ui/tree_drilldown",
+      "characters/form",
+      "characters/view",
+      "locations/index",
+      "users/view",
+    );
+    foreach ($css as $file) {
+      echo $html->css($file, null, null, false);
+    }
+    echo $javascript->link('jquery/jquery.js', false);
+    echo $javascript->link('jquery/ui/ui.js',  false);
+    echo $javascript->link('script.js',        false);
+    echo $asset->scripts_for_layout();
   ?>
 </head>
 <body>

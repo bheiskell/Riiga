@@ -1,0 +1,72 @@
+#container {
+}
+#header{
+  background: #4d4d4d;
+  overflow: hidden;
+  padding: 1em 2em 0 2em;
+}
+#header h1 {
+  float: left;
+  line-height: 1em;
+  margin-top: 0.4em; /* 0.4 x 2.5 = 1 */
+}
+#header h1 a {
+  color: #fff;
+  border-bottom: none;
+}
+#header h1 a:hover {
+  border-bottom: none;
+}
+#navigation {
+  float: left;
+  margin-top: 2em;
+}
+#navigation li {
+  float: left;
+}
+#navigation a {
+  color: #fff;
+}
+#navigation a:hover {
+  border-bottom: 1px solid #fff;
+}
+#account {
+  float: right;
+  margin-top: 2em;
+}
+#account li {
+  float: left;
+}
+#account a {
+  color: #fff;
+}
+#account a:hover {
+  border-bottom: 1px solid #fff;
+}
+#header #admin {
+  background-color: #C32;
+  clear: both;
+  padding: 0.5em 2em;
+  margin: 4em -2em 0;
+  overflow: hidden;
+}
+#header #admin li {
+  float: left;
+}
+#header #admin a {
+  border-bottom: 1px solid #C32;
+  color: #fff;
+}
+#header #admin a:hover {
+  border-bottom: 1px solid #fff;
+}
+#content {
+  color: #333;
+  overflow: hidden;
+  padding: 1em 2em 3em 2em;
+  width: 75em;
+}
+#footer {
+  background: #4d4d4d;
+  padding: 1em;
+}
