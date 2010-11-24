@@ -1,0 +1,89 @@
+/* Selectmenu
+----------------------------------*/
+.ui-selectsubmenu { display: block; position:relative; height:2em; text-decoration: none; overflow:hidden;}
+.ui-selectsubmenu-icon { position:absolute; right:6px; margin-top:-8px; top: 50%; }
+.ui-selectsubmenu-menu { padding:0; margin:0; list-style:none; position:absolute; top: 0; visibility: hidden; overflow: auto; }
+.ui-selectsubmenu-open { visibility: visible; }
+.ui-selectsubmenu-menu-popup { margin-top: -1px; }
+.ui-selectsubmenu-menu-dropdown { }
+.ui-selectsubmenu-menu li { padding:0; margin:0; display: block; border-top: 1px dotted transparent; border-bottom: 1px dotted transparent; border-right-width: 0 !important; border-left-width: 0 !important; font-weight: normal !important; }
+.ui-selectsubmenu-menu li a,.ui-selectsubmenu-status {line-height: 1.4em; display:block; padding:.3em 1em; outline:none; text-decoration:none; }
+.ui-selectsubmenu-menu li.ui-selectsubmenu-hasIcon a,
+.ui-selectsubmenu-hasIcon .ui-selectsubmenu-status { padding-left: 20px; position: relative; margin-left: 5px; }
+.ui-selectsubmenu-menu li .ui-icon, .ui-selectsubmenu-status .ui-icon { position: absolute; top: 1em; margin-top: -8px; left: 0; }
+.ui-selectsubmenu-status { line-height: 1.4em; }
+.ui-selectsubmenu-open li.ui-selectsubmenu-item-focus a {  }
+.ui-selectsubmenu-open li.ui-selectsubmenu-item-selected { }
+.ui-selectsubmenu-menu li span,.ui-selectsubmenu-status span { display:block; margin-bottom: .2em; }
+.ui-selectsubmenu-menu li .ui-selectsubmenu-item-header { font-weight: bold; }
+.ui-selectsubmenu-menu li .ui-selectsubmenu-item-content {  }
+.ui-selectsubmenu-menu li .ui-selectsubmenu-item-footer { opacity: .8; }
+/*for optgroups*/
+.ui-selectsubmenu-menu .ui-selectsubmenu-group { font-size: 1em; }
+.ui-selectsubmenu-menu .ui-selectsubmenu-group .ui-selectsubmenu-group-label { line-height: 1.4em; display:block; padding:.6em .5em 0; font-weight: bold; }
+.ui-selectsubmenu-menu .ui-selectsubmenu-group ul { margin: 0; padding: 0; }
+
+/* END COPIED SECTION */
+
+/* Select menu restyling - override style to match other inputs sizing */
+.ui-selectsubmenu {
+  height: 2em; /* 26 = 18 line-height + 4 padding top + 4 bottom */
+  padding-left: 109px;
+  padding-right: 7px;
+}
+.ui-selectsubmenu:hover {
+  border-bottom: 1px solid #D3D3D3;
+  color: inherit;
+}
+.ui-selectsubmenu .ui-select-status {
+  padding: 4px 0;
+}
+
+/* Rank stars shouldn't be displayed in the closed select menu */
+.ui-selectsubmenu span.stars { display: none; }
+
+/**
+ * For select menus limited by rank, star images are displayed inline to the
+ * select option. Formatting these involves overriding default selectmenu
+ * styling.
+ */
+.ui-selectsubmenu-menu span.stars {
+  float: right;
+  width: 112px; /* 112 = 16px x 7 stars */
+  overflow: hidden;
+}
+.ui-selectsubmenu-menu span.star {
+  background: transparent url(../../../img/stars.png) -16px 0;
+  display: block;
+  float: left;
+  height: 16px;
+  width: 16px;
+}
+
+/* Labels are set to z-index: 1. Ensure open menu is displayed over them. */
+.ui-selectsubmenu-menu { z-index: 1; }
+.ui-selectsubmenu-menu li a       { border-bottom: 0; }
+.ui-selectsubmenu-menu li a:hover { border-bottom: 0; }
+
+/* Flyout menu that associates dropdown menus */
+.ui-selectsubmenu-submenu {
+  background: #fff;
+  border: 1px solid #B6A792;
+  position: absolute;
+  z-index: 1;
+  -moz-border-radius: 0.25em;
+  border-radius: 0.25em;
+}
+.ui-selectsubmenu-submenu div {
+  padding: 0.5em 1em;
+}
+.ui-selectsubmenu-submenu h3 {
+  line-height: 2em;
+  margin: 0;
+  text-align: center;
+}
+.ui-selectsubmenu-menu, .ui-selectsubmenu-submenu {
+  -webkit-box-shadow: 0 0.5em 1em #999;
+  -moz-box-shadow: 0 0.5em 1em #999;
+  box-shadow: 0 0.5em 1em #999;
+}

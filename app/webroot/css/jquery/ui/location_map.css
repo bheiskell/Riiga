@@ -1,0 +1,8 @@
+.ui-location-map {
+  border-bottom: 1px solid #d3d3d3;
+  overflow: hidden;
+  position: relative;
+}
+.ui-location-map img {
+  position: relative;
+}

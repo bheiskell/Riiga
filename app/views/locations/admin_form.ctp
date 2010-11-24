@@ -6,7 +6,8 @@
     </legend>
   <?php
     $javascript->link('jquery/cust_select_box.js', false);
-    $javascript->link('jquery/ui/location.js', false);
+    $javascript->link('jquery/ui/location_map.js', false);
+    $javascript->link('jquery/ui/location_selector.js', false);
     $javascript->link('locations/form.js', false);
 
     echo $form->hidden('id');

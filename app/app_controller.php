@@ -10,7 +10,7 @@ class AppController extends Controller {
     'Form',
     'Javascript',
     'Asset.asset' => array(
-      'debug'       => -1,
+      //'debug'       => -1,
       'checkTs'     => true,
       'md5FileName' => true,
       'fixCssImg'   => true,

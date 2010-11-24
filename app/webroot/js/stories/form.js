@@ -19,12 +19,12 @@ $().ready(function() {
     .appendTo(container)
     ;
   var locations = $('#LocationInformation');
-  $(select).tree_drilldown({
+  $(select).treeDrilldown({
     click: function() {},
     hover: function() {
       var map;
       if (0 == information.children().length) {
-        map = $('img', locations).clone().location_map({
+        map = $('img', locations).clone().locationMap({
           width:  400,
           height: 200
         }).parent();
@@ -33,7 +33,7 @@ $().ready(function() {
       }
 
       information.children().remove().end().append(map);
-      $('img', information).location_map('region', 0, 0, 100, 100, 1000);
+      $('img', information).locationMap('region', 0, 0, 100, 100, 1000);
 
       var id = $(this).data('location_id');
       if (!id) return;
@@ -47,7 +47,7 @@ $().ready(function() {
         width:  content.outerWidth()
       });
 
-      $('img', information).location_map(
+      $('img', information).locationMap(
         'region',
         parseInt($('dt:contains("Left")', content).next().text()),
         parseInt($('dt:contains("Top")', content).next().text()),

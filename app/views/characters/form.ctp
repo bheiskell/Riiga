@@ -1,8 +1,13 @@
-<?php $javascript->link('jquery/autoresize.js',     false); ?>
-<?php $javascript->link('jquery/ui/selectmenu.js',  false); ?>
-<?php $javascript->link('jquery/ui/star.js',        false); ?>
-<?php $javascript->link('jquery/ui/location.js',    false); ?>
-<?php $javascript->link('characters/form.js',       false); ?>
+<?php $javascript->link('jquery/autoresize.js',           false); ?>
+<?php $javascript->link('jquery/ui/selectmenu.js',        false); ?>
+<?php $javascript->link('jquery/ui/selectsubmenu.js',     false); ?>
+<?php $javascript->link('jquery/ui/star.js',              false); ?>
+<?php $javascript->link('jquery/ui/location_map.js',      false); ?>
+<?php $javascript->link('jquery/ui/location_selector.js', false); ?>
+<?php $javascript->link('jquery/ui/age_info.js',          false); ?>
+<?php $javascript->link('jquery/ui/profession_info.js',   false); ?>
+<?php $javascript->link('jquery/ui/checkbuttons.js',      false); ?>
+<?php $javascript->link('characters/form.js',             false); ?>
 <div class="characters form">
   <?php echo $form->create('Character');?>
     <fieldset>

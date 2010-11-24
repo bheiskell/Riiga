@@ -1,5 +1,5 @@
 (function($) {
-  $.widget("ui.tree_drilldown", {
+  $.widget("ui.treeDrilldown", {
     options: {
       name: '',
       click: null,

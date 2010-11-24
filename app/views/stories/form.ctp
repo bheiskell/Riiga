@@ -1,4 +1,4 @@
-<?php $javascript->link('jquery/ui/location.js', false); ?>
+<?php $javascript->link('jquery/ui/location_map.js', false); ?>
 <?php $javascript->link('jquery/ui/tree_drilldown.js', false); ?>
 <?php $javascript->link('stories/form.js', false); ?>
 <div class="stories form">

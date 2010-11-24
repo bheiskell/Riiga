@@ -1,0 +1,9 @@
+.ui-age-info { margin: 0; }
+.ui-age-info th { border-top: 0; }
+.ui-age-info table {
+  border-top: 0;
+  margin: 0;
+  -webkit-box-shadow: 0 0 1em #999;
+  -moz-box-shadow: 0 0 1em #999;
+  box-shadow: 0 0 1em #999;
+}

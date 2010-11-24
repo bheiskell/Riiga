@@ -1,10 +1,10 @@
-.ui-profession {
+.ui-profession-info {
   margin-top: 0;
   overflow: hidden;
   position: absolute;
   z-index: 2;
 }
-.ui-profession h5 {
+.ui-profession-info h5 {
   background: url(../../../img/jquery-ui/ui-bg_glass_75_e6e6e6_1x400.png)
     repeat-x scroll 50% 50% #E6E6E6;
   border-top: 0;
@@ -16,12 +16,12 @@
   text-align: center;
 }
 
-.ui-profession ul.ui-profession-categories {
+.ui-profession-info ul.ui-profession-info-categories {
   float: left;
   margin: 0;
   width: 25%;
 }
-.ui-profession ul.ui-profession-categories li {
+.ui-profession-info ul.ui-profession-info-categories li {
   border-top: 0;
   border-left: 0;
   cursor: pointer;
@@ -29,7 +29,7 @@
   margin: 0;
 }
 
-.ui-profession ul.ui-profession-professions {
+.ui-profession-info ul.ui-profession-info-professions {
   float: right;
   margin: 0;
   width: 75%;
@@ -39,7 +39,7 @@
   column-count: 5;
 }
 
-.ui-profession ul.ui-profession-professions li {
+.ui-profession-info ul.ui-profession-info-professions li {
   cursor: pointer;
   display: inline-block;
   margin: 0;
@@ -48,10 +48,10 @@
   border-right: 0;
 }
 
-.ui-profession .ui-limited-by-age { color: #BBB; }
-.ui-profession .ui-limited-by-race { color: #E0E0E0; }
+.ui-profession-info .ui-limited-by-age { color: #BBB; }
+.ui-profession-info .ui-limited-by-race { color: #E0E0E0; }
 
-.ui-profession p {
+.ui-profession-info p {
   clear: both;
   color: #AAA;
   margin: 0;
