@@ -19,7 +19,7 @@
       'between' => '<div class="select_wrap">',
       'after'   => '</div>',
     ));
-    if (2 == $depth) {
+    if (2 >= $depth) {
       echo $form->input('LocationRegion.id');
       echo $form->input('LocationRegion.left');
       echo $form->input('LocationRegion.top');

@@ -5,7 +5,6 @@ class CharactersController extends AppController {
   var $paginate = array(
     'contain' => array('User', 'Rank', 'Location', 'Race', 'Faction')
   );
-  var $helpers = array('Minimap', 'Stars');
 
   function beforeFilter() {
     parent::beforeFilter();

@@ -7,7 +7,7 @@ $.widget('ui.locationInfo', {
     // undo automatic hiding of data
     this.element.show();
 
-    if (!this.options.width)  { this.options.width  = this.element.width(); }
+    if (!this.options.width) { this.options.width = this.element.outerWidth(); }
     if (!this.options.height) { this.options.height = this.options.width; }
 
     this.map = $('img', this.element).locationMap({

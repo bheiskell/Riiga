@@ -4,11 +4,13 @@ class AppController extends Controller {
   var $view       = 'App';
   var $components = array('Auth', 'Session');
   var $helpers    = array(
-    'Avatar',
     'Altrow',
-    'Html',
+    'Avatar',
     'Form',
+    'Html',
     'Javascript',
+    'Minimap',
+    'Stars',
     'Asset.asset' => array(
       //'debug'       => -1,
       'checkTs'     => true,

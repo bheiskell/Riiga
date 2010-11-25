@@ -3,7 +3,8 @@
     options: {
       name: '',
       click: null,
-      hover: null
+      mouseover: null,
+      mouseout: null
     },
     _init: function() {
       var opts = $('option', this.element);
@@ -67,10 +68,16 @@
     _mouseover: function(location) {
       $(location).addClass('ui-state-hover');
 
-      if (this.options.hover) { $.proxy(this.options.hover, location)(); }
+      if (this.options.mouseover) {
+        $.proxy(this.options.mouseover, location)();
+      }
     },
     _mouseout: function(location) {
       $(location).removeClass('ui-state-hover');
+
+      if (this.options.mouseout) {
+        $.proxy(this.options.mouseout, location)();
+      }
     },
     _generate: function(opts) {
       var self = this;

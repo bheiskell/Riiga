@@ -17,6 +17,7 @@
       "jquery/ui/ui",
       "jquery/ui/age_info",
       "jquery/ui/location_map",
+      "jquery/ui/location_menu",
       "jquery/ui/location_selector",
       "jquery/ui/profession_info",
       "jquery/ui/selectmenu",

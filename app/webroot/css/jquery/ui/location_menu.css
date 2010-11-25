@@ -1,0 +1,16 @@
+.ui-location-menu {
+  border: 1px solid #D3D3D3;
+  height: 24em;
+  margin: 0;
+  overflow: hidden;
+}
+.ui-location-menu>div {
+  float: left;
+  width: 33.3%;
+}
+.ui-location-menu div {
+  margin: 0;
+}
+.ui-location-menu div.ui-location-menu-info div {
+  padding: 0.25em 0.5em;
+}

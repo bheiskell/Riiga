@@ -4,7 +4,6 @@
 <?php $javascript->link('jquery/ui/star.js',              false); ?>
 <?php $javascript->link('jquery/ui/location_info.js',     false); ?>
 <?php $javascript->link('jquery/ui/location_map.js',      false); ?>
-<?php $javascript->link('jquery/ui/location_selector.js', false); ?>
 <?php $javascript->link('jquery/ui/age_info.js',          false); ?>
 <?php $javascript->link('jquery/ui/profession_info.js',   false); ?>
 <?php $javascript->link('jquery/ui/checkbuttons.js',      false); ?>

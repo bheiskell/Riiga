@@ -1,5 +1,7 @@
-<?php $javascript->link('jquery/ui/location_map.js', false); ?>
+<?php $javascript->link('jquery/ui/location_info.js',  false); ?>
+<?php $javascript->link('jquery/ui/location_map.js',   false); ?>
 <?php $javascript->link('jquery/ui/tree_drilldown.js', false); ?>
+<?php $javascript->link('jquery/ui/checkbuttons.js',   false); ?>
 <?php $javascript->link('stories/form.js', false); ?>
 <div class="stories form">
 <?php echo $form->create('Story');?>
@@ -11,9 +13,6 @@
     <?php echo $form->input('name'); ?>
     <?php // TODO: Location widget. Issue 28 ?>
     <?php echo $form->input('location_id'); ?>
-    <?php echo $form->input('User'); ?>
-    <?php echo $form->input('Character'); ?>
-    <?php echo $form->input('user_id_turn'); ?>
     <?php echo $form->input('is_invite_only'); ?>
   </fieldset>
 <?php echo $form->end('Submit');?>

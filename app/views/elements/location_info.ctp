@@ -24,10 +24,6 @@
           </table>
         <?php endif; ?>
 
-        <?php if (isset($location['Rank'])): ?>
-          <p>Requires Level <?php echo h($location['Rank']['id']); ?></p>
-        <?php endif; ?>
-
         <?php if (isset($location['LocationRegion'])): ?>
           <dl>
             <dt>Left</dt>
