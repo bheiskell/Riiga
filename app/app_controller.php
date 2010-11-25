@@ -2,7 +2,11 @@
 class AppController extends Controller {
   // TODO: Activate security component
   var $view       = 'App';
-  var $components = array('Auth', 'Session');
+  var $components = array(
+    'Security',
+    'Auth',
+    'Session',
+  );
   var $helpers    = array(
     'Altrow',
     'Avatar',

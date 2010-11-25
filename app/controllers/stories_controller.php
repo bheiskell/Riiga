@@ -25,10 +25,10 @@ class StoriesController extends AppController {
     $this->set('story', $this->Story->findById($id));
   }
 
-  function add()     { $this->form(); }
-  function edit($id) { $this->form($id); }
+  function add()     { $this->_form(); }
+  function edit($id) { $this->_form($id); }
 
-  function form($id = null) {
+  function _form($id = null) {
     // TODO: Make a call to the story's model that will check for a location
     // change and create a location change entry in that case. Issue 43
     //
@@ -58,6 +58,22 @@ class StoriesController extends AppController {
       compact('characters', 'userIdTurns', 'turns', 'locations', 'locationInfo')
     );
     $this->render('form');
+  }
+
+  function invite_user($story_id = null) {
+    // is moderator
+  }
+
+  function invite_character($story_id = null) {
+    // is moderator or is open story
+  }
+
+  function remove_user($story_id = null) {
+    // is moderator
+  }
+
+  function remove_character($story_id = null) {
+    // is moderator or character owner
   }
 
   /**
