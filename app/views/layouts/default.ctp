@@ -7,34 +7,34 @@
     echo $html->meta('icon');
 
     $css = array(
-      "reset",
-      "style",
-      "layout",
-      "form",
-      "debug",
-      "misc",
-      "jquery/cust_select_box",
-      "jquery/ui/ui",
-      "jquery/ui/age_info",
-      "jquery/ui/location_map",
-      "jquery/ui/location_menu",
-      "jquery/ui/location_selector",
-      "jquery/ui/profession_info",
-      "jquery/ui/selectmenu",
-      "jquery/ui/selectsubmenu",
-      "jquery/ui/shadow",
-      "jquery/ui/star",
-      "jquery/ui/tree_drilldown",
-      "characters/view",
-      "locations/index",
-      "users/view",
+      'reset',
+      'style',
+      'layout',
+      'form',
+      'debug',
+      'misc',
+      'jquery/ui/ui',
+      'jquery/ui/age_info',
+      'jquery/ui/location_map',
+      'jquery/ui/location_menu',
+      'jquery/ui/location_selector',
+      'jquery/ui/profession_info',
+      'jquery/ui/selectmenu',
+      'jquery/ui/selectsubmenu',
+      'jquery/ui/shadow',
+      'jquery/ui/star',
+      'jquery/ui/tree_drilldown',
+      'characters/view',
+      'locations/index',
+      'users/view',
     );
     foreach ($css as $file) {
       echo $html->css($file, null, null, false);
     }
-    echo $javascript->link('jquery/jquery.js', false);
-    echo $javascript->link('jquery/ui/ui.js',  false);
-    echo $javascript->link('script.js',        false);
+    echo $javascript->link('jquery/jquery.js',          false);
+    echo $javascript->link('jquery/autoresize.js',      false);
+    echo $javascript->link('jquery/ui/ui.js',           false);
+    echo $javascript->link('script.js',                 false);
     echo $asset->scripts_for_layout();
   ?>
 </head>

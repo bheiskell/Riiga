@@ -34,8 +34,6 @@ $(document).ready(function() {
 
   // Apply widgets
   elements.rank.star();
-  elements.description.autoResize().trigger('change.dynSiz');
-  elements.history    .autoResize().trigger('change.dynSiz');
   elements.isNpc.checkbuttons({
     messageOff: 'Player Character',
     messageOn:  'Non-player Character'

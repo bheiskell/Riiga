@@ -2,4 +2,5 @@
 $(document).ready(function() {
   // Always restyle submit buttons
   $('input[type=submit]').button();
+  $('textarea').autoResize().trigger('change.dynSiz');
 });

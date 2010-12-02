@@ -1,4 +1,3 @@
-<?php $javascript->link('jquery/autoresize.js',           false); ?>
 <?php $javascript->link('jquery/ui/selectmenu.js',        false); ?>
 <?php $javascript->link('jquery/ui/selectsubmenu.js',     false); ?>
 <?php $javascript->link('jquery/ui/star.js',              false); ?>
