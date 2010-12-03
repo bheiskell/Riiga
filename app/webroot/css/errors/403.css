@@ -1,0 +1,6 @@
+.error403 ul {
+  margin: 1em;
+}
+.error403 ul li {
+  list-style-type: circle;
+}
