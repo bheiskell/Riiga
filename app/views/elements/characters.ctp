@@ -50,7 +50,7 @@
       <?php foreach ($characters as $character): ?>
         <tr<?php echo $altrow; ?>>
           <td class="avatar">
-            <?php echo $avatar->avatar($character['Character']); ?>
+            <?php echo $avatar->character($character['Character']); ?>
           </td>
           <td>
             <?php if (isset($character['Character']['pending_id'])): ?>

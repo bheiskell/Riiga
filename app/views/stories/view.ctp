@@ -2,7 +2,8 @@
 <ul class="todo">
   <li>Change story name</li>
   <li>Delete entries</li>
-  <li>Promote user to story moderator</li>
+  <li>Promote / demote user to story moderator</li>
+  <li>Paginate entries</li>
 </ul>
 <h2>
   <?php echo $story['Story']['name']; ?>
@@ -138,7 +139,7 @@
 </div>
 
 <div class="related">
-  <h3><?php __('Related Users');?></h3>
+  <h3><?php __('Members');?></h3>
   <?php if (!empty($story['User'])):?>
   <table cellpadding = "0" cellspacing = "0">
   <tr>
@@ -148,7 +149,7 @@
   <?php $altrow->reset(); ?>
   <?php foreach ($story['User'] as $user): ?>
     <tr<?php echo $altrow;?>>
-      <td><?php echo $avatar->avatar($user); ?></td>
+      <td><?php echo $avatar->user($user); ?></td>
       <td>
         <?php
           echo $html->link($user['username'], array(

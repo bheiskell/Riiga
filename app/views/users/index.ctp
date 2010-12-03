@@ -11,7 +11,7 @@
     <tbody>
       <?php foreach ($users as $user): ?>
         <tr<?php echo $altrow; ?>>
-          <td class="avatar"><?php echo $avatar->avatar($user['User']); ?></td>
+          <td class="avatar"><?php echo $avatar->user($user['User']); ?></td>
           <td>
             <?php
               echo $html->link(

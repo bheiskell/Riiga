@@ -1,6 +1,6 @@
 <div class="characters view">
   <div class="avatar">
-    <?php echo $avatar->avatar($character['Character']); ?>
+    <?php echo $avatar->character($character['Character']); ?>
   </div>
   <h2>
     <?php echo h($character['Character']['name']);?>
@@ -14,7 +14,7 @@
         <th><?php __('Faction'); ?></th>
         <th><?php __('Age'); ?></th>
         <th><?php __('Profession'); ?></th>
-        <th><?php __('User'); ?></th>
+        <th><?php __('Member'); ?></th>
         <th><?php __('Location'); ?></th>
       </tr>
     </thead>

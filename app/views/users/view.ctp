@@ -1,6 +1,6 @@
 <div class="users view">
   <h2><?php echo h($user['User']['username']); ?></h2>
-  <div class="avatar"><?php echo $avatar->avatar($user['User']); ?></div>
+  <div class="avatar"><?php echo $avatar->user($user['User']); ?></div>
   <ul>
     <?php if ($session->read('Auth.User.id') == $user['User']['id']): ?>
       <li>
