@@ -17,6 +17,7 @@
       </legend>
 
       <?php echo $form->hidden('user_rank', array('value' => $user_rank)); ?>
+      <?php echo $form->error('user_rank'); ?>
       <?php echo $form->input('id'); ?>
       <?php echo $form->hidden('pending_id'); ?>
       <?php
