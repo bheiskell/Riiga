@@ -1,4 +1,4 @@
-<?php if ($isAdmin): ?>
+<?php if (isset($isAdmin) && $isAdmin): ?>
   <?php
     // TODO: Inflect
     $links = array(
