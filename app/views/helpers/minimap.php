@@ -42,16 +42,20 @@ class MinimapHelper extends AppHelper {
    *
    * Drops an image positioned to display the correct region.
    *
-   * @param mixed $left   Percent left
-   * @param mixed $top    Percent top
-   * @param mixed $width  Percent width
-   * @param mixed $height Percent height
-   * @param mixed $x Percent point x
-   * @param mixed $y Percent point y
+   * @param array $locationRegion Percents keyed by left, top, width, height
+   * @param array $locationPoint  Percents keyed by x, y
    * @access public
    * @return string Div with image positioned using hardcoded CSS (gross)
    */
-  function render($left, $top, $width, $height, $x = false, $y = false) {
+  function render($locationRegion, $locationPoint = false) {
+    $left   = $locationRegion['left'];
+    $top    = $locationRegion['top'];
+    $width  = $locationRegion['width'];
+    $height = $locationRegion['height'];
+    if ($locationPoint) {
+      $x = $locationPoint['x'];
+      $y = $locationPoint['y'];
+    }
 
     /* Basically a direct port of the JS image region calculations */
 
