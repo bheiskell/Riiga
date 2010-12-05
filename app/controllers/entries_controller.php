@@ -8,59 +8,129 @@ class EntriesController extends AppController {
     $this->Auth->allow('index');
   }
 
+  /**
+   * _isModerator
+   *
+   * Overloading the AppController's callback for checking moderator status
+   *
+   * @access protected
+   * @return boolean True if moderator
+   */
+  function _isModerator() {
+    if ($id = $this->_getParam('pass', 0)) { $this->Entry->id = $id; }
+
+    $story_id = $this->Entry->field('story_id');
+
+    debug($this->params);
+
+    return $this->Entry->Story->isModerator($story_id, $this->Auth->user('id'));
+  }
+
   function index() {
     $this->paginate['contain'] = array('Story', 'User');
     $this->set('entries', $this->paginate());
   }
 
-  function add($story_id = null) {
-    // TODO: Check that you are part of the Storie's Character's Users
-    if (!empty($this->data)) {
-      $this->data['Entry']['user_id'] = $this->Auth->user('id');
-      $this->Entry->create();
-      if ($this->Entry->save($this->data)) {
-        $this->Session->setFlash(__('The Entry has been saved', true));
-        $this->redirect(array(
-          'controller' => 'stories',
-          'action' => 'view',
-          'id' => $this->data['Entry']['story_id']
-        ));
-      }
-    }
-    if (!$story_id && !isset($this->data['Entry']['story_id'])) {
-      $this->Session->setFlash(__('Invalid Story', true));
-      $this->redirect(array('controller' => 'stories', 'action' => 'index'));
-    }
-    $this->set('characters', $this->Entry->Character->find('list'));
-
-    $this->set('story', $this->Entry->Story->findById($story_id));
+  function add() {
+    $this->_form(array(
+      'story_id' => $this->_getParam('named', 'story_id'),
+      'user_id'  => $this->Auth->user('id')
+    ));
   }
 
-  function edit($id = null) {
+  function edit($entry_id = null) {
+    $this->_form(array('entry_id' => $entry_id));
+  }
 
-    // TODO: Check that this is your post
-    if (!$id && empty($this->data)) {
-      $this->Session->setFlash(__('Invalid Entry', true));
-      $this->redirect(array('action' => 'index'));
-    }
+  function moderator_edit($entry_id = null) {
+    $this->_form(array('entry_id' => $entry_id, 'is_moderator' => true));
+  }
+
+  function remove($entry_id = null) {
+    $this->_remove($entry_id);
+  }
+
+  function moderator_remove($entry_id = null) {
+    $this->_remove($entry_id, true);
+  }
+
+  private function _form($args) {
+    $args = array_merge(
+      array(
+        'entry_id'     => false,
+        'story_id'     => false,
+        'is_moderator' => false,
+      ),
+      $args
+    );
 
     if (!empty($this->data)) {
+      if (!isset($this->data['Entry']['id'])) {
+        $this->Entry->create();
+      }
+
+      if (!$args['is_moderator']) {
+        $this->data['Entry']['user_id'] = $this->Auth->user('id');
+      }
+
       if ($this->Entry->save($this->data)) {
-        $this->Session->setFlash(__('The Entry has been saved', true));
-        $this->redirect(array(
+        $this->flash('Your entry has been saved', array(
           'controller' => 'stories',
-          'action' => 'view',
-          'id' => $this->data['Entry']['story_id']
+          'action'     => 'view_latest',
+          'id'         => $this->data['Entry']['story_id']
         ));
+      } else {
+        $this->Session->setFlash(
+          __('There was a problem with your submission', true)
+        );
+      }
+    } else if ($args['entry_id']) {
+      $this->Entry->contain('Character');
+      $this->data = $this->Entry->findById($args['entry_id']);
+      if (empty($this->data)) {
+        $this->flash('Entry not found');
       }
     }
-    if (empty($this->data) && !($this->data = $this->Entry->read(null, $id))) {
-      $this->redirect(array('action' => 'index'));
+
+    if (isset($this->data['Entry'])) {
+      $args['story_id'] = $this->data['Entry']['story_id'];
+      $args['user_id']  = $this->data['Entry']['user_id'];
     }
-    $characters = $this->Entry->Character->find('list');
-    $stories = $this->Entry->Story->find('list');
-    $users = $this->Entry->User->find('list');
-    $this->set(compact('characters','stories','users'));
+
+    if (!$args['story_id']) {
+      $this->flash('To add an entry, you must specify a story');
+    } else {
+      $this->data['Entry']['story_id'] = $args['story_id'];
+    }
+
+    $story      = $this->Entry->Story->findById($args['story_id']);
+    $characters = $this->Entry->Character->find('list_by_story_and_user', array(
+      'story_id' => $args['story_id'],
+      'user_id'  => $args['user_id'],
+    ));
+
+    $this->set(compact('characters', 'story'));
+
+    $this->render('form');
   }
+
+  private function _remove($entry_id, $is_moderator = false) {
+    $this->Entry->id = $entry_id;
+    $user_id  = $this->Entry->field('user_id');
+    $story_id = $this->Entry->field('story_id');
+
+    if ( $this->Auth->user('id') == $user_id || $is_moderator) {
+      $message = 'Entry successfully deleted.';
+      $this->Entry->delete($entry_id);
+    } else {
+      $message = 'Entries can only be deleted by the author or a moderator.';
+    }
+    $this->flash($message, array(
+      'controller' => 'stories',
+      'action'     => 'view',
+      'id'         => $story_id,
+    ));
+  }
+
 }
 ?>

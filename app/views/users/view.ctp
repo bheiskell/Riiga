@@ -1,6 +1,9 @@
 <div class="users view">
   <h2><?php echo h($user['User']['username']); ?></h2>
-  <div class="avatar"><?php echo $avatar->user($user['User']); ?></div>
+  <div class="avatar">
+    <?php echo $avatar->user($user['User']); ?>
+    <?php echo $stars->render($user['User']['rank']); ?>
+  </div>
   <ul>
     <?php if ($session->read('Auth.User.id') == $user['User']['id']): ?>
       <li>

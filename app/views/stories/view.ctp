@@ -176,7 +176,7 @@
   <?php $altrow->reset(); ?>
   <?php foreach ($story['Character'] as $character): ?>
     <tr<?php echo $altrow;?>>
-      <td><?php echo $avatar->avatar($character);?></td>
+      <td><?php echo $avatar->character($character);?></td>
       <td>
         <?php
           echo $html->link(

@@ -5,7 +5,7 @@
 <table>
 <tr>
   <th><?php echo $paginator->sort('name');?></th>
-  <th><?php echo $paginator->sort('location_id');?></th>
+  <th><?php echo $paginator->sort('Location', 'Location.name');?></th>
   <th><?php echo $paginator->sort('Turn', 'user_id_turn');?></th>
   <th><?php echo $paginator->sort('created');?></th>
   <th><?php echo $paginator->sort('Last Entry', 'LatestEntry.created');?></th>
@@ -24,7 +24,7 @@ foreach ($stories as $story):
         ));
       ?>
     </td>
-    <td><?php echo h($story['Story']['location_id']); ?></td>
+    <td><?php echo h($story['Location']['name']); ?></td>
     <td>
       <?php
         echo $html->link($story['Turn']['username'], array(

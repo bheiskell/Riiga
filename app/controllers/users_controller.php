@@ -37,7 +37,7 @@ class UsersController extends AppController {
 
   function view($id = null) {
     if (!$id) {
-      $this->Session->setFlash(__('Invalid User', true));
+      $this->Session->setFlash(__('Invalid Member', true));
       $this->redirect(array('action' => 'index'));
     }
     $this->User->contain(array(

@@ -12,13 +12,15 @@ class StarsHelper extends AppHelper {
   var $helpers = array('Html');
 
   /**
-   * render 
-   * 
-   * @param mixed $rank 
+   * render
+   *
+   * Render some number of stars based on a user's rank.
+   *
+   * @param mixed $rank
    * @access public
-   * @return void
+   * @return string Html output of the star div
    */
-  function render($rank) {
+  public function render($rank) {
     $stars = implode('<span>&nbsp;</span>', array_fill(0, $rank + 1, ''));
     return $this->Html->div('star', $stars);
   }

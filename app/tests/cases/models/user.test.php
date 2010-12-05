@@ -21,22 +21,22 @@ class UserTestCase extends CakeTestCase {
   }
 
   function testUserFindRankById() {
-    $result = $this->User->findRankById(1);
+    $result = $this->User->getRank(1);
     $this->assertEqual(1, $result);
 
-    $result = $this->User->findRankById(2);
+    $result = $this->User->getRank(2);
     $this->assertEqual(2, $result);
 
-    $result = $this->User->findRankById(3);
+    $result = $this->User->getRank(3);
     $this->assertEqual(0, $result);
 
-    $result = $this->User->findRankById(4);
+    $result = $this->User->getRank(4);
     $this->assertEqual(0, $result);
 
-    $result = $this->User->findRankById(5);
+    $result = $this->User->getRank(5);
     $this->assertEqual(7, $result);
 
-    $result = $this->User->findRankById(6);
+    $result = $this->User->getRank(6);
     $this->assertEqual(4, $result);
   }
 }

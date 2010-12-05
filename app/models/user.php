@@ -57,10 +57,10 @@ class User extends AppModel {
    *
    * Validator rule used by password_confirm.
    *
-   * @access public
+   * @access private
    * @return boolean True if passwords match
    */
-  function comparePassword() {
+  private function comparePassword() {
     return $this->data['User']['password']
         == $this->data['User']['password_confirm'];
   }
@@ -81,7 +81,7 @@ class User extends AppModel {
    * @access public
    * @return mixed Data
    */
-  function hashPasswords($data, $automatic_hashing = true) {
+  public function hashPasswords($data, $automatic_hashing = true) {
     if(!$automatic_hashing && isset($data['User']['password'])) {
       /**
        * Calling the Auth component varient of this is a pain. It would involve
@@ -102,7 +102,7 @@ class User extends AppModel {
    * @access public
    * @return void
    */
-  function beforeValidate() {
+  public function beforeValidate() {
     if ( isset($this->data['User']['id'])
       && empty($this->data['User']['password'])
     ) {
@@ -121,7 +121,7 @@ class User extends AppModel {
    * @access public
    * @return void
    */
-  function beforeSave() {
+  public function beforeSave() {
     $this->data = $this->hashPasswords($this->data, false);
 
     if (!empty($this->data['User']['url'])) {
@@ -146,7 +146,7 @@ class User extends AppModel {
    * @access public
    * @return void
    */
-  function beforeFind($query) {
+  public function beforeFind($query) {
     /* Login */
     if (isset($query['conditions']['User.username'])) {
       $query['conditions']['UPPER(User.username)'] =
@@ -171,20 +171,20 @@ class User extends AppModel {
    * @access public
    * @return mixed Modified results
    */
-  function afterFind($results) {
+  public function afterFind($results) {
     foreach ($results as &$result) {
       if ( isset($result['User'])
         && is_array($result['User'])
         && isset($result['User']['id'])
       ) {
-        $result['User']['rank'] = $this->findRankById($result['User']['id']);
+        $result['User']['rank'] = $this->getRank($result['User']['id']);
       }
     }
     return $results;
   }
 
   /**
-   * findRankById
+   * getRank
    *
    * Find the rank of a particular user id
    *
@@ -192,11 +192,15 @@ class User extends AppModel {
    * @access public
    * @return integer Rank of the user
    */
-  function findRankById($id) {
-    $score = $this->Entry->findCountByUserId($id);
-    //$score += $this->findOffsetByUserId(); // TODO: score offset
-    // TODO: check for admin status
-    // TODO: deal with rank 0 as it will cause issues with the character wizard
+  public function getRank($id = null) {
+    $id = $id ? $id : $this->id;
+    if (!$id) return -1;
+
+    if ($this->isAdmin($id)) { return 7; }
+
+    $score = $this->Entry->findCountByUserId($id)
+           + $this->field('offset', array('id' => $id));
+
          if (  0 == $score) return 0; // TODO: move to database so PM can set
     else if ( 20 >  $score) return 1; 
     else if ( 50 >  $score) return 2;
@@ -205,6 +209,19 @@ class User extends AppModel {
     else if (400 >  $score) return 5;
     else if (600 >  $score) return 6;
     else return 7;
+  }
+
+  /**
+   * isAdmin
+   *
+   * Check if a particular user is an admin.
+   *
+   * @param mixed $id Id of the user to check
+   * @access public
+   * @return boolean True if an admin
+   */
+  public function isAdmin($id) {
+    return $this->field('is_admin', compact('id'));
   }
 }
 ?>

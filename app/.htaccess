@@ -2,4 +2,6 @@
     RewriteEngine on
     RewriteRule    ^$    webroot/    [L]
     RewriteRule    (.*) webroot/$1    [L]
- </IfModule>
+</IfModule>
+
+#php_value xdebug.remote_enable on

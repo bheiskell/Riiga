@@ -13,6 +13,7 @@
       'form',
       'debug',
       'misc',
+      'errors/403',
       'jquery/ui/ui',
       'jquery/ui/age_info',
       'jquery/ui/location_map',

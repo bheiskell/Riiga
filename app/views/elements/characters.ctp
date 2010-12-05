@@ -79,7 +79,7 @@
               ?>
             <?php endif; ?>
           </td>
-          <td><?php echo h($character['Rank']['name']); ?></td>
+          <td><?php echo $stars->render($character['Rank']['id']); ?></td>
           <td><?php echo h($character['Race']['name']); ?></td>
           <td><?php echo h($character['Faction']['name']); ?></td>
           <td><?php echo h($character['Location']['name']); ?></td>

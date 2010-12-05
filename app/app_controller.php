@@ -1,12 +1,7 @@
 <?php
 class AppController extends Controller {
-  // TODO: Activate security component
-  var $view       = 'App';
-  var $components = array(
-    'Security',
-    'Auth',
-    'Session',
-  );
+  var $view       = 'App'; 
+  var $components = array('Security', 'Auth', 'Session');
   var $helpers    = array(
     'Altrow',
     'Avatar',
@@ -16,34 +11,37 @@ class AppController extends Controller {
     'Minimap',
     'Stars',
     'Asset.asset' => array(
-      //'debug'       => -1,
+      //'debug'       => -1, // Activates helper in development
       'checkTs'     => true,
       'md5FileName' => true,
       'fixCssImg'   => true,
-    )
+    ),
   );
 
   /**
    * beforeFilter
    *
-   * Pre-controller processing. This allows for global checks like admin urls.
+   * Check authorization for prefix routes
    *
    * @access public
    * @return void
    */
-  function beforeFilter() {
-    if (isset($this->params['admin']) && !$this->Auth->user('is_admin')) {
-      $this->log(sprintf(__(
-        'An unauthorized user attempted to access an admin resource: %s',
-        true
-      ), $this->Auth->user('is_admin')));
+  public function beforeFilter() {
+    $isAdmin     = $this->_isAdmin();
+    $isModerator = $this->_isModerator();
 
-      $this->cakeError('error404');
+    $this->set(compact('isAdmin', 'isModerator'));
+
+    if (  ($this->_getParam('admin')     || $this->_getParam('moderator'))
+      && !($this->_getParam('admin')     && $isAdmin)
+      && !($this->_getParam('moderator') && $isModerator)
+    ) {
+      $this->cakeError('error403');
     }
   }
 
   /**
-   * _isAllowed
+   * _isOwner
    *
    * Central location to check if the currently authenticated user is allowed
    * to modify resources created by a particular owner.
@@ -52,7 +50,75 @@ class AppController extends Controller {
    * @access protected
    * @return boolean True if allowed
    */
-  function _isAllowed($user_id) {
-    return $user_id == $this->Auth->user('id') || $this->Auth->user('is_admin');
+  protected function _isOwner($user_id) {
+    return $user_id == $this->Auth->user('id') || $this->_isAdmin();
+  }
+
+  /**
+   * _isModerator
+   *
+   * Check if the currently authenticated user is allowed to moderate the loaded
+   * resources. This check will have to be performed in each of the controllers
+   * that allow moderation. Hence why this always returns false.
+   *
+   * @access protected
+   * @return boolean True if the user is a moderator
+   */
+  protected function _isModerator() {
+    return false;
+  }
+
+  /**
+   * _isAdmin
+   *
+   * Wrapper for auth cache check. Creating this to stay consistent with
+   * _isModerator and _isOwner convention.
+   *
+   * @access protected
+   * @return boolean True if user is an admin
+   */
+  protected function _isAdmin() {
+    return $this->Auth->user('is_admin');
+  }
+
+  /**
+   * _getParam
+   *
+   * $this->param accessor that automattically performs the isset check and
+   * can default to a specified value
+   *
+   * @param mixed $first First key of the $this->params
+   * @param mixed $second Optional second key of $this->params
+   * @param mixed $default Default value of null
+   * @access protected
+   * @return mixed Value of the param
+   */
+  protected function _getParam($first, $second = null, $default = null) {
+    $result = isset($this->params[$first]) ? $this->params[$first] : $default;
+
+    if (null == $second) { return $result; }
+
+    return isset($result[$second]) ? $result[$second] : $default;
+  }
+
+  /**
+   * flash
+   *
+   * The typical Session based setFlash method is far to verbose for my use
+   * cases. Overloading the non-session based flash to accomplish a more
+   * concise result.
+   *
+   * @param mixed $message
+   * @param mixed $url Url to redirect to, defaults to action => index
+   * @param mixed $pause Unused
+   * @access public
+   * @return void Ends execution
+   */
+  public function flash($message, $url = false, $pause = false) {
+    if (false == $url) {
+      $url = array('action' => 'index');
+    }
+    $this->Session->setFlash(__($message, true));
+    $this->redirect($url);
   }
 }

@@ -16,6 +16,12 @@ class Character extends AppModel {
   );
 
   var $validate = array(
+    'user_rank' => array(
+      'required'     => true,
+      'allowEmpty'   => false,
+      'rule'         => array('checkLimit'),
+      'message'      => 'Authors are allocated one character per rank.',
+    ),
     'user_id' => array(
       'required'     => false,
       'allowEmpty'   => false,
@@ -97,7 +103,27 @@ class Character extends AppModel {
     ),
   );
 
-  // TODO: Need character creation limit
+  /**
+   * checkLimit
+   *
+   * Ensure a user hasn't created more characters than they're allowed. Users
+   * are allocated one character per rank until they reach level 7.
+   *
+   * @access private
+   * @return boolean True on successful validate.
+   */
+  private function checkLimit() {
+    $user_id = $this->data['Character']['user_id'];
+    $rank = $this->User->getRank($user_id);
+
+    // Rank zero is a special case for new characters. Seven is max rank.
+    if (0 === $rank) { $rank = 1; }
+    if (7 === $rank) { return true; }
+
+    return $rank > $this->find('count', array(
+      'conditions' => array('user_id' => $user_id)
+    ));
+  }
 
   /**
    * checkRank
@@ -105,22 +131,22 @@ class Character extends AppModel {
    * The character rank cannot exceed the user's rank.
    *
    * @param mixed $check array('key' => 'value')
-   * @access public
+   * @access private
    * @return boolean Always true, because on failure a custom invalidate is
    *                 called with a dynamic message explaining the failure.
    */
-  function checkRank($check) {
+  private function checkRank($check) {
     $key   = array_shift(array_keys($check));
     $value = array_shift(array_values($check));
 
-    $userRank = $this->User->findRankById($this->data['Character']['user_id']);
+    $userRank = $this->User->getRank($this->data['Character']['user_id']);
 
     // New users need to be able to register a character
     if (0 === $userRank) $userRank = 1;
 
     if ($userRank < $value) {
       $this->invalidate($key, sprintf(
-        __("The character level cannot exceed your rank (%d)", true), $userRank
+        __('The character level cannot exceed your rank (%d)', true), $userRank
       ));
     }
 
@@ -133,11 +159,11 @@ class Character extends AppModel {
    * Check that the field doesn't exceed the character's rank.
    *
    * @param mixed $check array('key' => 'value')
-   * @access public
+   * @access private
    * @return boolean Always true, because on failure a custom invalidate is
    *                 called with a dynamic message explaining the failure.
    */
-  function limitByRank($check, $model) {
+  private function limitByRank($check, $model) {
     $key   = array_shift(array_keys($check));
     $value = array_shift(array_values($check));
 
@@ -159,7 +185,7 @@ class Character extends AppModel {
 
     if ($rank > $this->data['Character']['rank_id']) {
       $this->invalidate($key, sprintf(__(
-        "Your character is not a high enough level (%d) for this option", true
+        'Your character is not a high enough level (%d) for this option', true
       ), $rank));
     }
 
@@ -172,11 +198,11 @@ class Character extends AppModel {
    * Verify the numerous rules for factions. This whole block feels hack.
    *
    * @param mixed $check array('key' => 'value')
-   * @access public
+   * @access private
    * @return boolean Always true, because on failure a custom invalidate is
    *                 called with a dynamic message explaining the failure.
    */
-  function checkFaction($check) {
+  private function checkFaction($check) {
     $key   = array_shift(array_keys($check));
     $value = array_shift(array_values($check));
 
@@ -190,7 +216,7 @@ class Character extends AppModel {
 
     if (empty($data)) {
       $this->invalidate($key, __(
-        "This faction doesn't accept members of your character's race.", true
+        'This faction does not accept members of the specified race.', true
       ));
       return true;
     }
@@ -233,7 +259,7 @@ class Character extends AppModel {
    * @access protected
    * @return array Results in the find('list') format
    */
-  function __findAvailable($user_id) {
+  protected function __findAvailable($user_id) {
     $this->bindModel(array('hasOne' => array('CharactersStory')));
     $this->contain('CharactersStory');
 
@@ -243,9 +269,39 @@ class Character extends AppModel {
         'conditions' => array(
           'Character.user_id' => $user_id,
           'OR' => array(
-            'CharactersStory.is_active = 0',
-            'CharactersStory.is_active IS NULL',
+            'CharactersStory.is_deactivated = 1',
+            'CharactersStory.is_deactivated NOT NULL',
           )
+        )
+      )),
+      '{n}.Character.id',
+      '{n}.Character.name'
+    );
+  }
+
+  /**
+   * __findListByStoryAndUser
+   *
+   * Get a character list by story and user.
+   *
+   * @param mixed $options Array keyed by story_id and user_id
+   * @access protected
+   * @return array Array of character names keyed my character id
+   */
+  protected function __findListByStoryAndUser($options) {
+    $options =
+      array_merge(array('story_id' => false, 'user_id' => false), $options);
+
+    $character_ids = Set::extract(
+      '/CharactersStory/character_id',
+      $this->CharactersStory->findAllByStoryId($options['story_id'])
+    );
+
+    return Set::combine(
+      $this->find('all', array(
+        'conditions' => array(
+          'id'      => $character_ids,
+          'user_id' => $options['user_id'],
         )
       )),
       '{n}.Character.id',

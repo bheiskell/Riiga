@@ -5,6 +5,7 @@
       <tr>
         <th>&nbsp;</th>
         <th><?php echo $paginator->sort('Member', 'username'); ?></th>
+        <th><?php __('Rank'); ?></th>
         <th><?php echo $paginator->sort('Homepage', 'url'); ?></th>
       </tr>
     </thead>
@@ -19,6 +20,9 @@
                 array('action' => 'view', $user['User']['id'])
               );
             ?>
+          </td>
+          <td>
+            <?php echo $stars->render($user['User']['rank']); ?>
           </td>
           <td>
             <?php if ($user['User']['url']): ?>

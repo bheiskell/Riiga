@@ -1,4 +1,4 @@
-<?php if ($session->read('Auth.User.is_admin')): ?>
+<?php if ($isAdmin): ?>
   <?php
     // TODO: Inflect
     $links = array(

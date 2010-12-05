@@ -5,14 +5,132 @@ class Story extends AppModel {
   var $order = array('Story.id' => 'DESC');
 
   var $hasMany             = array('Entry');
-  var $hasAndBelongsToMany = array('Character', 'User');
-  var $belongsTo           = array(
+  var $hasAndBelongsToMany = array(
+    'Character',
+    'User' => array('with' => 'StoriesUser'),
+  );
+  var $belongsTo = array(
     'Location',
     'Turn'         => array(
       'className'  => 'User',
       'foreignKey' => 'user_id_turn',
     )
   );
+
+  var $validate = array(
+    'id' => array(
+      'required'     => false,
+      'allowEmpty'   => false,
+      'rule'         => array('numeric'),
+      'message'      => 'Invalid Story Id'
+    ),
+    'location_id' => array(
+      'required'     => false,
+      'allowEmpty'   => false,
+      'rule'         => array('numeric'),
+      'message'      => 'Invalid Location'
+    ),
+    'turn_id' => array(
+      'required'     => false,
+      'allowEmpty'   => false,
+      'rule'         => array('numeric'),
+      'message'      => 'Invalid Member'
+    ),
+    'user_id' => array(
+      'required'     => false,
+      'allowEmpty'   => false,
+      'rule'         => array('numeric'),
+      'message'      => 'Invalid Member'
+    ),
+  );
+
+  /**
+   * isMember
+   *
+   * Determine if a user is a member a story
+   *
+   * @param mixed $story_id
+   * @param mixed $user_id
+   * @access public
+   * @return boolean True on membership
+   */
+  public function isMember($story_id, $user_id) {
+    return (1 == $this->StoriesUser->find('count', array(
+      'conditions' => array('story_id' => $story_id, 'user_id'  => $user_id)
+    )));
+  }
+
+  /**
+   * isModerator
+   *
+   * Determine if a user is a story moderator. Does not perform an isAdmin check
+   *
+   * @param mixed $story_id
+   * @param mixed $user_id
+   * @access public
+   * @return boolean True on moderator status
+   */
+  public function isModerator($story_id, $user_id) {
+    return $this->StoriesUser->isModerator($story_id, $user_id);
+  }
+
+  /**
+   * join
+   *
+   * Join a user to a story optionally specifying whether a user is a moderator.
+   *
+   * @param mixed $story_id
+   * @param mixed $user_id
+   * @param mixed $is_moderator
+   * @access public
+   * @return boolean True on successful join
+   */
+  public function join($story_id, $user_id, $is_moderator = false) {
+    return $this->StoriesUser->add($story_id, $user_id, $is_moderator);
+  }
+
+  /**
+   * leave
+   *
+   * Remove a user from a story. This should only technically toggle the
+   * deactivate field.
+   *
+   * @param mixed $story_id
+   * @param mixed $user_id
+   * @access public
+   * @return boolean True on successful leave
+   */
+  public function leave($story_id, $user_id) {
+    return $this->StoriesUser->remove($story_id, $user_id);
+  }
+
+  /**
+   * promote
+   *
+   * Promote a user to moderator status for a particular story.
+   *
+   * @param mixed $story_id
+   * @param mixed $user_id
+   * @access public
+   * @return boolean True on successful promotion
+   */
+  public function promote($story_id, $user_id) {
+    return $this->StoriesUser->add($story_id, $user_id, true);
+  }
+
+  /**
+   * demote
+   *
+   * Demote a user from the moderator status for a particular story
+   *
+   * @param mixed $story_id
+   * @param mixed $user_id
+   * @access public
+   * @return boolean True on successful demotion
+   */
+  public function demote($story_id, $user_id) {
+    return $this->StoriesUser->add($story_id, $user_id, false);
+  }
 
   /**
    * findById
@@ -58,7 +176,8 @@ class Story extends AppModel {
   /**
    * findAllByUserId
    *
-   * Obtain all stories associated with a particular user.
+   * Obtain all stories associated with a particular user. Overrides the default
+   * findAllByUserId which in retrospect was a bad idea.
    *
    * @param mixed $id User's user id.
    * @access public
@@ -78,6 +197,27 @@ class Story extends AppModel {
           ),
         ),
       ))
+    );
+  }
+
+  /**
+   * __findUserStories
+   *
+   * Find all stories a user is active in.
+   *
+   * @param mixed $user_id
+   * @access public
+   * @return mixed Array of story names keyed by story id
+   */
+  public function __findUserStories($user_id) {
+    return Set::combine(
+      $this->find('all', array(
+        'conditions' => array(
+          'id' => $this->StoriesUser->find('stories_by_user', $user_id)
+        )
+      )),
+      '{n}.Story.id',
+      '{n}.Story.name'
     );
   }
 
@@ -124,13 +264,13 @@ class Story extends AppModel {
           'foreignKey' => false,
           'conditions' => array(
             'FilterCharacter.id = CharactersStory.character_id'
-          )
+          ),
         ),
         'StoriesUser',
         'FilterUser' => array(
           'className' => 'User',
           'foreignKey' => false,
-          'conditions' => array('FilterUser.id = StoriesUser.user_id')
+          'conditions' => array('FilterUser.id = StoriesUser.user_id'),
         ),
         'LatestEntry' => array(
           'className' => 'Entry',
@@ -140,7 +280,7 @@ class Story extends AppModel {
             'LatestEntry.story_id = Story.id',
             'LatestEntry.created in '
               . '(SELECT MAX(created) FROM entries GROUP BY story_id)'
-          )
+          ),
         ),
       )
     ), false);

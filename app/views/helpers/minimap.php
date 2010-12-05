@@ -79,7 +79,7 @@ class MinimapHelper extends AppHelper {
     $dimensionY = $this->imageHeight * $zoom;
 
     return $this->Html->div(
-      'ui-location',
+      'ui-location-map',
       $this->Html->image(
         'map/riiga.jpg',
         array(

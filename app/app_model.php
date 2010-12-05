@@ -8,10 +8,11 @@ class AppModel extends FindAppModel {
    * Behaviors that must always be applied:
    *   - To minimize the number of queries, always activate containable
    *   - To verify the integrity of foreign keys, attach the belongs to behavior
+   *   - Attempt to automatically hide deactivated rows
    * @var string
    * @access public
    */
-  var $actsAs = array('Containable', 'VerifyBelongsTo');
+  var $actsAs = array('Containable', 'VerifyBelongsTo', 'Deactivatable');
 
   /**
    * recursive

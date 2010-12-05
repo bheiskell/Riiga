@@ -1,6 +1,5 @@
 <?php
 class LocationsRacesController extends AppController {
-
   var $name = 'LocationsRaces';
   var $scaffold = 'admin';
 

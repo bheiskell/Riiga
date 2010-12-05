@@ -150,7 +150,7 @@
             ?>
           <?php endif; ?>
         </li>
-      <?php elseif ($session->read('Auth.User.is_admin')): ?>
+      <?php elseif ($isAdmin): ?>
         <li>
           <?php
             echo $html->link(

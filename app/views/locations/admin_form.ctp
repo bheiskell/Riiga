@@ -10,7 +10,7 @@
     $javascript->link('jquery/ui/location_selector.js', false);
     $javascript->link('locations/form.js', false);
 
-    echo $form->hidden('id');
+    echo $form->input('id');
     echo $form->input('name');
     echo $form->input('description');
     echo $form->input('parent_id', array('empty' => true));

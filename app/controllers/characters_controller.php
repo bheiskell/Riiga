@@ -74,8 +74,8 @@ class CharactersController extends AppController {
       // user_id matches the currently authenticated user.
       if ($this->data['Character']['id']) {
         $this->Character->id = $this->data['Character']['id'];
-        if (!$this->_isAllowed($this->Character->field('user_id'))) {
-          $this->cakeError('error500');
+        if (!$this->_isOwner($this->Character->field('user_id'))) {
+          $this->cakeError('error403');
         }
       }
 
@@ -103,7 +103,7 @@ class CharactersController extends AppController {
       $this->data = $this->Character->findById($id);
 
       // Courtesy error - real prevention is above
-      if (!$this->_isAllowed($this->data['Character']['user_id'])) {
+      if (!$this->_isOwner($this->data['Character']['user_id'])) {
         $this->Session->setFlash(__('This is not your character.', true));
         $this->redirect(array('action' => 'index'));
       }
@@ -117,7 +117,9 @@ class CharactersController extends AppController {
 
     // TODO: pull down location tags
 
-    $this->set('user_rank', $this->Auth->user('rank'));
+    $this->set('user_rank',
+      $this->Character->User->getRank($this->Auth->user('id'))
+    );
 
     $users = $this->Character->User->find('list');
     $ranks = $this->Character->Rank->find('list');

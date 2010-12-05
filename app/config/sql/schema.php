@@ -46,7 +46,7 @@ class AppSchema extends CakeSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
 		'character_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 		'story_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
-		'is_active' => array('type' => 'boolean', 'null' => true, 'default' => '1'),
+		'is_deactivated' => array('type' => 'boolean', 'null' => true, 'default' => '0'),
 		'indexes' => array()
 	);
 	var $entries = array(
@@ -85,6 +85,14 @@ class AppSchema extends CakeSchema {
 		'location_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 		'x' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 		'y' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'indexes' => array()
+	);
+	var $invites = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'story_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'user_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array()
 	);
 	var $location_regions = array(
@@ -205,9 +213,10 @@ class AppSchema extends CakeSchema {
 	);
 	var $stories_users = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
-		'is_manager' => array('type' => 'boolean', 'null' => true, 'default' => '0'),
 		'story_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 		'user_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'is_moderator' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
+		'is_deactivated' => array('type' => 'boolean', 'null' => true, 'default' => '0'),
 		'indexes' => array()
 	);
 	var $users = array(
@@ -218,6 +227,7 @@ class AppSchema extends CakeSchema {
 		'url' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 1024),
 		'avatar' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 1024),
 		'is_admin' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'offset' => array('type' => 'integer', 'null' => false, 'default' => 0),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array()
