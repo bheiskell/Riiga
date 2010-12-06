@@ -69,7 +69,9 @@
   <div class="map">
     <?php if (isset($character['Location']['LocationRegion'])): ?>
       <?php
-        echo $minimap->render($character['Location']['LocationRegion']);
+        echo $minimap->render(array(
+          'region' => $character['Location']['LocationRegion']
+        ));
       ?>
     <?php endif; ?>
   </div>

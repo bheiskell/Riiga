@@ -12,72 +12,47 @@
 </h2>
 <div class="actions">
   <ul>
+    <?php $id = $story['Story']['id']; ?>
     <li>
       <?php
-        echo $html->link(
-          __('Post', true),
-          array(
-            'controller' => 'entries',
-            'action' => 'add',
-            $story['Story']['id']
-          )
-        );
+        echo $html->link(__('Post', true), array(
+          'controller' => 'entries', 'action' => 'add', $id
+        ));
       ?>
     </li>
     <li>
       <?php
         echo $html->link(
           __('Add Character', true),
-          array('action' => 'add_character', $story['Story']['id'])
+          array('action' => 'add_character', $id)
         );
       ?>
     </li>
     <li>
       <?php
-        echo $html->link(
-          __('Invite', true),
-          array('action' => 'invite', $story['Story']['id'])
-        );
+        echo $html->link(__('Invite', true), array(
+          'action' => 'invite', 'moderator' => true, $id
+        ));
       ?>
     </li>
     <li>
       <?php
-        echo $html->link(
-          __('Manage', true),
-          array('action' => 'manage', $story['Story']['id'])
-        );
+        echo $html->link(__('Edit', true), array('action' => 'edit', $id));
       ?>
     </li>
     <li>
       <?php
-        echo $html->link(
-          __('Join', true),
-          array('action' => 'join', $story['Story']['id'])
-        );
+        echo $html->link(__('Join', true), array('action' => 'join', $id));
       ?>
     </li>
     <li>
       <?php
-        echo $html->link(
-          __('Leave', true),
-          array('action' => 'leave', $story['Story']['id'])
-        );
+        echo $html->link(__('Leave', true), array('action' => 'leave', $id));
       ?>
     </li>
     <li>
       <?php
-        echo $html->link(
-          __('Set to Invite Only', true),
-          array('action' => 'toggle_invite_only', $story['Story']['id'])
-        );
-      ?>
-    </li>
-    <li>
-      <?php
-        echo $html->link(
-          __('Close', true),
-          array('action' => 'close', $story['Story']['id'])
-        );
+        echo $html->link(__('Close', true), array('action' => 'close', $id));
       ?>
     </li>
   </ul>
@@ -86,7 +61,13 @@
   <dl>
     <dt><?php __('Location Id'); ?></dt>
     <dd>
-      <?php echo h($story['Story']['location_id']); ?>
+      <?php echo h($story['Location']['name']); ?>
+      <?php
+        echo $minimap->render(array(
+          'region' => $story['Location']['LocationRegion'],
+          'point'  => $story['Location']['LocationPoint'],
+        ));
+      ?>
       &nbsp;
     </dd>
     <dt><?php __('Turn'); ?></dt>
