@@ -45,10 +45,10 @@ class LocationRegion extends AppModel {
    *
    * Return all location regions keyed by the location id
    *
-   * @access public
+   * @access protected
    * @return mixed array(location_id => array(top, left, width, height))
    */
-  public function __findLocationRegionByLocation() {
+  protected function __findLocationRegionByLocation() {
     $results = Cache::read('LocationRegionLocationRegionByLocation');
 
     if (false === $results) {

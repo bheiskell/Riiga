@@ -20,10 +20,10 @@ class CharacterLocation extends AppModel {
    *
    * Array of all locations
    *
-   * @access public
+   * @access protected
    * @return mixed array(id => location_id)
    */
-  public function __findLocationIds() {
+  protected function __findLocationIds() {
     $results = Cache::read('CharacterLocationLocationIds');
 
     if (false === $results) {
@@ -41,10 +41,10 @@ class CharacterLocation extends AppModel {
    *
    * Array of ranks keyed by location
    *
-   * @access public
+   * @access protected
    * @return mixed array(location_id => rank_id)
    */
-  public function __findRanksByLocation() {
+  protected function __findRanksByLocation() {
     $results = Cache::read('CharacterLocationRanksByLocation');
 
     if (false === $results) {

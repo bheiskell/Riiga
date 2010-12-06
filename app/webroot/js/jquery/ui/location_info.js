@@ -10,7 +10,7 @@ $.widget('ui.locationInfo', {
     if (!this.options.width) { this.options.width = this.element.outerWidth(); }
     if (!this.options.height) { this.options.height = this.options.width; }
 
-    this.map = $('img', this.element).locationMap({
+    this.map = $('img:first', this.element).locationMap({
       width:  this.options.width,
       height: this.options.height
     });

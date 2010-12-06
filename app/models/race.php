@@ -27,10 +27,10 @@ class Race extends AppModel {
    *
    * Find race keyed by the rank in the format 'Level ##'
    *
-   * @access public
+   * @access protected
    * @return mixed array('Level ' . rank => array(race id => race name))
    */
-  public function __findGroupByRank() {
+  protected function __findGroupByRank() {
     $results = Cache::read('RaceGroupByRank');
 
     if (false === $results) {

@@ -23,10 +23,10 @@ class Faction extends AppModel {
    *
    * Obtain faction / race data keyed by the race name
    *
-   * @access public
+   * @access protected
    * @return mixed array(race => array(faction id => faction name)
    */
-  public function __findGroupByRace() {
+  protected function __findGroupByRace() {
     $results = Cache::read('FactionGroupByRace');
 
     if (false === $results) {

@@ -28,10 +28,10 @@ class LocationsRace extends AppModel {
    *
    * Obtain the location race information keyed by the location id
    *
-   * @access public
+   * @access protected
    * @return mixed array(location id => array(race id => all info))
    */
-  public function __findRaceByLocation() {
+  protected function __findRaceByLocation() {
     Cache::delete('LocationsRaceRaceByLocation');
     $results = Cache::read('LocationsRaceRaceByLocation');
 

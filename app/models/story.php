@@ -155,6 +155,10 @@ class Story extends AppModel {
       'Entry' => array(
         'Character' => array('fields' => array('id', 'name', 'avatar')),
       ),
+      'Location' => array(
+        'LocationRegion',
+        'LocationPoint',
+      ),
     ));
 
     $result = parent::findById($id);
@@ -206,10 +210,10 @@ class Story extends AppModel {
    * Find all stories a user is active in.
    *
    * @param mixed $user_id
-   * @access public
+   * @access protected
    * @return mixed Array of story names keyed by story id
    */
-  public function __findUserStories($user_id) {
+  protected function __findUserStories($user_id) {
     return Set::combine(
       $this->find('all', array(
         'conditions' => array(

@@ -7,6 +7,22 @@
 
       <div class="LocationId_<?php echo h($locationId); ?>">
         <h4><?php echo h($location['Location']['name']); ?></h4>
+
+        <?php if (!empty($location['LocationTag'])): ?>
+          <ul>
+            <?php foreach ($location['LocationTag'] as $tag): ?>
+              <li>
+                <?php
+                  echo $html->image($tag['url'], array(
+                    'alt' => $tag['name'],
+                    'title' => $tag['name'] . ' - ' . $tag['description'],
+                  ));
+                ?>
+              </li>
+            <?php endforeach; ?>
+          </ul>
+        <?php endif; ?>
+
         <p><?php  echo h($location['Location']['description']); ?></p>
 
         <?php if (isset($location['Race'])): ?>

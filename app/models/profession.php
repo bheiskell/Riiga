@@ -25,7 +25,7 @@ class Profession extends AppModel {
    * @access public
    * @return mixed array(category => array(profession))
    */
-  public function __findGroupByCategory() {
+  protected function __findGroupByCategory() {
     $results = Cache::read('ProfessionGroupByCategory');
 
     if (false === $results) {

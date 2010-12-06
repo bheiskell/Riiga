@@ -22,10 +22,10 @@ class FactionRank extends AppModel {
    *
    * Obtain faction ranks keyed by the faction id
    *
-   * @access public
+   * @access protected
    * @return mixed array(faction id => array(faction ranks))
    */
-  public function __findGroupByFaction() {
+  protected function __findGroupByFaction() {
     $results = Cache::read('FactionRankGroupByFaction');
 
     if (false === $results) {
