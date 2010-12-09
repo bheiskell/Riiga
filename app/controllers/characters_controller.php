@@ -57,10 +57,10 @@ class CharactersController extends AppController {
     } else if (isset($this->params['named']['pending_id'])) {
       $id = $this->params['named']['pending_id'];
       $this->set('character', $this->Character->Pending->findByPendingId($id));
+    }
 
-    } else {
-      $this->Session->setFlash(__('Invalid Character', true));
-      $this->redirect(array('action' => 'index'));
+    if (empty($this->viewVars['character'])) {
+      $this->cakeError('error404');
     }
   }
 

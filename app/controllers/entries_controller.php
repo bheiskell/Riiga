@@ -8,14 +8,6 @@ class EntriesController extends AppController {
     $this->Auth->allow('index');
   }
 
-  /**
-   * _isModerator
-   *
-   * Overloading the AppController's callback for checking moderator status
-   *
-   * @access protected
-   * @return boolean True if moderator
-   */
   function _isModerator() {
     if ($id = $this->_getParam('pass', 0)) { $this->Entry->id = $id; }
 

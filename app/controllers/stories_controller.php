@@ -2,14 +2,6 @@
 class StoriesController extends AppController {
   var $name = 'Stories';
 
-  /**
-   * _isModerator
-   *
-   * Overloading the AppController's callback for checking moderator status
-   *
-   * @access protected
-   * @return boolean True if moderator
-   */
   function _isModerator() {
     if ($id = $this->_getParam('pass', 0)) { $this->Story->id = $id; }
 
@@ -24,19 +16,18 @@ class StoriesController extends AppController {
   function index() {
     $this->Story->paginateBindModels();
     $this->paginate['contain'] = $this->Story->paginateGetContain();
-    $this->paginate['group'] = array('Story.id');
+    $this->paginate['group']   = array('Story.id');
     $this->set('stories', $this->paginate($this->_paginateGetFilters()));
   }
 
   function filter($id = null) { }
 
   function view($id = null) {
-    if (!$id) {
-      $this->Session->setFlash(__('Invalid Story', true));
-      $this->redirect(array('action' => 'index'));
-    }
-
     $this->set('story', $this->Story->findById($id));
+
+    if (empty($this->viewVars['story'])) {
+      $this->cakeError('error404');
+    }
   }
 
   function add()            { $this->_form(); }

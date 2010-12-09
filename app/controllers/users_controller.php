@@ -51,6 +51,10 @@ class UsersController extends AppController {
       ))
     );
     $this->set('stories', $this->User->Character->Story->findAllByUserId($id));
+
+    if (empty($this->viewVars['user'])) {
+      $this->cakeError('error404');
+    }
   }
 
   function register() {
