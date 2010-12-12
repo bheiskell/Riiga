@@ -17,7 +17,7 @@ class Character extends AppModel {
 
   var $validate = array(
     'user_rank' => array(
-      'required'     => true,
+      'required'     => false,
       'allowEmpty'   => false,
       'rule'         => array('checkLimit'),
       'message'      => 'Authors are allocated one character per rank.',
@@ -113,6 +113,8 @@ class Character extends AppModel {
    * @return boolean True on successful validate.
    */
   private function checkLimit() {
+    if ($this->data['Character']['id']) { return true; }
+
     $user_id = $this->data['Character']['user_id'];
     $rank = $this->User->getRank($user_id);
 
