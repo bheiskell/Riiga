@@ -163,6 +163,8 @@ class Story extends AppModel {
 
     $result = parent::findById($id);
 
+    if (empty($result)) { return; }
+
     foreach ($result['Character'] as &$character) {
       $character['User'] = array_shift(
         Set::extract("/User[id={$character['user_id']}]/.[:first]", $result)
@@ -188,18 +190,14 @@ class Story extends AppModel {
    * @return array following cake's conventions with basic story data
    */
   public function findAllByUserId($id) {
+    $this->Character->User->bindModel(array(
+      'hasAndBelongsToMany' => array('Story')
+    ));
     return Set::extract(
-      '/Character/Story[name=/.*/]',
+      '/Story',
       $this->Character->User->find('all', array(
         'conditions' => array('id' => $id),
-        'contain' => array(
-          'Character' => array(
-            'fields' => array('id', 'name'),
-            'Story' => array(
-              'fields' => array('id', 'name'),
-            ),
-          ),
-        ),
+        'contain' => array('Story'),
       ))
     );
   }

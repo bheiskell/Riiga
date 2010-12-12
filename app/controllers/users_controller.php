@@ -32,6 +32,7 @@ class UsersController extends AppController {
   function logout() { $this->redirect($this->Auth->logout()); }
 
   function index() {
+    $this->paginate['order'] = array('User.created' => 'DESC');
     $this->set('users', $this->paginate());
   }
 
