@@ -3,26 +3,52 @@ class AvatarHelper extends AppHelper {
 
   var $helpers = array('Html');
 
-  var $def_member    = 'avatar/default/member.png';
-  var $def_character = 'avatar/default/character.png';
+  var $defaultMember    = 'avatar/default/member.png';
+  var $defaultCharacter = 'avatar/default/character.png';
 
-  function character($char) {
+  function character($char, $show_name = false) {
     return $this->avatar(
-      !empty($char['avatar']) ? $char['avatar'] : $this->def_character,
-       isset($char['name'])   ? $char['name']   : 'Unknown'
+      'character',
+      $show_name,
+      !empty($char['avatar']) ? $char['avatar'] : $this->defaultCharacter,
+      isset($char['name'])    ? $char['name']   : 'Unknown',
+      $char['id']
     );
   }
 
-  function user($user) {
+  function user($user, $show_name = false) {
     return $this->avatar(
-      !empty($user['avatar']) ? $user['avatar']   : $this->def_member,
-       isset($user['name'])   ? $user['username'] : 'Unknown'
+      'user',
+      $show_name,
+      !empty($user['avatar'])  ? $user['avatar']   : $this->defaultMember,
+      isset($user['username']) ? $user['username'] : 'Unknown',
+      $user['id']
     );
   }
 
-  private function avatar($image, $name) {
-    $alt = $name . "'s avatar";
+  private function avatar($type, $show_name, $image, $name, $id) {
+    $class = "avatar {$type}";
+    $alt   = $name . "'s avatar";
+    $title = $name . "'s avatar";
+    $url   = array(
+      'controller' => Inflector::pluralize($type),
+      'action'     => 'view',
+      'id'         => $id
+    );
 
-    return $this->output($this->Html->image($image, array('alt' => $alt)));
+    $nameLink = ($show_name) ? $this->Html->link($name, $url) : null;
+
+    return $this->output(
+      $this->Html->div(
+        $class,
+        $this->Html->link(
+          $this->Html->image($image, compact('alt', 'title')),
+          $url,
+          array(),
+          false,
+          false
+        ) . $nameLink
+      )
+    );
   }
 }
