@@ -28,6 +28,7 @@
       'jquery/ui/tree_drilldown',
       'characters/view',
       'locations/index',
+      'stories/view',
       'users/view',
     );
     foreach ($css as $file) {

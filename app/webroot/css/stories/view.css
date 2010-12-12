@@ -1,0 +1,9 @@
+.stories.view table#entries td {
+  padding: 1em 1em;
+}
+.stories.view table#entries td.avatar {
+  padding: 1em 0;
+}
+.stories.view table#entries td.avatar ul {
+  padding-top: 1em;
+}
