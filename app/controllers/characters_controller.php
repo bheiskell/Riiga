@@ -12,6 +12,7 @@ class CharactersController extends AppController {
   }
 
   function index() {
+    $this->paginate['order'] = array('User.created' => 'DESC');
     $this->set('characters', $this->paginate());
 
     // Not paginating pending, because this list should never be very long.

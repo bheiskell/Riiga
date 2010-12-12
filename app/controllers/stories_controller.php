@@ -2,15 +2,15 @@
 class StoriesController extends AppController {
   var $name = 'Stories';
 
+  function beforeFilter() {
+    parent::beforeFilter();
+    $this->Auth->allow('index', 'filter', 'view');
+  }
+
   function _isModerator() {
     if ($id = $this->_getParam('pass', 0)) { $this->Story->id = $id; }
 
     return $this->Story->isModerator($this->Story->id, $this->Auth->user('id'));
-  }
-
-  function beforeFilter() {
-    parent::beforeFilter();
-    $this->Auth->allow('index', 'filter', 'view');
   }
 
   function index() {
@@ -23,15 +23,99 @@ class StoriesController extends AppController {
   function filter($id = null) { }
 
   function view($id = null) {
-    $this->set('story', $this->Story->findById($id));
+    $story    = $this->Story->findById($id);
+    $isMember = $this->Story->isMember($id, $this->Auth->user('id'));
+
+    $this->set(compact('story', 'isMember'));
 
     if (empty($this->viewVars['story'])) {
       $this->cakeError('error404');
     }
   }
 
-  function add()            { $this->_form(); }
-  function edit($id = null) { $this->_form($id); }
+  function add() {
+    $this->_form();
+  }
+
+  function join($story_id = null) {
+    $message = ($this->Story->join($story_id, $this->Auth->user('id')))
+      ? 'You are now an author of this story; add a character to post.'
+      : 'Failed to join the story';
+    $this->flash($message, array('action' => 'view', 'id' => $story_id));
+  }
+
+  function leave($story_id = null) {
+    $message = ($this->Story->leave($story_id, $this->Auth->user('id')))
+      ? 'You are no longer an active author of this story.'
+      : 'Failed to leave the story';
+    $this->flash($message, array('action' => 'view', 'id' => $story_id));
+  }
+
+  function add_character($story_id = null) {
+    $user_id = $this->Auth->user('id');
+    if (!empty($this->data)) {
+      $character_id = $this->data['CharactersStory']['character_id'];
+      $message =
+        ($this->Story->add_character($story_id, $character_id, $user_id))
+          ? 'Character added to the story'
+          : 'Failed to remove character from story';
+      $this->flash($message, array('action' => 'view', 'id' => $story_id));
+    }
+    $characters = $this->Story->Character->find('available', $user_id);
+    $this->set(compact('characters'));
+  }
+
+  function remove_character($story_id = null) {
+    $user_id      = $this->Auth->user('id');
+    $character_id = $this->_getParam('named', 'character_id');
+    $message =
+      ($this->Story->remove_character($story_id, $character_id, $user_id))
+        ? 'Character successfully removed'
+        : 'Failed to remove characters';
+    $this->flash($message, array('action' => 'view', 'id' => $story_id));
+  }
+
+  function moderator_edit($story_id = null) {
+    $this->_form($story_id);
+  }
+
+  function moderator_close($story_id = null) {
+    $message = ($this->Story->close($story_id))
+      ? 'Story has been closed'
+      : 'Failed to close story';
+    $this->flash($message, array('action' => 'view', 'id' => $story_id));
+  }
+
+  function moderator_reopen($story_id = null) {
+    $message = ($this->Story->reopen($story_id))
+      ? 'Story has been reopened'
+      : 'Failed to reopen story';
+    $this->flash($message, array('action' => 'view', 'id' => $story_id));
+  }
+
+  function moderator_promote($story_id = null) {
+    $user_id = $this->_getParam('named', 'user_id');
+    $message = ($this->Story->promote($story_id, $user_id))
+      ? 'Member has been promoted to moderator status.'
+      : 'Member promotion to moderator failed.';
+    $this->flash($message, array('action' => 'view', 'id' => $story_id));
+  }
+
+  function moderator_demote($story_id = null) {
+    $user_id = $this->_getParam('named', 'user_id');
+    $message = ($this->Story->demote($story_id, $user_id))
+      ? 'Member has been demoted to author status.'
+      : 'Member demotion from moderator failed.';
+    $this->flash($message, array('action' => 'view', 'id' => $story_id));
+  }
+
+  function moderator_remove_character($story_id = null) {
+    $character_id = $this->_getParam('named', 'character_id');
+    $message = ($this->Story->remove_character($story_id, $character_id))
+      ? 'Character successfully removed'
+      : 'Failed to remove characters';
+    $this->flash($message, array('action' => 'view', 'id' => $story_id));
+  }
 
   function _form($id = null) {
     // TODO: Make a call to the story's model that will check for a location
@@ -59,64 +143,6 @@ class StoriesController extends AppController {
       compact('characters', 'userIdTurns', 'turns', 'locations', 'locationInfo')
     );
     $this->render('form');
-  }
-
-  function join($story_id = null) {
-    if ($this->Story->join($story_id, $this->Auth->user('id'))) {
-      $this->flash(
-        'You are now an author of this story; add a character to post.',
-        array('action' => 'view', 'id' => $story_id)
-      );
-    } else {
-      $this->flash('Failed to join the story', array('action' => 'index'));
-    }
-  }
-
-  function leave($story_id = null) {
-    if ($this->Story->leave($story_id, $this->Auth->user('id'))) {
-      $this->flash(
-        'You are no longer an active author of this story.',
-        array('action' => 'view', 'id' => $story_id)
-      );
-    } else {
-      $this->flash('Failed to leave the story', array('action' => 'index'));
-    }
-  }
-
-  function add_character($story_id = null) {
-    // is a member of the story
-    $user_id    = $this->Auth->user('id');
-    $characters = $this->Story->Character->find('available', $user_id);
-  }
-
-  function remove_character($story_id = null) {
-    // is owner, story moderator, or admin
-    // CharactersStory
-  }
-
-  function moderator_promote($story_id = null) {
-    $user_id = $this->_getParam('named', 'user_id');
-    if ($this->Story->promote($story_id, $user_id)) {
-      $message = 'Member has been promoted to moderator status.';
-    } else {
-      $message = 'Member promotion to moderator failed.';
-    }
-    $this->flash($message, array('action' => 'view', 'id' => $story_id));
-  }
-
-  function moderator_demote($story_id = null) {
-    $user_id = $this->_getParam('named', 'user_id');
-    if ($this->Story->demote($story_id, $user_id)) {
-      $message = 'Member has been demoted to author status.';
-    } else {
-      $message = 'Member demotion from moderator failed.';
-    }
-    $this->flash($message, array('action' => 'view', 'id' => $story_id));
-  }
-
-  function moderator_remove_character($story_id = null) {
-    // is owner, story moderator, or admin
-    // CharactersStory
   }
 
   /**

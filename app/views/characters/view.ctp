@@ -76,9 +76,9 @@
     <?php endif; ?>
   </div>
   <h3><?php __('Description'); ?></h3>
-  <p><?php echo h($character['Character']['description']); ?>&nbsp;</p>
+  <pre><?php echo h($character['Character']['description']); ?>&nbsp;</pre>
   <h3><?php __('History'); ?></h3>
-  <p><?php echo h($character['Character']['history']); ?>&nbsp;</p>
+  <pre><?php echo h($character['Character']['history']); ?>&nbsp;</pre>
 
   <?php if (!empty($character['Story'])): ?>
     <table>

@@ -22,7 +22,7 @@
         <th>&nbsp;</th>
         <?php if (isset($p)): ?>
           <th><?php echo $p->sort('name');?></th>
-          <th><?php echo $p->sort(__('Rank',      true), 'Rank.name');?></th>
+          <th><?php echo $p->sort(__('Rank',      true), 'Rank.id');?></th>
           <th><?php echo $p->sort(__('Race',      true), 'Race.name');?></th>
           <th><?php echo $p->sort(__('Faction',   true), 'Faction.name');?></th>
           <th>
@@ -49,7 +49,7 @@
       <?php $i = 0; ?>
       <?php foreach ($characters as $character): ?>
         <tr<?php echo $altrow; ?>>
-          <td class="avatar">
+          <td class="avatar character">
             <?php echo $avatar->character($character['Character']); ?>
           </td>
           <td>
@@ -79,7 +79,9 @@
               ?>
             <?php endif; ?>
           </td>
-          <td><?php echo $stars->render($character['Rank']['id']); ?></td>
+          <td>
+            <?php echo $stars->render($character['Rank']['id']); ?>
+          </td>
           <td><?php echo h($character['Race']['name']); ?></td>
           <td><?php echo h($character['Faction']['name']); ?></td>
           <td><?php echo h($character['Location']['name']); ?></td>
