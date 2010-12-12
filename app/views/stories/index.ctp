@@ -47,7 +47,6 @@ foreach ($stories as $story):
   </tr>
 <?php endforeach; ?>
 </table>
-</div>
 <?php echo $this->element('pager'); ?>
 <div class="actions">
   <ul>
@@ -62,4 +61,5 @@ foreach ($stories as $story):
       ?>
     </li>
   </ul>
+</div>
 </div>

@@ -1,5 +1,4 @@
 <div class="locations index">
-<h2><?php __('Locations');?></h2>
 <div class="actions">
   <ul>
     <li>
@@ -11,6 +10,7 @@
     </li>
   </ul>
 </div>
+<h2><?php __('Locations');?></h2>
 <div class="tree">
 <?php
 

@@ -1,14 +1,11 @@
-pre {
-  color: #000;
-  background: #f0f0f0;
-  padding: 1em;
-}
 pre.cake-debug {
   background: #ffcc00;
+  color: #000;
   font-size: 120%;
   line-height: 140%;
   margin-top: 1em;
   overflow: auto;
+  padding: 1em;
   position: relative;
 }
 div.cake-stack-trace {

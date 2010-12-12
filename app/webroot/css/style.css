@@ -88,3 +88,9 @@ dd {
   margin-left: 10em;
   margin-top: -2.5em;
 }
+pre {
+  font-family: inherit;
+  margin: 0 0 1em 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}

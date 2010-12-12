@@ -32,13 +32,6 @@ p.error em {
   background: green;
   color: #fff;
 }
-
-/*  Actions  */
-div.actions li {
-  display: inline;
-  line-height: 2em;
-}
-
 /* Index */
 div.paging {
   background: #fff;
@@ -57,7 +50,26 @@ div.paging span.current {
 div.related { clear: both; }
 
 td.avatar {
-  width: 0px; /* shrink to image size, might not be cross browser */
+  text-align: center;
+}
+td.avatar.character {
+  width: 75px;
+}
+td.avatar.user {
+  width: 100px;
+}
+div.avatar a:first-child {
+  border-bottom: none;
+}
+div.avatar.character img {
+  height: auto;
+  max-height: 75px;
+  width: 75px;
+}
+div.avatar.user img {
+  height: auto;
+  max-height: 100px;
+  width: 100px;
 }
 
 /* Rank stars */
@@ -72,3 +84,50 @@ td.avatar {
   width: 16px;
 }
 
+/*  Actions  */
+div.actions ul {
+  margin: 0 0 1em 0;
+  overflow: hidden;
+}
+div.actions li {
+  display: block;
+  float: left;
+  margin: 0;
+}
+div.actions a {
+  background: #E6E6E6 url(../img/jquery-ui/ui-bg_glass_75_e6e6e6_1x400.png)
+              repeat-x 50% 50%;
+  border: 1px solid #D3D3D3;
+  color: #555555;
+  display: block;
+  line-height: 1.4em;
+  margin: 0 -1px 0 0;
+  padding: 0.4em 1em;
+}
+div.actions li a:hover {
+  background: #DADADA url(../img/jquery-ui/ui-bg_glass_75_dadada_1x400.png)
+              repeat-x 50% 50%;
+  border: 1px solid #999;
+}
+div.actions li a:active {
+  background: #AAA url(../img/jquery-ui/ui-bg_glass_65_ffffff_1x400.png)
+              repeat-x 50% 50%;
+  border: 1px solid #AAA;
+}
+/* Rounded corners */
+div.actions li:first-child a {
+  -moz-border-radius-topleft: 4px;
+  -webkit-border-top-left-radius:- 4px;
+  border-top-left-radius: 4px;
+  -moz-border-radius-bottomleft: 4px;
+  -webkit-border-bottom-left-radius:- 4px;
+  border-bottom-left-radius: 4px;
+}
+div.actions li:last-child a {
+  -moz-border-radius-topright: 4px;
+  -webkit-border-top-right-radius:- 4px;
+  border-top-right-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+  -webkit-border-bottom-right-radius:- 4px;
+  border-bottom-right-radius: 4px;
+}
