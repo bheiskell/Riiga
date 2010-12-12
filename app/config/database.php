@@ -83,6 +83,7 @@ class DATABASE_CONFIG {
     'login' => 'riiga',
     'password' => '',
     'database' => 'riiga',
+    'encoding' => 'utf8',
   );
 
   var $test = array(
@@ -91,6 +92,7 @@ class DATABASE_CONFIG {
     'login' => 'riiga_test',
     'password' => '',
     'database' => 'riiga_test',
+    'encoding' => 'utf8',
   );
 
 }
