@@ -95,5 +95,26 @@ class DATABASE_CONFIG {
     'encoding' => 'utf8',
   );
 
+  var $development = array(
+    'driver' => 'mysql',
+    'host' => 'localhost',
+    'login' => 'riiga_dev',
+    'password' => '',
+    'database' => 'riiga_dev',
+    'encoding' => 'utf8',
+  );
+
+  /**
+   * __construct
+   *
+   * Automattically select a database. Always fallback to dev.
+   *
+   * @access public
+   * @return void
+   */
+  public function __construct () {
+    $this->default = ('riiga.net' == $_SERVER['HTTP_HOST'])
+      ? $this->default : $this->development;
+  }
 }
 ?>
