@@ -28,7 +28,10 @@
             </ul>
           <?php endif; ?>
         </td>
-        <td><pre><?php echo h($entry['content']);?></pre></td>
+        <td>
+        <?php echo h($entry['created']);?>
+        <pre><?php echo h($entry['content']);?></pre>
+        </td>
 
         <td class="actions">
           <?php if ($entry['user_id'] == $session->read('Auth.User.id')): ?>
