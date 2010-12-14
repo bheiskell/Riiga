@@ -27,6 +27,8 @@ class AppController extends Controller {
    * @return void
    */
   public function beforeFilter() {
+    $this->Auth->allow('display'); // for the pages controller
+
     $isAdmin     = $this->_isAdmin();
     $isModerator = $this->_isModerator();
 
