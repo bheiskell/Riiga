@@ -16,6 +16,17 @@ class Story extends AppModel {
       'foreignKey' => 'user_id_turn',
     )
   );
+  var $hasOne = array(
+    'LatestEntry' => array(
+      'className' => 'Entry',
+      'foreignKey' => false,
+      'fields' => array('id', 'created'),
+      'conditions' => array(
+        'LatestEntry.story_id = Story.id',
+        'LatestEntry.id = (SELECT MAX(id) FROM entries WHERE Story.id = entries.story_id)'
+      ),
+    ),
+  );
 
   var $validate = array(
     'id' => array(
@@ -234,8 +245,6 @@ class Story extends AppModel {
   public function paginateGetContain() {
     return array(
       'Character'       => array('fields' => array('id', 'name')),
-      'FilterCharacter' => array('fields' => array('id', 'name')),
-      'FilterUser'      => array('fields' => array('id', 'username')),
       'LatestEntry'     => array('fields' => array('id', 'created')),
       'Location'        => array('fields' => array('id', 'name')),
       'Turn'            => array('fields' => array('id', 'username')),
@@ -254,12 +263,13 @@ class Story extends AppModel {
    *
    * Bind the models needed for the paginator's search / sort
    *
+   * @param mixed $relation Relation to bind
    * @access public
-   * @return void
+   * @return array Models to include in the contain
    */
-  public function paginateBindModels() {
-    $this->bindModel(array(
-      'hasOne' => array(
+  public function paginateBindModels($relation) {
+    $relations = array(
+      'FilterCharacter' => array(
         'CharactersStory',
         'FilterCharacter' => array(
           'className' => 'Character',
@@ -268,24 +278,25 @@ class Story extends AppModel {
             'FilterCharacter.id = CharactersStory.character_id'
           ),
         ),
+      ),
+      'FilterUser' => array(
         'StoriesUser',
         'FilterUser' => array(
           'className' => 'User',
           'foreignKey' => false,
           'conditions' => array('FilterUser.id = StoriesUser.user_id'),
         ),
-        'LatestEntry' => array(
-          'className' => 'Entry',
-          'foreignKey' => false,
-          'fields' => array('id', 'created'),
-          'conditions' => array(
-            'LatestEntry.story_id = Story.id',
-            'LatestEntry.created in '
-              . '(SELECT MAX(created) FROM entries GROUP BY story_id)'
-          ),
-        ),
-      )
-    ), false);
+      ),
+    );
+    $contains = array(
+      'FilterCharacter' => array('CharactersStory', 'FilterCharacter'),
+      'FilterUser'      => array('StoriesUser',     'FilterUser'),
+    );
+
+    if (!isset($relations[$relation])) { return array(); }
+    $this->bindModel(array('hasOne' => $relations[$relation]), false);
+
+    return $contains[$relation];
   }
 }
 ?>

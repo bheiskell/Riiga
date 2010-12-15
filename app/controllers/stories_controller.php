@@ -14,9 +14,7 @@ class StoriesController extends AppController {
   }
 
   function index() {
-    $this->Story->paginateBindModels();
     $this->paginate['contain'] = $this->Story->paginateGetContain();
-    $this->paginate['group']   = array('Story.id');
     $this->set('stories', $this->paginate($this->_paginateGetFilters()));
   }
 
@@ -170,8 +168,16 @@ class StoriesController extends AppController {
       function removeEmptyLikes($condition) { return !($condition == '%%'); }
 
       $filters = array_filter($filters, 'removeEmptyLikes');
-    }
 
+      // In stock cakephp, group by does not behave correctly when pagination
+      // is involved. Instead, bind models on demand to avoid duplicate rows.
+      foreach (array_keys($filters) as $filter) {
+        $this->paginate['contain'] = array_merge(
+          $this->Story->paginateBindModels(array_shift(explode('.', $filter))),
+          $this->paginate['contain']
+        );
+      }
+    }
     return $filters;
   }
 }
