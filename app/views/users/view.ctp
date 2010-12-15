@@ -5,7 +5,7 @@
     <?php echo $stars->render($user['User']['rank']); ?>
   </div>
   <ul>
-    <?php if ($session->read('Auth.User.id') == $user['User']['id']): ?>
+    <?php if ($userId == $user['User']['id']): ?>
       <li>
         <?php
           echo $html->link(__('Edit profile', true), array('action' => 'edit'));

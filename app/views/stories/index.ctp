@@ -50,11 +50,13 @@ foreach ($stories as $story):
 <?php echo $this->element('pager'); ?>
 <div class="actions">
   <ul>
-    <li>
-      <?php
-        echo $html->link(__('New Story', true), array('action' => 'add'));
-      ?>
-    </li>
+    <?php if ($userId): ?>
+      <li>
+        <?php
+          echo $html->link(__('New Story', true), array('action' => 'add'));
+        ?>
+      </li>
+    <?php endif; ?>
     <li>
       <?php
         echo $html->link(__('Filter', true), array('action' => 'filter'));

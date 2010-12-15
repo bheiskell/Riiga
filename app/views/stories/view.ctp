@@ -34,7 +34,7 @@
         </td>
 
         <td class="actions">
-          <?php if ($entry['user_id'] == $session->read('Auth.User.id')): ?>
+          <?php if ($entry['user_id'] == $userId): ?>
             <?php
               echo $html->link(__('Edit', true), array(
                 'controller' => 'entries',
@@ -92,47 +92,49 @@
 <?php endif; ?>
 </div>
 <div style="clear:both;"></div>
-<div class="actions">
-  <ul>
-    <?php $id = $story['Story']['id']; ?>
-    <?php if ($isMember): ?>
-      <li>
-        <?php
-          echo $html->link(
-            __('Add Character', true),
-            array('action' => 'add_character', $id)
-          );
-        ?>
-      </li>
-      <li>
-        <?php
-          echo $html->link(
-            __('Remove Character', true),
-            array('action' => 'remove_character', $id)
-          );
-        ?>
-      </li>
-      <li>
-        <?php
-          echo $html->link(__('Post an Entry', true), array(
-            'controller' => 'entries', 'action' => 'add', $id
-          ));
-        ?>
-      </li>
-      <li>
-        <?php
-          echo $html->link(__('Leave', true), array('action' => 'leave', $id));
-        ?>
-      </li>
-    <?php elseif($session->read('Auth.User.id')): ?>
-      <li>
-        <?php
-          echo $html->link(__('Join', true), array('action' => 'join', $id));
-        ?>
-      </li>
-    <?php endif; ?>
-  </ul>
-</div>
+<?php if ($userId): ?>
+  <div class="actions">
+    <ul>
+      <?php $id = $story['Story']['id']; ?>
+      <?php if ($isMember): ?>
+        <li>
+          <?php
+            echo $html->link(
+              __('Add Character', true),
+              array('action' => 'add_character', $id)
+            );
+          ?>
+        </li>
+        <li>
+          <?php
+            echo $html->link(
+              __('Remove Character', true),
+              array('action' => 'remove_character', $id)
+            );
+          ?>
+        </li>
+        <li>
+          <?php
+            echo $html->link(__('Post an Entry', true), array(
+              'controller' => 'entries', 'action' => 'add', $id
+            ));
+          ?>
+        </li>
+        <li>
+          <?php
+            echo $html->link(__('Leave', true), array('action' => 'leave', $id));
+          ?>
+        </li>
+      <?php elseif ($userId): ?>
+        <li>
+          <?php
+            echo $html->link(__('Join', true), array('action' => 'join', $id));
+          ?>
+        </li>
+      <?php endif; ?>
+    </ul>
+  </div>
+<?php endif; ?>
 <?php if ($isModerator): ?>
   <div class="moderator actions">
     <ul>

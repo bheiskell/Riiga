@@ -16,13 +16,17 @@
       );
     ?>
   <?php endif; ?>
-  <div class="actions">
-    <ul>
-      <li>
-        <?php
-          echo $html->link(__('New Character', true), array('action' => 'add'));
-        ?>
-      </li>
-    </ul>
-  </div>
+  <?php if ($userId): ?>
+    <div class="actions">
+      <ul>
+        <li>
+          <?php
+            echo $html->link(__('New Character', true), array(
+              'action' => 'add'
+            ));
+          ?>
+        </li>
+      </ul>
+    </div>
+  <?php endif; ?>
 </div>

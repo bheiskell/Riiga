@@ -102,65 +102,63 @@
       </tbody>
     </table>
   <?php endif; ?>
-  <div class="actions">
-    <ul>
-      <li>
-        <?php
-          echo $html->link(
-            __('Edit', true),
-            array(
-              'action' => 'edit',
-               $character['Character']['id'],
-              'pending_id' => (isset($character['Character']['pending_id']))
-                ? $character['Character']['pending_id'] : false
-            )
-          );
-        ?>
-      </li>
-      <?php if (!isset($character['Character']['pending_id'])): ?>
-        <li>
-          <?php
-            if (
-            $character['Character']['user_id'] == $session->read('Auth.User.id')
-            ):
-          ?>
-            <?php
-              echo $html->link(
-                __('Add to a story', true),
-                array(
-                  'controller' => 'story',
-                  'action' => 'add_character',
-                  'character_id' => $character['Character']['id'],
-                )
-              );
-            ?>
-          <?php else: ?>
-            <?php
-              echo $html->link(
-                __('Invite to a story', true),
-                array(
-                  'controller' => 'story',
-                  'action' => 'invite',
-                  'character_id' => $character['Character']['id'],
-                )
-              );
-            ?>
-          <?php endif; ?>
-        </li>
-      <?php elseif ($isAdmin): ?>
+  <?php if ($userId): ?>
+    <div class="actions">
+      <ul>
         <li>
           <?php
             echo $html->link(
-              __('Approve', true),
+              __('Edit', true),
               array(
-                'action' => 'approve_pending',
-                $character['Character']['pending_id'],
-                'admin' => true,
+                'action' => 'edit',
+                 $character['Character']['id'],
+                'pending_id' => (isset($character['Character']['pending_id']))
+                  ? $character['Character']['pending_id'] : false
               )
             );
           ?>
         </li>
-      <?php endif; ?>
-    </ul>
-  </div>
+        <?php if (!isset($character['Character']['pending_id'])): ?>
+          <li>
+            <?php if ($character['Character']['user_id'] == $userId): ?>
+              <?php
+                echo $html->link(
+                  __('Add to a story', true),
+                  array(
+                    'controller' => 'story',
+                    'action' => 'add_character',
+                    'character_id' => $character['Character']['id'],
+                  )
+                );
+              ?>
+            <?php else: ?>
+              <?php
+                echo $html->link(
+                  __('Invite to a story', true),
+                  array(
+                    'controller' => 'story',
+                    'action' => 'invite',
+                    'character_id' => $character['Character']['id'],
+                  )
+                );
+              ?>
+            <?php endif; ?>
+          </li>
+        <?php elseif ($isAdmin): ?>
+          <li>
+            <?php
+              echo $html->link(
+                __('Approve', true),
+                array(
+                  'action' => 'approve_pending',
+                  $character['Character']['pending_id'],
+                  'admin' => true,
+                )
+              );
+            ?>
+          </li>
+        <?php endif; ?>
+      </ul>
+    </div>
+  <?php endif; ?>
 </div>

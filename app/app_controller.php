@@ -21,7 +21,9 @@ class AppController extends Controller {
   /**
    * beforeFilter
    *
-   * Check authorization for prefix routes
+   * Open access to display action.
+   * Set a few view variables
+   * Check authorization for prefix routes.
    *
    * @access public
    * @return void
@@ -29,10 +31,11 @@ class AppController extends Controller {
   public function beforeFilter() {
     $this->Auth->allow('display'); // for the pages controller
 
+    $userId      = $this->auth->user('id');
     $isAdmin     = $this->_isAdmin();
     $isModerator = $this->_isModerator();
 
-    $this->set(compact('isAdmin', 'isModerator'));
+    $this->set(compact('userId', 'isAdmin', 'isModerator'));
 
     if (  ($this->_getParam('admin')     || $this->_getParam('moderator'))
       && !($this->_getParam('admin')     && $isAdmin)
