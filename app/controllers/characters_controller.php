@@ -43,19 +43,21 @@ class CharactersController extends AppController {
   }
 
   function view($id = null) {
-    $this->Character->contain(array(
+    $contain = array(
       'Faction',
       'Location' => array('LocationRegion'),
       'Race',
       'Rank',
       'User',
-      'Story',
-    ));
+    );
 
     if ($id) {
+      $contain[] = 'Story';
+      $this->Character->contain($contain);
       $this->set('character', $this->Character->findById($id));
 
     } else if (isset($this->params['named']['pending_id'])) {
+      $this->Character->contain($contain);
       $id = $this->params['named']['pending_id'];
       $this->set('character', $this->Character->Pending->findByPendingId($id));
     }

@@ -25,7 +25,11 @@ class PendingBehavior extends ModelBehavior {
 
     // Mirror current model associations for look-ups
     foreach ($Model->Pending->__associations as $type) {
-      $Model->Pending->{$type} = $Model->{$type};
+      // hasAndBelongsToMany relationships are dangerous to pend currently. The
+      // primary key will mismatch and corrupt associations
+      if ('hasAndBelongsToMany' != $type) {
+        $Model->Pending->{$type} = $Model->{$type};
+      }
     }
     $Model->Pending->__createLinks();
   }
