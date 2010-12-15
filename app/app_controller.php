@@ -31,7 +31,7 @@ class AppController extends Controller {
   public function beforeFilter() {
     $this->Auth->allow('display'); // for the pages controller
 
-    $userId      = $this->auth->user('id');
+    $userId      = $this->Auth->user('id');
     $isAdmin     = $this->_isAdmin();
     $isModerator = $this->_isModerator();
 
