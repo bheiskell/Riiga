@@ -44,7 +44,7 @@
 <body>
   <div id="container">
     <div id="header">
-      <h1><?php echo $html->link(__('Land of Riiga', true), '/'); ?></h1>
+      <h1><?php echo $html->link(__('Riiga', true), '/'); ?></h1>
       <ul id="navigation">
         <li>
           <?php
