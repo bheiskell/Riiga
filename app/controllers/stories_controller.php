@@ -15,6 +15,7 @@ class StoriesController extends AppController {
 
   function index() {
     $this->paginate['contain'] = $this->Story->paginateGetContain();
+    $this->paginate['order']   = array('LatestEntry.created DESC');
     $this->set('stories', $this->paginate($this->_paginateGetFilters()));
   }
 
