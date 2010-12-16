@@ -232,5 +232,25 @@ class AppSchema extends CakeSchema {
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array()
 	);
+	var $chats = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'user_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'message' => array('type' => 'text', 'null' => false, 'default' => NULL),
+		'title' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 256),
+		'is_read' => array('type' => 'integer', 'null' => true, 'default' => 0),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'indexes' => array()
+	);
+	var $messages = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'recv_user_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'send_user_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'message' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
+		'is_read' => array('type' => 'integer', 'null' => true, 'default' => 0),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'indexes' => array()
+	);
 }
 ?>

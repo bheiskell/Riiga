@@ -113,6 +113,7 @@ class DATABASE_CONFIG {
    * @return void
    */
   public function __construct () {
+    if (!isset($_SERVER['HTTP_HOST'])) { return; }
     $this->default = ('riiga.net' == $_SERVER['HTTP_HOST'])
       ? $this->default : $this->development;
   }
