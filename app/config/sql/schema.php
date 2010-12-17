@@ -228,6 +228,7 @@ class AppSchema extends CakeSchema {
 		'avatar' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 1024),
 		'is_admin' => array('type' => 'integer', 'null' => true, 'default' => NULL),
 		'offset' => array('type' => 'integer', 'null' => false, 'default' => 0),
+		'is_deactivated' => array('type' => 'boolean', 'null' => true, 'default' => '0'),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array()
@@ -235,9 +236,8 @@ class AppSchema extends CakeSchema {
 	var $chats = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
 		'user_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
-		'message' => array('type' => 'text', 'null' => false, 'default' => NULL),
-		'title' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 256),
-		'is_read' => array('type' => 'integer', 'null' => true, 'default' => 0),
+		'message' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
+		'is_deactivated' => array('type' => 'boolean', 'null' => true, 'default' => '0'),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array()
@@ -246,8 +246,10 @@ class AppSchema extends CakeSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
 		'recv_user_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 		'send_user_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
-		'message' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
+		'message' => array('type' => 'text', 'null' => false, 'default' => NULL),
+		'title' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 256),
 		'is_read' => array('type' => 'integer', 'null' => true, 'default' => 0),
+		'is_deactivated' => array('type' => 'boolean', 'null' => true, 'default' => '0'),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array()

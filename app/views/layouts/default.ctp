@@ -81,6 +81,21 @@
         ?>
           <li>
             <?php
+              echo $html->link(
+                'Messages' . (
+                  (isset($messageCount) && $messageCount)
+                    ? " ($messageCount)" : ''
+                ),
+                array(
+                  'controller' => 'users',
+                  'action' => 'messages',
+                  'admin' => false,
+                )
+              );
+            ?>
+          </li>
+          <li>
+            <?php
               echo $html->link($user['username'], array(
                 'controller' => 'users',
                 'action' => 'view',
@@ -128,7 +143,9 @@
       </div>
       <?php echo $content_for_layout; ?>
     </div>
-    <div id="footer">&nbsp;</div>
+    <div id="footer">
+      <?php echo $this->element('chat_box', compact('chats', 'userId')); ?>
+    </div>
   </div>
   <?php echo $cakeDebug; ?>
 </body>

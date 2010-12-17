@@ -2,6 +2,7 @@
 class AppController extends Controller {
   var $view       = 'App'; 
   var $components = array('Security', 'Auth', 'Session');
+  var $uses       = array('Message', 'Chat');
   var $helpers    = array(
     'Altrow',
     'Avatar',
@@ -22,7 +23,8 @@ class AppController extends Controller {
    * beforeFilter
    *
    * Open access to display action.
-   * Set a few view variables
+   * Set a few view variables.
+   * Get chats and unread message counts.
    * Check authorization for prefix routes.
    *
    * @access public
@@ -35,7 +37,16 @@ class AppController extends Controller {
     $isAdmin     = $this->_isAdmin();
     $isModerator = $this->_isModerator();
 
-    $this->set(compact('userId', 'isAdmin', 'isModerator'));
+    $chats        = $this->Chat->find('last_25');
+    $messageCount = $this->Message->find('count_unread', $userId);
+
+    $this->set(compact(
+      'userId',
+      'isAdmin',
+      'isModerator',
+      'chats',
+      'messageCount'
+    ));
 
     if (  ($this->_getParam('admin')     || $this->_getParam('moderator'))
       && !($this->_getParam('admin')     && $isAdmin)
