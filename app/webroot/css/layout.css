@@ -70,3 +70,10 @@
   background: #4d4d4d;
   padding: 1em;
 }
+#footer ul {
+  float: right;
+}
+#footer a, #footer a:hover {
+  border-color: #fff;
+  color: #fff;
+}

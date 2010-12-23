@@ -146,6 +146,16 @@
       <?php echo $content_for_layout; ?>
     </div>
     <div id="footer">
+      <ul>
+        <li>
+          <?php
+            echo $html->link(
+              __('Find a bug?', true),
+              'http://www.github.com/etherealpanda/riiga/issues'
+            );
+          ?>
+        </li>
+      </ul>
       <?php echo $this->element('chat_box', compact('chats', 'userId')); ?>
     </div>
   </div>
