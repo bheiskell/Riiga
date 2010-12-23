@@ -1,0 +1,13 @@
+/* Index */
+div.paging {
+  background: #fff;
+  color: #ccc;
+  margin-bottom: 1em;
+}
+div.paging div.disabled {
+  color: #ddd;
+  display: inline;
+}
+div.paging span.current {
+  color: #000;
+}

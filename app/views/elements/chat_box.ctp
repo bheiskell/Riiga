@@ -33,6 +33,23 @@
       ?>
       <?php echo $form->input('message'); ?>
       <?php echo $form->end('Submit'); ?>
+    <?php else: ?>
+      <p>
+        <?php
+          echo $html->link(__('Login', true), array(
+            'controller' => 'users',
+            'action' => 'login'
+          ));
+        ?>
+        or
+        <?php
+          echo $html->link(__('register', true), array(
+            'controller' => 'users',
+            'action' => 'register'
+          ));
+        ?>
+        to comment.
+      </p>
     <?php endif; ?>
   </div>
 <?php endif; ?>

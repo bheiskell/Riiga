@@ -1,0 +1,53 @@
+/* Chat box */
+.chat_box {
+  color: #ddd;
+  height: 15em;
+  overflow: auto;
+  width: 75em;
+}
+.chat_box div {
+  padding: 0;
+}
+.chat_box a {
+  border-color: #ddd;
+  color: #ddd;
+}
+.chat_box table, .chat_box td {
+  border: none;
+}
+.chat_box table td {
+  background-color: #5D5D5D;
+  color: #ddd;
+}
+.chat_box table tr.altrow td {
+  background-color: #4D4D4D;
+}
+.chat_box table td:first-child {
+  width: 10em;
+}
+.chat_box table td:last-child {
+  width: 7em;
+}
+.chat_box .text {
+  background: #4d4d4d;
+  float: left;
+  width: 92%;
+}
+.chat_box .text label {
+  background: #4d4d4d;
+  border-color: #5d5d5d;
+  color: #ccc;
+}
+.chat_box input {
+  background: #4d4d4d;
+  border-color: #5d5d5d;
+  color: #ccc;
+}
+.chat_box input:focus {
+  background: #5d5d5d;
+  border-color: #6d6d6d;
+}
+.chat_box input[type=submit] {
+  float: right;
+  height: 2em;
+}

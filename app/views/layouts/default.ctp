@@ -13,6 +13,8 @@
       'form',
       'debug',
       'misc',
+      'elements/chat_box',
+      'elements/pager',
       'errors/403',
       'jquery/ui/ui',
       'jquery/ui/age_info',
