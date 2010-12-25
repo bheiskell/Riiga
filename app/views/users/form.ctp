@@ -2,7 +2,7 @@
   <?php echo $form->create('User', array('action'=>$this->params['action'])); ?>
     <fieldset>
       <legend>
-        <?php (isset($this->data)) ? __('Edit Profile') : __('Register'); ?>
+        <?php (empty($this->data)) ? __('Register') : __('Edit Profile'); ?>
       </legend>
       <?php echo $form->input('username'); ?>
       <?php echo $form->input('password'); ?>
