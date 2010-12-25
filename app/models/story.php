@@ -204,13 +204,14 @@ class Story extends AppModel {
     $this->Character->User->bindModel(array(
       'hasAndBelongsToMany' => array('Story')
     ));
-    return Set::extract(
+    $results = Set::extract(
       '/Story',
       $this->Character->User->find('all', array(
         'conditions' => array('id' => $id),
         'contain' => array('Story'),
       ))
     );
+    return !empty($results[0]['Story']) ? $results : false;
   }
 
   /**
