@@ -1,3 +1,9 @@
+<?php
+  // Automagic form elements pull from the view directly for thier input. This
+  // means if messages is set, like in the messages action of the user
+  // controller, the input box will be populated with incorrect data.
+  $this->set('messages', false);
+?>
 <? if (isset($chats)): ?>
   <div class="chat_box">
     <?php if (!empty($chats)): ?>
@@ -17,7 +23,7 @@
             </td>
             <td><?php echo h($chat['Chat']['message']); ?></td>
             <td>
-              <?php echo date('Y-m-d', strtotime($chat['Chat']['created'])); ?>
+              <?php echo date('d-m-Y', strtotime($chat['Chat']['created'])); ?>
             </td>
           </tr>
         <?php endforeach; ?>

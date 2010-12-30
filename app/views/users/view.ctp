@@ -17,9 +17,9 @@
         echo $html->link(
           __('Invite to a story', true),
           array(
-            'controller' => 'story',
-            'action' => 'invite',
-            'user_id' => $user['User']['id'],
+            'controller' => 'invites',
+            'action' => 'user',
+            'id' => $user['User']['id'],
           )
         );
       ?>

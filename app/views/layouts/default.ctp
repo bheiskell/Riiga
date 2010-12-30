@@ -83,6 +83,16 @@
         ?>
           <li>
             <?php
+              echo $html->link($user['username'], array(
+                'controller' => 'users',
+                'action' => 'view',
+                'id' => $user['id'],
+                'admin' => false,
+              ));
+            ?>
+          </li>
+          <li>
+            <?php
               echo $html->link(
                 'Messages' . (
                   (isset($messageCount) && $messageCount)
@@ -94,16 +104,6 @@
                   'admin' => false,
                 )
               );
-            ?>
-          </li>
-          <li>
-            <?php
-              echo $html->link($user['username'], array(
-                'controller' => 'users',
-                'action' => 'view',
-                'id' => $user['id'],
-                'admin' => false,
-              ));
             ?>
           </li>
           <li>

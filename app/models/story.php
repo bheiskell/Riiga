@@ -31,7 +31,7 @@ class Story extends AppModel {
   var $validate = array(
     'id' => array(
       'required'     => false,
-      'allowEmpty'   => false,
+      'allowEmpty'   => true,
       'rule'         => array('numeric'),
       'message'      => 'Invalid Story Id'
     ),

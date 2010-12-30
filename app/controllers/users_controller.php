@@ -95,5 +95,19 @@ class UsersController extends AppController {
     unset($this->data['User']['password_confirm']);
     $this->render('form');
   }
+
+  function message($id = null) {
+    $this->Message->send(
+      $id,
+      $this->Auth->user('id'),
+      'Hi this is a test message',
+      'Blahbah'
+    );
+  }
+
+  function messages() {
+    $messages = $this->Message->find('unread', $this->Auth->user('id'));
+    $this->set(compact('messages'));
+  }
 }
 ?>
