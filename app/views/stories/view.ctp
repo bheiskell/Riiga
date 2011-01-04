@@ -35,7 +35,7 @@
                   'action'     => 'edit',
                   'id'         => $entry['Entry']['id'],
                   'moderator'  => $isModerator,
-                ));
+                ), array('class' => 'ui-icon ui-icon-pencil'));
               ?>
               <?php
                 echo $html->link(__('Remove', true), array(
@@ -43,7 +43,7 @@
                   'action'     => 'remove',
                   'id'         => $entry['Entry']['id'],
                   'moderator'  => $isModerator,
-                ));
+                ), array('class' => 'ui-icon ui-icon-minusthick'));
               ?>
             <?php else: ?>
             <?php endif; ?>
@@ -114,7 +114,7 @@
                           ):
                         ?>
                           <?php
-                            echo $html->link(__('-', true), array(
+                            echo $html->link(__('Remove', true), array(
                               'action'       => 'remove_character',
                               'id'           => $story['Story']['id'],
                               'character_id' => $character['Character']['id'],
@@ -131,7 +131,7 @@
                     ?>
                       <li class="add">
                         <?php
-                          echo $html->link(__('+', true), array(
+                          echo $html->link(__('Add', true), array(
                             'action' => 'add_character',
                             'id'     => $story['Story']['id'],
                           ), array('class' => 'ui-icon ui-icon-plusthick'));

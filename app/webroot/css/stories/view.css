@@ -8,6 +8,14 @@
   padding-top: 1em;
 }
 
+.stories.view table#entries td:last-child a {
+  background-image: url(../../img/jquery-ui/ui-icons_888888_256x240.png);
+  border: 0;
+}
+.stories.view table#entries td:last-child a:hover {
+  background-image: url(../../img/jquery-ui/ui-icons_cd0a0a_256x240.png);
+}
+
 .stories.view div.related div.location {
   float: right;
 }
