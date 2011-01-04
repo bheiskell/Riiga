@@ -22,10 +22,22 @@ class StoriesController extends AppController {
   function filter($id = null) { }
 
   function view($id = null) {
-    $story    = $this->Story->findById($id);
     $isMember = $this->Story->isMember($id, $this->Auth->user('id'));
 
-    $this->set(compact('story', 'isMember'));
+    $story      = $this->Story->findById($id);
+    $location   = $this->Story->Location->find('first_by_story_id', $id);
+    $entries    = $this->Story->Entry    ->find('all_by_story_id', $id);
+    $characters = $this->Story->Character->find('all_by_story_id', $id);
+    $users      = $this->Story->User     ->find('all_by_story_id', $id);
+
+    $this->set(compact(
+      'story',
+      'location',
+      'entries',
+      'characters',
+      'users',
+      'isMember',
+    ));
 
     if (empty($this->viewVars['story'])) {
       $this->cakeError('error404');
@@ -52,25 +64,46 @@ class StoriesController extends AppController {
 
   function add_character($story_id = null) {
     $user_id = $this->Auth->user('id');
+
     if (!empty($this->data)) {
       $character_id = $this->data['CharactersStory']['character_id'];
-      $message =
-        ($this->Story->add_character($story_id, $character_id, $user_id))
+      $story_id     = $this->data['CharactersStory']['story_id'];
+
+      $message = $this->Story->addCharacter($story_id, $character_id, $user_id)
           ? 'Character added to the story'
-          : 'Failed to remove character from story';
+          : 'Failed to add the character to the story';
+
       $this->flash($message, array('action' => 'view', 'id' => $story_id));
     }
+
     $characters = $this->Story->Character->find('available', $user_id);
-    $this->set(compact('characters'));
+    $story_name = $this->Story->getNameById($story_id);
+
+    if (false === $story_name) {
+      $this->flash('That story could not be found');
+    }
+
+    $this->set(compact('characters', 'story_name', 'story_id'));
   }
 
   function remove_character($story_id = null) {
     $user_id      = $this->Auth->user('id');
     $character_id = $this->_getParam('named', 'character_id');
+
     $message =
-      ($this->Story->remove_character($story_id, $character_id, $user_id))
+      $this->Story->removeCharacter($story_id, $character_id, $user_id)
         ? 'Character successfully removed'
         : 'Failed to remove characters';
+
+    $this->flash($message, array('action' => 'view', 'id' => $story_id));
+  }
+
+  function remove_all_characters($story_id = null) {
+    $message =
+      $this->Story->removeAllCharacters($story_id, $this->Auth->user('id'))
+        ? 'Your characters have been removed from the story'
+        : 'Failed to remove characters';
+
     $this->flash($message, array('action' => 'view', 'id' => $story_id));
   }
 

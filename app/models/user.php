@@ -4,6 +4,9 @@ class User extends AppModel {
   var $displayField = 'username';
   var $order        = array('LOWER(username)' => 'ASC');
   var $hasMany      = array('Character', 'Entry');
+  var $hasAndBelongsToMany = array(
+    'Story' => array('with' => 'StoriesUser')
+  );
 
   var $validate = array(
     'username'         => array(
@@ -222,6 +225,23 @@ class User extends AppModel {
    */
   public function isAdmin($id) {
     return $this->field('is_admin', compact('id'));
+  }
+
+  /**
+   * __findAllByStoryId
+   *
+   * Find users by story id. Include the meta data that includes whether a user
+   * is active in the story.
+   *
+   * @param mixed $story_id
+   * @access protected
+   * @return array
+   */
+  protected function __findAllByStoryId($story_id) {
+    return $this->StoriesUser->find('all', array(
+      'conditions' => array('story_id' => $story_id),
+      'contain' => array('User'),
+    ));
   }
 }
 ?>

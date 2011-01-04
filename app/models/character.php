@@ -5,7 +5,9 @@ class Character extends AppModel {
   var $actsAs = array('Pending');
   var $order  = array('UPPER(Character.name)' => 'ASC');
 
-  var $hasAndBelongsToMany = array('Story');
+  var $hasAndBelongsToMany = array(
+    'Story' => array('with' => 'CharactersStory')
+  );
 
   var $belongsTo = array(
     'Faction',
@@ -102,6 +104,35 @@ class Character extends AppModel {
       )
     ),
   );
+
+  /**
+   * isOwner
+   *
+   * Confirm the user owns the specified character
+   *
+   * @param mixed $character_id
+   * @param mixed $user_id
+   * @access public
+   * @return boolean True if ownership
+   */
+  public function isOwner($id, $user_id) {
+    return 1 == $this->find('count', array(
+      'conditions' => compact('id', 'user_id')
+    ));
+  }
+
+  /**
+   * getUserIdById
+   *
+   * Obtain the user_id of a given character
+   *
+   * @param mixed $id
+   * @access public
+   * @return int Id of the user
+   */
+  public function getUserIdById($id) {
+    return $this->field('user_id', compact('id'));
+  }
 
   /**
    * checkLimit
@@ -272,7 +303,7 @@ class Character extends AppModel {
           'Character.user_id' => $user_id,
           'OR' => array(
             'CharactersStory.is_deactivated = 1',
-            'CharactersStory.is_deactivated NOT NULL',
+            'CharactersStory.is_deactivated IS NOT NULL',
           )
         )
       )),
@@ -309,6 +340,26 @@ class Character extends AppModel {
       '{n}.Character.id',
       '{n}.Character.name'
     );
+  }
+
+  /**
+   * __findAllByStoryId
+   *
+   * Find all characters by their story id. Be sure to include the
+   * CharactersStory data that specifies whether the character has been removed
+   * from the story.
+   *
+   * @param mixed $story_id
+   * @access protected
+   * @return array
+   */
+  protected function __findAllByStoryId($story_id) {
+    $characters = $this->CharactersStory->find('all', array(
+      'conditions' => array('story_id' => $story_id),
+      'contain' => array('Character'),
+    ));
+
+    return $characters;
   }
 }
 ?>

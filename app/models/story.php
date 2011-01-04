@@ -6,8 +6,8 @@ class Story extends AppModel {
 
   var $hasMany             = array('Entry');
   var $hasAndBelongsToMany = array(
-    'Character',
-    'User' => array('with' => 'StoriesUser'),
+    'Character' => array('with' => 'CharactersStory'),
+    'User'      => array('with' => 'StoriesUser'),
   );
   var $belongsTo = array(
     'Location',
@@ -72,6 +72,19 @@ class Story extends AppModel {
   }
 
   /**
+   * getNameById
+   *
+   * Get story name
+   *
+   * @param mixed $story_id
+   * @access public
+   * @return string Name of the story
+   */
+  public function getNameById($story_id) {
+    return $this->field('name', array('id' => $story_id));
+  }
+
+  /**
    * isModerator
    *
    * Determine if a user is a story moderator. Does not perform an isAdmin check
@@ -86,33 +99,55 @@ class Story extends AppModel {
   }
 
   /**
-   * join
+   * addCharacter
    *
-   * Join a user to a story optionally specifying whether a user is a moderator.
+   * Add a character from a story.
    *
    * @param mixed $story_id
+   * @param mixed $character_id
    * @param mixed $user_id
-   * @param mixed $is_moderator
    * @access public
-   * @return boolean True on successful join
+   * @return boolean True on success
    */
-  public function join($story_id, $user_id, $is_moderator = false) {
-    return $this->StoriesUser->add($story_id, $user_id, $is_moderator);
+  public function addCharacter($story_id, $character_id, $user_id) {
+    if (!$this->Character->isOwner($character_id, $user_id)) {
+      return false;
+    }
+
+    return $this->CharactersStory->add($story_id, $character_id);
   }
 
   /**
-   * leave
+   * removeCharacter
    *
-   * Remove a user from a story. This should only technically toggle the
-   * deactivate field.
+   * Remove a character from a story.
+   *
+   * @param mixed $story_id
+   * @param mixed $character_id
+   * @param mixed $user_id
+   * @access public
+   * @return boolean True on success
+   */
+  public function removeCharacter($story_id, $character_id, $user_id) {
+    if (!$this->Character->isOwner($character_id, $user_id)) {
+      return false;
+    }
+
+    return $this->CharactersStory->remove($story_id, $character_id);
+  }
+
+  /**
+   * removeAllCharacters
+   *
+   * Remove all characters from a story, effectively leaving the story.
    *
    * @param mixed $story_id
    * @param mixed $user_id
    * @access public
-   * @return boolean True on successful leave
+   * @return boolean True on success
    */
-  public function leave($story_id, $user_id) {
-    return $this->StoriesUser->remove($story_id, $user_id);
+  public function removeAllCharacters($story_id, $user_id) {
+    return $this->CharactersStory->removeAll($story_id, $user_id);
   }
 
   /**
@@ -141,53 +176,6 @@ class Story extends AppModel {
    */
   public function demote($story_id, $user_id) {
     return $this->StoriesUser->add($story_id, $user_id, false);
-  }
-
-  /**
-   * findById
-   *
-   * Overloading default method to only contain pertinent information
-   *
-   * @param mixed $id Story id
-   * @access public
-   * @return mixed Story in standard cakephp format
-   */
-  public function findById($id) {
-    // This is extremely wasteful; causes a linear increase in queries as the
-    // story grows, which is clearly not acceptable. The issue here is the
-    // nested contains. This probably can be cleaned by a simple loop through
-    // the result that maps User's and Characters to the first tier's data.
-    $this->contain(array(
-      'Turn' => array('fields' => array('id', 'username')),
-      'User' => array('fields' => array('id', 'username', 'avatar')),
-      'Character' => array(
-        'fields' => array('id', 'name', 'avatar', 'user_id'),
-      ),
-      'Entry' => array(
-        'Character' => array('fields' => array('id', 'name', 'avatar')),
-      ),
-      'Location' => array(
-        'LocationRegion',
-        'LocationPoint',
-      ),
-    ));
-
-    $result = parent::findById($id);
-
-    if (empty($result)) { return; }
-
-    foreach ($result['Character'] as &$character) {
-      $character['User'] = array_shift(
-        Set::extract("/User[id={$character['user_id']}]/.[:first]", $result)
-      );
-    }
-    foreach ($result['Entry'] as &$entry) {
-      $entry['User'] = array_shift(
-        Set::extract("/User[id={$entry['user_id']}]/.[:first]", $result)
-      );
-    }
-
-    return $result;
   }
 
   /**

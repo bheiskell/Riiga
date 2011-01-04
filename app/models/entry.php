@@ -141,5 +141,21 @@ class Entry extends AppModel {
 
     return $results[$user_id];
   }
+
+  /**
+   * __findAllByStoryId
+   *
+   * Return all entries from a particular story.
+   *
+   * @param mixed $story_id
+   * @access protected
+   * @return array
+   */
+  protected function __findAllByStoryId($story_id) {
+    return $this->find('all', array(
+      'conditions' => compact('story_id'),
+      'contain' => array('Character'),
+    ));
+  }
 }
 ?>

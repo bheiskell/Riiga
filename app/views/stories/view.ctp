@@ -79,10 +79,22 @@
         <?php if (!empty($story['Character'])):?>
         <ul>
           <?php foreach ($story['Character'] as $character): ?>
-          <li style="float:left; width: 75px; text-align: center;">
-          <?php echo $avatar->character($character, true);?>
-          </li>
+            <?php if ($character['user_id'] == $user['id']): ?>
+              <li style="float:left; width: 75px; text-align: center;">
+                <?php echo $avatar->character($character, true);?>
+              </li>
+            <?php endif; ?>
           <?php endforeach; ?>
+          <?php if ($userId == $user['id']): ?>
+            <li class="add">
+              <?php
+                echo $html->link(
+                  __('+', true),
+                  array('action' => 'add_character', $story['Story']['id'])
+                );
+              ?>
+            </li>
+          <?php endif; ?>
         </ul>
         <?php endif; ?>
       </td>
@@ -99,36 +111,36 @@
       <?php if ($isMember): ?>
         <li>
           <?php
+            echo $html->link(__('Post an Entry', true), array(
+              'controller' => 'entries',
+              'action'     => 'add',
+              'story_id'   => $id,
+            ));
+          ?>
+        </li>
+        <li>
+          <?php
             echo $html->link(
-              __('Add Character', true),
+              __('Add Another Character', true),
               array('action' => 'add_character', $id)
             );
           ?>
         </li>
         <li>
           <?php
-            echo $html->link(
-              __('Remove Character', true),
-              array('action' => 'remove_character', $id)
-            );
-          ?>
-        </li>
-        <li>
-          <?php
-            echo $html->link(__('Post an Entry', true), array(
-              'controller' => 'entries', 'action' => 'add', $id
+            echo $html->link(__('Leave', true), array(
+              'action' => 'remove_all_characters',
+              $id
             ));
           ?>
         </li>
+      <?php else: ?>
         <li>
           <?php
-            echo $html->link(__('Leave', true), array('action' => 'leave', $id));
-          ?>
-        </li>
-      <?php elseif ($userId): ?>
-        <li>
-          <?php
-            echo $html->link(__('Join', true), array('action' => 'join', $id));
+            echo $html->link(__('Join', true), array(
+              'action' => 'add_character',
+              'id'     => $id,
+            ));
           ?>
         </li>
       <?php endif; ?>
@@ -138,16 +150,6 @@
 <?php if ($isModerator): ?>
   <div class="moderator actions">
     <ul>
-      <li>
-        <?php
-          echo $html->link(__('Invite Member', true), array(
-            'controller' => 'id',
-            'action'     => 'invite',
-            'moderator'  => true,
-            'story_id'   => $id,
-          ));
-        ?>
-      </li>
       <li>
         <?php
           echo $html->link(__('Edit Story Information', true), array(
@@ -172,27 +174,6 @@
           ?>
         </li>
       <?php endif; ?>
-      <li>
-        <?php
-          echo $html->link(__('Promote', true), array(
-            'action' => 'promote', 'moderator' => true, $id
-          ));
-        ?>
-      </li>
-      <li>
-        <?php
-          echo $html->link(__('Demote', true), array(
-            'action' => 'demote', 'moderator' => true, $id
-          ));
-        ?>
-      </li>
-      <li>
-        <?php
-          echo $html->link(__('Remove Character', true), array(
-            'action' => 'remove_character', 'moderator' => true, $id
-          ));
-        ?>
-      </li>
     </ul>
   </div>
 <?php endif; ?>

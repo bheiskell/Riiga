@@ -7,6 +7,7 @@ class Location extends AppModel {
 
   var $hasAndBelongsToMany = array('LocationTag');
   var $hasOne = array('CharacterLocation', 'LocationRegion', 'LocationPoint');
+  var $hasMany = array('Story');
 
   public function afterSave()   { $this->clearCache(); }
   public function afterDelete() { $this->clearCache(); }
@@ -113,6 +114,29 @@ class Location extends AppModel {
 
   protected function __findInfoForCharacters() {
     return $this->find('info', array('characters' => true));
+  }
+
+  /**
+   * __findFirstByStoryId
+   *
+   * Find the first location by the story id. Include the point and region data.
+   *
+   * @param mixed $story_id
+   * @access protected
+   * @return array Location data including the point and region info.
+   */
+  protected function __findFirstByStoryId($story_id) {
+    $id = $this->Story->field('location_id', array('id' => $story_id));
+
+    $location = $this->findById($id);
+
+    $locationRegion = $this->LocationRegion->findByLocationId($id);
+    $locationPoint  = $this->LocationPoint ->findByLocationId($id);
+
+    if ($locationRegion) $location = array_merge($location, $locationRegion);
+    if ($locationPoint)  $location = array_merge($location, $locationPoint);
+
+    return $location;
   }
 
   public function afterFind($results, $primary) {

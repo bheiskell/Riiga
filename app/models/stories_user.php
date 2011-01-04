@@ -14,7 +14,7 @@ class StoriesUser extends AppModel {
    * @access public
    * @return boolean True if user is a story moderator
    */
-  function isModerator($story_id, $user_id) {
+  public function isModerator($story_id, $user_id) {
     $isAdmin = $this->User->isAdmin($user_id);
 
     $isModerator = count(
@@ -28,6 +28,29 @@ class StoriesUser extends AppModel {
     );
 
     return $isModerator || $isAdmin;
+  }
+
+  /**
+   * checkInvites
+   *
+   * Validator function verifying story invites before allowing a user to join
+   * a story.
+   *
+   * @access private
+   * @return void
+   */
+  private function checkInvites() {
+    // TODO: test and install once the invite system is complete
+
+    // Need a conditional check for if the user is already part of the story.
+
+    if ($this->Story->field('is_invite_only', array('id' => $story_id))) {
+      return 1 ==$this->Story->Invite->find('count', array(
+        'story_id' => $story_id,
+        'user_id'  => $user_id
+      ));
+    }
+    return true;
   }
 
   /**
@@ -87,7 +110,8 @@ class StoriesUser extends AppModel {
    * @access public
    * @return boolean True on success
    */
-  function add($story_id, $user_id, $is_moderator = false) {
+  function add($story_id, $user_id, $is_moderator = null) {
+
     $this->id = $this->find('id', compact('story_id', 'user_id'));
 
     if (!$this->id) { $this->create(); }
@@ -95,9 +119,10 @@ class StoriesUser extends AppModel {
     $this->set(array(
       'story_id'       => $story_id,
       'user_id'        => $user_id,
-      'is_moderator'   => $is_moderator,
       'is_deactivated' => false,
     ));
+
+    if (null !== $is_moderator) { $this->set('is_moderator', $is_moderator); }
 
     return $this->save();
   }
@@ -116,5 +141,36 @@ class StoriesUser extends AppModel {
    */
   function remove($story_id, $user_id) {
     return $this->deactivate($this->find('id', compact('story_id', 'user_id')));
+  }
+
+  /**
+   * cleanup
+   *
+   * Ensure all active users have at least on active character in a story. If
+   * not, deactivate the user. This is stupid expensive and should be
+   * refactored. Efficiency relies on the general case of < 3 users and 1
+   * character per user.
+   *
+   * @param mixed $story_id
+   * @access public
+   * @return void
+   */
+  function cleanup($story_id) {
+    $user_ids = Set::extract(
+      '/StoriesUser/user_id',
+      $this->findAllByStoryId($story_id)
+    );
+    foreach($user_ids as $user_id) {
+      $characters = $this->Story->CharactersStory->find('count', array(
+        'conditions' => array(
+          'story_id' => $story_id,
+          'Character.user_id' => $user_id,
+        ),
+        'contain' => array('Character.user_id'),
+      ));
+      if (0 == $characters) {
+        $this->remove($story_id, $user_id);
+      }
+    }
   }
 }
