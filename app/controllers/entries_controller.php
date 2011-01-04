@@ -13,8 +13,6 @@ class EntriesController extends AppController {
 
     $story_id = $this->Entry->field('story_id');
 
-    debug($this->params);
-
     return $this->Entry->Story->isModerator($story_id, $this->Auth->user('id'));
   }
 
@@ -112,8 +110,8 @@ class EntriesController extends AppController {
     $story_id = $this->Entry->field('story_id');
 
     if ( $this->Auth->user('id') == $user_id || $is_moderator) {
-      $message = 'Entry successfully deleted.';
-      $this->Entry->delete($entry_id);
+      $message = $this->Entry->deactivate($entry_id)
+        ?  'Entry successfully deleted.' : 'Failed to delete entry';
     } else {
       $message = 'Entries can only be deleted by the author or a moderator.';
     }
@@ -121,6 +119,7 @@ class EntriesController extends AppController {
       'controller' => 'stories',
       'action'     => 'view',
       'id'         => $story_id,
+      'moderator'  => false,
     ));
   }
 

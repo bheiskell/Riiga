@@ -46,6 +46,6 @@ class DeactivatableBehavior extends ModelBehavior {
     $Model->id = $id;
     $Model->set('is_deactivated', true);
 
-    return $Model->save();
+    return $Model->save(null, false);
   }
 }
