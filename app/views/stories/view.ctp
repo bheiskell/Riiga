@@ -39,7 +39,7 @@
               echo $html->link(__('Edit', true), array(
                 'controller' => 'entries',
                 'action' => 'edit',
-                $entry['id']
+                $entry['Entry']['id']
               ));
             ?>
           <?php endif; ?>
