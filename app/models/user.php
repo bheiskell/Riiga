@@ -239,8 +239,9 @@ class User extends AppModel {
    */
   protected function __findAllByStoryId($story_id) {
     return $this->StoriesUser->find('all', array(
-      'conditions' => array('story_id' => $story_id),
-      'contain' => array('User'),
+      'conditions'  => array('story_id' => $story_id),
+      'contain'     => array('User'),
+      'deactivated' => true,
     ));
   }
 }

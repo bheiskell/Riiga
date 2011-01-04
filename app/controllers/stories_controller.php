@@ -26,9 +26,11 @@ class StoriesController extends AppController {
 
     $story      = $this->Story->findById($id);
     $location   = $this->Story->Location->find('first_by_story_id', $id);
-    $entries    = $this->Story->Entry    ->find('all_by_story_id', $id);
     $characters = $this->Story->Character->find('all_by_story_id', $id);
     $users      = $this->Story->User     ->find('all_by_story_id', $id);
+
+    $this->paginate = $this->Story->Entry->paginateGetStoryContain($id);
+    $entries = $this->paginate('Entry');
 
     $this->set(compact(
       'story',

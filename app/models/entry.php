@@ -143,19 +143,19 @@ class Entry extends AppModel {
   }
 
   /**
-   * __findAllByStoryId
+   * paginateGetStoryContain
    *
-   * Return all entries from a particular story.
+   * Contains required to view a story's entries.
    *
    * @param mixed $story_id
-   * @access protected
-   * @return array
+   * @access public
+   * @return array Contain array for the paginator
    */
-  protected function __findAllByStoryId($story_id) {
-    return $this->find('all', array(
+  public function paginateGetStoryContain($story_id) {
+    return array(
       'conditions' => compact('story_id'),
-      'contain' => array('Character', 'User'),
-    ));
+      'contain'    => array('Character', 'User'),
+    );
   }
 }
 ?>

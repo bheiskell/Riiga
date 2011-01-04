@@ -26,7 +26,11 @@ class CharactersStory extends AppModel {
    * @return boolean True on success
    */
   public function add($story_id, $character_id) {
+    $this->Behaviors->detach('Deactivatable');
+
     $this->id = $this->field('id', compact('story_id', 'character_id'));
+
+    $this->Behaviors->attach('Deactivatable');
 
     if (!$this->id) { $this->create(); }
 

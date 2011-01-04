@@ -46,10 +46,20 @@ Router::connect('/pages/*', array(
 ));
 
 /**
- * Moderator routing for the stories controller
+ * Moderator routing for the stories controller. Reverse routing doesn't work
+ * unless we're explict about id being a non-named param. We also have to
+ * explicitly identify which named params are valid. This is a headache that I
+ * believe is resolved in 1.3.
  */
+Router::connectNamed(array('user_id'));
 Router::connect('/moderator/:controller/:action/*', array(
-  'prefix' => 'moderator',
+  'prefix'    => 'moderator',
   'moderator' => true,
+));
+Router::connect('/moderator/:controller/:action/:id/*', array(
+  'prefix'    => 'moderator',
+  'moderator' => true,
+), array(
+  'id' => '[0-9]+',
 ));
 ?>

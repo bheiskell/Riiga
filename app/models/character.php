@@ -355,8 +355,9 @@ class Character extends AppModel {
    */
   protected function __findAllByStoryId($story_id) {
     $characters = $this->CharactersStory->find('all', array(
-      'conditions' => array('story_id' => $story_id),
-      'contain' => array('Character'),
+      'conditions'  => array('story_id' => $story_id),
+      'contain'     => array('Character'),
+      'deactivated' => true,
     ));
 
     return $characters;

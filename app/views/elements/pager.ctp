@@ -1,3 +1,4 @@
+<?php $paginator->options(array('url' => $this->passedArgs)); ?>
 <div class="paging">
   <?php
     echo $paginator->prev(

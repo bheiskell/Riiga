@@ -7,3 +7,42 @@
 .stories.view table#entries td.avatar ul {
   padding-top: 1em;
 }
+
+.stories.view div.related div.location {
+  float: right;
+}
+
+.stories.view div.related table {
+  float: left;
+  width: 70%;
+}
+.stories.view div.related td.avatar {
+  width: 100px;
+}
+
+.stories.view div.related td li {
+  float: left;
+  position: relative;
+  text-align: center;
+  width: 75px;
+}
+.stories.view div.related td li>a {
+  background-color: #ffffff;
+  background-image: url(../../img/jquery-ui/ui-icons_888888_256x240.png);
+  border: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.stories.view div.related td li>a:hover {
+  background-image: url(../../img/jquery-ui/ui-icons_cd0a0a_256x240.png);
+}
+
+.stories.view div.related .deactivated {
+  filter: alpha(opacity=50);
+  opacity: 0.5;
+}
+
+.stories.view div.actions {
+  clear: both;
+}
