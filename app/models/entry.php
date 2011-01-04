@@ -154,7 +154,7 @@ class Entry extends AppModel {
   protected function __findAllByStoryId($story_id) {
     return $this->find('all', array(
       'conditions' => compact('story_id'),
-      'contain' => array('Character'),
+      'contain' => array('Character', 'User'),
     ));
   }
 }

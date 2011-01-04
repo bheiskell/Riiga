@@ -36,7 +36,7 @@ class StoriesController extends AppController {
       'entries',
       'characters',
       'users',
-      'isMember',
+      'isMember'
     ));
 
     if (empty($this->viewVars['story'])) {

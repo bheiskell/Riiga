@@ -10,11 +10,11 @@
   <?php $story['Story']['is_completed']   ? __(' (Completed)')   : null; ?>
   <?php $story['Story']['is_invite_only'] ? __(' (Invite Only)') : null; ?>
 </h2>
-<?php if (!empty($story['Entry'])):?>
+<?php if (!empty($entries)):?>
   <table id="entries" cellpadding = "0" cellspacing = "0">
     <?php $altrow->reset(); ?>
-    <?php foreach ($story['Entry'] as $entry): ?>
-      <?php $isDialog = ($entry['is_dialog']) ? 'is_dialog' : null; ?>
+    <?php foreach ($entries as $entry): ?>
+      <?php $isDialog = ($entry['Entry']['is_dialog']) ? 'is_dialog' : null; ?>
       <tr<?php echo $altrow->get($isDialog); ?>>
         <td class="avatar">
           <?php echo $avatar->user($entry['User'], true);?>
@@ -29,12 +29,12 @@
           <?php endif; ?>
         </td>
         <td>
-        <?php echo h($entry['created']);?>
-        <pre><?php echo h($entry['content']);?></pre>
+        <?php echo h($entry['Entry']['created']);?>
+        <pre><?php echo h($entry['Entry']['content']);?></pre>
         </td>
 
         <td class="actions">
-          <?php if ($entry['user_id'] == $userId): ?>
+          <?php if ($entry['Entry']['user_id'] == $userId): ?>
             <?php
               echo $html->link(__('Edit', true), array(
                 'controller' => 'entries',
@@ -55,37 +55,37 @@
   <div style="float:right;">
   <?php
     echo $minimap->render(array(
-      'region' => $story['Location']['LocationRegion'],
-      'point'  => $story['Location']['LocationPoint'],
+      'region' => $location['LocationRegion'],
+      'point'  => $location['LocationPoint'],
     ));
   ?>
   </div>
-  <?php if (!empty($story['User'])):?>
+  <?php if (!empty($users)):?>
   <table cellpadding = "0" cellspacing = "0" style="float:left; width: 70%;">
   <tr>
     <th><?php __('Member'); ?></th>
     <th><?php __('Characters'); ?></th>
   </tr>
   <?php $altrow->reset(); ?>
-  <?php foreach ($story['User'] as $user): ?>
+  <?php foreach ($users as $user): ?>
     <?php
-      $turn = ($story['Turn']['id'] == $user['id']) ? 'turn' : null;
+      $turn = ($story['Story']['user_id_turn'] == $user['User']['id']) ? 'turn' : null;
     ?>
     <tr<?php echo $altrow->get($turn);?>>
       <td class="avatar" style="width:100px;">
-        <?php echo $avatar->user($user, true); ?>
+        <?php echo $avatar->user($user['User'], true); ?>
       </td>
       <td>
-        <?php if (!empty($story['Character'])):?>
+        <?php if (!empty($characters)):?>
         <ul>
-          <?php foreach ($story['Character'] as $character): ?>
-            <?php if ($character['user_id'] == $user['id']): ?>
+          <?php foreach ($characters as $character): ?>
+            <?php if ($character['Character']['user_id'] == $user['User']['id']): ?>
               <li style="float:left; width: 75px; text-align: center;">
-                <?php echo $avatar->character($character, true);?>
+                <?php echo $avatar->character($character['Character'], true);?>
               </li>
             <?php endif; ?>
           <?php endforeach; ?>
-          <?php if ($userId == $user['id']): ?>
+          <?php if ($userId == $user['User']['id']): ?>
             <li class="add">
               <?php
                 echo $html->link(

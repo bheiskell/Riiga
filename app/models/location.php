@@ -133,6 +133,12 @@ class Location extends AppModel {
     $locationRegion = $this->LocationRegion->findByLocationId($id);
     $locationPoint  = $this->LocationPoint ->findByLocationId($id);
 
+    if ($location) {
+      $location = array_merge($location, array(
+        'LocationRegion' => false,
+        'LocationPoint'  => false,
+      ));
+    }
     if ($locationRegion) $location = array_merge($location, $locationRegion);
     if ($locationPoint)  $location = array_merge($location, $locationPoint);
 
