@@ -179,27 +179,18 @@ class Story extends AppModel {
   }
 
   /**
-   * findAllByUserId
+   * __findAllByUserId
    *
-   * Obtain all stories associated with a particular user. Overrides the default
-   * findAllByUserId which in retrospect was a bad idea.
+   * Obtain all stories associated with a particular user.
    *
-   * @param mixed $id User's user id.
+   * @param mixed $user_id
    * @access public
    * @return array following cake's conventions with basic story data
    */
-  public function findAllByUserId($id) {
-    $this->Character->User->bindModel(array(
-      'hasAndBelongsToMany' => array('Story')
-    ));
-    $results = Set::extract(
-      '/Story',
-      $this->Character->User->find('all', array(
-        'conditions' => array('id' => $id),
-        'contain' => array('Story'),
-      ))
-    );
-    return !empty($results[0]['Story']) ? $results : false;
+  public function __findAllByUserId($user_id) {
+    $story_ids = array_keys($this->find('user_stories', $user_id));
+
+    return $this->findAllById($story_ids);
   }
 
   /**

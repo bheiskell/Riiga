@@ -44,14 +44,14 @@ class UsersController extends AppController {
     $this->User->contain(array(
       'Character'
     ));
-    $this->set('user', $this->User->findById($id));
-    $this->set('characters',
-      $this->User->Character->find('all', array(
-        'conditions' => array('Character.user_id' => $id),
-        'contain' => array('Faction', 'Location', 'Race', 'Rank'),
-      ))
-    );
-    $this->set('stories', $this->User->Character->Story->findAllByUserId($id));
+    $user = $this->User->findById($id);
+    $characters = $this->User->Character->find('all', array(
+      'conditions' => array('Character.user_id' => $id),
+      'contain'    => array('Faction', 'Location', 'Race', 'Rank'),
+    ));
+    $stories = $this->User->Story->find('all_by_user_id', $id);
+
+    $this->set(compact('user', 'characters', 'stories'));
 
     if (empty($this->viewVars['user'])) {
       $this->cakeError('error404');
