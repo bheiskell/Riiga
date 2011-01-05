@@ -12,6 +12,8 @@
         ?>
       </li>
     <?php endif; ?>
+    <!--
+    // Incomplete
     <li>
       <?php
         echo $html->link(
@@ -24,6 +26,7 @@
         );
       ?>
     </li>
+    -->
     <li>
       <?php if ($user['User']['url']): ?>
         <?php echo $html->link( __("Website", true), $user['User']['url']); ?>
