@@ -141,7 +141,9 @@
                   </ul>
                 <?php endif; ?>
               </td>
-              <?php if ($isModerator): ?>
+              <?php
+                if ($isModerator && !$user['StoriesUser']['is_deactivated']):
+              ?>
                 <td>
                   <?php if ($user['StoriesUser']['is_moderator']): ?>
                     <?php
