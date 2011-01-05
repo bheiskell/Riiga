@@ -128,8 +128,9 @@ class Story extends AppModel {
    * @access public
    * @return boolean True on success
    */
-  public function removeCharacter($story_id, $character_id, $user_id) {
-    if (!$this->Character->isOwner($character_id, $user_id)) {
+  public function removeCharacter($story_id, $character_id, $user_id = false) {
+    // Don't peform the check if a moderator requested the removal
+    if ($user_id && !$this->Character->isOwner($character_id, $user_id)) {
       return false;
     }
 

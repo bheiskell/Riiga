@@ -119,7 +119,6 @@ class StoriesUser extends AppModel {
     $this->set(array(
       'story_id'       => $story_id,
       'user_id'        => $user_id,
-      'is_deactivated' => false,
     ));
 
     if (null !== $is_moderator) { $this->set('is_moderator', $is_moderator); }

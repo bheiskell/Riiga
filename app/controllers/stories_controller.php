@@ -145,7 +145,7 @@ class StoriesController extends AppController {
 
   function moderator_remove_character($story_id = null) {
     $character_id = $this->_getParam('named', 'character_id');
-    $message = ($this->Story->remove_character($story_id, $character_id))
+    $message = ($this->Story->removeCharacter($story_id, $character_id))
       ? 'Character successfully removed'
       : 'Failed to remove characters';
     $this->flash($message, array('action' => 'view', 'id' => $story_id));

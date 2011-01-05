@@ -51,7 +51,7 @@ Router::connect('/pages/*', array(
  * explicitly identify which named params are valid. This is a headache that I
  * believe is resolved in 1.3.
  */
-Router::connectNamed(array('user_id'));
+Router::connectNamed(array('user_id', 'character_id'));
 Router::connect('/moderator/:controller/:action/*', array(
   'prefix'    => 'moderator',
   'moderator' => true,
