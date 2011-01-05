@@ -151,10 +151,11 @@ class Entry extends AppModel {
    * @access public
    * @return array Contain array for the paginator
    */
-  public function paginateGetStoryContain($story_id) {
+  public function paginateGetStory($story_id) {
     return array(
       'conditions' => compact('story_id'),
       'contain'    => array('Character', 'User'),
+      'order'      => array('Entry.id ASC'),
     );
   }
 }

@@ -29,7 +29,7 @@ class StoriesController extends AppController {
     $characters = $this->Story->Character->find('all_by_story_id', $id);
     $users      = $this->Story->User     ->find('all_by_story_id', $id);
 
-    $this->paginate = $this->Story->Entry->paginateGetStoryContain($id);
+    $this->paginate = $this->Story->Entry->paginateGetStory($id);
     $entries = $this->paginate('Entry');
 
     $this->set(compact(

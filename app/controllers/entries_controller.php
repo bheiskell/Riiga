@@ -10,6 +10,7 @@ class EntriesController extends AppController {
 
   function _isModerator() {
     if ($id = $this->_getParam('pass', 0)) { $this->Entry->id = $id; }
+    if (isset($this->data['Entry']['id'])) { $this->Entry->id = $this->data['Entry']['id']; }
 
     $story_id = $this->Entry->field('story_id');
 
@@ -66,8 +67,9 @@ class EntriesController extends AppController {
       if ($this->Entry->save($this->data)) {
         $this->flash('Your entry has been saved', array(
           'controller' => 'stories',
-          'action'     => 'view_latest',
-          'id'         => $this->data['Entry']['story_id']
+          'action'     => 'view',
+          'id'         => $this->data['Entry']['story_id'],
+          'page'       => 'last',
         ));
       } else {
         $this->Session->setFlash(
