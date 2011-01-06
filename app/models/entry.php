@@ -30,10 +30,16 @@ class Entry extends AppModel {
       'message'      => 'The author does not have access to this story.'
     ),
     'user_id' => array(
-      'required'     => true,
-      'allowEmpty'   => false,
-      'rule'         => array('verifyUserImmutability'),
-      'message'      => 'Ownership of a post is immutable.'
+      'user_immutability' => array (
+        'required'     => true,
+        'allowEmpty'   => false,
+        'rule'         => array('verifyUserImmutability'),
+        'message'      => 'Ownership of a post is immutable.',
+      ),
+      'double_post' => array (
+        'rule'         => array('checkForDoublePost'),
+        'message'      => 'You are not allowed to post two entries in a row. Instead, edit the previous entry to include your addition.',
+      ),
     ),
   );
 
@@ -102,11 +108,29 @@ class Entry extends AppModel {
     return true;
   }
 
-  function afterSave($created) {
-    if ($created) {
-      // TODO: rotate turns
+  /**
+   * checkForDoublePost
+   *
+   * Ensure the user isn't posting twice in a row. This restriction is intended
+   * to deter users from artifically boosting their rank.
+   *
+   * @access public
+   * @return boolean True on valid field
+   */
+  function checkForDoublePost() {
+    if (isset($this->data['Entry']['story_id'])
+      && (!isset($this->data['Entry']['id'])
+        || empty($this->data['Entry']['id'])
+      )
+    ) {
+      $story_id = $this->data['Entry']['story_id'];
+      $user_id  = $this->find('latest_user_id', $story_id);
+      return $this->data['Entry']['user_id'] != $user_id;
     }
+    return true;
+  }
 
+  function afterSave($created) {
     $this->clearCache();
   }
 
@@ -157,6 +181,24 @@ class Entry extends AppModel {
       'contain'    => array('Character', 'User'),
       'order'      => array('Entry.id ASC'),
     );
+  }
+
+  /**
+   * __findLatestUserId
+   *
+   * Find the latest user to post in a story.
+   *
+   * @param mixed $story_id
+   * @access protected
+   * @return int User id
+   */
+  protected function __findLatestUserId($story_id) {
+    $result = $this->find('first', array(
+      'conditions' => compact('story_id'),
+      'order' => array('id DESC'),
+    ));
+    return isset($result['Entry']['user_id'])
+      ? $result['Entry']['user_id'] : false;
   }
 }
 ?>
