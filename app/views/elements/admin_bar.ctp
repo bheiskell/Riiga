@@ -15,6 +15,7 @@
       'Profession Categories' => 'profession_categories',
       'Professions'           => 'professions',
       'Professions Races'     => 'professions_races',
+      'Subraces'              => 'subraces',
     );
   ?>
   <ul id="admin">
