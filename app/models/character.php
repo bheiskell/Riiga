@@ -11,6 +11,7 @@ class Character extends AppModel {
 
   var $belongsTo = array(
     'Faction',
+    'FactionRank',
     'Location',
     'Race',
     'Rank',
@@ -52,8 +53,8 @@ class Character extends AppModel {
       ),
     ),
     'subrace_id' => array(
-      'verifySubrace' => array (
-        'rule'         => array('verifySubrace'),
+      'checkSubrace' => array (
+        'rule'         => array('checkSubrace'),
         'message'      => 'Only when human must a subrace be specified',
       ),
       'numeric' => array (
@@ -74,10 +75,34 @@ class Character extends AppModel {
     'faction_id' => array(
       'checkFaction' => array('rule' => array('checkFaction')),
       'numeric' => array (
+        // The required validator checks using isset, not array_key_exists. I'm
+        // not sure why, but cakephp's search must null out empty columns. Thus
+        // my pending behavior pulls down non-isset compatible data. This is
+        // probably fixable via checking each array value for === null.
         //'required'     => true,
         'allowEmpty'   => true,
         'rule'         => array('numeric'),
         'message'      => "Faction ID must be numeric.",
+      ),
+    ),
+    'faction_rank_id' => array(
+      'checkFactionRank' => array(
+        'rule'         => array('checkFactionRank'),
+        'message'      => 'The faction rank does not belong to the selected faction',
+      ),
+      'checkFactionRankAge' => array(
+        'rule'         => array('checkFactionRankAge'),
+        'message'      => 'The character is not old enough for that faction rank.',
+      ),
+      'checkFactionRankLevel' => array(
+        'rule'         => array('checkFactionRankLevel'),
+        'message'      => 'The character is not a high enough level for that faction rank.',
+      ),
+      'numeric' => array (
+        //'required'     => true,
+        'allowEmpty'   => true,
+        'rule'         => array('numeric'),
+        'message'      => "Faction Rank ID must be numeric.",
       ),
     ),
     'description' => array(
@@ -238,13 +263,13 @@ class Character extends AppModel {
   }
 
   /**
-   * verifySubrace
+   * checkSubrace
    * 
    * @param mixed $check
    * @access protected
    * @return boolean True on verification
    */
-  protected function verifySubrace($check) {
+  protected function checkSubrace($check) {
     // I don't want to waste a db lookup to check the race_id is human.
     return (
         1 == $this->data['Character']['race_id']
@@ -310,6 +335,57 @@ class Character extends AppModel {
     }
 
     return true;
+  }
+
+  /**
+   * checkFactionRank
+   *
+   * Check the faction rank agains the faction
+   *
+   * @param mixed $check
+   * @access protected
+   * @return boolean True when this check is fine
+   */
+  protected function checkFactionRank() {
+    if (empty($this->data['Character']['faction_id'])) {
+      return empty($this->data['Character']['faction_rank_id']);
+    }
+
+    return $this->FactionRank->isFactionRankInFaction(
+      $this->data['Character']['faction_id'],
+      $this->data['Character']['faction_rank_id']
+    );
+  }
+
+  /**
+   * checkFactionRankAge
+   *
+   * Check the faction rank against the age field. This is soft as the age
+   * field doesn't have to be a number.
+   *
+   * @access protected
+   * @return boolean True on valid faction rank
+   */
+  protected function checkFactionRankAge() {
+    return $this->FactionRank->checkFactionRankAge(
+      $this->data['Character']['faction_rank_id'],
+      $this->data['Character']['age']
+    );
+  }
+
+  /**
+   * checkFactionRankLevel
+   *
+   * Compare the faction rank against the characters rank.
+   *
+   * @access protected
+   * @return boolean True on valid faction rank
+   */
+  protected function checkFactionRankLevel() {
+    return $this->FactionRank->checkFactionRankLevel(
+      $this->data['Character']['faction_rank_id'],
+      $this->data['Character']['rank_id']
+    );
   }
 
   /**

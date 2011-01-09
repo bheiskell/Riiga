@@ -129,6 +129,8 @@ class CharactersController extends AppController {
     $subraces  = $this->Character->Subrace ->find('group_by_race');
     $locations = $this->Character->Location->find('group_by_rank');
     $factions  = $this->Character->Faction ->find('group_by_race');
+    $faction_ranks = $this->Character->FactionRank
+      ->find('group_by_faction_name', 'list');
 
     $raceInfo     = $this->Character->Race->find('all');
     $subraceInfo  = $this->Character->Subrace->find('all');
@@ -139,16 +141,15 @@ class CharactersController extends AppController {
 
     $professionInfo = $this->Character->Race->ProfessionsRace
                            ->Profession->find('group_by_category');
-    $factionRanks
-      = $this->Character->Faction->FactionRank->find('group_by_faction');
+    $factionRanksInfo = $this->Character->FactionRank->find('group_by_faction');
 
     $raceNames = $this->Character->Race->find('list');
 
     $this->set(compact(
-      'ageInfo',         'factions',       'factionInfo',    'factionRanks',
+      'ageInfo',         'factions',       'factionInfo',    'factionRanksInfo',
       'locations',       'locationInfo',   'professionInfo', 'races',
-      'raceNames',       'raceInfo',       'ranks',          'subraces',
-      'subraceInfo',     'users'
+      'raceNames',       'raceInfo',       'ranks',          'faction_ranks',
+      'subraces',        'subraceInfo',    'users'
     ));
 
     $this->render('form');

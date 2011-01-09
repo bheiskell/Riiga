@@ -28,6 +28,7 @@
         echo $form->input('location_id', array('empty' =>true));
         echo $form->input('age');
         echo $form->input('faction_id', array('empty' => true));
+        echo $form->input('faction_rank_id', array('empty' => true));
         echo $form->input('profession');
         echo $form->input('description');
         echo $form->input('history');
@@ -114,7 +115,7 @@
           </thead>
           <tbody>
             <?php $altrow->reset(); ?>
-            <?php foreach ($factionRanks[$factionId] as $factionRank): ?>
+            <?php foreach ($factionRanksInfo[$factionId] as $factionRank): ?>
                 <tr<?php echo $altrow;?>>
                 <td><?php echo h($factionRank['name']); ?></td>
                 <td><?php echo h($factionRank['rank_id']); ?></td>
