@@ -22,33 +22,20 @@
       <tr>
         <td><?php echo $stars->render($character['Rank']['id']); ?></td>
         <td>
-          <?php
-            echo $html->link(
-              $character['Race']['name'],
-              array(
-                'controller' => 'races',
-                'action' => 'view',
-                $character['Race']['id']
-              )
-            );
-          ?>
-          &nbsp;
+          <?php echo h($character['Race']['name']); ?>
+          <?php if (isset($character['Subrace']['name'])): ?>
+            (<?php echo h($character['Subrace']['name']); ?>)
+          <?php endif; ?>
         </td>
         <td>
-          <?php
-            echo $html->link(
-              $character['Faction']['name'],
-              array(
-                'controller' => 'factions',
-                'action' => 'view',
-                $character['Faction']['id']
-              )
-            );
-          ?>
+          <?php if (!empty($character['Faction']['name'])): ?>
+            <?php echo h($character['Faction']['name']); ?> -
+            <?php echo h($character['FactionRank']['name']); ?>
+          <?php endif; ?>
           &nbsp;
         </td>
-        <td><?php echo h($character['Character']['age']); ?>&nbsp;</td>
-        <td><?php echo h($character['Character']['profession']); ?>&nbsp;</td>
+        <td><?php echo h($character['Character']['age']); ?></td>
+        <td><?php echo h($character['Character']['profession']); ?></td>
         <td>
           <?php
             echo $html->link(

@@ -47,7 +47,9 @@ class CharactersController extends AppController {
       'Faction',
       'Location' => array('LocationRegion'),
       'Race',
+      'Subrace',
       'Rank',
+      'FactionRank',
       'User',
     );
 
