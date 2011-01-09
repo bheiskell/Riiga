@@ -159,7 +159,7 @@ $.widget("ui.selectmenu", {
 				
 			//optgroup or not...
 			if(selectOptionData[i].parentOptGroup){
-				var optGroupName = self.widgetBaseClass + '-group-' + selectOptionData[i].parentOptGroup;
+				var optGroupName = self.widgetBaseClass + '-group-' + selectOptionData[i].parentOptGroup.replace(/ /g, '_');
 				if(this.list.find('li.' + optGroupName).size()){
 					this.list.find('li.' + optGroupName + ':last ul').append(thisLi);
 				}
