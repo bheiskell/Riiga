@@ -59,11 +59,14 @@
     <?php foreach ($subraceInfo as $subrace): ?>
       <div class="SubraceId_<?php echo h($subrace['Subrace']['id']); ?>">
         <h4><?php echo h($subrace['Subrace']['name']); ?></h4>
-        <h5>
-          <?php $location_id = $subrace['Subrace']['location_id']; ?>
-          <?php echo h($locationInfo[$location_id]['Location']['name']); ?>
-        </h5>
         <p><?php echo h($subrace['Subrace']['description']); ?></p>
+        <dl>
+          <dt>Home Location</dt>
+          <dd>
+            <?php $location_id = $subrace['Subrace']['location_id']; ?>
+            <?php echo h($locationInfo[$location_id]['Location']['name']); ?>
+          </dd>
+        </dl>
       </div>
     <?php endforeach; ?>
   </div>

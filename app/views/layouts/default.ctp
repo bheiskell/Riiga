@@ -28,6 +28,7 @@
       'jquery/ui/shadow',
       'jquery/ui/star',
       'jquery/ui/tree_drilldown',
+      'characters/form',
       'characters/view',
       'locations/index',
       'stories/view',

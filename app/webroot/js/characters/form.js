@@ -9,9 +9,11 @@ $(document).ready(function() {
     userRank:    $('#CharacterUserRank'),
     rank:        $('#CharacterRankId'),
     race:        $('#CharacterRaceId'),
+    subrace:     $('#CharacterSubraceId'),
     location:    $('#CharacterLocationId'),
     age:         $('#CharacterAge'),
     faction:     $('#CharacterFactionId'),
+    factionRank: $('#CharacterFactionRankId'),
     profession:  $('#CharacterProfession'),
     description: $('#CharacterDescription'),
     history:     $('#CharacterHistory'),
@@ -22,7 +24,8 @@ $(document).ready(function() {
     location:   $('#LocationInformation'),
     age:        $('#AgeInformation'),
     faction:    $('#FactionInformation'),
-    profession: $('#ProfessionInformation')
+    profession: $('#ProfessionInformation'),
+    subrace:    $('#SubraceInformation')
   }
 
   $().add(elements.race).add(elements.location).flattenOptgroups();
@@ -89,6 +92,20 @@ $(document).ready(function() {
     }
   });
 
+  elements.subrace.selectsubmenu({
+    fillSubmenu: function(o, submenu) {
+      submenu.children().remove();
+      if (!o.val()) return;
+
+      var content = $('.SubraceId_' + o.val(), informations.subrace).clone();
+
+      submenu.append(content).clearQueue().animate({
+        height: submenu.children().outerHeight(),
+        width:  submenu.children().outerWidth()
+      });
+    }
+  });
+
   elements.location.selectsubmenu({
     format: filterStars,
     fillSubmenu: function(o, submenu) {
@@ -113,6 +130,27 @@ $(document).ready(function() {
       if (!o.val()) return;
 
       var content = $('.FactionId_' + o.val(), informations.faction).clone();
+
+      $('table', content).hide();
+
+      submenu.append(content).clearQueue().animate({
+        height: content.outerHeight(),
+        width:  content.outerWidth()
+      });
+    }
+  });
+
+  elements.factionRank.selectsubmenu({
+    fillSubmenu: function(o, submenu) {
+      submenu.children().remove();
+
+      var factionId = elements.faction.val();
+
+      if (!o.val() || !factionId) return;
+
+      var content = $('.FactionId_' + factionId, informations.faction).clone();
+
+      $('p', content).hide();
 
       submenu.append(content).clearQueue().animate({
         height: content.outerHeight(),

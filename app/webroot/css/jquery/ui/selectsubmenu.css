@@ -77,6 +77,10 @@
 .ui-selectsubmenu-submenu div {
   padding: 0.5em 1em;
 }
+.ui-selectsubmenu-submenu div div {
+  padding-left: 0;
+  padding-right: 0;
+}
 .ui-selectsubmenu-submenu h3 {
   line-height: 2em;
   margin: 0;
