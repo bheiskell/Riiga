@@ -163,7 +163,7 @@ class AppSchema extends CakeSchema {
 	);
 	var $pending_characters = array(
 		'pending_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
-		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
+		'id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
 		'name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
 		'description' => array('type' => 'text', 'null' => false, 'default' => NULL),
 		'history' => array('type' => 'text', 'null' => false, 'default' => NULL),

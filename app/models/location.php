@@ -78,6 +78,9 @@ class Location extends AppModel {
       $locations = $this->find('all');
     }
 
+    // Make data accessible by the location's id
+    $locations = Set::combine($locations, '{n}.Location.id', '{n}');
+
     $ranks   = $this->CharacterLocation->find('ranks_by_location');
     $races   = $this->LocationsRace    ->find('race_by_location');
     $regions = $this->LocationRegion   ->find('location_region_by_location');
@@ -106,7 +109,8 @@ class Location extends AppModel {
       $l['Rank']['id']     = (isset($ranks[$id]))   ? $ranks[$id]   : null;
       $l['Race']           = (isset($races[$id]))   ? $races[$id]   : null;
       $l['LocationRegion'] = (isset($regions[$id])) ? $regions[$id] : null;
-      $l['LocationTag']    = (isset($tags_by_location[$id])) ? $tags_by_location[$id] : null;
+      $l['LocationTag']    = (isset($tags_by_location[$id]))
+        ? $tags_by_location[$id] : null;
     }
 
     return $locations;

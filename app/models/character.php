@@ -14,6 +14,7 @@ class Character extends AppModel {
     'Location',
     'Race',
     'Rank',
+    'Subrace',
     'User',
   );
 
@@ -48,6 +49,17 @@ class Character extends AppModel {
         'allowEmpty'   => false,
         'rule'         => array('numeric'),
         'message'      => "Specify the character's race."
+      ),
+    ),
+    'subrace_id' => array(
+      'verifySubrace' => array (
+        'rule'         => array('verifySubrace'),
+        'message'      => 'Only when human must a subrace be specified',
+      ),
+      'numeric' => array (
+        'required'     => true,
+        'allowEmpty'   => true,
+        'rule'         => array('numeric'),
       ),
     ),
     'location_id' => array(
@@ -140,10 +152,10 @@ class Character extends AppModel {
    * Ensure a user hasn't created more characters than they're allowed. Users
    * are allocated one character per rank until they reach level 7.
    *
-   * @access private
+   * @access protected
    * @return boolean True on successful validate.
    */
-  private function checkLimit() {
+  protected function checkLimit() {
     if ($this->data['Character']['id']) { return true; }
 
     $user_id = $this->data['Character']['user_id'];
@@ -164,11 +176,11 @@ class Character extends AppModel {
    * The character rank cannot exceed the user's rank.
    *
    * @param mixed $check array('key' => 'value')
-   * @access private
+   * @access protected
    * @return boolean Always true, because on failure a custom invalidate is
    *                 called with a dynamic message explaining the failure.
    */
-  private function checkRank($check) {
+  protected function checkRank($check) {
     $key   = array_shift(array_keys($check));
     $value = array_shift(array_values($check));
 
@@ -192,11 +204,11 @@ class Character extends AppModel {
    * Check that the field doesn't exceed the character's rank.
    *
    * @param mixed $check array('key' => 'value')
-   * @access private
+   * @access protected
    * @return boolean Always true, because on failure a custom invalidate is
    *                 called with a dynamic message explaining the failure.
    */
-  private function limitByRank($check, $model) {
+  protected function limitByRank($check, $model) {
     $key   = array_shift(array_keys($check));
     $value = array_shift(array_values($check));
 
@@ -226,16 +238,33 @@ class Character extends AppModel {
   }
 
   /**
+   * verifySubrace
+   * 
+   * @param mixed $check
+   * @access protected
+   * @return boolean True on verification
+   */
+  protected function verifySubrace($check) {
+    // I don't want to waste a db lookup to check the race_id is human.
+    return (
+        1 == $this->data['Character']['race_id']
+        && !empty($this->data['Character']['subrace_id'])
+      ) || (
+        1 != $this->data['Character']['race_id']
+        && empty($this->data['Character']['subrace_id'])
+      );
+  }
+  /**
    * checkFaction
    *
    * Verify the numerous rules for factions. This whole block feels hack.
    *
    * @param mixed $check array('key' => 'value')
-   * @access private
+   * @access protected
    * @return boolean Always true, because on failure a custom invalidate is
    *                 called with a dynamic message explaining the failure.
    */
-  private function checkFaction($check) {
+  protected function checkFaction($check) {
     $key   = array_shift(array_keys($check));
     $value = array_shift(array_values($check));
 

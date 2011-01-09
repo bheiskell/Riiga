@@ -118,8 +118,6 @@ class CharactersController extends AppController {
       'ProfessionsRace'
     ));
 
-    // TODO: pull down location tags
-
     $this->set('user_rank',
       $this->Character->User->getRank($this->Auth->user('id'))
     );
@@ -128,10 +126,12 @@ class CharactersController extends AppController {
     $ranks = $this->Character->Rank->find('list');
 
     $races     = $this->Character->Race    ->find('group_by_rank');
+    $subraces  = $this->Character->Subrace ->find('group_by_race');
     $locations = $this->Character->Location->find('group_by_rank');
     $factions  = $this->Character->Faction ->find('group_by_race');
 
     $raceInfo     = $this->Character->Race->find('all');
+    $subraceInfo  = $this->Character->Subrace->find('all');
     $factionInfo  = $this->Character->Faction->find('all');
     $ageInfo      = $this->Character->Race->RaceAge->find('all');
 
@@ -147,7 +147,8 @@ class CharactersController extends AppController {
     $this->set(compact(
       'ageInfo',         'factions',       'factionInfo',    'factionRanks',
       'locations',       'locationInfo',   'professionInfo', 'races',
-      'raceNames',       'raceInfo',       'ranks',          'users'
+      'raceNames',       'raceInfo',       'ranks',          'subraces',
+      'subraceInfo',     'users'
     ));
 
     $this->render('form');

@@ -24,6 +24,7 @@
         echo $form->input('name');
         echo $form->input('rank_id', array('label' => 'Level'));
         echo $form->input('race_id', array('empty' => true));
+        echo $form->input('subrace_id', array('empty' => true));
         echo $form->input('location_id', array('empty' =>true));
         echo $form->input('age');
         echo $form->input('faction_id', array('empty' => true));
@@ -49,6 +50,19 @@
         <h4><?php echo h($race['Race']['name']); ?></h4>
         <p><?php echo h($race['Race']['description']); ?></p>
         Requires Level <?php echo h($race['Race']['rank_id']); ?>
+      </div>
+    <?php endforeach; ?>
+  </div>
+  <div id="SubraceInformation">
+    <h3>Subrace Information</h3>
+    <?php foreach ($subraceInfo as $subrace): ?>
+      <div class="SubraceId_<?php echo h($subrace['Subrace']['id']); ?>">
+        <h4><?php echo h($subrace['Subrace']['name']); ?></h4>
+        <h5>
+          <?php $location_id = $subrace['Subrace']['location_id']; ?>
+          <?php echo h($locationInfo[$location_id]['Location']['name']); ?>
+        </h5>
+        <p><?php echo h($subrace['Subrace']['description']); ?></p>
       </div>
     <?php endforeach; ?>
   </div>
