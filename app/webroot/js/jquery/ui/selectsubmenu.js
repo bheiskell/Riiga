@@ -10,7 +10,9 @@ $.widget('ui.selectsubmenu', $.ui.selectmenu, {
     menuWidth: 0,
     submenuPosition: 'right',
     submenuWidth: 0,
-    submenuHeight: 0
+    submenuHeight: 0,
+    preopen: false, // callback
+    fillSubmenu: false // callback
   },
 
   _init: function() {
@@ -33,6 +35,8 @@ $.widget('ui.selectsubmenu', $.ui.selectmenu, {
   /* Add submenu slide out */
   open: function(event) {
     $(document).trigger('mousedown'); // close other open selectmenus
+
+    if (this.options.preopen) { this.options.preopen(); }
 
     $.ui.selectmenu.prototype.open.call(this);
 

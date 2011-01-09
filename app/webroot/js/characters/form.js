@@ -156,6 +156,19 @@ $(document).ready(function() {
         height: content.outerHeight(),
         width:  content.outerWidth()
       });
+    },
+    // All the faction ranks displayed at once is too overwhelming. Only show
+    // the ranks for the current faction. This is a bit gross
+    preopen: function() {
+      var factionName = $('option:selected', elements.faction)
+        .text()
+        .replace(/ /g, '_');
+
+      $('#CharacterFactionRankId-menu')
+        .children(':not(:first)')
+        .show()
+        .not('.ui-selectsubmenu-group-' + factionName)
+        .hide();
     }
   });
 });
@@ -185,10 +198,13 @@ function Rules(targets) {
   this._init = function() {
 
     // Bind a function for disabling entries
-    this.t.rank    .bind('limit', this._limitByUserRank);
-    this.t.race    .bind('limit', this._limitByRank);
-    this.t.location.bind('limit', this._limitByRank);
-    this.t.faction .bind('limit', this._limitByRace);
+    this.t.rank       .bind('limit', this._limitByUserRank);
+    this.t.race       .bind('limit', this._limitByRank);
+    this.t.subrace    .bind('limit', this._limitByRace);
+    this.t.location   .bind('limit', this._limitByRank);
+    this.t.faction    .bind('limit', this._limitByRace);
+    this.t.factionRank.bind('limit', this._limitByFaction);
+    this.t.factionRank.bind('limit', this._limitByAgeAndLevel);
 
     // Rules are propagated by triggering dependents on a change
     this.t.userRank.change(function() {
@@ -199,22 +215,29 @@ function Rules(targets) {
       self.t.location.trigger('limit', [this]).trigger('change');
     });
     this.t.race.change(function() {
+      self.t.subrace.trigger('limit', [this]).trigger('change');
       self.t.faction.trigger('limit', [this]).trigger('change');
     });
     this.t.age.change(function() {
       self.t.faction.trigger('change');
     });
+    this.t.faction.change(function() {
+      self.t.factionRank.trigger('limit', [this, self.t.age, self.t.rank]);
+    });
   };
 
   this.destroy = function() {
-    this.t.rank    .unbind('limit');
-    this.t.race    .unbind('limit');
-    this.t.faction .unbind('limit');
-    this.t.location.unbind('limit');
-    this.t.userRank.unbind('change');
-    this.t.rank    .unbind('change');
-    this.t.race    .unbind('change');
-    this.t.age     .unbind('change');
+    this.t.rank        .unbind('limit');
+    this.t.race        .unbind('limit');
+    this.t.faction     .unbind('limit');
+    this.t.factionRank .unbind('limit');
+    this.t.location    .unbind('limit');
+    this.t.subrace     .unbind('limit');
+    this.t.userRank    .unbind('change');
+    this.t.rank        .unbind('change');
+    this.t.race        .unbind('change');
+    this.t.age         .unbind('change');
+    this.t.faction     .unbind('change');
   };
 
   // Trigger top level rule
@@ -237,11 +260,11 @@ function Rules(targets) {
 
   this._limitByRank = function(event, rank) {
     $('option', this).removeAttr('disabled').each(function() {
-      var optRank = $(this).data('optgroup').replace(/Level /, '');
-      if ($(rank).val() < optRank) {
+        var optRank = $(this).data('optgroup').replace(/Level /, '');
+        if ($(rank).val() < optRank) {
         $(this).attr('disabled', 'disabled');
-      }
-    });
+        }
+        });
     self._resetIfDisabled(this);
   };
 
@@ -254,13 +277,59 @@ function Rules(targets) {
     self._resetIfDisabled(this);
   };
 
+  this._limitByFaction = function(event, faction) {
+    var factionName = $('option:selected', faction).text()
+
+    $('option', this).removeAttr('disabled');
+    $('optgroup[label!='+ factionName +'] option', this)
+      .attr('disabled', 'disabled');
+    self._resetIfDisabled(this);
+  };
+
+  /**
+   * Pretty hack implementation of the faction ranks rule. Breaks the
+   * encapsulation by referencing the rule data via .FactionId_##
+   */
+  this._limitByAgeAndLevel = function(event, faction, age, rank) {
+    var factionName = $('option:selected', faction).text()
+    var factionId = $(faction).val();
+
+    var rows = $('.FactionId_' + factionId + ' table tbody tr');
+
+    var lastValidAge = false, lastValidRank = false;
+
+    rows.each(function() {
+      var rankName = $('td', this).eq(0).text();
+      var rowRank  = parseInt($('td', this).eq(1).text(), 10);
+      if (rank.val() >= rowRank) { lastValidRank = rankName; }
+
+      var rowAge   = parseInt($('td', this).eq(2).text(), 10);
+      var curAge   = parseInt(age.val(), 10);
+      if (curAge >= rowAge)  { lastValidAge  = rankName; }
+    });
+    var optgroup = $('optgroup[label='+factionName+']', this);
+
+    $('option', optgroup).attr('disabled', 'disabled');
+
+    var r = $('option[text='+lastValidRank+']', optgroup).prevAll().andSelf();
+    var a = $('option[text='+lastValidAge +']', optgroup).prevAll().andSelf();
+    if (r.length > a.length) { a.removeAttr('disabled'); }
+    else                     { r.removeAttr('disabled'); }
+
+    self._resetIfDisabled(this);
+  };
+
   /**
    * Options disabled by JS will not automatically be unselected by a select
    * box. This will default to the first option.
    */
   this._resetIfDisabled = function(select) {
     var value = $(select).find('option:selected').val();
-    if (0 == $('option[value='+value+']', select).filter(':not(:disabled)').length) {
+    if (!value
+      || 0 == $('option[value='+value+']', select)
+                .filter(':not(:disabled)')
+                .length
+    ) {
       $(select).val($('option:first', $(select)).val()).trigger('change');
     }
   }
