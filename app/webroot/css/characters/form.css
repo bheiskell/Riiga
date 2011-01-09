@@ -1,0 +1,9 @@
+/**
+ * The character subrace is too long. This wont work in IE. I'm not certain
+ * what to do about that yet.
+ */
+#CharacterSubraceId-menu ul {
+  -moz-column-count: 3;
+  -webkit-column-count: 3;
+  column-count: 3;
+}
