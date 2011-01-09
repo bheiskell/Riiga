@@ -244,12 +244,13 @@ function Rules(targets) {
     });
     self._resetIfDisabled(this);
   };
+
   this._limitByRace = function(event, race) {
     var raceName = $('option:selected', race).text().replace(/\*+/, '');
 
-    $('option:not(:first)', this).attr('disabled', 'disabled');
-    $('optgroup[label='+ raceName +'] option', this)
-      .removeAttr('disabled');
+    $('option', this).removeAttr('disabled');
+    $('optgroup[label!='+ raceName +'] option', this)
+      .attr('disabled', 'disabled');
     self._resetIfDisabled(this);
   };
 
@@ -258,7 +259,8 @@ function Rules(targets) {
    * box. This will default to the first option.
    */
   this._resetIfDisabled = function(select) {
-    if ($(select).find('option:selected').attr('disabled')) {
+    var value = $(select).find('option:selected').val();
+    if (0 == $('option[value='+value+']', select).filter(':not(:disabled)').length) {
       $(select).val($('option:first', $(select)).val()).trigger('change');
     }
   }
