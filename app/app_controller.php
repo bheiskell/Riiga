@@ -1,7 +1,7 @@
 <?php
 class AppController extends Controller {
   var $view       = 'App'; 
-  var $components = array('Security', 'Auth', 'Session');
+  var $components = array('SecurityExtended', 'Auth', 'Session');
   var $uses       = array('Message', 'Chat');
   var $helpers    = array(
     'Altrow',
