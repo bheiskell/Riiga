@@ -52,15 +52,11 @@ $.widget('ui.selectsubmenu', $.ui.selectmenu, {
       submenuCss.left = this.list.offset().left - submenuCss.width;
     }
 
-    var slideFromLeft = ('right' == this.options.submenuPosition);
-
     var conf = ('right' == this.options.submenuPosition)
     this.submenu = $('<div class="ui-selectsubmenu-submenu"></div>')
       .css(submenuCss)
       .mousedown(function(event) { event.stopPropagation(); })
-      .insertBefore(this.list)
-      .hide()
-      .effect('slide', { direction: (slideFromLeft) ? 'left' : 'right' });
+      .insertBefore(this.list);
   },
 
   /* Provide a hover callback for obtaining submenu content */

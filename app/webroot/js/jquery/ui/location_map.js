@@ -59,14 +59,19 @@ $.widget('ui.locationMap', {
     var dimensionX = this.imgWidth * zoom;
     var dimensionY = this.imgHeight * zoom;
 
-    this.element.clearQueue().animate({
-        left: -positionX + 'px',
-        top:  -positionY + 'px',
-        width:  dimensionX + 'px',
-        height: dimensionY + 'px'
-      },
-      duration
-    );
+    var css = {
+      left: -positionX + 'px',
+      top:  -positionY + 'px',
+      width:  dimensionX + 'px',
+      height: dimensionY + 'px'
+    };
+
+    // Performance on IE is horrible. IE users don't get this feature :-)
+    if ($.browser.msie) {
+      this.element.css(css);
+    } else {
+      this.element.clearQueue().animate(css, duration);
+    }
   },
   point: function(x, y) {
   }

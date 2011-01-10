@@ -85,7 +85,7 @@ $(document).ready(function() {
       // Hack to get the image height so that the block renders correctly
       var image = $('.RaceId_' + o.val() + ' img', informations.race)[0];
 
-      submenu.append(content).clearQueue().animate({
+      submenu.append(content).clearQueue().css({
         height: submenu.children().outerHeight() + image.height,
         width:  submenu.children().outerWidth()
       });
@@ -99,7 +99,7 @@ $(document).ready(function() {
 
       var content = $('.SubraceId_' + o.val(), informations.subrace).clone();
 
-      submenu.append(content).clearQueue().animate({
+      submenu.append(content).clearQueue().css({
         height: submenu.children().outerHeight(),
         width:  submenu.children().outerWidth()
       });
@@ -117,7 +117,7 @@ $(document).ready(function() {
         });
       }
       submenu.children().locationInfo('select', o.val());
-      submenu.clearQueue().animate({
+      submenu.clearQueue().css({
         height: submenu.children().outerHeight(),
         width:  submenu.children().outerWidth()
       });
@@ -133,7 +133,7 @@ $(document).ready(function() {
 
       $('table', content).hide();
 
-      submenu.append(content).clearQueue().animate({
+      submenu.append(content).clearQueue().css({
         height: content.outerHeight(),
         width:  content.outerWidth()
       });
@@ -152,7 +152,7 @@ $(document).ready(function() {
 
       $('p', content).hide();
 
-      submenu.append(content).clearQueue().animate({
+      submenu.append(content).clearQueue().css({
         height: content.outerHeight(),
         width:  content.outerWidth()
       });
