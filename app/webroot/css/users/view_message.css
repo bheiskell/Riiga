@@ -1,0 +1,13 @@
+div.users.view_message div.avatar.user {
+  float: right;
+}
+div.users.view_message dl {
+  line-height: 2em;
+}
+div.users.view_message dl dd {
+  margin-top: -2em;
+  margin-left: 5em;
+}
+div.users.view_message p {
+  margin: 1em;
+}

@@ -97,12 +97,42 @@ class UsersController extends AppController {
   }
 
   function message($id = null) {
-    $this->Message->send(
-      $id,
-      $this->Auth->user('id'),
-      'Hi this is a test message',
-      'Blahbah'
-    );
+    if (!empty($this->data)) {
+      if ($this->Message->send(
+        $this->data['Message']['recv_user_id'],
+        $this->Auth->user('id'),
+        $this->data['Message']['message'],
+        $this->data['Message']['title']
+      )) {
+        $this->flash('Message sent', '/');
+      }
+    }
+
+    if (null !== $id) { $this->data['Message']['recv_user_id'] = $id; }
+  }
+
+  function view_message($message_id = null) {
+
+    $this->Message->contain('SendUser');
+
+    $message = $this->Message->findById($message_id);
+
+    if (empty($message)) { $this->cakeError('error404'); }
+
+    if ($this->Auth->user('id') !== $message['Message']['recv_user_id']) {
+      $this->flash('This message does not belong to you', array(
+        'action' => 'messages',
+      ));
+    }
+
+    $this->set(compact('message'));
+  }
+
+  function mark_as_read($message_id = null) {
+    $message = $this->Message->markAsRead($message_id, $this->Auth->user('id'))
+      ? 'Message marked as read'
+      : 'Failed to mark message as read';
+    $this->flash($message, array('action' => 'messages'));
   }
 
   function messages() {

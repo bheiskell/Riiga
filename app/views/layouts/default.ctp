@@ -32,7 +32,9 @@
       'characters/view',
       'locations/index',
       'stories/view',
+      'users/messages',
       'users/view',
+      'users/view_message',
     );
     foreach ($css as $file) {
       echo $html->css($file, null, null, false);

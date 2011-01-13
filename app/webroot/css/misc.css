@@ -1,16 +1,21 @@
 /* Only include CSS here that affects almost every page */
 
 /* Notices */
-div.message,
+div#flashMessage.message,
 div.error-message {
   clear: both;
-  color: #900;
+  background-color: #900;
+  color: #FFF;
   font-size: 1.5em;
   margin: 0.75em 0;
+  padding: 0.5em 1em;
 }
 fieldset div.error-message {
+  background-color: inherit;
+  color: #900;
   font-size: 1em;
   margin: 0.5em 0;
+  padding: 0;
 }
 p.error {
   background-color: #ee3322;
@@ -47,6 +52,14 @@ td.avatar.user {
 }
 div.avatar a:first-child {
   border-bottom: none;
+}
+div.avatar.character {
+  text-align: center;
+  width: 75px;
+}
+div.avatar.user {
+  text-align: center;
+  width: 100px;
 }
 div.avatar.character img {
   height: auto;

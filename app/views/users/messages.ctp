@@ -13,7 +13,7 @@
           <td>
             <?php
               echo $html->link($message['Message']['title'], array(
-                'action' => 'read_message',
+                'action' => 'view_message',
                 'id' => $message['Message']['id'],
               ));
             ?>

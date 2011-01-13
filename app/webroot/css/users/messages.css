@@ -1,0 +1,4 @@
+div.users.messages table td:first-child,
+div.users.messages table td:last-child {
+  width: 15%;
+}
