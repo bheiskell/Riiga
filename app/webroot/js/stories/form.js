@@ -3,7 +3,7 @@ $().ready(function() {
   var label = $('label', container);
   var select = $('select', container);
   var information = $('<div class="ui-location-menu-info"/>');
-  var map = $('<div/>');
+  var map = $('<div/>').text('&nbsp;');
 
   var menu = $('<div class="ui-location-menu"/>')
     .append(map)
@@ -30,9 +30,12 @@ $().ready(function() {
     lineHeight: label.css('lineHeight')
   });
 
+  var mapWidth = menu.innerWidth() / 3.0 - 1;
+
   locations.appendTo(information);
   locations.locationInfo({
-    height: menu.height()
+    height: menu.height(),
+    width:  mapWidth
   });
 
   $('img', locations).load(function() {
@@ -43,5 +46,5 @@ $().ready(function() {
   $('#StoryIsInviteOnly').checkbuttons({
     messageOn: 'Invite only',
     messageOff: 'Open to all'
-  });
+  }).hide(); // TODO: Temporarily hiding these until other code is in place
 });
