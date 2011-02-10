@@ -64,10 +64,12 @@ class EntriesController extends AppController {
         $this->data['Entry']['user_id'] = $this->Auth->user('id');
       }
 
-      $rank = $this->User->getRank($this->data['Entry']['user_id']);
+      $rank = $this->Entry->User->getRank($this->data['Entry']['user_id']);
 
       if ($this->Entry->save($this->data)) {
-        if ($rank != $this->User->getRank($this->data['Entry']['user_id'])) {
+        if (
+          $rank != $this->Entry->User->getRank($this->data['Entry']['user_id'])
+        ) {
           $this->flash('You have gained a rank!', array(
             'controller' => 'ranks',
             'action'     => 'index',

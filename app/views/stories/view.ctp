@@ -23,7 +23,7 @@
             <?php endif; ?>
           </td>
           <td>
-          <?php echo h($entry['Entry']['created']);?>
+          <span class="date"><?php echo h($entry['Entry']['created']);?></span>
           <pre><?php echo h($entry['Entry']['content']);?></pre>
           </td>
 
