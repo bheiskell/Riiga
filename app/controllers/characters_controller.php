@@ -28,9 +28,18 @@ class CharactersController extends AppController {
   }
 
   function admin_approve_pending($pending_id = null) {
+    $user_id = $this->Character->Pending->field('user_id', $pending_id);
     if ($this->Character->approvePending($pending_id)) {
-      $this->Session->setFlash(__('Character Approved', true));
-      $this->redirect(array(
+      $message = ($this->Message->send(
+        $user_id,
+        $this->Auth->user('id'),
+        "You can now begin using your character by adding him/her to a story. "
+        . "If you haven't found a story to join, consider sending an open "
+        . "invitation in the chat box below.",
+        'Your character has been approved!'
+      )) ? 'Character Approved' : 'Failed to Message User';
+
+      $this->flash($message, array(
         'admin'  => false,
         'action' => 'view',
         $this->Character->id,
@@ -87,11 +96,14 @@ class CharactersController extends AppController {
       $this->data['Character']['user_id'] = $this->Auth->user('id');
 
       if ($this->Character->savePending($this->data)) {
-        $this->Session->setFlash(__(
-          'Your character has been saved and is now awaiting approval.', true
-        ));
+        $this->Message->sendToAdmins(
+          $this->Auth->user('id'),
+          'Check the bottom of the characters page.',
+          'Characters pending approval!'
+        );
         $this->redirect(array(
-          'action' => 'view',
+          'controller' => 'pages',
+          'action'     => 'character_pending',
           'pending_id' => $this->Character->Pending->id,
         ));
       } else {

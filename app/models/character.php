@@ -33,10 +33,18 @@ class Character extends AppModel {
       'message'      => 'Invalid Member'
     ),
     'name' => array(
-      'required'     => true,
-      'allowEmpty'   => false,
-      'rule'         => array('maxlength', 256),
-      'message'      => 'Name must be between one and 256 characters.'
+      array(
+        'required'     => true,
+        'allowEmpty'   => false,
+        'rule'         => array('isUnique'),
+        'message'     => 'This name is already taken; Try including a surname.',
+      ),
+      array(
+        'required'     => true,
+        'allowEmpty'   => false,
+        'rule'         => array('maxlength', 256),
+        'message'      => 'Name must be between one and 256 characters.',
+      ),
     ),
     'rank_id' => array(
       'required'     => true,
@@ -57,8 +65,8 @@ class Character extends AppModel {
         'rule'         => array('checkSubrace'),
         'message'      => 'Only when human must a subrace be specified',
       ),
-      'numeric' => array (
-        'required'     => true,
+      'numeric' => array(
+        //'required'     => true,
         'allowEmpty'   => true,
         'rule'         => array('numeric'),
       ),

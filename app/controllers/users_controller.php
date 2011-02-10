@@ -63,8 +63,10 @@ class UsersController extends AppController {
       $this->User->create();
       if ($this->User->save($this->data)) {
         $this->Auth->login($this->User->hashPasswords($this->data, false));
-        $this->Session->setFlash(__('Registration Successful', true));
-        $this->redirect($this->Auth->redirect());
+        $this->redirect(array(
+          'controller' => 'pages',
+          'action'     => 'registration_complete',
+        ));
       }
     }
     /* Unset sensitive fields */

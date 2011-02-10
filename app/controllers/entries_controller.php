@@ -64,7 +64,15 @@ class EntriesController extends AppController {
         $this->data['Entry']['user_id'] = $this->Auth->user('id');
       }
 
+      $rank = $this->User->getRank($this->data['Entry']['user_id']);
+
       if ($this->Entry->save($this->data)) {
+        if ($rank != $this->User->getRank($this->data['Entry']['user_id'])) {
+          $this->flash('You have gained a rank!', array(
+            'controller' => 'ranks',
+            'action'     => 'index',
+          ));
+        }
         $this->flash('Your entry has been saved', array(
           'controller' => 'stories',
           'action'     => 'view',

@@ -8,6 +8,12 @@
  * almost identical to the original model when queried or saved, but there are
  * many use cases where expected functionality could fail.
  *
+ * Two outstanding issues. Required validation rules will fail if the field is
+ * set to allowEmpty. I believe this is because fields are set to null on find,
+ * but during the save null will register as not meeting the 'required'
+ * validation rule. The second issue is relationships are not preserved. I
+ * haven't resolved how to deal with this issue.
+ *
  * @uses ModelBehavior
  * @author Ben Heiskell <ben.heiskell@gmail.com>
  */

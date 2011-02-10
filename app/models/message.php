@@ -73,6 +73,33 @@ class Message extends AppModel {
   }
 
   /**
+   * sendToAdmins
+   *
+   * Send admins a message.
+   *
+   * @param mixed $send_user_id
+   * @param mixed $message
+   * @param mixed $title
+   * @access public
+   * @return boolean
+   */
+  public function sendToAdmins($send_user_id, $message, $title) {
+    $admins    = $this->RecvUser->findAllByIsAdmin(true);
+    $admin_ids = Set::extract('/RecvUser/id', $admins);
+
+    $result = true;
+    foreach ($admin_ids as $id) {
+      $result &= $this->send(
+        $id,
+        $send_user_id,
+        $message,
+        $title
+      );
+    }
+    return $result;
+  }
+
+  /**
    * markAsRead
    *
    * Mark a message for a user as read. ACLs are checked here.
@@ -154,7 +181,10 @@ class Message extends AppModel {
   public function afterFind($results, $primary) {
     if ($primary && Set::numeric(array_keys($results))) {
       foreach ($results as &$result) {
-        if (isset($result['Message']) && empty($result['Message']['title'])) {
+        if (  isset($result['Message'])
+          && !empty($result['Message']['message'])
+          &&  empty($result['Message']['title'])
+        ) {
           $result['Message']['title'] = substr(
             $result['Message']['message'],
             0,
