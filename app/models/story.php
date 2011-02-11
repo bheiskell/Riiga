@@ -28,6 +28,13 @@ class Story extends AppModel {
     ),
   );
 
+  var $actsAs = array('Sluggable' => array(
+    'label'     => 'name',
+    'separator' => '_',
+    'overwrite' => true,
+    'ignore'    => array(),
+  ));
+
   var $validate = array(
     'id' => array(
       'required'     => false,
@@ -225,11 +232,11 @@ class Story extends AppModel {
    */
   public function paginateGetContain() {
     return array(
-      'Character'       => array('fields' => array('id', 'name')),
+      'Character'       => array('fields' => array('id', 'name', 'slug')),
       'LatestEntry'     => array('fields' => array('id', 'created')),
       'Location'        => array('fields' => array('id', 'name')),
-      'Turn'            => array('fields' => array('id', 'username')),
-      'User'            => array('fields' => array('id', 'username')),
+      'Turn'            => array('fields' => array('id', 'username', 'slug')),
+      'User'            => array('fields' => array('id', 'username', 'slug')),
       'CharactersStory' =>array('fields' => array(
         'id', 'character_id', 'story_id'
       )),

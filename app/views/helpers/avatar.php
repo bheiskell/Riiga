@@ -22,7 +22,7 @@ class AvatarHelper extends AppHelper {
       $show_name,
       !empty($user['avatar'])  ? $user['avatar']   : $this->defaultMember,
       isset($user['username']) ? $user['username'] : 'Unknown',
-      $user['id']
+      $user['slug']
     );
   }
 

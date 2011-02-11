@@ -12,8 +12,8 @@
       <?php
         echo $html->link($entry['Story']['name'], array(
           'controller' => 'stories',
-          'action' => 'view',
-          $entry['Story']['id']
+          'action'     => 'view',
+          'id'         => $entry['Story']['slug']
         ));
       ?>
     </td>
@@ -22,7 +22,7 @@
         echo $html->link($entry['User']['username'], array(
           'controller' => 'users',
           'action' => 'view',
-          $entry['User']['id']
+          $entry['User']['slug']
         ));
       ?>
     </td>

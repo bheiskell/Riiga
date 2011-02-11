@@ -2,11 +2,20 @@
 class Character extends AppModel {
 
   var $name   = 'Character';
-  var $actsAs = array('Pending');
   var $order  = array('UPPER(Character.name)' => 'ASC');
 
   var $hasAndBelongsToMany = array(
     'Story' => array('with' => 'CharactersStory')
+  );
+
+  var $actsAs = array(
+    'Pending',
+    'Sluggable' => array(
+      'label'     => 'name',
+      'separator' => '_',
+      'overwrite' => true,
+      'ignore'    => array(),
+    ),
   );
 
   var $belongsTo = array(

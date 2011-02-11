@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title><?= __('Land of Riiga - ', true) . $title_for_layout ?></title>
+  <title><?= __('Land of Riiga - ', true) . h($title_for_layout) ?></title>
   <?php
     echo $html->charset();
     echo $html->meta('icon');
@@ -41,6 +41,7 @@
     }
     echo $javascript->link('jquery/jquery.js',          false);
     echo $javascript->link('jquery/autoresize.js',      false);
+    //echo $javascript->link('jquery/qtip.js',            false);
     echo $javascript->link('jquery/ui/ui.js',           false);
     echo $javascript->link('script.js',                 false);
     echo $asset->scripts_for_layout();
@@ -89,7 +90,7 @@
               echo $html->link($user['username'], array(
                 'controller' => 'users',
                 'action' => 'view',
-                'id' => $user['id'],
+                'id' => $user['slug'],
                 'admin' => false,
               ));
             ?>

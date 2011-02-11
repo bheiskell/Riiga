@@ -17,7 +17,7 @@
                 echo $html->link($chat['User']['username'], array(
                   'controller' => 'users',
                   'action' => 'view',
-                  'id' => $chat['User']['id']
+                  'id' => $chat['User']['slug']
                 ));
               ?>
             </td>

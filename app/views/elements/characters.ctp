@@ -60,7 +60,7 @@
                   array(
                     'controller' => 'characters',
                     'action'     => 'view',
-                    'pending_id' => $character['Character']['pending_id'],
+                    'pending_id' => $character['Character']['slug'],
                     'admin'      => false,
                   )
                 );
@@ -72,7 +72,7 @@
                   array(
                     'controller' => 'characters',
                     'action'     => 'view',
-                    $character['Character']['id'],
+                    'id'         => $character['Character']['slug'],
                     'admin'      => false,
                   )
                 );
@@ -94,7 +94,7 @@
                   array(
                     'controller' => 'users',
                     'action'     => 'view',
-                    $character['User']['id'],
+                    'id'         => $character['User']['slug'],
                     'admin'      => false,
                   )
                 );

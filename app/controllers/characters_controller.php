@@ -42,7 +42,7 @@ class CharactersController extends AppController {
       $this->flash($message, array(
         'admin'  => false,
         'action' => 'view',
-        $this->Character->id,
+        $this->Character->field('slug'),
       ));
 
     } else {
@@ -65,17 +65,20 @@ class CharactersController extends AppController {
     if ($id) {
       $contain[] = 'Story';
       $this->Character->contain($contain);
-      $this->set('character', $this->Character->findById($id));
+      $this->set('character', $this->Character->findBySlug($id));
 
     } else if (isset($this->params['named']['pending_id'])) {
       $this->Character->contain($contain);
       $id = $this->params['named']['pending_id'];
-      $this->set('character', $this->Character->Pending->findByPendingId($id));
+      $this->set('character', $this->Character->Pending->findBySlug($id));
     }
 
     if (empty($this->viewVars['character'])) {
       $this->cakeError('error404');
     }
+
+    $this->pageTitle
+      = 'Characters - ' . $this->viewVars['character']['Character']['name'];
   }
 
   function add ($id = false) { $this->_form($id); }

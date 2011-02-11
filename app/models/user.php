@@ -8,6 +8,13 @@ class User extends AppModel {
     'Story' => array('with' => 'StoriesUser')
   );
 
+  var $actsAs = array('Sluggable' => array(
+    'label'     => 'username',
+    'separator' => '_',
+    'overwrite' => true,
+    'ignore'    => array(),
+  ));
+
   var $validate = array(
     'username'         => array(
       'range'          => array(

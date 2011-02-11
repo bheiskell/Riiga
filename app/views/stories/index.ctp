@@ -20,7 +20,7 @@ foreach ($stories as $story):
       <?php
         echo $html->link($story['Story']['name'], array(
           'action' => 'view',
-          $story['Story']['id']
+          'id'     => $story['Story']['slug']
         ));
       ?>
     </td>
@@ -29,8 +29,8 @@ foreach ($stories as $story):
       <?php
         echo $html->link($story['Turn']['username'], array(
           'controller' => 'users',
-          'action' => 'view',
-          $story['Turn']['id']
+          'action'     => 'view',
+          'id'         => $story['Turn']['slug'],
         ));
       ?>
     </td>

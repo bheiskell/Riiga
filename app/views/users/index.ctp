@@ -20,7 +20,7 @@
             <?php
               echo $html->link(
                 $user['User']['username'],
-                array('action' => 'view', $user['User']['id'])
+                array('action' => 'view', $user['User']['slug'])
               );
             ?>
           </td>

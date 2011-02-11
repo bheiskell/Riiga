@@ -63,8 +63,8 @@
                     $story['Story']['name'],
                     array(
                       'controller' => 'stories',
-                      'action' => 'view',
-                      $story['Story']['id']
+                      'action'     => 'view',
+                      'id'         => $story['Story']['slug']
                     )
                   );
                 ?>

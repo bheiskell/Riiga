@@ -26,7 +26,6 @@ class AppSchema extends CakeSchema {
 		'location_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 		'race_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 		'faction_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
-		'faction_rank_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
 		'age' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
 		'profession' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
 		'avatar' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 1024),
@@ -38,6 +37,8 @@ class AppSchema extends CakeSchema {
 		'subrace_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
 		'user_comment' => array('type' => 'text', 'null' => true, 'default' => NULL),
 		'admin_comment' => array('type' => 'text', 'null' => true, 'default' => NULL),
+		'faction_rank_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'slug' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
 	);
 	var $characters_entries = array(
@@ -173,7 +174,6 @@ class AppSchema extends CakeSchema {
 		'race_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 		'subrace_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
 		'faction_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
-		'faction_rank_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
 		'age' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
 		'profession' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
 		'avatar' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 1024),
@@ -184,6 +184,8 @@ class AppSchema extends CakeSchema {
 		'user_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 		'created' => array('type' => 'datetime', 'null' => false, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => false, 'default' => NULL),
+		'faction_rank_id' => array('type' => 'integer', 'null' => true, 'default' => NULL),
+		'slug' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
 		'indexes' => array('PRIMARY' => array('column' => 'pending_id', 'unique' => 1))
 	);
 	var $profession_categories = array(
@@ -238,6 +240,7 @@ class AppSchema extends CakeSchema {
 		'user_id_turn' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 		'created' => array('type' => 'datetime', 'null' => false, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => false, 'default' => NULL),
+		'slug' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 256),
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
 	);
 	var $stories_users = array(
@@ -268,6 +271,7 @@ class AppSchema extends CakeSchema {
 		'created' => array('type' => 'datetime', 'null' => false, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => false, 'default' => NULL),
 		'is_deactivated' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
+		'slug' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 50),
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
 	);
 }

@@ -21,7 +21,9 @@ class StoriesController extends AppController {
 
   function filter($id = null) { }
 
-  function view($id = null) {
+  function view($slug = null) {
+    $id = Set::extract('/Story/id', $this->Story->findBySlug($slug));
+
     $isMember = $this->Story->isMember($id, $this->Auth->user('id'));
 
     $story      = $this->Story->findById($id);
@@ -44,6 +46,8 @@ class StoriesController extends AppController {
     if (empty($this->viewVars['story'])) {
       $this->cakeError('error404');
     }
+
+    $this->pageTitle = 'Stories - ' . $story['Story']['name'];
   }
 
   function add() {
@@ -162,7 +166,10 @@ class StoriesController extends AppController {
 
       if ($this->Story->save($this->data)) {
         $this->Session->setFlash(__('The Story has been saved.', true));
-        $this->redirect(array('action' => 'view', 'id' => $this->Story->id));
+        $this->redirect(array(
+          'action' => 'view',
+          'id' => $this->Story->field('slug')
+        ));
       }
     }
 

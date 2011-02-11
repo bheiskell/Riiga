@@ -44,18 +44,20 @@ class UsersController extends AppController {
     $this->User->contain(array(
       'Character'
     ));
-    $user = $this->User->findById($id);
+    $user = $this->User->findBySlug($id);
     $characters = $this->User->Character->find('all', array(
-      'conditions' => array('Character.user_id' => $id),
+      'conditions' => array('Character.user_id' => $user['User']['id']),
       'contain'    => array('Faction', 'Location', 'Race', 'Rank'),
     ));
-    $stories = $this->User->Story->find('all_by_user_id', $id);
+    $stories = $this->User->Story->find('all_by_user_id', $user['User']['id']);
 
     $this->set(compact('user', 'characters', 'stories'));
 
     if (empty($this->viewVars['user'])) {
       $this->cakeError('error404');
     }
+
+    $this->pageTitle = 'Users - ' . $user['User']['username'];
   }
 
   function register() {
@@ -82,7 +84,7 @@ class UsersController extends AppController {
 
       if ($this->User->save($this->data)) {
         $this->Session->setFlash(__('Your account has been updated.', true));
-        $this->redirect(array('action' => 'view', $id));
+        $this->redirect(array('action' => 'view', $this->User->field('slug')));
       }
     }
     if (empty($this->data)) {

@@ -43,7 +43,7 @@
               array(
                 'controller' => 'users',
                 'action' => 'view',
-                $character['User']['id']
+                $character['User']['slug']
               )
             );
           ?>
@@ -78,8 +78,8 @@
                 echo $html->link(
                   $story['name'], array(
                     'controller' => 'stories',
-                    'action' => 'view',
-                    $story['id'],
+                    'action'     => 'view',
+                    'id'         => $story['slug'],
                   )
                 );
               ?>
