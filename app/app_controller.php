@@ -20,27 +20,6 @@ class AppController extends Controller {
   );
 
   /**
-   * slug
-   *
-   * Regenerate all the slugs
-   *
-   * @access public
-   * @return void
-   */
-  function slug() {
-    if (!$this->_isAdmin()) return;
-
-    $name = Inflector::singularize($this->name);
-    $rows = $this->{$name}->find('all', array());
-    $this->{$name}->validate = array();
-    foreach ($rows as $row) {
-      $row = array($name => $row[$name]);
-      if (isset($row['User']['password'])) { unset($row['User']['password']); }
-      $this->{$name}->save($row);
-    }
-  }
-
-  /**
    * beforeFilter
    *
    * Open access to display action.
