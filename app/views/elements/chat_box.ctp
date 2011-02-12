@@ -23,7 +23,7 @@
             </td>
             <td><?php echo h($chat['Chat']['message']); ?></td>
             <td>
-              <?php echo date('d-m-Y', strtotime($chat['Chat']['created'])); ?>
+              <?php echo date('m-d-Y', strtotime($chat['Chat']['created'])); ?>
             </td>
           </tr>
         <?php endforeach; ?>

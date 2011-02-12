@@ -20,7 +20,7 @@
           </td>
           <td>
             <?php
-              echo date('d-m-Y', strtotime($message['Message']['created']));
+              echo date('m-d-Y', strtotime($message['Message']['created']));
             ?>
           </td>
         </tr>
