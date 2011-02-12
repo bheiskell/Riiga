@@ -1,4 +1,4 @@
 .users.view h2         { float: left; }
-.users.view div.avatar { clear: right; float: right; }
+.users.view div.avatar { clear: right; float: right; text-align: center; }
 .users.view div.star   { clear: right; }
 .users.view ul         { clear: left; }

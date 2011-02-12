@@ -3,6 +3,9 @@
   <div class="avatar">
     <?php echo $avatar->user($user['User']); ?>
     <?php echo $stars->render($user['User']['rank']); ?>
+    <?php if ($user['User']['is_admin']): ?>
+      <span>administrator</span>
+    <?php endif; ?>
   </div>
   <ul>
     <?php if ($userId == $user['User']['id']): ?>
