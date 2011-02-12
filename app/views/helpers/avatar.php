@@ -12,7 +12,7 @@ class AvatarHelper extends AppHelper {
       $show_name,
       !empty($char['avatar']) ? $char['avatar'] : $this->defaultCharacter,
       isset($char['name'])    ? $char['name']   : 'Unknown',
-      $char['id']
+      $char['slug']
     );
   }
 
