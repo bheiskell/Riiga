@@ -76,13 +76,13 @@ div.avatar.user img {
 /* Rank stars */
 .star { overflow: hidden; }
 .star span {
-  background: transparent url(../img/stars.png);
+  background: transparent url(../img/stars-14.png);
   border: 0;
   display: block;
-  height: 16px;
+  height: 14px;
   float: left;
   font-size: 0;
-  width: 16px;
+  width: 14px;
 }
 
 /*  Actions  */
