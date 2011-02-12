@@ -311,8 +311,8 @@ function Rules(targets) {
 
     $('option', optgroup).attr('disabled', 'disabled');
 
-    var r = $('option[text='+lastValidRank+']', optgroup).prevAll().andSelf();
-    var a = $('option[text='+lastValidAge +']', optgroup).prevAll().andSelf();
+    var r = $('option:contains('+lastValidRank+')', optgroup).prevAll().andSelf();
+    var a = $('option:contains('+lastValidAge +')', optgroup).prevAll().andSelf();
     if (r.length > a.length) { a.removeAttr('disabled'); }
     else                     { r.removeAttr('disabled'); }
 
