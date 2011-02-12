@@ -30,6 +30,9 @@
       ?>
     </li>
     -->
+    <?php if ($nextRank): ?>
+      <li>Next rank in <?php echo h($nextRank); ?> entries</li>
+    <?php endif; ?>
     <li>
       <?php if ($user['User']['url']): ?>
         <?php echo $html->link( __("Website", true), $user['User']['url']); ?>
