@@ -101,7 +101,7 @@ class CharactersController extends AppController {
       if ($this->Character->savePending($this->data)) {
         $this->Message->sendToAdmins(
           $this->Auth->user('id'),
-          'Check the bottom of the characters page.',
+          'Click "Characters" in the admin bar.',
           'Characters pending approval!'
         );
         $this->redirect(array(

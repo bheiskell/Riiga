@@ -28,6 +28,9 @@ class PendingBehavior extends ModelBehavior {
     $Model->Pending->primaryKey = 'pending_id';
     $Model->Pending->validate = $Model->validate;
     $Model->Pending->Behaviors->attach('Containable');
+    $Model->Pending->Behaviors->attach('Sluggable', array(
+      $Model->actsAs['Sluggable']
+    ));
 
     // Mirror current model associations for look-ups
     foreach ($Model->Pending->__associations as $type) {
@@ -78,6 +81,11 @@ class PendingBehavior extends ModelBehavior {
     if (!$Model->validates()) { return false; }
 
     $Model->Pending->set($data);
+
+    if (!$Model->Pending->validates()) {
+      $Model->validationErrors = $Model->Pending->validationErrors;
+      return false;
+    }
 
     if (!$Model->id) { $Model->Pending->create(); }
 

@@ -62,12 +62,14 @@ class AppController extends Controller {
    * Central location to check if the currently authenticated user is allowed
    * to modify resources created by a particular owner.
    *
+   * Currently, being an admin does not qualify you as an owner.
+   *
    * @param int $user_id User id that owns a given resource.
    * @access protected
    * @return boolean True if allowed
    */
   protected function _isOwner($user_id) {
-    return $user_id == $this->Auth->user('id') || $this->_isAdmin();
+    return $user_id == $this->Auth->user('id');
   }
 
   /**
