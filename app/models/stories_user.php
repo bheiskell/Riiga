@@ -101,7 +101,7 @@ class StoriesUser extends AppModel {
   /**
    * add
    *
-   * Add a user to a story optionally specifying moderator status. This actually
+   * Add a user to a story optionally specifying moderator status. This actuall
    * can be used to perform updates as well.
    *
    * @param mixed $story_id

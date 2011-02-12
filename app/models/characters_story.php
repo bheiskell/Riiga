@@ -26,6 +26,13 @@ class CharactersStory extends AppModel {
    * @return boolean True on success
    */
   public function add($story_id, $character_id) {
+    // Characters are only allowed in one story at a time. This needs to be a
+    // validation rule at some point, but that requires a refactor.
+    $count = $this->find('count', array(
+      'conditions' => compact('character_id')
+    ));
+    if ($count !== 0) { return false; }
+
     $this->Behaviors->detach('Deactivatable');
 
     $this->id = $this->field('id', compact('story_id', 'character_id'));

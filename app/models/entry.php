@@ -131,6 +131,12 @@ class Entry extends AppModel {
   }
 
   function afterSave($created) {
+    if (isset($this->data['Entry']['story_id'])) {
+      $this->Story->rotateTurn(
+        $this->data['Entry']['story_id'],
+        $this->data['Entry']['user_id']
+      );
+    }
     $this->clearCache();
   }
 

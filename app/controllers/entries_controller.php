@@ -75,10 +75,14 @@ class EntriesController extends AppController {
             'action'     => 'index',
           ));
         }
+        $slug = $this->Entry->Story->field(
+          'slug',
+          array('id' => $this->data['Entry']['story_id'])
+        );
         $this->flash('Your entry has been saved', array(
           'controller' => 'stories',
           'action'     => 'view',
-          'id'         => $this->data['Entry']['story_id'],
+          'id'         => $slug,
           'page'       => 'last',
         ));
       } else {
@@ -127,10 +131,11 @@ class EntriesController extends AppController {
     } else {
       $message = 'Entries can only be deleted by the author or a moderator.';
     }
+    $slug = $this->Entry->Story->field('slug', array('id' => $story_id));
     $this->flash($message, array(
       'controller' => 'stories',
       'action'     => 'view',
-      'id'         => $story_id,
+      'id'         => $slug,
       'moderator'  => false,
     ));
   }

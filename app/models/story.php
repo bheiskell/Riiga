@@ -92,6 +92,34 @@ class Story extends AppModel {
   }
 
   /**
+   * rotateTurn
+   *
+   * Rotate the user's turns
+   *
+   * @param mixed $story_id 
+   * @param mixed $turn_id 
+   * @access public
+   * @return void
+   */
+  public function rotateTurn($story_id, $turn_id) {
+    // Hack: this code feels like garbage. Make this better.
+    $user_ids = Set::extract(
+      '/StoriesUser/user_id',
+      $this->StoriesUser->findAllByStoryId($story_id)
+    );
+    $position = null;
+    foreach ($user_ids as $key => $user_id) {
+      if ($user_id === $turn_id) {
+        $position = $key;
+      }
+    }
+    if ($position === null) return false;
+    $new_id = $user_ids[($position + 1) % sizeof($user_ids)];
+    $this->id = $story_id;
+    $this->saveField('user_id_turn', $new_id);
+  }
+
+  /**
    * isModerator
    *
    * Determine if a user is a story moderator. Does not perform an isAdmin check

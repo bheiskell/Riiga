@@ -418,20 +418,26 @@ class Character extends AppModel {
     $this->bindModel(array('hasOne' => array('CharactersStory')));
     $this->contain('CharactersStory');
 
-    return Set::combine(
-      $this->find('all', array(
-        'fields' => array('id', 'name'),
-        'conditions' => array(
-          'Character.user_id' => $user_id,
-          'OR' => array(
-            'CharactersStory.is_deactivated = 1',
-            'CharactersStory.is_deactivated IS NOT NULL',
-          )
-        )
-      )),
+    $characters = Set::combine(
+      $this->findAllByUserId($user_id),
       '{n}.Character.id',
       '{n}.Character.name'
     );
+
+    $unavailable = Set::extract(
+      '/CharactersStory/character_id',
+      $this->CharactersStory->find('all', array(
+        'conditions' => array(
+          'character_id' => array_keys($characters)
+        )
+      ))
+    );
+
+    foreach ($unavailable as $key) {
+      unset($characters[$key]);
+    }
+
+    return $characters;
   }
 
   /**

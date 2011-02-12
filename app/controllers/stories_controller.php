@@ -54,20 +54,6 @@ class StoriesController extends AppController {
     $this->_form();
   }
 
-  function join($story_id = null) {
-    $message = ($this->Story->join($story_id, $this->Auth->user('id')))
-      ? 'You are now an author of this story; add a character to post.'
-      : 'Failed to join the story';
-    $this->flash($message, array('action' => 'view', 'id' => $story_id));
-  }
-
-  function leave($story_id = null) {
-    $message = ($this->Story->leave($story_id, $this->Auth->user('id')))
-      ? 'You are no longer an active author of this story.'
-      : 'Failed to leave the story';
-    $this->flash($message, array('action' => 'view', 'id' => $story_id));
-  }
-
   function add_character($story_id = null) {
     $user_id = $this->Auth->user('id');
 
@@ -77,9 +63,9 @@ class StoriesController extends AppController {
 
       $message = $this->Story->addCharacter($story_id, $character_id, $user_id)
           ? 'Character added to the story'
-          : 'Failed to add the character to the story';
+          : 'Failed to add the character to the story; is the character in another story?';
 
-      $this->flash($message, array('action' => 'view', 'id' => $story_id));
+      $this->_backToView($message, $story_id);
     }
 
     $characters = $this->Story->Character->find('available', $user_id);
@@ -101,7 +87,7 @@ class StoriesController extends AppController {
         ? 'Character successfully removed'
         : 'Failed to remove characters';
 
-    $this->flash($message, array('action' => 'view', 'id' => $story_id));
+    $this->_backToView($message, $story_id);
   }
 
   function remove_all_characters($story_id = null) {
@@ -110,7 +96,7 @@ class StoriesController extends AppController {
         ? 'Your characters have been removed from the story'
         : 'Failed to remove characters';
 
-    $this->flash($message, array('action' => 'view', 'id' => $story_id));
+    $this->_backToView($message, $story_id);
   }
 
   function moderator_edit($story_id = null) {
@@ -121,14 +107,14 @@ class StoriesController extends AppController {
     $message = ($this->Story->close($story_id))
       ? 'Story has been closed'
       : 'Failed to close story';
-    $this->flash($message, array('action' => 'view', 'id' => $story_id));
+    $this->_backToView($message, $story_id);
   }
 
   function moderator_reopen($story_id = null) {
     $message = ($this->Story->reopen($story_id))
       ? 'Story has been reopened'
       : 'Failed to reopen story';
-    $this->flash($message, array('action' => 'view', 'id' => $story_id));
+    $this->_backToView($message, $story_id);
   }
 
   function moderator_promote($story_id = null) {
@@ -136,7 +122,7 @@ class StoriesController extends AppController {
     $message = ($this->Story->promote($story_id, $user_id))
       ? 'Member has been promoted to moderator status.'
       : 'Member promotion to moderator failed.';
-    $this->flash($message, array('action' => 'view', 'id' => $story_id));
+    $this->_backToView($message, $story_id);
   }
 
   function moderator_demote($story_id = null) {
@@ -144,7 +130,7 @@ class StoriesController extends AppController {
     $message = ($this->Story->demote($story_id, $user_id))
       ? 'Member has been demoted to author status.'
       : 'Member demotion from moderator failed.';
-    $this->flash($message, array('action' => 'view', 'id' => $story_id));
+    $this->_backToView($message, $story_id);
   }
 
   function moderator_remove_character($story_id = null) {
@@ -152,7 +138,7 @@ class StoriesController extends AppController {
     $message = ($this->Story->removeCharacter($story_id, $character_id))
       ? 'Character successfully removed'
       : 'Failed to remove characters';
-    $this->flash($message, array('action' => 'view', 'id' => $story_id));
+    $this->_backToView($message, $story_id);
   }
 
   function _form($id = null) {
@@ -222,5 +208,22 @@ class StoriesController extends AppController {
       }
     }
     return $filters;
+  }
+
+  /**
+   * _backToView
+   *
+   * Redirect to a story with a message
+   *
+   * @param mixed $message
+   * @param mixed $id
+   * @access private
+   * @return void
+   */
+  private function _backToView($message, $id) {
+    $this->flash($message, array(
+      'action' => 'view',
+      'id'     => $this->Story->field('slug', compact('id')),
+    ));
   }
 }
