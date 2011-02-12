@@ -23,7 +23,18 @@
             <?php endif; ?>
           </td>
           <td>
-          <span class="date"><?php echo h($entry['Entry']['created']);?></span>
+          <span class="date">
+            <?php
+              if ($entry['Entry']['created'] != $entry['Entry']['modified']):
+            ?>
+              (<?php
+                echo date('m-d-Y H:i', strtotime($entry['Entry']['modified']));
+              ?>)
+            <?php endif; ?>
+            <?php
+              echo date('m-d-Y H:i', strtotime($entry['Entry']['created']));
+            ?>
+          </span>
           <pre><?php echo h($entry['Entry']['content']);?></pre>
           </td>
 

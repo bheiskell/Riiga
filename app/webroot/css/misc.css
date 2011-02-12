@@ -52,6 +52,7 @@ td.avatar.user {
 }
 div.avatar a:first-child {
   border-bottom: none;
+  display: block;
 }
 div.avatar.character {
   text-align: center;
