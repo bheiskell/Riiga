@@ -31,6 +31,8 @@ class AppController extends Controller {
    * @return void
    */
   public function beforeFilter() {
+    $this->SecurityExtended->blackHoleCallback = '_blackhole';
+
     $this->Auth->allow('display'); // for the pages controller
 
     $userId      = $this->Auth->user('id');
@@ -54,6 +56,10 @@ class AppController extends Controller {
     ) {
       $this->cakeError('error403');
     }
+  }
+
+  public function _blackhole($error) {
+    $this->cakeError('error500', array('message' => 'blackhole: ' . $error));
   }
 
   /**

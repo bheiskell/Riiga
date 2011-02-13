@@ -39,7 +39,7 @@ class AppError extends ErrorHandler {
    */
   function error500($params) {
     if (isset($params['message'])) {
-      $this->log($params['message']);
+      $this->log('error500: ' . $params['message']);
     }
     $this->log(Debugger::trace(), 'stacktrace');
 
