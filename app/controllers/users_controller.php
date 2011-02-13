@@ -51,7 +51,8 @@ class UsersController extends AppController {
     ));
     $stories = $this->User->Story->find('all_by_user_id', $user['User']['id']);
 
-    $this->set(compact('user', 'characters', 'stories'));
+    $next_rank = $this->User->getEntriesUntilNextRank($user['User']['id']);
+    $this->set(compact('user', 'characters', 'stories', 'next_rank'));
 
     if (empty($this->viewVars['user'])) {
       $this->cakeError('error404');

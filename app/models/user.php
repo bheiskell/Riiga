@@ -198,18 +198,19 @@ class User extends AppModel {
    *
    * Find the rank of a particular user id
    *
-   * @param mixed $id User id
+   * @param int $id User id
+   * @param int $score Optional pass by reference score.
    * @access public
    * @return integer Rank of the user
    */
-  public function getRank($id = null) {
+  public function getRank($id = null, &$score = false) {
     $id = $id ? $id : $this->id;
     if (!$id) return -1;
 
-    if ($this->isAdmin($id)) { return 7; }
-
     $score = $this->Entry->findCountByUserId($id)
            + $this->field('offset', array('id' => $id));
+
+    if ($this->isAdmin($id)) { return 7; }
 
          if (  0 == $score) return 0; // TODO: move to database so PM can set
     else if ( 20 >  $score) return 1; 
@@ -219,6 +220,28 @@ class User extends AppModel {
     else if (400 >  $score) return 5;
     else if (600 >  $score) return 6;
     else return 7;
+  }
+
+  /**
+   * getEntriesUntilNextRank
+   *
+   * Hacky way to get the number of entries until next rank
+   *
+   * @param mixed $id 
+   * @access public
+   * @return void
+   */
+  public function getEntriesUntilNextRank($id) {
+    $rank_id = $this->getRank($id, $entries_count);
+
+         if (0 == $rank_id) return 20 - $entries_count; // TODO: move to db
+    else if (1 >  $rank_id) return 20 - $entries_count; 
+    else if (2 >  $rank_id) return 50 - $entries_count;
+    else if (3 >  $rank_id) return 100 - $entries_count;
+    else if (4 >  $rank_id) return 225 - $entries_count;
+    else if (5 >  $rank_id) return 400 - $entries_count;
+    else if (6 >  $rank_id) return 600 - $entries_count;
+    else return false;
   }
 
   /**
