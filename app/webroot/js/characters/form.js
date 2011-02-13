@@ -171,6 +171,26 @@ $(document).ready(function() {
         .hide();
     }
   });
+
+  // Hack: event triggering is too complicated to identify the issue here. So
+  // I'm tacking on this change event to resolve another issue. Issue at hand
+  // is cakephp will default to the last instance of an option when listed in
+  // multiple optgroups. When the optgroups are disabled via javascript, this
+  // results in an invalid field. That invalid field with then not be passed to
+  // the server and subsequently blackhole the request. If this doesn't scream
+  // refactor me, I don't know what does : (
+  elements.faction.change(function () {
+    var option = $('option:selected', this);
+    if (option.attr('disabled')) {
+      var newOption
+        = $('option:[value='+option.val()+']', this).filter(':not(:disabled)');
+      if (newOption.length) {
+        option.attr('selected', false);
+        newOption.attr('selected', 'selected');
+        $(this).trigger('change');
+      }
+    }
+  }).trigger('change');
 });
 
 /**
