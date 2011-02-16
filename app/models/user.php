@@ -207,13 +207,25 @@ class User extends AppModel {
     $id = $id ? $id : $this->id;
     if (!$id) return -1;
 
-    $score = $this->Entry->findCountByUserId($id)
-           + $this->field('offset', array('id' => $id));
+    // Nasty hack to get around some recursive get ranks
+    static $inMemoryScoreCache = array();
+    static $inMemoryAdminCache = array();
+    if (!isset($inMemoryScoreCache[$id])) {
+      $score = $this->Entry->findCountByUserId($id)
+             + $this->field('offset', array('id' => $id));
+      $is_admin = $this->isAdmin($id);
+      $inMemoryScoreCache[$id] = $score;
+      $inMemoryAdminCache[$id] = $is_admin;
+    } else {
+      $score = $inMemoryScoreCache[$id];
+      $is_admin = $inMemoryAdminCache[$id];
+    }
 
-    if ($this->isAdmin($id)) { return 7; }
+
+    if ($is_admin) { return 7; }
 
          if (  0 == $score) return 0; // TODO: move to database so PM can set
-    else if ( 20 >  $score) return 1; 
+    else if ( 20 >  $score) return 1;
     else if ( 50 >  $score) return 2;
     else if (100 >  $score) return 3;
     else if (225 >  $score) return 4;
