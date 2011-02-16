@@ -115,6 +115,13 @@ class EntriesController extends AppController {
       'user_id'  => $args['user_id'],
     ));
 
+    $existingCharacters = Set::combine(
+      $this->data,
+      'Character.{n}.id',
+      'Character.{n}.name'
+    );
+    $characters = Set::pushDiff($characters, $existingCharacters);
+
     $this->set(compact('characters', 'story'));
 
     $this->render('form');
