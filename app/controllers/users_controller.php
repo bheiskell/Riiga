@@ -109,6 +109,10 @@ class UsersController extends AppController {
         $this->data['Message']['message'],
         $this->data['Message']['title']
       )) {
+        $this->_email(
+          $this->data['Message']['recv_user_id'],
+          $this->data['Message']['message']
+        );
         $this->flash('Message sent', '/');
       }
     }

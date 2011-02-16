@@ -39,6 +39,8 @@ class CharactersController extends AppController {
         'Your character has been approved!'
       )) ? 'Character Approved' : 'Failed to Message User';
 
+      $this->_email($user_id, $message);
+
       $this->flash($message, array(
         'admin'  => false,
         'action' => 'view',

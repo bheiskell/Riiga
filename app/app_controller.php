@@ -1,7 +1,7 @@
 <?php
 class AppController extends Controller {
   var $view       = 'App'; 
-  var $components = array('SecurityExtended', 'Auth', 'Session');
+  var $components = array('SecurityExtended', 'Auth', 'Session', 'Email');
   var $uses       = array('Message', 'Chat');
   var $helpers    = array(
     'Altrow',
@@ -144,5 +144,20 @@ class AppController extends Controller {
     }
     $this->Session->setFlash(__($message, true));
     $this->redirect($url);
+  }
+
+  public function _email($user_id, $message) {
+    $this->loadModel('User');
+    $user = $this->User->findById($user_id);
+    if (!empty($user['User']['email'])) {
+      $this->Email->to = $user['User']['email'];
+      $this->Email->subject = 'You have a new message!';
+      $this->Email->from = 'Riiga Message Notifier<no-reply@etherealpanda.com>';
+      $this->Email->template = 'message';
+      $this->Email->sendAs = 'text';
+
+      $this->set(compact('user', 'message'));
+      $this->Email->send();
+    }
   }
 }
