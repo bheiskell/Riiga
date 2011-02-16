@@ -117,6 +117,15 @@ class UsersController extends AppController {
   }
 
   function view_message($message_id = null) {
+    if (!empty($this->data)) {
+      $message = $this->Message->markAsRead(
+        $this->data['Message']['id'],
+        $this->Auth->user('id')
+      )
+        ? 'Message marked as read'
+        : 'Failed to mark message as read';
+      $this->flash($message, array('action' => 'messages'));
+    }
 
     $this->Message->contain('SendUser');
 
@@ -131,16 +140,16 @@ class UsersController extends AppController {
     }
 
     $this->set(compact('message'));
-  }
 
-  function mark_as_read($message_id = null) {
-    $message = $this->Message->markAsRead($message_id, $this->Auth->user('id'))
-      ? 'Message marked as read'
-      : 'Failed to mark message as read';
-    $this->flash($message, array('action' => 'messages'));
+    $this->data['Message']['id'] = $message_id;
   }
 
   function messages() {
+    if (!empty($this->data)) {
+      foreach ($this->data['Messages'] as $message) {
+        $this->Message->markAsRead($message, $this->Auth->user('id'));
+      }
+    }
     $messages = $this->Message->find('unread', $this->Auth->user('id'));
     $this->set(compact('messages'));
   }

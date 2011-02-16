@@ -19,11 +19,15 @@
     <ul>
       <li>
         <?php
-          echo $html->link(__('Mark as Read', true), array(
-            'action' => 'mark_as_read',
-            'id' => $message['Message']['id'],
+          echo $form->create('Message', array(
+            'url' => array(
+              'action'     => $this->params['action'],
+              'controller' => $this->params['controller'],
+            ),
           ));
         ?>
+        <?php echo $form->input('id'); ?>
+        <?php echo $form->end('Mark as Read'); ?>
       </li>
     </ul>
   </div>
