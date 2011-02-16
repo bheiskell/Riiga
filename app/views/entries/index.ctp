@@ -6,6 +6,7 @@
   <th><?php echo $paginator->sort('Story',  'Story.name');?></th>
   <th><?php echo $paginator->sort('Member', 'User.username');?></th>
   <th><?php echo $paginator->sort('content');?></th>
+  <th><?php echo $paginator->sort('modified');?></th>
 </tr>
 <?php foreach ($entries as $entry): ?>
   <tr<?php echo $altrow;?>>
@@ -28,6 +29,8 @@
       ?>
     </td>
     <td><?php echo h($entry['Entry']['content']); ?></td>
+    <td><?php echo date('m-d-Y', strtotime($entry['Entry']['modified'])); ?></td>
+
   </tr>
 <?php endforeach; ?>
 </table>
