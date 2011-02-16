@@ -45,9 +45,17 @@ class UsersController extends AppController {
       'Character'
     ));
     $user = $this->User->findBySlug($id);
+    $this->User->Character->bindCurrentStory();
     $characters = $this->User->Character->find('all', array(
       'conditions' => array('Character.user_id' => $user['User']['id']),
-      'contain'    => array('Faction', 'Location', 'Race', 'Rank'),
+      'contain'    => array(
+        'Faction',
+        'Location',
+        'Race',
+        'Rank',
+        'CharactersStory',
+        'CurrentStory'
+      ),
     ));
     $stories = $this->User->Story->find('all_by_user_id', $user['User']['id']);
 

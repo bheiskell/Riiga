@@ -49,7 +49,7 @@
   <?php if (!empty($user['Character'])):?>
     <div class="related">
       <h3><?php __('Characters');?></h3>
-      <?php echo $this->element('characters'); ?>
+      <?php echo $this->element('characters', array('options' => 'current_story')); ?>
     </div>
   <?php endif; ?>
   <?php if (!empty($stories)):?>
@@ -57,7 +57,12 @@
       <h3><?php __('Stories');?></h3>
       <table>
         <thead>
-          <tr><th>Name</th></tr>
+          <tr>
+            <th>Name</th>
+            <th>Turn</th>
+            <th>Latest Post Author</th>
+            <th>Latest Post Date</th>
+          </tr>
         </thead>
         <tbody>
           <?php $altrow->reset(); ?>
@@ -74,6 +79,31 @@
                     )
                   );
                 ?>
+              </td>
+              <td>
+                <?php
+                  echo $html->link(
+                    $story['Turn']['username'],
+                    array(
+                      'action'     => 'view',
+                      'id'         => $story['Turn']['slug']
+                    )
+                  );
+                ?>
+              </td>
+              <td>
+                <?php
+                  echo $html->link(
+                    $story['LatestEntryUser']['username'],
+                    array(
+                      'action'     => 'view',
+                      'id'         => $story['LatestEntryUser']['slug']
+                    )
+                  );
+                ?>
+              </td>
+              <td>
+                <?php echo date('m-d-Y', strtotime($story['LatestEntry']['created'])); ?>
               </td>
             </tr>
           <?php endforeach; ?>

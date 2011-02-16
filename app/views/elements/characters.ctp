@@ -9,6 +9,7 @@
    *                          find('all', ...) (required)
    * @param bool   showUser   Display owner in a member column (defaults false)
    * @param object p          Paginator object for the characters (optional)
+   * @param array  options    Optional columns
    */
 
   /* Elements are basically includes, so perform sanity checks here. */
@@ -16,6 +17,8 @@
     && !(isset($showUser) && $showUser && !isset($characters[0]['User']))
   ):
 ?>
+  <?php if (!isset($options)) { $options = array(); } ?>
+  <?php if (!is_array($options)) { $options = array($options); } ?>
   <table>
     <thead>
       <tr>
@@ -41,6 +44,9 @@
           <th><?php __('Profession');?></th>
           <?php if (isset($showUser)): ?>
             <th><?php __('Member'); ?></th>
+          <?php endif; ?>
+          <?php if (in_array('current_story', $options)): ?>
+            <th><?php __('Current Story'); ?></th>
           <?php endif; ?>
         <?php endif; ?>
       </tr>
@@ -95,6 +101,21 @@
                     'controller' => 'users',
                     'action'     => 'view',
                     'id'         => $character['User']['slug'],
+                    'admin'      => false,
+                  )
+                );
+              ?>
+            </td>
+          <?php endif; ?>
+          <?php if (in_array('current_story', $options)): ?>
+            <td>
+              <?php
+                echo $html->link(
+                  $character['CurrentStory']['name'],
+                  array(
+                    'controller' => 'stories',
+                    'action'     => 'view',
+                    'id'         => $character['CurrentStory']['slug'],
                     'admin'      => false,
                   )
                 );

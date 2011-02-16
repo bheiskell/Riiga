@@ -20,7 +20,7 @@ class Story extends AppModel {
     'LatestEntry' => array(
       'className' => 'Entry',
       'foreignKey' => false,
-      'fields' => array('id', 'created'),
+      'fields' => array('id', 'user_id', 'created'),
       'conditions' => array(
         'LatestEntry.story_id = Story.id',
         'LatestEntry.id = (SELECT MAX(id) FROM entries WHERE Story.id = entries.story_id)'
@@ -226,7 +226,26 @@ class Story extends AppModel {
   public function __findAllByUserId($user_id) {
     $story_ids = array_keys($this->find('user_stories', $user_id));
 
-    return $this->findAllById($story_ids);
+    $this->bindModel(array(
+      'hasOne' => array(
+        'LatestEntryUser' => array(
+          'className' => 'User',
+          'foreignKey' => false,
+          'conditions' => array(
+            'LatestEntry.user_id = LatestEntryUser.id',
+          )
+        ),
+      ),
+    ));
+
+    return $this->find('all', array(
+      'conditions' => array('Story.id' => $story_ids),
+      'contain' => array(
+        'Turn',
+        'LatestEntry',
+        'LatestEntryUser',
+      ),
+    ));
   }
 
   /**

@@ -490,5 +490,35 @@ class Character extends AppModel {
 
     return $characters;
   }
+
+  /**
+   * bindCurrentStory
+   *
+   * Bind a has one relationship with the current story.
+   *
+   * @access public
+   * @return void
+   */
+  public function bindCurrentStory() {
+    $this->User->Character->bindModel(array(
+      'hasOne' => array(
+        'CharactersStory' => array(
+          'className' => 'CharactersStory',
+          'foreignKey' => false,
+          'conditions' => array(
+            'CharactersStory.is_deactivated' => false,
+            'CharactersStory.character_id = Character.id',
+          ),
+        ),
+        'CurrentStory' => array(
+          'className' => 'Story',
+          'foreignKey' => false,
+          'conditions' => array(
+            'CharactersStory.story_id = CurrentStory.id',
+          )
+        ),
+      )
+    ), true);
+  }
 }
 ?>
