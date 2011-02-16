@@ -121,23 +121,30 @@ class EntriesController extends AppController {
   }
 
   private function _remove($entry_id, $is_moderator = false) {
-    $this->Entry->id = $entry_id;
-    $user_id  = $this->Entry->field('user_id');
-    $story_id = $this->Entry->field('story_id');
+    if (!empty($this->data)) {
+      $this->Entry->id = $this->data['Entry']['id'];
 
-    if ( $this->Auth->user('id') == $user_id || $is_moderator) {
-      $message = $this->Entry->deactivate($entry_id)
-        ?  'Entry successfully deleted.' : 'Failed to delete entry';
-    } else {
-      $message = 'Entries can only be deleted by the author or a moderator.';
+      $user_id  = $this->Entry->field('user_id');
+      $story_id = $this->Entry->field('story_id');
+      $slug     = $this->Entry->Story->field('slug', array('id' => $story_id));
+
+      if ( $this->Auth->user('id') == $user_id || $is_moderator) {
+        $message = $this->Entry->deactivate($entry_id)
+          ? 'Entry successfully deleted.' : 'Failed to delete entry';
+      } else {
+        $message = 'Entries can only be deleted by the author or a moderator.';
+      }
+      $this->flash($message, array(
+        'controller' => 'stories',
+        'action'     => 'view',
+        'id'         => $slug,
+        'moderator'  => false,
+      ));
+    } else if ($entry_id) {
+      $this->data['Entry']['id'] = $entry_id;
     }
-    $slug = $this->Entry->Story->field('slug', array('id' => $story_id));
-    $this->flash($message, array(
-      'controller' => 'stories',
-      'action'     => 'view',
-      'id'         => $slug,
-      'moderator'  => false,
-    ));
+
+    $this->render('remove');
   }
 
 }
