@@ -2,6 +2,7 @@
 <?php $paginator->options(array('url' => $this->params['named'])); ?>
 <div class="stories index">
 <h2><?php __('Stories');?></h2>
+<?php echo $this->element('pager'); ?>
 <table>
 <tr>
   <th><?php echo $paginator->sort('name');?></th>

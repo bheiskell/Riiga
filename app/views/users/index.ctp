@@ -1,5 +1,6 @@
 <div class="users index">
   <h2><?php __('Members'); ?></h2>
+  <?php echo $this->element('pager'); ?>
   <table>
     <thead>
       <tr>

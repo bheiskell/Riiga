@@ -5,6 +5,7 @@
     <?php $story['Story']['is_invite_only'] ? __(' (Invite Only)') : null; ?>
   </h2>
   <?php if (!empty($entries)):?>
+    <?php echo $this->element('pager'); ?>
     <table id="entries" cellpadding = "0" cellspacing = "0">
       <?php $altrow->reset(); ?>
       <?php foreach ($entries as $entry): ?>

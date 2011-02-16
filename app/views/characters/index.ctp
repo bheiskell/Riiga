@@ -1,5 +1,6 @@
 <div class="characters index">
   <h2><?php __('Characters');?></h2>
+  <?php echo $this->element('pager'); ?>
   <?php
     echo $this->element(
       'characters',

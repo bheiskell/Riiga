@@ -1,5 +1,6 @@
 <div class="entries index">
 <h2><?php __('Entries');?></h2>
+<?php echo $this->element('pager'); ?>
 <table>
 <tr>
   <th><?php echo $paginator->sort('Story',  'Story.name');?></th>
