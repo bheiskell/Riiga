@@ -30,12 +30,12 @@
     when posting dialog entries; In dialog entries, it only shows you characters
     icon giving it a speech bubble effect.
   </p>
-  <p>
+  <!--<p>
     NPCs! Have a character that always accompanies one of your characters? Don't
     want to use your new rank to create an official profile for that character?
     Create an NPC instead! NPCs are attached to an existing character and can be
     included in any story that character participates in!
-  </p>
+  </p>-->
 
   <h3>Attention existing users!</h3>
   <p>
