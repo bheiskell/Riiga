@@ -11,10 +11,12 @@ class StoriesController extends AppController {
     if ($id = $this->_getParam('pass', 0)) {
       if (is_numeric($id)) {
         $this->Story->id = $id;
+      } else if (is_numeric($id[0])) {
+        $this->Story->id = array_shift($id);
       } else {
         $this->Story->id = Set::extract(
           '/Story/id',
-          $this->Story->findBySlug($id)
+          $this->Story->findBySlug(array_shift($id))
         );
       }
     }
@@ -232,7 +234,7 @@ class StoriesController extends AppController {
   private function _backToView($message, $id) {
     $this->flash($message, array(
       'action' => 'view',
-      'id'     => $this->Story->field('slug', compact('id')),
+      'id'     => $this->Story->field('slug', compact('id'))
     ));
   }
 }

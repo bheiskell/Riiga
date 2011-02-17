@@ -215,6 +215,34 @@ class Story extends AppModel {
   }
 
   /**
+   * close
+   *
+   * Close a story
+   *
+   * @param mixed $story_id 
+   * @access public
+   * @return boolean
+   */
+  public function close($story_id) {
+    $this->id = $story_id;
+    return $this->saveField('is_completed', true);
+  }
+
+  /**
+   * reopen
+   *
+   * Reopen a story
+   *
+   * @param mixed $story_id 
+   * @access public
+   * @return boolean
+   */
+  public function reopen($story_id) {
+    $this->id = $story_id;
+    return $this->saveField('is_completed', true);
+  }
+
+  /**
    * __findAllByUserId
    *
    * Obtain all stories associated with a particular user.

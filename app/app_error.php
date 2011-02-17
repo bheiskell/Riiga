@@ -2,6 +2,21 @@
 class AppError extends ErrorHandler {
 
   /**
+   * __construct
+   *
+   * Enable debug 1 when errors are thrown so these work in production.
+   *
+   * @param mixed $method 
+   * @param mixed $messages 
+   * @access protected
+   * @return void
+   */
+  function __construct($method, $messages) {
+    Configure::write('debug', 1);
+    parent::__construct($method, $messages);
+  }
+
+  /**
    * error403
    *
    * Error code for when an unauthorized user hits admin or moderator resources
