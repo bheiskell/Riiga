@@ -79,6 +79,29 @@ class EntriesController extends AppController {
           'slug',
           array('id' => $this->data['Entry']['story_id'])
         );
+
+        $users = Set::extract(
+          '/StoriesUser/user_id',
+          $this->Entry->Story->StoriesUser->findAllByStoryId(
+            $this->data['Entry']['story_id']
+          )
+        );
+        if (!$this->data['Entry']['id']) {
+          $story_name = $this->Entry->Story->field('name', array('id' => $this->data['Entry']['story_id']));
+          $message = "A new entry has been added to \"$story_name\"";
+          foreach ($users as $user_id) {
+            if ($user_id != $this->Auth->user('id')) {
+              $this->Message->send(
+                $user_id,
+                $this->Auth->user('id'),
+                $message,
+                $message
+              );
+              $this->_email($user_id, $message);
+            }
+          }
+        }
+
         $this->flash('Your entry has been saved', array(
           'controller' => 'stories',
           'action'     => 'view',
