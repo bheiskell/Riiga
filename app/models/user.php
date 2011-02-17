@@ -67,10 +67,10 @@ class User extends AppModel {
    *
    * Validator rule used by password_confirm.
    *
-   * @access private
+   * @access public
    * @return boolean True if passwords match
    */
-  private function comparePassword() {
+  public function comparePassword() {
     return $this->data['User']['password']
         == $this->data['User']['password_confirm'];
   }
