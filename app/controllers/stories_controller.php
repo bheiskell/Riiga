@@ -8,7 +8,16 @@ class StoriesController extends AppController {
   }
 
   function _isModerator() {
-    if ($id = $this->_getParam('pass', 0)) { $this->Story->id = $id; }
+    if ($id = $this->_getParam('pass', 0)) {
+      if (is_numeric($id)) {
+        $this->Story->id = $id;
+      } else {
+        $this->Story->id = Set::extract(
+          '/Story/id',
+          $this->Story->findBySlug($id)
+        );
+      }
+    }
 
     return $this->Story->isModerator($this->Story->id, $this->Auth->user('id'));
   }
