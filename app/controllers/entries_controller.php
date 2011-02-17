@@ -87,17 +87,17 @@ class EntriesController extends AppController {
           )
         );
         if (!$this->data['Entry']['id']) {
-          $story_name = $this->Entry->Story->field('name', array('id' => $this->data['Entry']['story_id']));
-          $message = "A new entry has been added to \"$story_name\"";
+          $story_name = $this->Entry->Story->field('name', array(
+            'id' => $this->data['Entry']['story_id']
+          ));
+          $title = "A new entry has been added to \"$story_name\"";
           foreach ($users as $user_id) {
             if ($user_id != $this->Auth->user('id')) {
-              $this->Message->send(
+              $this->_sendMessage(
                 $user_id,
-                $this->Auth->user('id'),
-                $message,
-                $message
+                $this->data['Entry']['content'],
+                $title
               );
-              $this->_email($user_id, $message);
             }
           }
         }

@@ -5,7 +5,7 @@ class UsersController extends AppController {
 
   function beforeFilter() {
     parent::beforeFilter();
-    $this->Auth->allow('login', 'register', 'index', 'view');
+    $this->Auth->allow('login', 'register', 'index', 'view', 'unsubscribe');
 
     $this->Auth->loginRedirect = array('/');
 
@@ -109,18 +109,34 @@ class UsersController extends AppController {
     $this->render('form');
   }
 
+  function unsubscribe($user_slug = false) {
+    $user = $this->User->findBySlug($user_slug);
+
+    if (empty($user)) { $this->cakeError('error404'); }
+
+    $verification       = $this->_getUserVerification($user);
+    $email_verification = $this->_getParam('named', 'verification');
+
+    if ($email_verification != $verification) {
+      $this->cakeError('error403');
+    }
+
+    if (!empty($this->data)) {
+      $this->User->id = $user['User']['id'];
+      $message = $this->User->saveField('receive_email', false)
+        ? 'Successfully unsubscribed!' : 'Failed to unsubscribe';
+
+      $this->flash($message, '/');
+    }
+  }
+
   function message($id = null) {
     if (!empty($this->data)) {
-      if ($this->Message->send(
+      if ($this->_sendMessage(
         $this->data['Message']['recv_user_id'],
-        $this->Auth->user('id'),
         $this->data['Message']['message'],
         $this->data['Message']['title']
       )) {
-        $this->_email(
-          $this->data['Message']['recv_user_id'],
-          $this->data['Message']['message']
-        );
         $this->flash('Message sent', '/');
       }
     }

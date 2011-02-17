@@ -59,7 +59,10 @@ class User extends AppModel {
         'allowEmpty'   => true,
         'message'      => 'Avatar must be a valid URL'
       )
-    )
+    ),
+    'receive_email'    => array(
+      'required'       => true,
+    ),
   );
 
   /**

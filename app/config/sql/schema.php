@@ -272,6 +272,7 @@ class AppSchema extends CakeSchema {
 		'modified' => array('type' => 'datetime', 'null' => false, 'default' => NULL),
 		'is_deactivated' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
 		'slug' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 50),
+		'receive_email' => array('type' => 'boolean', 'null' => false, 'default' => '1'),
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
 	);
 }

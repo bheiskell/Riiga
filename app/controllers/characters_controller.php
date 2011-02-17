@@ -29,17 +29,15 @@ class CharactersController extends AppController {
 
   function admin_approve_pending($pending_id = null) {
     $user_id = $this->Character->Pending->field('user_id', $pending_id);
+    $name = $this->Character->Pending->field('user_id', $name);
     if ($this->Character->approvePending($pending_id)) {
-      $message = ($this->Message->send(
+      $message = $this->_sendMessage(
         $user_id,
-        $this->Auth->user('id'),
-        "You can now begin using your character by adding him/her to a story. "
+        "You can now begin using \"$name\" by adding him/her to a story. "
         . "If you haven't found a story to join, consider sending an open "
-        . "invitation in the chat box below.",
+        . "invitation in the chat box in the footer.",
         'Your character has been approved!'
-      )) ? 'Character Approved' : 'Failed to Message User';
-
-      $this->_email($user_id, $message);
+      ) ? 'Character Approved' : 'Failed to Message User';
 
       $this->flash($message, array(
         'admin'  => false,

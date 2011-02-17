@@ -34,6 +34,7 @@
       <?php echo $form->input('email'); ?>
       <?php echo $form->input('url', array('label'=>'Home Page')); ?>
       <?php echo $form->input('avatar'); ?>
+      <?php echo $form->input('receive_email'); ?>
     </fieldset>
   <?php echo $form->end('Submit'); ?>
 </div>

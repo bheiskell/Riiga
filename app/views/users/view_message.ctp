@@ -9,7 +9,7 @@
       <?php
         echo $html->link(
           $message['SendUser']['username'],
-          array('action' => 'view', 'id' => $message['Message']['send_user_id'])
+          array('action' => 'view', 'id' => $message['SendUser']['slug'])
         );
       ?>
     </dd>

@@ -14,9 +14,17 @@
           echo $html->link(__('Edit profile', true), array('action' => 'edit'));
         ?>
       </li>
+    <?php else: ?>
+      <li>
+        <?php
+          echo $html->link(
+            __('Send private message', true),
+            array('action' => 'message', $user['User']['id'])
+          );
+        ?>
+      </li>
     <?php endif; ?>
-    <!--
-    // Incomplete
+    <!-- Incomplete
     <li>
       <?php
         echo $html->link(
@@ -30,18 +38,11 @@
       ?>
     </li>
     -->
-    <li>
-      <?php if ($user['User']['url']): ?>
+    <?php if ($user['User']['url']): ?>
+      <li>
         <?php echo $html->link( __("Website", true), $user['User']['url']); ?>
-      <?php else: ?>
-        <?php
-          echo $html->link(
-            __('Send private message', true),
-            array('action' => 'message', $user['User']['id'])
-          );
-        ?>
-      <?php endif; ?>
-    </li>
+      </li>
+    <?php endif; ?>
     <?php if ($nextRank): ?>
       <li>Next rank in <?php echo h($nextRank); ?> entries</li>
     <?php endif; ?>

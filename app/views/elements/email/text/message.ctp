@@ -1,14 +1,11 @@
-Dear <?php echo $user['User']['username']; ?>:
+Dear <?php echo $recv['User']['username']; ?>:
 
-You have received a new message:
+You have received a new message from <?php echo $send['User']['username']; ?>:
+------------------------------------------------------------------------
+<?php echo $brief; ?>:
+
+<?php echo $message; ?> 
 ------------------------------------------------------------------------
 
-<?php echo $message; ?>
-
-------------------------------------------------------------------------
-
-To view this message, visit the following link:
-http://riiga.net/users/messages
-
-You can adjust your email settings by visiting:
-http://riiga.net
+Reply       - http://riiga.net/users/view_message/<?php echo $messageId; ?> 
+Unsubscribe - http://riiga.net/users/unsubscribe/<?php echo $recv['User']['slug']; ?>/verification:<?php echo $verification; ?>

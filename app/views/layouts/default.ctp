@@ -145,6 +145,7 @@
     <div id="content">
       <div id="flash">
         <?php $session->flash(); ?>
+        <?php $session->flash('email'); ?>
         <?php if ($session->check('Message.auth')) $session->flash('auth'); ?>
       </div>
       <?php echo $content_for_layout; ?>
