@@ -33,7 +33,7 @@
         echo $form->input('description');
         echo $form->input('history');
         echo $form->input('avatar');
-        echo $form->input('is_npc');
+        //echo $form->input('is_npc');
       ?>
     </fieldset>
   <?php echo $form->end(__('Submit', true));?>

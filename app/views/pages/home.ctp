@@ -26,7 +26,7 @@
   <p>
     Story entries can now be tagged with your characters! This will place
     their icon beside each entry with that character in it. You can use this to
-    find every entry that included a particular character.It also looks cool
+    find every entry that included a particular character. It also looks cool
     when posting dialog entries; Dialog entries are abbreviated entries, so a
     conversation between characters doesn't take up so much space.
   </p>
