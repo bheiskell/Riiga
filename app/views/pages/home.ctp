@@ -26,9 +26,9 @@
   <p>
     Story entries can now be tagged with your characters! This will place
     their icon beside each entry with that character in it. You can use this to
-    find every entry that included a particular character. It also looks cool
-    when posting dialog entries; In dialog entries, it only shows you characters
-    icon giving it a speech bubble effect.
+    find every entry that included a particular character.It also looks cool
+    when posting dialog entries; Dialog entries are abbreviated entries, so a
+    conversation between characters doesn't take up so much space.
   </p>
   <!--<p>
     NPCs! Have a character that always accompanies one of your characters? Don't
