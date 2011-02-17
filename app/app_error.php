@@ -2,6 +2,19 @@
 class AppError extends ErrorHandler {
 
   /**
+   * allowedMethods
+   *
+   * Error methods approved for production use
+   *
+   * @var array
+   * @access public
+   */
+  var $allowedMethods = array(
+    'error403',
+    'error500',
+  );
+
+  /**
    * __construct
    *
    * Enable debug 1 when errors are thrown so these work in production.
@@ -12,7 +25,10 @@ class AppError extends ErrorHandler {
    * @return void
    */
   function __construct($method, $messages) {
-    Configure::write('debug', 1);
+    if (in_array($method, $this->allowedMethods)) {
+      Configure::write('debug', 1);
+    }
+
     parent::__construct($method, $messages);
   }
 
