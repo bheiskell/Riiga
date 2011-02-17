@@ -13,7 +13,7 @@
     <?php echo $form->input('name'); ?>
     <?php // TODO: Location widget. Issue 28 ?>
     <?php echo $form->input('location_id'); ?>
-    <?php echo $form->input('is_invite_only'); ?>
+    <?php //echo $form->input('is_invite_only'); ?>
   </fieldset>
 <?php echo $form->end('Submit');?>
 </div>
