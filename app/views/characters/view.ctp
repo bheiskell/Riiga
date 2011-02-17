@@ -105,33 +105,7 @@
             );
           ?>
         </li>
-        <?php if (!isset($character['Character']['pending_id'])): ?>
-          <li>
-            <?php if ($character['Character']['user_id'] == $userId): ?>
-              <?php
-                echo $html->link(
-                  __('Add to a story', true),
-                  array(
-                    'controller' => 'story',
-                    'action' => 'add_character',
-                    'character_id' => $character['Character']['id'],
-                  )
-                );
-              ?>
-            <?php else: ?>
-              <?php
-                echo $html->link(
-                  __('Invite to a story', true),
-                  array(
-                    'controller' => 'story',
-                    'action' => 'invite',
-                    'character_id' => $character['Character']['id'],
-                  )
-                );
-              ?>
-            <?php endif; ?>
-          </li>
-        <?php elseif ($isAdmin): ?>
+        <?php if (isset($character['Character']['pending_id']) && $isAdmin): ?>
           <li>
             <?php
               echo $html->link(
