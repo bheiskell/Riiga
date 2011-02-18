@@ -1,92 +1,25 @@
 <?php
+
 class UserFixture extends CakeTestFixture {
   var $name = 'User';
-  var $import = 'User';
+  var $import = array('table' => 'users', 'import' => false);
   var $records = array(
-    /**
-     * Owns one character who has been in two stories and is active in one.
-     */
     array(
-      'id' => '1',
-      'username' => 'test_account_1',
-      'password' => 'BOGUS_DATA',
-      'email' => 'test_account_1@example.com',
-      'url' => 'http://www.example.com',
-      'avatar' => 'http://www.example.com/avatar.jpg',
-      'is_admin' => '0',
-      'created' => '2010-06-16 19:56:07',
-      'modified' => '2010-10-03 21:44:23',
-    ),
-    /**
-     * Owns one character who has entered and left a story.
-     */
-    array(
-      'id' => '2',
-      'username' => 'test_account_2',
-      'password' => 'BOGUS_DATA',
-      'email' => 'test_account_2@example.com',
-      'url' => 'http://www.example.com',
-      'avatar' => '',
-      'is_admin' => '0',
-      'created' => '2010-06-16 19:56:07',
-      'modified' => '2010-10-03 21:44:23',
-    ),
-    /**
-     * Owns one character who has entered a story.
-     */
-    array(
-      'id' => '3',
-      'username' => 'test_account_3',
-      'password' => 'BOGUS_DATA',
-      'email' => '',
-      'url' => '',
-      'avatar' => '',
-      'is_admin' => '0',
-      'created' => '2010-06-16 19:56:07',
-      'modified' => '2010-10-03 21:44:23',
-    ),
-    /**
-     * Owns one character who has done nothing.
-     */
-    array(
-      'id' => '4',
-      'username' => 'test_account_4',
-      'password' => 'BOGUS_DATA',
-      'email' => '',
-      'url' => '',
-      'avatar' => '',
-      'is_admin' => '0',
-      'created' => '2010-06-16 19:56:07',
-      'modified' => '2010-10-03 21:44:23',
-    ),
-    /**
-     * Owns no characters. Is an admin.
-     */
-    array(
-      'id' => '5',
-      'username' => 'test_account_5',
-      'password' => 'BOGUS_DATA',
-      'email' => '',
-      'url' => '',
-      'avatar' => '',
-      'is_admin' => '1',
-      'created' => '2010-06-16 19:56:07',
-      'modified' => '2010-10-03 21:44:23',
-    ),
-    /**
-     * Owns no characters. TODO Has a entry offset of 100.
-     */
-    array(
-      'id' => '6',
-      'username' => 'test_account_6',
-      'password' => 'BOGUS_DATA',
-      'email' => '',
-      'url' => '',
-      'avatar' => '',
-      'is_admin' => '1',
-      'created' => '2010-06-16 19:56:07',
-      'modified' => '2010-10-03 21:44:23',
+      'id'             => '1',
+      'username'       => 'Lorem Ipsum',
+      'slug'           => 'lorem_ipsum',
+      'password'       => '767d554e12f27402f81df8317a8b18d42fd045c6',
+      'email'          => 'lorem_ipsum_test_email@gmail.com',
+      'receive_email'  => '1',
+      'url'            => 'http://www.riiga.net',
+      'avatar'         => '',
+      'is_admin'       => '0',
+      'is_deactivated' => '0',
+      'offset'         => '0',
+      'created'        => '2007-08-02 00:00:00',
+      'modified'       => '2011-02-16 02:19:29',
     ),
   );
 }
+
 ?>

@@ -250,12 +250,12 @@ class User extends AppModel {
     $rank_id = $this->getRank($id, $entries_count);
 
          if (0 == $rank_id) return 20 - $entries_count; // TODO: move to db
-    else if (1 >  $rank_id) return 20 - $entries_count; 
-    else if (2 >  $rank_id) return 50 - $entries_count;
-    else if (3 >  $rank_id) return 100 - $entries_count;
-    else if (4 >  $rank_id) return 225 - $entries_count;
-    else if (5 >  $rank_id) return 400 - $entries_count;
-    else if (6 >  $rank_id) return 600 - $entries_count;
+    else if (1 == $rank_id) return 20 - $entries_count; 
+    else if (2 == $rank_id) return 50 - $entries_count;
+    else if (3 == $rank_id) return 100 - $entries_count;
+    else if (4 == $rank_id) return 225 - $entries_count;
+    else if (5 == $rank_id) return 400 - $entries_count;
+    else if (6 == $rank_id) return 600 - $entries_count;
     else return false;
   }
 

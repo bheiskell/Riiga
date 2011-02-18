@@ -1,24 +1,220 @@
-<?php 
-/* SVN FILE: $Id$ */
-/* Subrace Fixture generated on: 2011-01-07 23:34:04 : 1294443244*/
+<?php
 
 class SubraceFixture extends CakeTestFixture {
-	var $name = 'Subrace';
-	var $table = 'subraces';
-	var $fields = array(
-		'id' => array('type'=>'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
-		'name' => array('type'=>'string', 'null' => false, 'default' => NULL, 'length' => 256),
-		'description' => array('type'=>'text', 'null' => false, 'default' => NULL),
-		'race_id' => array('type'=>'integer', 'null' => false, 'default' => NULL),
-		'location_id' => array('type'=>'integer', 'null' => false, 'default' => NULL),
-		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
-	);
-	var $records = array(array(
-		'id' => 1,
-		'name' => 'Lorem ipsum dolor sit amet',
-		'description' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida,phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam,vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit,feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-		'race_id' => 1,
-		'location_id' => 1
-	));
+  var $name = 'Subrace';
+  var $import = array('table' => 'subraces', 'import' => false);
+  var $records = array(
+    array(
+      'id' => '1',
+      'name' => 'Alcean',
+      'description' => 'Below average height, very pale complexion. Muscle: moderate. Fat: very high. Dark reddish to brown hair. Dusty green to midbrown eyes. Alceans are native to the middle of Huirnon, around the capital of Alacas and in the province of Minteret.',
+      'race_id' => '1',
+      'location_id' => '9',
+    ),
+    array(
+      'id' => '2',
+      'name' => 'Curien',
+      'description' => 'Average height, average complexion. Muscle: high. Fat: high. Fair to golden to golden brown hair. Eyes in many shades fo blue eyes. Curiens are native to the island country of Curin which is officially owned by The Guards of Central.',
+      'race_id' => '1',
+      'location_id' => '116',
+    ),
+    array(
+      'id' => '3',
+      'name' => 'Hade',
+      'description' => 'Above average height, very dark complexion. Muscle: moderate. Fat: low. Very fair hair. Reddish brown to brown eyes. Hade are from the southern end of South Tasif, in the province of Had. Most Raiders are Hade.',
+      'race_id' => '1',
+      'location_id' => '5',
+    ),
+    array(
+      'id' => '4',
+      'name' => 'Hodasian',
+      'description' => 'Below average height, slightly pale complexion. Muscle: very high. Fat: high. Light brown to midbrown hair. Dark blue to blue eyes. Hodasians are native to Temanea, from the provinces of Hodasia and Eserren.',
+      'race_id' => '1',
+      'location_id' => '6',
+    ),
+    array(
+      'id' => '5',
+      'name' => 'Ideiten',
+      'description' => 'Average height, very pale complexion. Muscle: moderate. Fat: high. Brown to dark brown hair. Black to dark grey eyes. Ideitens are from the northwestern corner of North Ideitess, around the capital of Venzet, from the province of Remdore. Most noble families in Ideitess are Ideiten.',
+      'race_id' => '1',
+      'location_id' => '123',
+    ),
+    array(
+      'id' => '6',
+      'name' => 'Ikadean',
+      'description' => 'Slightly below average height, average complexion. Muscle: very high. Fat: average. Very dark brown to light brown hair. Dark blue to dark grey to dark brown eyes. Ikadeans are native to the Ikadean Islands between North and South Tasif, and can also be found on other Epignorian islands.',
+      'race_id' => '1',
+      'location_id' => '4',
+    ),
+    array(
+      'id' => '7',
+      'name' => 'Jevithium',
+      'description' => 'Average height, average complexion. Muscle: high. Fat: low. Dark grey to reddish hair. Eyes are varying shades of grey. Jevithiums are from Jevithem, in North Nidonn, in the middle of the country around Lake Baymoor. ',
+      'race_id' => '1',
+      'location_id' => '182',
+    ),
+    array(
+      'id' => '8',
+      'name' => 'Karber',
+      'description' => 'Average height, pale complexion. Muscle: moderate. Fat: heavy. Light brown to light reddish hair. Dark grey to dark brown/reddish eyes. Karber are from the southern regions of North Ideitess, found in provinces such as Karbak, Remote Karbak, and Elginen.',
+      'race_id' => '1',
+      'location_id' => '123',
+    ),
+    array(
+      'id' => '9',
+      'name' => 'Katrekri',
+      'description' => 'Way above average height, very dark complexion. Muscle: moderate. Fat: thin. Fair to silvery hair. Eyes vary from reddish through to yellowish shades of brown. Katrekri are native to Tekrikri and are live only in Sacred Heder desert or in the city of Kartara.',
+      'race_id' => '1',
+      'location_id' => '7',
+    ),
+    array(
+      'id' => '10',
+      'name' => 'Kayen',
+      'description' => 'Above average height, slightly dark complexion. Muscle: low. Fat: low. Light brown/reddish hair. Eyes are varying shades of grey. Kayen are islanders from the eastern islands of Progora Sea.',
+      'race_id' => '1',
+      'location_id' => '9',
+    ),
+    array(
+      'id' => '11',
+      'name' => 'Leotian',
+      'description' => 'Above average height, slightly pale complexion. Muscle: moderate. Fat: moderate. Dark blond to light brown hair. Dark green to grey to light blue eyes. Leotians are from Leotyne, in North Nidonn, towards the western mountains of the country.',
+      'race_id' => '1',
+      'location_id' => '182',
+    ),
+    array(
+      'id' => '12',
+      'name' => 'Maharaben',
+      'description' => 'Average height, pale complexion. Muscle: high. Fat: high. Reddish hair. Eyes are varying shades of green or grey. Maharabens are native to Huirnon\'s southwestern provinces, namely Maharaba and Stelake.',
+      'race_id' => '1',
+      'location_id' => '9',
+    ),
+    array(
+      'id' => '13',
+      'name' => 'Nelesian',
+      'description' => 'Slightly below average height, very pale complexion. Muscle: high. Fat: low. Brown to light brown hair. Black or dark grey eyes. Nelesians are found in the remote northern end of North Ideitess and are essentially outlaws by blood.',
+      'race_id' => '1',
+      'location_id' => '123',
+    ),
+    array(
+      'id' => '14',
+      'name' => 'Nelren',
+      'description' => 'Way below average height, very pale complexion. Muscle: thin. Fat: low. Black to dark grey hair. Black to dark grey/brown eyes. Nelrens are found in the southern regions of South Ideitess, around the cities of Venugias and Solein.',
+      'race_id' => '1',
+      'location_id' => '124',
+    ),
+    array(
+      'id' => '15',
+      'name' => 'Nidoen',
+      'description' => 'Slightly above average height, high complexion. Muscle: high. Fat: low. Brown to light brown hair. Eyes are shades of brown or green. Nidoens are from the province of Phedailin, in North Nidonn. Most nobility in Nidonn are Nidoen.',
+      'race_id' => '1',
+      'location_id' => '182',
+    ),
+    array(
+      'id' => '16',
+      'name' => 'Pitaen',
+      'description' => 'Above average height, slightly dark complexion. Muscle: high. Fat: low. Fair to light/reddish brown hair. Grey to green to reddish eyes, often mixed. Pitaens are from the northeastern parts of South Tasif, in the province of Sotusia, mostly in Pitae Woods and the surrounding plains.',
+      'race_id' => '1',
+      'location_id' => '5',
+    ),
+    array(
+      'id' => '17',
+      'name' => 'Progoren',
+      'description' => 'Above average height, average complexion. Muscle: moderate. Fat: moderate. Brown to reddish brown hair. Grey to light brown eyes. Progorens are islanders from the western islands of Progora Sea.',
+      'race_id' => '1',
+      'location_id' => '9',
+    ),
+    array(
+      'id' => '18',
+      'name' => 'Pyhunen',
+      'description' => 'Slightly above average height, average complexion. Muscle: high. Fat: moderate. Fair to light brown hair. Green to brown eyes. Pyhunens are native to the western side of Estall Bay and are pirates by blood.',
+      'race_id' => '1',
+      'location_id' => '184',
+    ),
+    array(
+      'id' => '19',
+      'name' => 'Renniscen',
+      'description' => 'Way above average height, very pale complexion. Muscle: very high. Fat: very high. Reddish to dark blond hair. Light green/brown to grey eyes. Renniscen are native to the northern area of west Huirnon, mostly in Rennisc.',
+      'race_id' => '1',
+      'location_id' => '9',
+    ),
+    array(
+      'id' => '20',
+      'name' => 'Santurian',
+      'description' => 'Slightly below average height, average complexion. Muscle: high. Fat: moderate. Dark brown/reddish brown hair. Dark blue/green eyes. Santurians are found in the middle of North Tasif, around the provinces of Meloe and Batyrun.',
+      'race_id' => '1',
+      'location_id' => '4',
+    ),
+    array(
+      'id' => '21',
+      'name' => 'Scarcen',
+      'description' => 'Way above average height, dark complexion. Muscle: high. Fat: thin. Light blond to blond hair. Dark red/brown to light red/brown eyes. Scarcens are found in the western side of South Tasif, in the province of Sotusia and within the capital of Scarcus.',
+      'race_id' => '1',
+      'location_id' => '5',
+    ),
+    array(
+      'id' => '22',
+      'name' => 'Selesean',
+      'description' => 'Way below average height, pale complexion. Muscle: low. Fat: low. Black hair. Black to dark grey eyes. Seleseans are native to South Ideitess and can be found in the more remote eastern regions, in the East Xilian plains, past the city of Solein.',
+      'race_id' => '1',
+      'location_id' => '124',
+    ),
+    array(
+      'id' => '23',
+      'name' => 'Shbelen',
+      'description' => 'Average height, Average complexion. Muscle: moderate. Fat: low. Dark blond to reddish blond hair. Dark brown to grey eyes, often mixed. Shbelen are native to the eastern side of Estall Bay and are pirates by blood.',
+      'race_id' => '1',
+      'location_id' => '184',
+    ),
+    array(
+      'id' => '24',
+      'name' => 'Simbean',
+      'description' => 'Above average height, slightly dark complexion. Muscle: very high. Fat: moderate. Blond to grey hair. Green to grey to brown eyes, often mixed. Simbeans are found in the red desert of Simbea in the province of Laurondirin, in North Nidonn.',
+      'race_id' => '1',
+      'location_id' => '182',
+    ),
+    array(
+      'id' => '25',
+      'name' => 'Taroiccen',
+      'description' => 'Way below average height, very pale complexion. Muscle: high. Fat: high. Dark brown to reddish brown hair. Eyes are varying shades of green. Taroiccens are from the eastern end of east Huirnon, in the provinces of Velenaia and Taroicca.',
+      'race_id' => '1',
+      'location_id' => '9',
+    ),
+    array(
+      'id' => '26',
+      'name' => 'Trelinian',
+      'description' => 'Average height, slightly pale complexion. Muscle: low. Fat: thin. Brown to reddish hair. Black to dark red to dark brown eyes. Trelinians are from the forested province of Trelinia within North Nidonn.',
+      'race_id' => '1',
+      'location_id' => '182',
+    ),
+    array(
+      'id' => '27',
+      'name' => 'Umberian',
+      'description' => 'Average height, very pale complexion. Muscle: high. Fat: high. Light to dark brown hair. Black to dark grey to reddish brown eyes. Umberians are from North Ideitess, in the province of Umberien.',
+      'race_id' => '1',
+      'location_id' => '123',
+    ),
+    array(
+      'id' => '28',
+      'name' => 'Vastean',
+      'description' => 'Average height, average complexion. Muscle: high. Fat: moderate. Blond to fair hair. Light to dark blue or brown eyes. Vasteans are the first human race and are native to Litaia in North Tasif, around the capital of Lyte.',
+      'race_id' => '1',
+      'location_id' => '4',
+    ),
+    array(
+      'id' => '29',
+      'name' => 'Windean',
+      'description' => 'Below average height, pale complexion. Muscle: high. Fat: very high. Brown to reddish brown hair. Light to dark green or grey eyes. Windeans are from the central tundra plains of west Huirnon, mostly from the provinces of Windaeser and Cenarta.',
+      'race_id' => '1',
+      'location_id' => '9',
+    ),
+    array(
+      'id' => '30',
+      'name' => 'Xilinian',
+      'description' => 'Way below average height, slightly pale complexion. Muscle: low. Fat: moderate. Dark grey/brown hair. Black to brown or red eyes. Xilinians are found in the northern parts of South Ideitess, mostly past Nelvi and Silril.',
+      'race_id' => '1',
+      'location_id' => '124',
+    ),
+  );
 }
+
 ?>
