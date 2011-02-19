@@ -3,7 +3,8 @@ class CharactersController extends AppController {
 
   var $name = 'Characters';
   var $paginate = array(
-    'contain' => array('User', 'Rank', 'Location', 'Race', 'Faction')
+    'contain' => array('User', 'Rank', 'Location', 'Race', 'Faction'),
+    'order' => array('Character.created' => 'DESC'),
   );
 
   function beforeFilter() {
@@ -12,7 +13,6 @@ class CharactersController extends AppController {
   }
 
   function index() {
-    $this->paginate['order'] = array('User.created' => 'DESC');
     $this->set('characters', $this->paginate());
 
     // Not paginating pending, because this list should never be very long.
@@ -29,7 +29,7 @@ class CharactersController extends AppController {
 
   function admin_approve_pending($pending_id = null) {
     $user_id = $this->Character->Pending->field('user_id', $pending_id);
-    $name = $this->Character->Pending->field('user_id', $name);
+    $name = $this->Character->Pending->field('name', $pending_id);
     if ($this->Character->approvePending($pending_id)) {
       $message = $this->_sendMessage(
         $user_id,

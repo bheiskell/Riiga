@@ -161,7 +161,9 @@ class User extends AppModel {
    */
   public function beforeFind($query) {
     /* Login */
-    if (isset($query['conditions']['User.username'])) {
+    if (is_array($query['conditions'])
+     && isset($query['conditions']['User.username'])
+    ) {
       $query['conditions']['UPPER(User.username)'] =
         strtoupper($query['conditions']['User.username']);
       unset($query['conditions']['User.username']);
