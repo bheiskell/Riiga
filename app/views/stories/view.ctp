@@ -8,6 +8,7 @@
     <?php echo $this->element('pager'); ?>
     <table id="entries" cellpadding = "0" cellspacing = "0">
       <?php $altrow->reset(); ?>
+      <?php $count = count($entries); ?>
       <?php foreach ($entries as $entry): ?>
         <?php $isDialog = ($entry['Entry']['is_dialog']) ? 'is_dialog' : null;?>
         <tr<?php echo $altrow->get($isDialog); ?>>
@@ -24,6 +25,9 @@
             <?php endif; ?>
           </td>
           <td>
+          <?php if (0 === --$count): ?>
+            <a name="latest" class="hidden_anchor">Latest Post</a>
+          <?php endif; ?>
           <span class="date">
             <?php
               if ($entry['Entry']['created'] != $entry['Entry']['modified']):

@@ -107,6 +107,7 @@ class EntriesController extends AppController {
           'action'     => 'view',
           'id'         => $slug,
           'page'       => 'last',
+          '#'          => 'latest',
         ));
       } else {
         $this->Session->setFlash(
