@@ -42,10 +42,11 @@
   </fieldset>
 <?php echo $form->end('Submit');?>
 <?php if (!isset($this->data['Entry']['id']) && !empty($entries)): ?>
+  <h3>Last Five Entries</h3>
   <table>
     <thead>
       <tr>
-        <th>Last five entries</th>
+        <th>Entry</th>
         <th>Date</th>
       </tr>
     </thead>
