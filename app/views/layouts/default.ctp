@@ -35,6 +35,7 @@
       'users/messages',
       'users/view',
       'users/view_message',
+      'entries/form',
     );
     foreach ($css as $file) {
       echo $html->css($file, null, null, false);

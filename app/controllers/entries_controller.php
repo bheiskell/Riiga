@@ -145,7 +145,8 @@ class EntriesController extends AppController {
     );
     $characters = Set::pushDiff($characters, $existingCharacters);
 
-    $this->set(compact('characters', 'story'));
+    $entries = $this->Entry->Story->find('last_five_entries',$args['story_id']);
+    $this->set(compact('characters', 'story', 'entries'));
 
     $this->render('form');
   }

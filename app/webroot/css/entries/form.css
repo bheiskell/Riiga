@@ -1,0 +1,6 @@
+.entries.form table {
+  font-size: 0.75em;
+}
+.entries.form table td:last-child {
+  width: 12%;
+}

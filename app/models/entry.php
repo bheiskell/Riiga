@@ -53,6 +53,8 @@ class Entry extends AppModel {
    * @return boolean True on valid character relationship
    */
   function beforeValidate() {
+    if (!isset($this->data['Character'])) return true;
+
     $count = is_array($this->data['Character']['Character'])
            ? count($this->data['Character']['Character']) : 0;
     $found = $this->Character->find('count', array(

@@ -41,4 +41,25 @@
     ?>
   </fieldset>
 <?php echo $form->end('Submit');?>
+<?php if (!isset($this->data['Entry']['id']) && !empty($entries)): ?>
+  <table>
+    <thead>
+      <tr>
+        <th>Last five entries</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($entries as $entry): ?>
+        <tr<?php echo $altrow; ?>>
+          <td><pre><?php echo h($entry['Entry']['content']); ?></pre></td>
+          <td>
+            <?php echo date('m-d-Y H:i', strtotime($entry['Entry']['created'])); ?>
+          </td>
+
+        </tr>
+      <?php endforeach ?>
+    </tbody>
+  </table>
+<?php endif;?>
 </div>

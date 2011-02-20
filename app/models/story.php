@@ -361,5 +361,22 @@ class Story extends AppModel {
 
     return $contains[$relation];
   }
+
+  /**
+   * __findLastFiveEntries
+   *
+   * Return the last five entries for a story
+   *
+   * @param mixed $id 
+   * @access protected
+   * @return array Entries
+   */
+  protected function __findLastFiveEntries($id) {
+    return $this->Entry->find('all', array(
+      'conditions' => array('story_id' => $id),
+      'order' => array('Entry.created' => 'DESC', 'Entry.id' => 'DESC'),
+      'limit' => '5',
+    ));
+  }
 }
 ?>

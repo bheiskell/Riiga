@@ -70,7 +70,5 @@ class CharacterTestCase extends CakeTestCase {
     $data['rank_id'] = 2;
     $this->assertFalse($this->Character->save($data));
   }
-
-  function drop(&$db) { return true; }
 }
 ?>
