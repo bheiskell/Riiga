@@ -239,7 +239,7 @@ class Story extends AppModel {
    */
   public function reopen($story_id) {
     $this->id = $story_id;
-    return $this->saveField('is_completed', true);
+    return $this->saveField('is_completed', false);
   }
 
   /**
