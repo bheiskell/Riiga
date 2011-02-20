@@ -60,7 +60,13 @@ class PendingBehavior extends ModelBehavior {
 
     $Model->set($data);
 
-    if (!$Model->id) { $Model->create(); }
+    if (!$Model->id) {
+      $Model->create();
+
+    } else {
+      $data[$Model->name]['created']
+        = $Model->field('created', array('id' => $Model->id));
+    }
 
     return $Model->save($data) && $Model->Pending->delete($pending_id, false);
   }
