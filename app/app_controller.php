@@ -46,14 +46,14 @@ class AppController extends Controller {
     $isAdmin     = $this->_isAdmin();
     $isModerator = $this->_isModerator();
 
-    $chats        = $this->Chat->find('last_25');
+    $footerChats  = $this->Chat->find('last_25');
     $messageCount = $this->Message->find('count_unread', $userId);
 
     $this->set(compact(
       'userId',
       'isAdmin',
       'isModerator',
-      'chats',
+      'footerChats',
       'messageCount'
     ));
 

@@ -2,6 +2,7 @@
 class ChatsController extends AppController {
 
   function beforeFilter() {
+    parent::beforeFilter();
     $this->Auth->allow('index', 'rss');
   }
 
@@ -21,9 +22,12 @@ class ChatsController extends AppController {
   }
 
   function index() {
-    $this->paginate['Chat'] = array('order' => 'Chat.created DESC');
+    $this->paginate['Chat'] = array(
+      'contain' => array('User'),
+      'order'   => 'Chat.created DESC',
+    );
 
-    $this->posts = $this->paginate();
+    $chats = $this->paginate();
 
     $this->set(compact('chats'));
   }

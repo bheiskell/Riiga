@@ -4,9 +4,9 @@
   // controller, the input box will be populated with incorrect data.
   $this->set('messages', false);
 ?>
-<? if (isset($chats)): ?>
+<? if (isset($footerChats)): ?>
   <div class="chat_box">
-    <?php if (!empty($chats)): ?>
+    <?php if (!empty($footerChats)): ?>
     <p>
       <?php
         echo $html->link(__('View all Chats', true), array(
@@ -18,7 +18,7 @@
     <table>
       <tbody>
         <?php $altrow->reset(); ?>
-        <?php foreach ($chats as $chat): ?>
+        <?php foreach ($footerChats as $chat): ?>
           <tr<?php echo $altrow; ?>>
             <td>
               <?php

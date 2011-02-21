@@ -162,7 +162,7 @@
           ?>
         </li>
       </ul>
-      <?php echo $this->element('chat_box', compact('chats', 'userId')); ?>
+      <?php echo $this->element('chat_box', compact('footerChats', 'userId')); ?>
     </div>
   </div>
   <?php echo $cakeDebug; ?>
