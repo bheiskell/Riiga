@@ -81,7 +81,7 @@ class UsersController extends AppController {
       ))
     );
     $entries = $this->Entry->find('all', array(
-      'conditions' => array('story_id' => $stories),
+      'conditions' => array('story_id' => $stories, 'user_id !=' => $user_id),
       'contain'    => array('User', 'Story'),
       'order by'   => array('created' => 'DESC'),
       'limit'      => 20,
