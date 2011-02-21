@@ -5,7 +5,7 @@ class UsersController extends AppController {
 
   function beforeFilter() {
     parent::beforeFilter();
-    $this->Auth->allow('login', 'register', 'index', 'view', 'unsubscribe');
+    $this->Auth->allow('login', 'register', 'index', 'view', 'unsubscribe', 'rss');
 
     $this->Auth->loginRedirect = array('/');
 
