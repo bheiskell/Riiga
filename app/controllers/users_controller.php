@@ -69,6 +69,26 @@ class UsersController extends AppController {
     $this->pageTitle = 'Users - ' . $user['User']['username'];
   }
 
+  function rss($slug = null) {
+    $this->loadModel('Entry');
+    $this->loadModel('StoriesUser');
+
+    $user_id = $this->User->field('id', compact('slug'));
+    $stories = Set::extract(
+      '/StoriesUser/story_id',
+      $this->StoriesUser->find('all', array(
+        'conditions' => array('user_id' => $user_id),
+      ))
+    );
+    $entries = $this->Entry->find('all', array(
+      'conditions' => array('story_id' => $stories),
+      'contain'    => array('User', 'Story'),
+      'order by'   => array('created' => 'DESC'),
+      'limit'      => 20,
+    ));
+    $this->set(compact('entries'));
+  }
+
   function register() {
     if (!empty($this->data)) {
       $this->User->create();

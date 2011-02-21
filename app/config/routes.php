@@ -63,6 +63,11 @@ Router::connect('/moderator/:controller/:action/:id/*', array(
   'id' => '[0-9]+',
 ));
 
+Router::connect('/users/rss/*', array(
+  'controller' => 'users',
+  'action'     => 'rss',
+  'url'        => array('ext' => 'rss')
+));
 Router::connect('/chats/rss', array(
   'controller' => 'chats',
   'action'     => 'rss',
