@@ -163,6 +163,10 @@ class StoriesController extends AppController {
 
       if ($this->Story->save($this->data)) {
         $this->Session->setFlash(__('The Story has been saved.', true));
+        if (isset($this->data['Story']['characters'])) {
+          $this->Story->addCharacter($this->Story->id, $this->data['Story']['characters'], $this->Auth->user('id'));
+          $this->Story->promote($this->Story->id, $this->Auth->user('id'));
+        }
         $this->redirect(array(
           'action' => 'view',
           'id' => $this->Story->field('slug')
@@ -177,6 +181,7 @@ class StoriesController extends AppController {
     }
     $locationInfo = $this->Story->Location->find('info');
     $locations    = $this->Story->Location->generatetreelist(0, 0, 0, '|  ');
+    $characters   = $this->Story->Character->find('available', $this->Auth->user('id'));
     $this->set(
       compact('characters', 'userIdTurns', 'turns', 'locations', 'locationInfo')
     );
