@@ -94,3 +94,13 @@ pre {
   white-space: pre-wrap;
   word-wrap: break-word;
 }
+strong {
+  font-weight: bold;
+}
+em {
+  font-style: oblique;
+}
+abbr {
+  border-bottom: 1px solid #323232;
+  padding-bottom: 1px;
+}

@@ -9,7 +9,6 @@
 }
 
 .stories.view table#entries span.date {
-  color: #ccc;
   float: right;
 }
 .stories.view table#entries pre {
@@ -32,7 +31,7 @@
   border-right: none;
 }
 .stories.view table#entries tr.is_dialog pre {
-  border: 1px solid #CCC;
+  border: 1px solid #494037;
   margin-left: -1em;
   padding: 1em;
   -moz-border-radius: 1em;

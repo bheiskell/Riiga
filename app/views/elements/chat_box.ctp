@@ -29,9 +29,9 @@
                 ));
               ?>
             </td>
-            <td><?php echo h($chat['Chat']['message']); ?></td>
+            <td><?php echo $markup->parse($chat['Chat']['message']); ?></td>
             <td>
-              <?php echo date('m-d-Y', strtotime($chat['Chat']['created'])); ?>
+              <?php echo $date->date($chat['Chat']['created']); ?>
             </td>
           </tr>
         <?php endforeach; ?>

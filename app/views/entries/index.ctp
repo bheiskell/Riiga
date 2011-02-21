@@ -29,7 +29,7 @@
       ?>
     </td>
     <td><?php echo h($entry['Entry']['content']); ?></td>
-    <td><?php echo date('m-d-Y', strtotime($entry['Entry']['modified'])); ?></td>
+    <td><?php echo $date->date($entry['Entry']['modified']); ?></td>
 
   </tr>
 <?php endforeach; ?>

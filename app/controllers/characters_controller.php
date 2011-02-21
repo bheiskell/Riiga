@@ -31,7 +31,7 @@ class CharactersController extends AppController {
     $user_id = $this->Character->Pending->field('user_id', $pending_id);
     $name = $this->Character->Pending->field('name', $pending_id);
     if ($this->Character->approvePending($pending_id)) {
-      $message = $this->_sendMessage(
+      $message = $this->Messaging->send(
         $user_id,
         "You can now begin using \"$name\" by adding him/her to a story. "
         . "If you haven't found a story to join, consider sending an open "

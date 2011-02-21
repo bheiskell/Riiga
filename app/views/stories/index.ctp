@@ -36,12 +36,12 @@ foreach ($stories as $story):
       ?>
     </td>
     <td>
-      <?php echo date('m-d-Y', strtotime($story['Story']['created'])); ?>
+      <?php echo $date->date($story['Story']['created']); ?>
     </td>
     <td>
       <?php if ($story['LatestEntry']['created']): ?>
         <?php
-          echo date('m-d-Y', strtotime($story['LatestEntry']['created']));
+          echo $date->date($story['LatestEntry']['created']);
         ?>
       <?php endif; ?>
     </td>

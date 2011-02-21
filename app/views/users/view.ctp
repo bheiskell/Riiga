@@ -104,7 +104,7 @@
                 ?>
               </td>
               <td>
-                <?php echo date('m-d-Y', strtotime($story['LatestEntry']['created'])); ?>
+                <?php echo $date->date($story['LatestEntry']['created']); ?>
               </td>
             </tr>
           <?php endforeach; ?>

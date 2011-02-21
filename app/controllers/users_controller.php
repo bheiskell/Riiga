@@ -134,7 +134,7 @@ class UsersController extends AppController {
 
     if (empty($user)) { $this->cakeError('error404'); }
 
-    $verification       = $this->_getUserVerification($user);
+    $verification       = $this->Messaging->getUserVerification($user);
     $email_verification = $this->_getParam('named', 'verification');
 
     if ($email_verification != $verification) {
@@ -152,7 +152,7 @@ class UsersController extends AppController {
 
   function message($id = null) {
     if (!empty($this->data)) {
-      if ($this->_sendMessage(
+      if ($this->Messaging->send(
         $this->data['Message']['recv_user_id'],
         $this->data['Message']['message'],
         $this->data['Message']['title']

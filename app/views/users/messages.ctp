@@ -45,7 +45,7 @@
           </td>
           <td>
             <?php
-              echo date('m-d-Y', strtotime($message['Message']['created']));
+              echo $date->date($message['Message']['created']);
             ?>
           </td>
         </tr>

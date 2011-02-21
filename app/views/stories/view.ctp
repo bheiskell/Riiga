@@ -28,19 +28,20 @@
           <?php if (0 === --$count): ?>
             <a name="latest" class="hidden_anchor">Latest Post</a>
           <?php endif; ?>
+          <a name="entry:<?php echo h($entry['Entry']['id']); ?>" class="hidden_anchor">Entry <?php echo h($entry['Entry']['id']); ?></a>
           <span class="date">
             <?php
               if ($entry['Entry']['created'] != $entry['Entry']['modified']):
             ?>
               (<?php
-                echo date('m-d-Y H:i', strtotime($entry['Entry']['modified']));
+                echo $date->time($entry['Entry']['modified']);
               ?>)
             <?php endif; ?>
             <?php
-              echo date('m-d-Y H:i', strtotime($entry['Entry']['created']));
+              echo $date->time($entry['Entry']['created']);
             ?>
           </span>
-          <pre><?php echo h($entry['Entry']['content']);?></pre>
+          <?php echo $markup->parse($entry['Entry']['content']);?>
           </td>
 
           <td class="actions">

@@ -2,9 +2,9 @@ Dear <?php echo $recv['User']['username']; ?>:
 
 You have received a new message from <?php echo $send['User']['username']; ?>:
 ------------------------------------------------------------------------
-<?php echo $brief; ?>:
+<?php echo $messageTitle; ?>:
 
-<?php echo $message; ?> 
+<?php echo $markup->parse($message, 'text'); ?> 
 ------------------------------------------------------------------------
 
 Reply       - http://riiga.net/users/view_message/<?php echo $messageId; ?> 

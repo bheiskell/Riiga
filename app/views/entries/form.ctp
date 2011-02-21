@@ -53,11 +53,10 @@
     <tbody>
       <?php foreach ($entries as $entry): ?>
         <tr<?php echo $altrow; ?>>
-          <td><pre><?php echo h($entry['Entry']['content']); ?></pre></td>
+          <td><?php echo $markup->parse($entry['Entry']['content']); ?></td>
           <td>
-            <?php echo date('m-d-Y H:i', strtotime($entry['Entry']['created'])); ?>
+            <?php echo $date->time($entry['Entry']['created']); ?>
           </td>
-
         </tr>
       <?php endforeach ?>
     </tbody>

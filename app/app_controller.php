@@ -2,11 +2,11 @@
 class AppController extends Controller {
   var $view       = 'App'; 
   var $components = array(
-    'RequestHandler',
-    'SecurityExtended',
     'Auth',
     'Session',
-    'Email',
+    'RequestHandler',
+    'SecurityExtended',
+    'Messaging',
   );
   var $uses       = array('Chat', 'Message');
   var $helpers    = array(
@@ -14,6 +14,8 @@ class AppController extends Controller {
     'Html',
     'Javascript',
     'Rss',
+    'Date',
+    'Markup',
     'Altrow',
     'Avatar',
     'Minimap',
@@ -151,72 +153,5 @@ class AppController extends Controller {
     }
     $this->Session->setFlash(__($message, true));
     $this->redirect($url);
-  }
-
-  /**
-   * _sendMessage
-   *
-   * Send a user a message from the currently logged in user.
-   *
-   * @param mixed $user_id
-   * @param mixed $message
-   * @param mixed $brief Actually the title, but renamed because thats a
-   *                     reserved variable
-   * @access public
-   * @return void
-   */
-  public function _sendMessage($recv_id, $message, $brief = false) {
-    $send_id = $this->Auth->user('id');
-
-    $this->loadModel('User', $recv_id);
-
-    $recv = $this->User->findById($recv_id);
-    $send = $this->Auth->user();
-
-    if (empty($send) || empty($recv)) { return false; }
-
-    $brief = ($brief) ? $brief : substr($message, 0, 252) . '...';
-
-    $result = $this->Message->send($recv_id, $send_id, $message, $brief);
-
-    $message_id = $this->Message->id;
-
-    $verification = $this->_getUserVerification($recv);
-
-    if ($recv['User']['receive_email'] && !empty($recv['User']['email'])) {
-      if (0 < Configure::read()) {
-        $this->Email->delivery = 'debug';
-      }
-      $this->Email->to = $recv['User']['email'];
-      $this->Email->subject = 'You have received a new message!';
-      $this->Email->from = 'Riiga Message Notifier<no-reply@etherealpanda.com>';
-      $this->Email->template = 'message';
-      $this->Email->sendAs = 'text';
-
-      $this->set(compact(
-        'recv', 'send', 'message_id', 'message', 'brief', 'verification'
-      ));
-      $this->Email->send();
-    }
-
-    return $result;
-  }
-
-  /**
-   * _generateUnsubscribe
-   *
-   * Get a verification hash for a user. This should be used for the unsubscribe
-   * link and unsubscribe link alone.
-   *
-   * @param mixed $user
-   * @access public
-   * @return void
-   */
-  public function _getUserVerification($user) {
-    $hash = $user['User']['username'] . $user['User']['password'];
-    for ($i = 0; $i < 999; $i++) {
-      $hash = Security::hash($hash, false, true);
-    }
-    return $hash;
   }
 }

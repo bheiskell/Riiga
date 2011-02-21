@@ -22,6 +22,31 @@ class EntriesController extends AppController {
     $this->set('entries', $this->paginate());
   }
 
+  function view($id = null) {
+    $story_id   = $this->Entry->field('story_id', compact('id'));
+
+    $story_slug = $this->Entry->Story->field('slug', array('id' => $story_id));
+
+    $page = floor($this->Entry->find('count', array(
+      'conditions' => array(
+        'story_id'  => $story_id,
+        'created <' => $this->Entry->field('created', compact('id')),
+      ),
+    )) / 20) + 1;
+
+    if (false === $story_slug) {
+      $this->cakeError('error404');
+    }
+
+    $this->redirect(array(
+      'controller' => 'stories',
+      'action'     => 'view',
+      $story_slug,
+      'page'       => $page,
+      '#'          => 'entry:' . $id,
+    ));
+  }
+
   function add() {
     $this->_form(array(
       'story_id' => $this->_getParam('named', 'story_id'),
@@ -93,7 +118,7 @@ class EntriesController extends AppController {
           $title = "A new entry has been added to \"$story_name\"";
           foreach ($users as $user_id) {
             if ($user_id != $this->Auth->user('id')) {
-              $this->_sendMessage(
+              $this->Messaging->send(
                 $user_id,
                 $this->data['Entry']['content'],
                 $title

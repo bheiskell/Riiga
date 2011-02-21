@@ -14,7 +14,7 @@
       ?>
     </dd>
   </dl>
-  <p><?php echo h($message['Message']['message']); ?></p>
+  <p><?php echo $markup->parse($message['Message']['message']); ?></p>
   <div class="actions">
     <ul>
       <li>

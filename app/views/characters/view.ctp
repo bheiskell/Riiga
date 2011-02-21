@@ -63,9 +63,9 @@
     <?php endif; ?>
   </div>
   <h3><?php __('Description'); ?></h3>
-  <pre><?php echo h($character['Character']['description']); ?>&nbsp;</pre>
+  <?php echo $markup->parse($character['Character']['description']); ?>
   <h3><?php __('History'); ?></h3>
-  <pre><?php echo h($character['Character']['history']); ?>&nbsp;</pre>
+  <?php echo $markup->parse($character['Character']['history']); ?>
 
   <?php if (!empty($character['Story'])): ?>
     <table>
