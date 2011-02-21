@@ -47,6 +47,16 @@
     echo $javascript->link('script.js',                 false);
     echo $asset->scripts_for_layout();
   ?>
+  <link rel="alternate" type="application/rss+xml"
+                        title="Riiga.net Chat Box"
+                        href="http://riiga.net/chats/rss" />
+  <?php if ($session->read('Auth.User')): ?>
+    <link rel="alternate" type="application/rss+xml"
+                          title="Riiga.net Personalize Story Feed"
+                          href="http://riiga.net/users/rss/<?php
+                            echo $session->read('Auth.User.slug');
+                          ?>" />
+  <?php endif; ?>
 </head>
 <body>
   <div id="container">
