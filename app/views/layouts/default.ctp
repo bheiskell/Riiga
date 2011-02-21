@@ -95,8 +95,8 @@
             <?php
               echo $html->link(__('Admin', true), array(
                 'controller' => 'pages',
-                'action' => 'index',
-                'admin' => true,
+                'action' => 'admin',
+                'admin' => false,
               ));
             ?>
           </li>
