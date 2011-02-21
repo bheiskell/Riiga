@@ -1,5 +1,10 @@
 <?php
 class ChatsController extends AppController {
+
+  function beforeFilter() {
+    $this->Auth->allow('index', 'rss');
+  }
+
   function post() {
     if (!empty($this->data) && $this->Auth->user('id')) {
       $message = (
