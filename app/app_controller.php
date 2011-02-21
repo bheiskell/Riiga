@@ -1,14 +1,21 @@
 <?php
 class AppController extends Controller {
   var $view       = 'App'; 
-  var $components = array('SecurityExtended', 'Auth', 'Session', 'Email');
+  var $components = array(
+    'RequestHandler',
+    'SecurityExtended',
+    'Auth',
+    'Session',
+    'Email',
+  );
   var $uses       = array('Chat', 'Message');
   var $helpers    = array(
-    'Altrow',
-    'Avatar',
     'Form',
     'Html',
     'Javascript',
+    'Rss',
+    'Altrow',
+    'Avatar',
     'Minimap',
     'Stars',
     'Asset.asset' => array(

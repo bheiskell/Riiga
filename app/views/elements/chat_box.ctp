@@ -7,6 +7,14 @@
 <? if (isset($chats)): ?>
   <div class="chat_box">
     <?php if (!empty($chats)): ?>
+    <p>
+      <?php
+        echo $html->link(__('View all Chats', true), array(
+          'controller' => 'chats',
+          'action' => 'index',
+        ));
+      ?>
+    </p>
     <table>
       <tbody>
         <?php $altrow->reset(); ?>

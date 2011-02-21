@@ -14,4 +14,21 @@ class ChatsController extends AppController {
     }
     $this->flash($message, '/');
   }
+
+  function index() {
+    $this->paginate['Chat'] = array('order' => 'Chat.created DESC');
+
+    $this->posts = $this->paginate();
+
+    $this->set(compact('chats'));
+  }
+
+  function rss() {
+    $chats = $this->Chat->find('all', array(
+      'contain' => array('User'),
+      'order'   => 'Chat.created DESC',
+      'limit'   => 20,
+    ));
+    $this->set(compact('chats'));
+  }
 }
