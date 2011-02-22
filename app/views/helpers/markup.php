@@ -73,7 +73,9 @@ class MarkupHelper extends AppHelper {
         );
 
         if ('html' === $format) {
-          $replacements["/$tag:$value/"] = $this->Html->link("$tag:$value", $url);
+          $replacements["/$tag:$value/"] = $this->Html->link("$tag:$value",
+            $this->Html->url($url, true)
+          );
 
         } else if ('text' === $format) {
           $replacements["/$tag:$value/"] = $this->Html->url($url, true);

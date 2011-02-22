@@ -3,11 +3,11 @@
 <p>
   You have received a new message from 
   <?php
-    echo $html->link($send['User']['username'], array(
+    echo $html->link($send['User']['username'], $html->url(array(
       'controller' => 'users',
       'action'     => 'view',
       $send['User']['slug'],
-    ));
+    ), true));
   ?>:
 </p>
 
@@ -17,18 +17,18 @@
 
 <p>
   <?php
-    echo $html->link(__('Reply', true), array(
+    echo $html->link(__('Reply', true), $html->url(array(
       'controller' => 'users',
       'action'     => 'view_message',
       $messageId,
-    ));
+    ), true));
   ?>
   | <?php
-    echo $html->link(__('Unsubscribe', true), array(
+    echo $html->link(__('Unsubscribe', true), $html->url(array(
       'controller'   => 'users',
       'action'       => 'unsubscribe',
       'id'           => $recv['User']['slug'],
       'verification' => $verification,
-    ));
+    ), true));
   ?>
 </p>
