@@ -24,9 +24,9 @@ class DateHelper extends AppHelper {
     if (!$date) { return ''; }
 
     $full = $this->Time->relativeTime($date, 'd/m/y');
-
-    return ($pos = strpos($full, ','))
-      ? substr($full, 0 , pos) . ' ago'
+    $pos  = strpos($full, ',');
+    return ($pos)
+      ? substr($full, 0 , $pos) . ' ago'
       : $this->dropOn($full);
   }
 
