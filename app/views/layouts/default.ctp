@@ -90,6 +90,17 @@
             ));
           ?>
         </li>
+        <?php if (isset($isAdmin) && $isAdmin): ?>
+          <li>
+            <?php
+              echo $html->link(__('Admin', true), array(
+                'controller' => 'pages',
+                'action' => 'index',
+                'admin' => true,
+              ));
+            ?>
+          </li>
+        <?php endif; ?>
       </ul>
       <ul id="account">
         <?php
@@ -151,7 +162,6 @@
           </li>
         <?php endif; ?>
       </ul>
-      <?php echo $this->element('admin_bar'); ?>
     </div>
     <div id="content">
       <div id="flash">
