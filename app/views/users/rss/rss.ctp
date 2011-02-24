@@ -13,7 +13,7 @@
   foreach ($entries as $entry) {
     echo $rss->item(array(), array(
       'title'       => h($entry['Story']['name']),
-      'description' => h($entry['Entry']['content']),
+      'description' => $markup->parse($entry['Entry']['content']),
       'dc:creator'  => h($entry['User']['username']),
       'pubDate'     => $entry['Entry']['created'],
       'link'        => array(

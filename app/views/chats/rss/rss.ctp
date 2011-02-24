@@ -13,7 +13,7 @@
   foreach ($chats as $chat) {
     echo $rss->item(array(), array(
       'title'       => h($chat['User']['username']),
-      'description' => h($chat['Chat']['message']),
+      'description' => $markup->parse($chat['Chat']['message']),
       'dc:creator'  => h($chat['User']['username']),
       'pubDate'     => $chat['Chat']['created'],
     ));
