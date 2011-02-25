@@ -8,12 +8,13 @@ class TestMarkup extends MarkupHelper {
 class MarkupHelperTest extends CakeTestCase {
 
   var $message = array(
-    'base'   => 'Test message',
-    'tag'    => 'Test message with user:treijim in it',
-    'endTag' => 'Test message ending with user:treijim',
-    'em'     => 'Test message with *em* in it',
-    'strong' => 'Test message with **strong** in it',
-    'ooc'    => 'Test message with [an ooc comment] in it',
+    'base'     => 'Test message',
+    'tag'      => 'Test message with user:treijim in it',
+    'endTag'   => 'Test message ending with user:treijim',
+    'em'       => 'Test message with *em* in it',
+    'strong'   => 'Test message with **strong** in it',
+    'ooc'      => 'Test message with [an ooc comment] in it',
+    'oocSlash' => 'Test message with [an ooc / comment] in it',
   );
 
   function startTest() {
@@ -96,6 +97,13 @@ class MarkupHelperTest extends CakeTestCase {
     $this->assertTrue(strpos(
       $this->Markup->parse($this->message['ooc'], 'text'),
       '[an ooc comment]'
+    ));
+  }
+
+  function testParseOocSlash() {
+    $this->assertTrue(strpos(
+      $this->Markup->parse($this->message['oocSlash']),
+      '<abbr title="an ooc / comment">[1]</abbr>'
     ));
   }
 }

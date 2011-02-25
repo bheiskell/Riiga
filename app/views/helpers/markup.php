@@ -103,7 +103,7 @@ class MarkupHelper extends AppHelper {
       if (preg_match_all($oocex, $raw, $matches)) {
         foreach ($matches[0] as $key => $match) {
 
-          $regex     = '/' . preg_quote($match) . '/';
+          $regex     = '/' . preg_quote($match, '/') . '/';
           $reference = $key + 1;
           $comment   = $matches[1][$key];
 
