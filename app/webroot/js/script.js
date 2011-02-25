@@ -6,4 +6,5 @@ $(document).ready(function() {
   $('input[type=submit]').button();
   $('textarea').autoGrow();
   $('.chat_box').scrollTop($('.chat_box')[0].scrollHeight);
+  $('abbr').qtip();
 });
