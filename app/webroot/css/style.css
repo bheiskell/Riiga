@@ -42,16 +42,16 @@ p {
   margin: 0 0 1em 0;
 }
 table {
-  border: 1px solid #494037;
+  border: 1px solid #8c7c6c;
   color: #323232;
   margin-bottom: 1em;
   width: 100%;
 }
 th {
   background: #675b4f;
-  border: 1px solid #494037;
-  border-top: 1px solid #494037;
-  border-left: 1px solid #494037;
+  border: 1px solid #8c7c6c;
+  border-top: 1px solid #8c7c6c;
+  border-left: 1px solid #8c7c6c;
   color: #fff;
   text-align: center;
 }
@@ -68,7 +68,7 @@ th a:hover {
 }
 table tr td {
   background: transparent;
-  border-right: 1px solid #494037;
+  border-right: 1px solid #8c7c6c;
   line-height: 1.5em;
   padding: 0.25em 0.5em;
   vertical-align: top;

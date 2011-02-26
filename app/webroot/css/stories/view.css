@@ -31,16 +31,11 @@
   border-right: none;
 }
 .stories.view table#entries tr.is_dialog pre {
-  border: 1px solid #494037;
+  border: 1px solid #8c7c6c;
   margin-left: -1em;
   padding: 1em;
   -moz-border-radius: 1em;
   border-radius: 1em;
-}
-.stories.view table#entries tr.is_dialog td.avatar {
-  background-image: url(../../img/flag.png);
-  background-repeat: no-repeat;
-  background-position: right center;
 }
 .stories.view table#entries tr.is_dialog td.avatar div.avatar.user {
   display: none;

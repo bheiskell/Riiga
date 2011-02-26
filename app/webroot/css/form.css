@@ -1,5 +1,5 @@
 fieldset {
-  border: 1px solid #ccc;
+  border: 1px solid #8c7c6c;
   margin-top: 1em;
   padding: 0 2em 1em 2em;
 }
@@ -83,8 +83,8 @@ input[type=submit] {
 .textarea label,
 .select label {
   background: transparent url(../img/jquery-ui/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
-  border: 1px solid #ccc;
-  color: #444;
+  border: 1px solid #8C7C6C;
+  color: #F8F8FD;
   line-height: 1.5em;
   padding: 0.25em 1% 0.25em 0;
   position: absolute;

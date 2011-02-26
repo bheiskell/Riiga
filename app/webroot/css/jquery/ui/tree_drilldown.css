@@ -21,9 +21,11 @@ div.ui-tree-drilldown span {
 }
 div.ui-tree-drilldown span.ui-state-default {
   border-top: 0;
+  color: #323232;
 }
 div.ui-tree-drilldown span.ui-state-active {
   background: #E6E6E6 url(../../../img/jquery-ui/ui-bg_glass_75_dadada_1x400.png) repeat-x 50% 50%;
+  color: #F8F8FD;
 }
 div.ui-tree-drilldown ul.ui-widget-content {
   border: none;
