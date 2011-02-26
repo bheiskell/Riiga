@@ -1,53 +1,53 @@
 /* Chat box */
-.chat_box {
-  color: #ddd;
+#footer .chat_box {
+  color: white;
   height: 15em;
   overflow: auto;
   width: 75em;
 }
-.chat_box div {
+#footer .chat_box div {
   padding: 0;
 }
-.chat_box a {
-  border-color: #ddd;
-  color: #ddd;
+#footer .chat_box a {
+  border-color: white;
+  color: white;
 }
-.chat_box table, .chat_box td {
+#footer .chat_box table, #footer .chat_box td {
   border: none;
 }
-.chat_box table td {
-  background-color: #5D5D5D;
-  color: #ddd;
+#footer .chat_box table td {
+  background-color: #675b4f;
+  color: white;
 }
-.chat_box table tr.altrow td {
-  background-color: #4D4D4D;
+#footer .chat_box table tr.altrow td {
+  background: #494037;
 }
-.chat_box table td:first-child {
+#footer .chat_box table td:first-child {
   width: 10em;
 }
-.chat_box table td:last-child {
+#footer .chat_box table td:last-child {
   width: 7em;
 }
-.chat_box .text {
-  background: #4d4d4d;
+#footer .chat_box .text {
+  background: #494037;
   float: left;
   width: 92%;
 }
-.chat_box .text label {
-  background: #4d4d4d;
-  border-color: #5d5d5d;
-  color: #ccc;
+#footer .chat_box .text label {
+  background: #494037;
+  border-color: #675b4f;
+  color: white;
 }
-.chat_box input {
-  background: #4d4d4d;
-  border-color: #5d5d5d;
-  color: #ccc;
+#footer .chat_box input {
+  background: #494037;
+  border-color: #675b4f;
+  color: white;
 }
-.chat_box input:focus {
-  background: #5d5d5d;
-  border-color: #6d6d6d;
+#footer .chat_box input:focus {
+  background: #675b4f;
+  border-color: #928170;
 }
-.chat_box input[type=submit] {
+#footer .chat_box input[type=submit] {
   float: right;
   height: 2em;
 }

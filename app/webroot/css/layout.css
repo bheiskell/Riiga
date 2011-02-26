@@ -1,48 +1,94 @@
 #container {
+  background: #fff url(../img/theme/background.png) repeat scroll 0 0;
 }
-#header{
-  background: #4d4d4d;
+#header {
+  background: #4d4d4d url(../img/theme/header_footer.png) repeat-x scroll 0 0;
   overflow: hidden;
-  padding: 1em 2em 0 2em;
 }
 #header h1 {
   float: left;
-  line-height: 1em;
-  margin-top: 0.4em; /* 0.4 x 2.5 = 1 */
 }
 #header h1 a {
+  background: #4d4d4d url(../img/theme/logo.png) no-repeat;
   color: #fff;
   border-bottom: none;
-}
-#header h1 a:hover {
-  border-bottom: none;
+  display: block;
+  height: 54px;
+  text-indent: -9999px;
+  width: 135px;
 }
 #navigation {
   float: left;
-  margin-top: 2em;
+  margin: 0;
 }
 #navigation li {
+  background: #4d4d4d url(../img/theme/button_background.png) repeat-x scroll 0 0;
   float: left;
+  line-height: 29px;
+  margin: 2em 0.25em 0 0.25em;
+}
+#navigation li:hover {
+  background-position: 0 -29px;
 }
 #navigation a {
+  border: 0 solid #fff;
   color: #fff;
 }
 #navigation a:hover {
-  border-bottom: 1px solid #fff;
+  border: 0 solid #fff;
 }
+#navigation a:before, #navigation a:after {
+  background: #4d4d4d url(../img/theme/button_sides.png) no-repeat scroll 0px 0px;
+  content: " ";
+  display: block;
+  width: 18px;
+  height: 29px;
+}
+#navigation li       a:before { background-position: 0px -174px; float: left;  }
+#navigation li       a:after  { background-position: 0px    0px; float: right; }
+#navigation li:hover a:before { background-position: 0px -203px; float: left;  }
+#navigation li:hover a:after  { background-position: 0px  -29px; float: right; }
 #account {
   float: right;
-  margin-top: 2em;
+  margin-top: 0;
 }
 #account li {
-  float: left;
+  background: #4d4d4d url(../img/theme/button_background.png) repeat-x scroll 0 0;
+  float: right;
+  line-height: 29px;
+  margin: 2em 0.25em 0 0.25em;
 }
+#account li:hover { background-position: 0 -29px; }
+#account.unauthenticated li       { background-position: 0 -116px; }
+#account.unauthenticated li:hover { background-position: 0 -145px; }
+#account.unauthenticated li:first-child       { background-position: 0 -58px; }
+#account.unauthenticated li:first-child:hover { background-position: 0 -87px; }
 #account a {
+  border: 0 solid #fff;
   color: #fff;
 }
 #account a:hover {
-  border-bottom: 1px solid #fff;
+  border: 0 solid #fff;
 }
+#account a:before, #account a:after {
+  background: #4d4d4d url(../img/theme/button_sides.png) no-repeat scroll 0px 0px;
+  content: " ";
+  display: block;
+  width: 18px;
+  height: 29px;
+}
+#account li       a:before { background-position: 0px -174px; float: left;  }
+#account li       a:after  { background-position: 0px    0px; float: right; }
+#account li:hover a:before { background-position: 0px -203px; float: left;  }
+#account li:hover a:after  { background-position: 0px  -29px; float: right; }
+#account.unauthenticated li       a:before { background-position: 0px -291px; float: left;  }
+#account.unauthenticated li       a:after  { background-position: 0px -116px; float: right; }
+#account.unauthenticated li:hover a:before { background-position: 0px -320px; float: left;  }
+#account.unauthenticated li:hover a:after  { background-position: 0px -145px; float: right; }
+#account.unauthenticated li:first-child       a:before { background-position: 0px -232px; float: left;  }
+#account.unauthenticated li:first-child       a:after  { background-position: 0px  -58px; float: right; }
+#account.unauthenticated li:first-child:hover a:before { background-position: 0px -261px; float: left;  }
+#account.unauthenticated li:first-child:hover a:after  { background-position: 0px  -87px; float: right; }
 #header #admin {
   background-color: #C32;
   clear: both;
@@ -61,13 +107,13 @@
   border-bottom: 1px solid #fff;
 }
 #content {
-  color: #333;
+  color: #323232;
   overflow: hidden;
   padding: 1em 2em 3em 2em;
   width: 75em;
 }
 #footer {
-  background: #4d4d4d;
+  background: #4d4d4d url(../img/theme/header_footer.png) repeat-x scroll 0 -54px;
   padding: 1em;
 }
 #footer ul {

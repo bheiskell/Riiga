@@ -4,8 +4,8 @@ body {
   line-height: 1.5em;
 }
 a {
-  border-bottom: 1px solid #4d4d4d;
-  color: #4d4d4d;
+  border-bottom: 1px solid #323232;
+  color: #323232;
   text-decoration: none;
 }
 a:hover {
@@ -25,7 +25,7 @@ h2 {
   margin-top: 0.5em;
 }
 h3 {
-  color: #999933;
+  color: #4b4239;
   font-family: 'Gill Sans','lucida grande',helvetica, arial, sans-serif;
   font-size: 1.5em;
   line-height: 1.5em;
@@ -42,37 +42,39 @@ p {
   margin: 0 0 1em 0;
 }
 table {
-  border: 1px solid #ccc;
-  color: #333;
+  border: 1px solid #494037;
+  color: #323232;
   margin-bottom: 1em;
   width: 100%;
 }
 th {
-  background: #f2f2f2;
-  border: 1px solid #bbb;
-  border-top: 1px solid #ccc;
-  border-left: 1px solid #ccc;
+  background: #675b4f;
+  border: 1px solid #494037;
+  border-top: 1px solid #494037;
+  border-left: 1px solid #494037;
+  color: #fff;
   text-align: center;
 }
 th a {
   border-bottom: none;
+  color: #fff;
   display: block;
   line-height: 1.5em
 }
 th a:hover {
-  background: #ccc;
+  background: #8b705b;
   border-bottom: none;
-  color: #333;
+  color: #fff;
 }
 table tr td {
-  background: #fff;
-  border-right: 1px solid #ccc;
+  background: transparent;
+  border-right: 1px solid #494037;
   line-height: 1.5em;
   padding: 0.25em 0.5em;
   vertical-align: top;
 }
 table tr.altrow td {
-  background: #f4f4f4;
+  background: #d9d3b6 url(../img/theme/background_dark.png) repeat scroll 0 0;
 }
 dl {
   line-height: 2.5em;
