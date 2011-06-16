@@ -4,7 +4,7 @@ $(document).ready(function() {
 
   // Always restyle submit buttons
   $('input[type=submit]').button();
-  $('textarea').autoGrow();
+  $('textarea').TextAreaExpander(100);
   $('.chat_box').scrollTop($('.chat_box')[0].scrollHeight);
   $('abbr').qtip();
 });

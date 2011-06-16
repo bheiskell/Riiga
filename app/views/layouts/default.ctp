@@ -40,11 +40,11 @@
     foreach ($css as $file) {
       echo $html->css($file, null, null, false);
     }
-    echo $javascript->link('jquery/jquery.js',           false);
-    echo $javascript->link('jquery/autogrowtextarea.js', false);
-    echo $javascript->link('jquery/qtip.js',             false);
-    echo $javascript->link('jquery/ui/ui.js',            false);
-    echo $javascript->link('script.js',                  false);
+    echo $javascript->link('jquery/jquery.js',            false);
+    echo $javascript->link('jquery/textarea_expander.js', false);
+    echo $javascript->link('jquery/qtip.js',              false);
+    echo $javascript->link('jquery/ui/ui.js',             false);
+    echo $javascript->link('script.js',                   false);
     echo $asset->scripts_for_layout();
   ?>
   <link rel="alternate" type="application/rss+xml"
