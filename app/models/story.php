@@ -97,26 +97,21 @@ class Story extends AppModel {
    * Rotate the user's turns
    *
    * @param mixed $story_id 
-   * @param mixed $turn_id 
    * @access public
    * @return void
    */
-  public function rotateTurn($story_id, $turn_id) {
-    // Hack: this code feels like garbage. Make this better.
-    $user_ids = Set::extract(
-      '/StoriesUser/user_id',
-      $this->StoriesUser->findAllByStoryId($story_id)
-    );
-    $position = null;
-    foreach ($user_ids as $key => $user_id) {
-      if ($user_id === $turn_id) {
-        $position = $key;
-      }
-    }
-    if ($position === null) return false;
-    $new_id = $user_ids[($position + 1) % sizeof($user_ids)];
+  public function rotateTurn($story_id) {
+    $user_ids = $this->find('story_users', $story_id);
+
+    if (empty($user_ids)) return;
+
+    $latest_user_id = $this->Entry->find('latest_user_id', $story_id);
+
+    $current_user_idx = array_search($latest_user_id, $user_ids);
+    $new_user_idx = ($current_user_idx + 1) % sizeof($user_ids);
+
     $this->id = $story_id;
-    $this->saveField('user_id_turn', $new_id);
+    $this->saveField('user_id_turn', $user_ids[$new_user_idx]);
   }
 
   /**
@@ -377,6 +372,25 @@ class Story extends AppModel {
       'order' => array('Entry.created' => 'DESC', 'Entry.id' => 'DESC'),
       'limit' => '5',
     ));
+  }
+
+  /**
+   * __findStoryUsers
+   *
+   * List the users active in a story in turn based order
+   *
+   * @param mixed $id Story ID
+   * @access protected
+   * @return array User IDs
+   */
+  protected function __findStoryUsers($id) {
+    return Set::extract(
+      '/StoriesUser/user_id',
+      $this->StoriesUser->find('all', array(
+        'conditions' => array('story_id' => $id),
+        'order'      => array('StoriesUser.id' => 'ASC'),
+      ))
+    );
   }
 }
 ?>

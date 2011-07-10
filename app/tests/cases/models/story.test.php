@@ -35,7 +35,7 @@ class StoryTestCase extends CakeTestCase {
 
   function startTest() {
     $this->Story =& ClassRegistry::init('Story');
-    $this->Entry     =& ClassRegistry::init('Entry');
+    $this->Entry =& ClassRegistry::init('Entry');
   }
 
   function testStoryInstance() {
@@ -73,6 +73,96 @@ class StoryTestCase extends CakeTestCase {
     $this->assertEqual(5, count($entries));
 
     $this->assertEqual('Test content: 5', $entries[0]['Entry']['content']);
+  }
+
+  function testStoryFindStoryUsers() {
+    $this->Story->StoriesUser->create();
+    $this->Story->StoriesUser->save(array(
+      'story_id' => 1,
+      'user_id' => 1
+    ));
+    $this->Story->StoriesUser->create();
+    $this->Story->StoriesUser->save(array(
+      'story_id' => 1,
+      'user_id' => 2
+    ));
+    $this->Story->StoriesUser->create();
+    $this->Story->StoriesUser->save(array(
+      'story_id' => 1,
+      'user_id' => 3
+    ));
+    $users = $this->Story->find('story_users', 1);
+    $this->assertEqual(3, count($users));
+    $this->assertEqual(1, (isset($users[0]) ? $users[0] : -1) );
+    $this->assertEqual(2, (isset($users[1]) ? $users[1] : -1) );
+    $this->assertEqual(3, (isset($users[2]) ? $users[2] : -1) );
+
+  }
+
+  function testStoryRotateTurn() {
+    $this->Story->id = 1;
+
+    $this->Story->rotateTurn(1);
+
+    $this->assertFalse($this->Story->field('user_id_turn'));
+
+    $this->Story->StoriesUser->create();
+    $this->Story->StoriesUser->save(array(
+      'story_id' => 1,
+      'user_id' => 1
+    ));
+
+    $this->addEntryAndRotate(1);
+    $this->assertEqual(1, $this->Story->field('user_id_turn'));
+
+    $this->Story->StoriesUser->create();
+    $this->Story->StoriesUser->save(array(
+      'story_id' => 1,
+      'user_id' => 2
+    ));
+
+    $this->assertEqual(1, $this->Story->field('user_id_turn'));
+
+    $this->addEntryAndRotate(1);
+    $this->assertEqual(2, $this->Story->field('user_id_turn'));
+    $this->addEntryAndRotate(2);
+    $this->assertEqual(1, $this->Story->field('user_id_turn'));
+    $this->addEntryAndRotate(1);
+    $this->assertEqual(2, $this->Story->field('user_id_turn'));
+
+    $this->Story->StoriesUser->create();
+    $this->Story->StoriesUser->save(array(
+      'story_id' => 1,
+      'user_id' => 3
+    ));
+
+    $this->assertEqual(2, $this->Story->field('user_id_turn'));
+
+    $this->addEntryAndRotate(2);
+    $this->assertEqual(3, $this->Story->field('user_id_turn'));
+    $this->addEntryAndRotate(3);
+    $this->assertEqual(1, $this->Story->field('user_id_turn'));
+    $this->addEntryAndRotate(1);
+    $this->assertEqual(2, $this->Story->field('user_id_turn'));
+    $this->addEntryAndRotate(2);
+    $this->assertEqual(3, $this->Story->field('user_id_turn'));
+
+
+  }
+
+  private function addEntryAndRotate($user_id, $story_id = 1, $content = 'NA') {
+    $result = $this->addEntry($user_id, $story_id, $content);
+    $this->Story->rotateTurn($story_id);
+    return $result;
+  }
+
+  private function addEntry($user_id, $story_id = 1, $content = 'NA') {
+    $this->Entry->create();
+    return $this->Entry->save(array(
+      'story_id' => $story_id,
+      'user_id'  => $user_id,
+      'content'  => 'Test content: ' . $content,
+    ));
   }
 }
 ?>
