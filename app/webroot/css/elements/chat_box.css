@@ -1,7 +1,7 @@
 /* Chat box */
 #footer .chat_box {
   color: white;
-  height: 15em;
+  height: 35em;
   overflow: auto;
   width: 75em;
 }
@@ -30,24 +30,18 @@
 }
 #footer .chat_box .text {
   background: #494037;
-  float: left;
-  width: 92%;
 }
-#footer .chat_box .text label {
-  background: #494037;
-  border-color: #675b4f;
-  color: white;
-}
+#footer .chat_box .text label,
 #footer .chat_box input {
   background: #494037;
   border-color: #675b4f;
   color: white;
+  line-height: 16px; /* make firefox happy */
 }
 #footer .chat_box input:focus {
   background: #675b4f;
   border-color: #928170;
 }
-#footer .chat_box input[type=submit] {
+#footer .chat_box .submit {
   float: right;
-  height: 2em;
 }

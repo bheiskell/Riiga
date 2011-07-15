@@ -32,7 +32,6 @@ label {
 input, select, textarea {
   background-color: #ffffff;
   border: 1px solid #B6A792;
-  font-family: "frutiger linotype", "lucida grande", "verdana", sans-serif;
   padding: 0.25em 0.25em;
 
   border-radius: 0.25em;
